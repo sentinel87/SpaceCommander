@@ -678,3 +678,70 @@ void drawStarRoutes(TradeRoute PlayerRoutes[12])
   }
 }
 
+int selectionFrame=0;
+
+void drawDropdownMenu(int posX,int posY,int selection)
+{
+  if(selectionFrame==0)
+  {
+    selectionFrame=1;
+  }
+  else
+  {
+    selectionFrame=0;
+  }
+  
+  int fixedX=posX;
+  int fixedY=posY;
+  if(posX+34>80)
+  {
+    fixedX-=34;
+  }
+  if(posY+26>64)
+  {
+    fixedY-=26;
+  }
+  gb.display.setColor(BEIGE);
+  gb.display.fillRect(fixedX,fixedY,34,26);
+  if(selectionFrame==1 && selection==1)
+  {
+    gb.display.setColor(RED);  
+  }
+  else
+  {
+    gb.display.setColor(BLACK); 
+  }
+  gb.display.setCursor(fixedX+1,fixedY+1);
+  gb.display.println("SCOUT");
+  if(selectionFrame==1 && selection==2)
+  {
+    gb.display.setColor(RED);  
+  }
+  else
+  {
+    gb.display.setColor(BLACK); 
+  }
+  gb.display.setCursor(fixedX+1,fixedY+7);
+  gb.display.println("COLONIZE");
+  if(selectionFrame==1 && selection==3)
+  {
+    gb.display.setColor(RED);  
+  }
+  else
+  {
+    gb.display.setColor(BLACK); 
+  }
+  gb.display.setCursor(fixedX+1,fixedY+13);
+  gb.display.println("ATTACK");
+  if(selectionFrame==1 && selection==4)
+  {
+    gb.display.setColor(RED);  
+  }
+  else
+  {
+    gb.display.setColor(BLACK); 
+  }
+  gb.display.setCursor(fixedX+1,fixedY+19);
+  gb.display.println("EXPLORE");
+}
+
