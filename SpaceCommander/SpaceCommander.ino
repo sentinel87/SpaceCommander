@@ -145,6 +145,7 @@ Ship Shipyard[]={
   {"Metal Cargo Transport",8,"Transport metal from colonies.",1,0,500,5},
   {"Crystal Cargo Transport",9,"Transport crystals from colonies.",1,0,500,250},
   {"Tank Cargo Transport",10,"Transport fuel from colonies.",1,0,750,500},
+  {"Colonizer",11,"Set colony on the planet.",5,0,1000,1000}
 };
 
 struct EnemyGarrison
@@ -196,8 +197,9 @@ Fleet EnemyFleets[]={
   {4,false,1,20,0,0,0,0,0,0,0}
 };
 
-int8_t SpyBots=0;
-int8_t Fighters=0;
+int8_t SpyBot=0;
+int8_t Colonizer=0;
+int8_t Fighter=0;
 int8_t Interceptor=0;
 int8_t Frigate=0;
 int8_t WarCruiser=0;
@@ -280,6 +282,17 @@ void loop() {
   {
     ScreenSelection=enemyFleets(EnemyFleets);
   }
+  else if(ScreenSelection==10)
+  {
+    ScreenSelection=fleetTotalStatus();
+  }
+}
+
+int8_t fleetTotalStatus()
+{
+  int8_t arr[]={Fighter,Interceptor,Frigate,WarCruiser,StarDreadnought,SolarDestroyer,SpyBot,Colonizer,MetalTransport,CrystalTransport,FuelTransport};
+  int8_t result = playerFleetStats(arr);
+  return result;
 }
 
 void sendFleet()

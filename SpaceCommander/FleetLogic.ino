@@ -21,3 +21,13 @@ int enemyFleets(Fleet EnemyFleets[5])
   return 9;
 }
 
+int playerFleetStats(int8_t fleet[11])
+{
+  if(gb.buttons.pressed(BUTTON_B))
+  {
+    return 0;
+  }
+  drawFleetStats(fleet);
+  return 10;
+}
+

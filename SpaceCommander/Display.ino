@@ -241,6 +241,38 @@ const uint16_t IMAGE_RADIOLOCATION_BTN[] = {
   0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248
 };
 
+const uint16_t IMAGE_STATS_BTN[] = {
+  7,      // frame width
+  6,      // frame height
+  1,      // number of frames
+  1,      // animation speed
+  0xf81f, // transparent color
+  0,      // RGB565 color mode
+  // frame 1/1
+  0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 
+  0x4248, 0x0000, 0x4248, 0x4248, 0x1132, 0x4248, 0x4248, 
+  0x4248, 0x0000, 0x4248, 0x3cc1, 0x1132, 0x4248, 0x4248, 
+  0x4248, 0x0000, 0xf800, 0x3cc1, 0x1132, 0x4248, 0x4248, 
+  0x4248, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x4248, 
+  0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248
+};
+
+const uint16_t IMAGE_REPORT_BTN[] = {
+  7,      // frame width
+  6,      // frame height
+  1,      // number of frames
+  1,      // animation speed
+  0xf81f, // transparent color
+  0,      // RGB565 color mode
+  // frame 1/1
+  0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 
+  0x4248, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x4248, 
+  0x4248, 0xb382, 0xb382, 0xb382, 0xb382, 0xb382, 0x4248, 
+  0x4248, 0xb382, 0xb382, 0xb382, 0xb382, 0xb382, 0x4248, 
+  0x4248, 0xb382, 0xb382, 0xb382, 0xb382, 0xb382, 0x4248, 
+  0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248
+};
+
 const uint16_t IMAGE_FLEET_ROW_PLAYER[] = {
   78,     // frame width
   10,     // frame height
@@ -452,6 +484,8 @@ void drawWarRoom(int posX,int posY,String choice,int playerResources[3])
   gb.display.drawImage(71,51,IMAGE_SAVE_BTN);
   gb.display.drawImage(62,9,IMAGE_FLEET_BTN);
   gb.display.drawImage(62,16,IMAGE_RADIOLOCATION_BTN);
+  gb.display.drawImage(62,23,IMAGE_STATS_BTN);
+  gb.display.drawImage(62,30,IMAGE_REPORT_BTN);
   gb.display.drawImage(posX,posY,Selector);
   gb.display.setColor(WHITE);
   gb.display.setCursor(2,59);
@@ -743,5 +777,58 @@ void drawDropdownMenu(int posX,int posY,int selection)
   }
   gb.display.setCursor(fixedX+1,fixedY+19);
   gb.display.println("EXPLORE");
+}
+
+void drawFleetStats(int8_t fleet[11])
+{
+  gb.display.setColor(WHITE);
+  gb.display.println("FLEET STATUS");
+  gb.display.setColor(BLUE);
+  gb.display.setCursor(1,9);
+  gb.display.println("FIG");
+  gb.display.setCursor(1,16);
+  gb.display.println("INT");
+  gb.display.setCursor(1,23);
+  gb.display.println("FRI");
+  gb.display.setCursor(1,30);
+  gb.display.println("W CR");
+  gb.display.setCursor(1,37);
+  gb.display.println("S DR");
+  gb.display.setCursor(1,44);
+  gb.display.println("S DS");
+  gb.display.setColor(GREEN);
+  gb.display.setCursor(40,9);
+  gb.display.println("SPY");
+  gb.display.setCursor(40,16);
+  gb.display.println("COL");
+  gb.display.setCursor(40,23);
+  gb.display.println("M TR");
+  gb.display.setCursor(40,30);
+  gb.display.println("C TR");
+  gb.display.setCursor(40,37);
+  gb.display.println("F TR");
+  gb.display.setColor(WHITE);
+  gb.display.setCursor(19,9);
+  gb.display.println(fleet[0]);
+  gb.display.setCursor(19,16);
+  gb.display.println(fleet[1]);
+  gb.display.setCursor(19,23);
+  gb.display.println(fleet[2]);
+  gb.display.setCursor(19,30);
+  gb.display.println(fleet[3]);
+  gb.display.setCursor(19,37);
+  gb.display.println(fleet[4]);
+  gb.display.setCursor(19,44);
+  gb.display.println(fleet[5]);
+  gb.display.setCursor(59,9);
+  gb.display.println(fleet[6]);
+  gb.display.setCursor(59,16);
+  gb.display.println(fleet[7]);
+  gb.display.setCursor(59,23);
+  gb.display.println(fleet[8]);
+  gb.display.setCursor(59,30);
+  gb.display.println(fleet[9]);
+  gb.display.setCursor(59,37);
+  gb.display.println(fleet[10]);
 }
 
