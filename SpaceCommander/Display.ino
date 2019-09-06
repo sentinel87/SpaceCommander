@@ -832,3 +832,81 @@ void drawFleetStats(int8_t fleet[11])
   gb.display.println(fleet[10]);
 }
 
+void drawBattleResult1()
+{
+  gb.display.setColor(WHITE);
+  gb.display.println("PLAYER     ENEMY");
+  gb.display.setCursor(0,12);
+  gb.display.setColor(BLUE);
+  gb.display.println("Fighters");
+  gb.display.setCursor(0,24);
+  gb.display.println("Interceptors");
+  gb.display.setCursor(0,36);
+  gb.display.println("Frigates");
+  gb.display.setColor(WHITE);
+  gb.display.setCursor(0,18);
+  gb.display.println("9999");
+  gb.display.setCursor(44,18);
+  gb.display.println("9999");
+  gb.display.setCursor(0,30);
+  gb.display.println("9999");
+  gb.display.setCursor(44,30);
+  gb.display.println("9999");
+  gb.display.setCursor(0,42);
+  gb.display.println("9999");
+  gb.display.setCursor(44,42);
+  gb.display.println("9999");
+  gb.display.setColor(RED);
+  gb.display.setCursor(16,18);
+  gb.display.println("-9999");  
+  gb.display.setCursor(60,18);
+  gb.display.println("-9999");
+  gb.display.setCursor(16,30);
+  gb.display.println("-9999");
+  gb.display.setCursor(60,30);
+  gb.display.println("-9999");  
+  gb.display.setCursor(16,42);
+  gb.display.println("-9999"); 
+  gb.display.setCursor(60,42);
+  gb.display.println("-9999");
+}
+
+void drawBattleResult2()
+{
+  gb.display.setColor(WHITE);
+  gb.display.println("PLAYER     ENEMY");
+  gb.display.setCursor(0,12);
+  gb.display.setColor(BLUE);
+  gb.display.println("War Cruisers");
+  gb.display.setCursor(0,24);
+  gb.display.println("Star Dreadnoughts");
+  gb.display.setCursor(0,36);
+  gb.display.println("Solar Destructors");
+  gb.display.setColor(WHITE);
+  gb.display.setCursor(0,18);
+  gb.display.println("9999");
+  gb.display.setCursor(44,18);
+  gb.display.println("9999");
+  gb.display.setCursor(0,30);
+  gb.display.println("9999");
+  gb.display.setCursor(44,30);
+  gb.display.println("9999");
+  gb.display.setCursor(0,42);
+  gb.display.println("9999");
+  gb.display.setCursor(44,42);
+  gb.display.println("9999");
+  gb.display.setColor(RED);
+  gb.display.setCursor(16,18);
+  gb.display.println("-9999");  
+  gb.display.setCursor(60,18);
+  gb.display.println("-9999");
+  gb.display.setCursor(16,30);
+  gb.display.println("-9999");
+  gb.display.setCursor(60,30);
+  gb.display.println("-9999");  
+  gb.display.setCursor(16,42);
+  gb.display.println("-9999"); 
+  gb.display.setCursor(60,42);
+  gb.display.println("-9999");
+}
+

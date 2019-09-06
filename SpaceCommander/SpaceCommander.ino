@@ -245,6 +245,9 @@ int PlayerResources[]={2200,2200,2000};
 int8_t frames=0;
 bool timeUpdate=false;
 
+//Attack
+bool fight=true;
+
 void setup() {
   gb.begin();
 }
@@ -252,39 +255,50 @@ void setup() {
 void loop() {
   while(!gb.update())
   gb.display.clear();
-  sendFleet();
-  timeCalculations();
-  if(ScreenSelection==0)
+  if(fight==true) //stop game to see fight results
   {
-    ScreenSelection=warRoom(PlayerResources);  
+    bool resolved=battleResults();
+    if(resolved==true)
+    {
+      fight=false;
+    }
   }
-  else if(ScreenSelection==1)
+  else
   {
-    ScreenSelection=infrastructure(Colony,TechTree,PlayerResources);
-  }
-  else if(ScreenSelection==2)
-  {
-    ScreenSelection=research(TechTree,PlayerResources);
-  }
-  else if(ScreenSelection==3)
-  {
-    ScreenSelection=starMap(TechTree[0].level,System);
-  }
-  else if(ScreenSelection==6)
-  {
-    ScreenSelection=starRoutes(TechTree[5].level,PlayerRoutes);
-  }
-  else if(ScreenSelection==8)
-  {
-    ScreenSelection=playerFleets(PlayerFleets);
-  }
-  else if(ScreenSelection==9)
-  {
-    ScreenSelection=enemyFleets(EnemyFleets);
-  }
-  else if(ScreenSelection==10)
-  {
-    ScreenSelection=fleetTotalStatus();
+    sendFleet();
+    timeCalculations();
+    if(ScreenSelection==0)
+    {
+      ScreenSelection=warRoom(PlayerResources);  
+    }
+    else if(ScreenSelection==1)
+    {
+      ScreenSelection=infrastructure(Colony,TechTree,PlayerResources);
+    }
+    else if(ScreenSelection==2)
+    {
+      ScreenSelection=research(TechTree,PlayerResources);
+    }
+    else if(ScreenSelection==3)
+    {
+      ScreenSelection=starMap(TechTree[0].level,System);
+    }
+    else if(ScreenSelection==6)
+    {
+      ScreenSelection=starRoutes(TechTree[5].level,PlayerRoutes);
+    }
+    else if(ScreenSelection==8)
+    {
+      ScreenSelection=playerFleets(PlayerFleets);
+    }
+    else if(ScreenSelection==9)
+    {
+      ScreenSelection=enemyFleets(EnemyFleets);
+    }
+    else if(ScreenSelection==10)
+    {
+      ScreenSelection=fleetTotalStatus();
+    }
   }
 }
 
