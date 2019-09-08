@@ -197,17 +197,19 @@ Fleet EnemyFleets[]={
   {4,false,1,20,0,0,0,0,0,0,0}
 };
 
-int8_t SpyBot=0;
-int8_t Colonizer=0;
-int8_t Fighter=0;
-int8_t Interceptor=0;
-int8_t Frigate=0;
-int8_t WarCruiser=0;
-int8_t StarDreadnought=0;
-int8_t SolarDestroyer=0;
-int8_t MetalTransport=0;
-int8_t CrystalTransport=0;
-int8_t FuelTransport=0;
+int8_t PlayerShips[]={
+  0, //Fighter
+  0, //Interceptor
+  0, //Frigate
+  0, //War Cruiser
+  0, //Star Dreadnought
+  0, //Solar Destroyer
+  0, //Spy Bot
+  0, //Colonizer
+  0, //Metal Transport
+  0, //Crystal Transport
+  0  //Fuel Transport
+};
 
 struct TradeRoute
 {
@@ -246,7 +248,10 @@ int8_t frames=0;
 bool timeUpdate=false;
 
 //Attack
-bool fight=true;
+bool fight=false;
+
+//Fleet Selection
+bool flSelection=true;
 
 void setup() {
   gb.begin();
@@ -261,6 +266,14 @@ void loop() {
     if(resolved==true)
     {
       fight=false;
+    }
+  }
+  else if(flSelection==true)
+  {
+    bool selected=fleetSelection();
+    if(selected==true)
+    {
+      flSelection=false;
     }
   }
   else
@@ -304,9 +317,14 @@ void loop() {
 
 int8_t fleetTotalStatus()
 {
-  int8_t arr[]={Fighter,Interceptor,Frigate,WarCruiser,StarDreadnought,SolarDestroyer,SpyBot,Colonizer,MetalTransport,CrystalTransport,FuelTransport};
-  int8_t result = playerFleetStats(arr);
+  int8_t result = playerFleetStats(PlayerShips);
   return result;
+}
+
+bool fleetSelection()
+{
+  bool result=playerFleetSelection(PlayerFleets,PlayerShips);
+  return false;
 }
 
 void sendFleet()

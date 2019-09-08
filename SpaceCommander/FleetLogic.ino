@@ -34,6 +34,16 @@ int playerFleetStats(int8_t fleet[11])
   return 10;
 }
 
+bool playerFleetSelection(Fleet PlayerFleets[5],int8_t PlayerShips[11])
+{
+  if(gb.buttons.pressed(BUTTON_B))
+  {
+    return true;
+  }
+  drawFleetSelection(PlayerShips);
+  return false;
+}
+
 bool battleResults()
 {
   if(gb.buttons.pressed(BUTTON_B))
