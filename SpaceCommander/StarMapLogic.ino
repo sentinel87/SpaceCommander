@@ -87,6 +87,10 @@ int8_t starMap(int Astronomy,Planet System[30])
     if(dropDownMenu==true)
     {
       dropDownMenu=false;
+      if(selection==3)
+      {
+        return 20; //FLEET SELECTION SCREEN
+      }
       //CHOICE LOGIC
     }
     else

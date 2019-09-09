@@ -1791,61 +1791,60 @@ void drawBattleResult2()
   gb.display.println("-9999");
 }
 
-void drawFleetSelection(int8_t fleet[11])
+void drawFleetSelection(int8_t fleet[11],int posY, bool selectedShip, Fleet CustomFleet,int quantity)
 {
   gb.display.setColor(WHITE);
   gb.display.println("SET FLEET SHIPS");
   gb.display.setColor(BLUE);
-  gb.display.setCursor(1,9);
+  gb.display.setCursor(2,9);
   gb.display.println("FIG");
-  gb.display.setCursor(1,16);
+  gb.display.setCursor(2,17);
   gb.display.println("INT");
-  gb.display.setCursor(1,23);
+  gb.display.setCursor(2,25);
   gb.display.println("FRI");
-  gb.display.setCursor(1,30);
+  gb.display.setCursor(2,33);
   gb.display.println("W CR");
-  gb.display.setCursor(1,37);
+  gb.display.setCursor(2,41);
   gb.display.println("S DR");
-  gb.display.setCursor(1,44);
+  gb.display.setCursor(2,49);
   gb.display.println("S DS");
   gb.display.setColor(WHITE);
   gb.display.setCursor(19,9);
   gb.display.println(fleet[0]);
-  gb.display.setCursor(19,16);
+  gb.display.setCursor(19,17);
   gb.display.println(fleet[1]);
-  gb.display.setCursor(19,23);
+  gb.display.setCursor(19,25);
   gb.display.println(fleet[2]);
-  gb.display.setCursor(19,30);
+  gb.display.setCursor(19,33);
   gb.display.println(fleet[3]);
-  gb.display.setCursor(19,37);
+  gb.display.setCursor(19,41);
   gb.display.println(fleet[4]);
-  gb.display.setCursor(19,44);
+  gb.display.setCursor(19,49);
   gb.display.println(fleet[5]);
   gb.display.setColor(GRAY);
   gb.display.setCursor(40,9);
-  gb.display.println("9999");
-  gb.display.setCursor(40,16);
-  gb.display.println("9999");
-  gb.display.setCursor(40,23);
-  gb.display.println("9999");
-  gb.display.setCursor(40,30);
-  gb.display.println("9999");
-  gb.display.setCursor(40,37);
-  gb.display.println("9999");
-  gb.display.setCursor(40,44);
-  gb.display.println("9999");
-  gb.display.setColor(YELLOW);
-  gb.display.setCursor(56,9);
-  gb.display.println("+-1");
-  gb.display.setCursor(56,16);
-  gb.display.println("+-10");
-  gb.display.setCursor(56,23);
-  gb.display.println("+-100");
-  gb.display.setCursor(56,30);
-  gb.display.println("+-1000");
-  gb.display.setCursor(56,37);
-  gb.display.println("+-1");
-  gb.display.setCursor(56,44);
-  gb.display.println("+-1");
+  gb.display.println(CustomFleet.Fighters);
+  gb.display.setCursor(40,17);
+  gb.display.println(CustomFleet.Interceptors);
+  gb.display.setCursor(40,25);
+  gb.display.println(CustomFleet.Frigates);
+  gb.display.setCursor(40,33);
+  gb.display.println(CustomFleet.WarCruisers);
+  gb.display.setCursor(40,41);
+  gb.display.println(CustomFleet.StarDreadnoughts);
+  gb.display.setCursor(40,49);
+  gb.display.println(CustomFleet.SolarDestroyers);
+  if(selectedShip==true)
+  {
+    gb.display.setColor(YELLOW);
+    gb.display.drawRect(0,posY,80,9);
+    gb.display.setCursor(56,posY+2);
+    gb.display.println("+-"+(String)quantity);
+  }
+  else
+  {
+    gb.display.setColor(GRAY);
+    gb.display.drawRect(0,posY,80,9);
+  }
 }
 

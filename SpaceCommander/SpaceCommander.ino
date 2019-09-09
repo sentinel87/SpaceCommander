@@ -172,13 +172,13 @@ struct Fleet
   bool Active;
   int8_t Minutes;
   int8_t Seconds;
-  int8_t SpyBots;
-  int8_t Fighters;
-  int8_t Interceptor;
-  int8_t Frigate;
-  int8_t WarCruiser;
-  int8_t StarDreadnought;
-  int8_t SolarDestroyer;
+  int SpyBots;
+  int Fighters;
+  int Interceptors;
+  int Frigates;
+  int WarCruisers;
+  int StarDreadnoughts;
+  int SolarDestroyers;
 };
 
 Fleet PlayerFleets[]={
@@ -251,7 +251,7 @@ bool timeUpdate=false;
 bool fight=false;
 
 //Fleet Selection
-bool flSelection=true;
+bool flSelection=false;
 
 void setup() {
   gb.begin();
@@ -274,6 +274,7 @@ void loop() {
     if(selected==true)
     {
       flSelection=false;
+      PlayerFleets[0].Active=true;
     }
   }
   else
@@ -312,6 +313,11 @@ void loop() {
     {
       ScreenSelection=fleetTotalStatus();
     }
+    else if(ScreenSelection==20)
+    {
+      ScreenSelection=3; //RETURN TO STAR MAP AFTER FLEET SELECTION
+      flSelection=true;
+    }
   }
 }
 
@@ -324,7 +330,7 @@ int8_t fleetTotalStatus()
 bool fleetSelection()
 {
   bool result=playerFleetSelection(PlayerFleets,PlayerShips);
-  return false;
+  return result;
 }
 
 void sendFleet()
