@@ -1,14 +1,14 @@
 #include<Gamebuino-Meta.h>
 
-uint8_t Astronomy=5;
+uint8_t Astronomy=20;
 
 struct Planet
 {
   bool Discovered;
   String Name;
-  int posX;
-  int posY;
-  bool hostile;
+  int8_t posX;
+  int8_t posY;
+  bool Hostile;
   String Enemy;
   int Resource1;
   int Resource2;
@@ -18,22 +18,22 @@ struct Planet
 };
 
 Planet System[]={
-  {true,"Earth",38,28,false,"Player",0,0,0,true,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
+  {true,"Earth",38,28,true,"Player",0,0,0,true,false},
+  {true,"Sheeza Prime",76,28,true,"Shezz",0,0,0,false,false},
+  {true,"Cligga Prime",0,28,true,"Cligg",0,0,0,false,false},
+  {true,"Tau 14",8,3,false,"None",0,0,0,true,false},
+  {false,"Cassia",14,3,false,"None",0,0,0,true,false},
+  {false,"Kanton",27,9,false,"None",0,0,0,true,false},
+  {false,"Nova 5",34,2,false,"None",0,0,0,true,false},
+  {false,"Andromeda",44,6,false,"None",0,0,0,true,false},
+  {false,"Syrius",55,11,false,"None",0,0,0,true,false},
+  {false,"Arnval",71,7,false,"None",0,0,0,true,false},
+  {false,"Duna",5,15,false,"Cligg",0,0,0,true,false},
+  {false,"Armag",14,22,false,"Cligg",0,0,0,true,false},
+  {false,"Tibann",26,19,false,"Cligg",0,0,0,true,false},
+  {false,"San Da",48,17,false,"Cligg",0,0,0,true,false},
+  {false,"Tolka",63,23,false,"Cligg",0,0,0,true,false},
+  {false,"Raven",33,24,false,"Cligg",0,0,0,true,false},
   {false,"default",0,0,false,"Cligg",0,0,0,false,false},
   {false,"default",0,0,false,"Cligg",0,0,0,false,false},
   {false,"default",0,0,false,"Cligg",0,0,0,false,false},
@@ -66,7 +66,7 @@ struct Technology
 };
 
 Technology TechTree[]={
-  {1,"Astronomy",0,1,100,100,0,"Increases visibility on the Star Map.","None",0,0},
+  {1,"Astronomy",0,40,100,100,0,"Increases visibility on the Star Map.","None",0,0},
   {2,"Espionage",0,0,250,50,50,"Unlocks Spy Bots unit and Intelligence building.","Astronomy",1,2},
   {3,"Jet Proplusion",0,0,100,100,100,"Unlocks Fighter unit and increases it's speed.","Astronomy",1,2},
   {4,"Default",0,0,0,0,0,"Default","None",0,0},

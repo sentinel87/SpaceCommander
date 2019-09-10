@@ -1341,6 +1341,23 @@ void drawMap(int astronomy,int posX,int posY)
   gb.display.drawImage(posX,posY,Cursor);
 }
 
+void drawPlanetsColors(Planet System[30])
+{
+  for(int i=0;i<30;i++)
+  {
+    if(System[i].Hostile==true)
+    {
+      gb.display.setColor(RED);
+      gb.display.fillRect(System[i].posX+1,System[i].posY+1,1,1);
+    }
+    else if(System[i].Owned==true)
+    {
+      gb.display.setColor(LIGHTGREEN);
+      gb.display.fillRect(System[i].posX+1,System[i].posY+1,1,1);
+    }
+  }
+}
+
 void drawWarRoom(int posX,int posY,String choice,int playerResources[3])
 {
   gb.display.setColor(BLUE);
