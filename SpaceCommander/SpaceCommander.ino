@@ -18,36 +18,36 @@ struct Planet
 };
 
 Planet System[]={
-  {true,"Earth",38,28,true,"Player",0,0,0,true,false},
-  {true,"Sheeza Prime",76,28,true,"Shezz",0,0,0,false,false},
-  {true,"Cligga Prime",0,28,true,"Cligg",0,0,0,false,false},
-  {true,"Tau 14",8,3,false,"None",0,0,0,true,false},
-  {false,"Cassia",14,3,false,"None",0,0,0,true,false},
-  {false,"Kanton",27,9,false,"None",0,0,0,true,false},
-  {false,"Nova 5",34,2,false,"None",0,0,0,true,false},
-  {false,"Andromeda",44,6,false,"None",0,0,0,true,false},
-  {false,"Syrius",55,11,false,"None",0,0,0,true,false},
-  {false,"Arnval",71,7,false,"None",0,0,0,true,false},
-  {false,"Duna",5,15,false,"Cligg",0,0,0,true,false},
-  {false,"Armag",14,22,false,"Cligg",0,0,0,true,false},
-  {false,"Tibann",26,19,false,"Cligg",0,0,0,true,false},
-  {false,"San Da",48,17,false,"Cligg",0,0,0,true,false},
-  {false,"Tolka",63,23,false,"Cligg",0,0,0,true,false},
-  {false,"Raven",33,24,false,"Cligg",0,0,0,true,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false},
-  {false,"default",0,0,false,"Cligg",0,0,0,false,false}
+  {true,"Earth",38,28,false,"Player",0,0,0,true,false},
+  {false,"Sheeza Prime",76,28,true,"Shezz",0,0,0,false,false},
+  {false,"Cligga Prime",0,28,true,"Cligg",0,0,0,false,false},
+  {false,"Tau 14",8,3,false,"None",0,0,0,false,false},
+  {false,"Cassia",14,3,false,"None",0,0,0,false,false},
+  {false,"Kanton",27,9,false,"None",0,0,0,false,false},
+  {false,"Nova 5",34,2,false,"None",0,0,0,false,false},
+  {false,"Andromeda",44,6,false,"None",0,0,0,false,false},
+  {false,"Syrius",55,11,false,"None",0,0,0,false,false},
+  {false,"Arnval",71,7,false,"None",0,0,0,false,false},
+  {false,"Duna",5,15,false,"None",0,0,0,false,false},
+  {false,"Armag",14,22,false,"None",0,0,0,false,false},
+  {false,"Tibann",26,19,false,"None",0,0,0,false,false},
+  {false,"San Da",48,17,false,"None",0,0,0,false,false},
+  {false,"Tolka",63,23,false,"None",0,0,0,false,false},
+  {false,"Raven",33,24,false,"None",0,0,0,false,false},
+  {false,"Novaria",36,26,false,"None",0,0,0,false,false},
+  {false,"Eden",15,30,false,"None",0,0,0,false,false},
+  {false,"Brantal V",24,32,false,"None",0,0,0,false,false},
+  {false,"Ganimedes",33,35,false,"None",0,0,0,false,false},
+  {false,"Dan 11",54,32,false,"None",0,0,0,false,false},
+  {false,"Janya",7,43,false,"None",0,0,0,false,false},
+  {false,"Arti Ka",15,41,false,"None",0,0,0,false,false},
+  {false,"Tyra",27,45,false,"None",0,0,0,false,false},
+  {false,"Galant",51,48,false,"None",0,0,0,false,false},
+  {false,"Saxa",60,40,false,"None",0,0,0,false,false},
+  {false,"Rea 8",73,37,false,"None",0,0,0,false,false},
+  {false,"IO",66,54,false,"None",0,0,0,false,false},
+  {false,"Taka Van",33,55,false,"None",0,0,0,false,false},
+  {false,"Europa",3,55,false,"None",0,0,0,false,false}
 };
 
 struct Technology
@@ -66,7 +66,7 @@ struct Technology
 };
 
 Technology TechTree[]={
-  {1,"Astronomy",0,40,100,100,0,"Increases visibility on the Star Map.","None",0,0},
+  {1,"Astronomy",0,1,100,100,0,"Increases visibility on the Star Map.","None",0,0},
   {2,"Espionage",0,0,250,50,50,"Unlocks Spy Bots unit and Intelligence building.","Astronomy",1,2},
   {3,"Jet Proplusion",0,0,100,100,100,"Unlocks Fighter unit and increases it's speed.","Astronomy",1,2},
   {4,"Default",0,0,0,0,0,"Default","None",0,0},
@@ -337,8 +337,10 @@ void sendFleet()
 {
   if(gb.buttons.pressed(BUTTON_MENU))
   {
-    EnemyFleets[0].Active=true;
-    EnemyFleets[0].Seconds=10;
+    //EnemyFleets[0].Active=true;
+    //EnemyFleets[0].Seconds=10;
+    //TechTree[0].level++;
+    //techEvents(TechTree);
   }
 }
 

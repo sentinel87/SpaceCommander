@@ -6,14 +6,6 @@ bool stDropDownMenu=false;
 
 int8_t starMap(int Astronomy,Planet System[30])
 {
-  gb.display.setCursor(10, 5);
-  gb.display.setFontSize(1);
-  gb.display.setColor(WHITE);
-  gb.display.println(gb.getCpuLoad());
-  gb.display.setCursor(10, 12);
-  gb.display.println(gb.getFreeRam());
-  gb.display.setCursor(10, 19);
-  gb.display.println(Astronomy);
   if(gb.buttons.repeat(BUTTON_UP,0))
   {
     if(stDropDownMenu==true)
@@ -78,7 +70,6 @@ int8_t starMap(int Astronomy,Planet System[30])
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
-    searchForPlanet(System);
     if(stDropDownMenu==true)
     {
       stDropDownMenu=false;
@@ -112,19 +103,14 @@ int8_t starMap(int Astronomy,Planet System[30])
   {
     drawDropdownMenu(stPosX,stPosY,stSelection);
   }
+  gb.display.setCursor(10, 5);
+  gb.display.setFontSize(1);
+  gb.display.setColor(WHITE);
+  gb.display.println(gb.getCpuLoad());
+  gb.display.setCursor(10, 12);
+  gb.display.println(gb.getFreeRam());
+  //gb.display.setCursor(10, 19);
+  //gb.display.println(Astronomy);
   return 3;
-}
-
-void searchForPlanet(Planet System[30])
-{
-  for(int i=0;i<30;i++)
-  {
-    if((stPosX==System[i].posX) && (stPosY==System[i].posY))
-    {
-      gb.display.setCursor(10, 28);
-      gb.display.println(System[i].Name);
-      break;
-    }
-  }
 }
 

@@ -1350,7 +1350,7 @@ void drawPlanetsColors(Planet System[30])
       gb.display.setColor(RED);
       gb.display.fillRect(System[i].posX+1,System[i].posY+1,1,1);
     }
-    else if(System[i].Owned==true)
+    else if(System[i].Discovered==true)
     {
       gb.display.setColor(LIGHTGREEN);
       gb.display.fillRect(System[i].posX+1,System[i].posY+1,1,1);
