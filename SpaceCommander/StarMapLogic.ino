@@ -105,7 +105,7 @@ int8_t starMap(int Astronomy,Planet System[30])
   }
   gb.display.setCursor(10, 5);
   gb.display.setFontSize(1);
-  gb.display.setColor(WHITE);
+  gb.display.setColor(RED);
   gb.display.println(gb.getCpuLoad());
   gb.display.setCursor(10, 12);
   gb.display.println(gb.getFreeRam());
