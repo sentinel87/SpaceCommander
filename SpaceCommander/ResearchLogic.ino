@@ -1,17 +1,17 @@
 int8_t reCurrentTech=0;
 
-int8_t research(Technology techTree[20],int playerResources[3])
+int8_t research()
 {
   String dependencyTechName="";
   int dependencyTechLevel=0; 
-  int depIndex=techTree[reCurrentTech].depTechId-1;
-  if(depIndex<20)
+  int depIndex=TechTree[reCurrentTech].depTechId-1;
+  if(depIndex>-1&&depIndex<20)
   {
-    dependencyTechName=techTree[depIndex].techName;
-    dependencyTechLevel=techTree[reCurrentTech].depTechLevel; 
+    dependencyTechName=TechTree[depIndex].techName;
+    dependencyTechLevel=TechTree[reCurrentTech].depTechLevel;   
   }
-  bool canDevelop=canResearch(techTree[reCurrentTech],techTree[depIndex].level,playerResources); 
-  drawTechScreen(techTree[reCurrentTech],dependencyTechName,techTree[depIndex].level,playerResources,canDevelop);
+  bool canDevelop=canResearch(TechTree[reCurrentTech],TechTree[depIndex].level);
+  drawTechScreen(TechTree[reCurrentTech],dependencyTechName,TechTree[depIndex].level,canDevelop);
   if(gb.buttons.pressed(BUTTON_RIGHT))
   {
     if(reCurrentTech==19)
@@ -38,11 +38,14 @@ int8_t research(Technology techTree[20],int playerResources[3])
   {
     if(canDevelop)
     {
-      techTree[reCurrentTech].level++;
-      techTree[reCurrentTech].depTechLevel++;
-      playerResources[0]-=(techTree[reCurrentTech].resource1Cost*(techTree[reCurrentTech].level+1));
-      playerResources[1]-=(techTree[reCurrentTech].resource2Cost*(techTree[reCurrentTech].level+1));
-      playerResources[2]-=(techTree[reCurrentTech].resource3Cost*(techTree[reCurrentTech].level+1));
+      PlayerResources[0]-=(TechTree[reCurrentTech].resource1Cost*(TechTree[reCurrentTech].level+1));
+      PlayerResources[1]-=(TechTree[reCurrentTech].resource2Cost*(TechTree[reCurrentTech].level+1));
+      PlayerResources[2]-=(TechTree[reCurrentTech].resource3Cost*(TechTree[reCurrentTech].level+1));
+      TechTree[reCurrentTech].level++;
+      if(TechTree[reCurrentTech].depTechLevel!=0)
+      {
+        TechTree[reCurrentTech].depTechLevel++; 
+      }
       techEvents(); 
     }
   }
@@ -53,22 +56,22 @@ int8_t research(Technology techTree[20],int playerResources[3])
   return 2;
 }
 
-bool canResearch(Technology technology, int depTechLvl, int playerResources[3])
+bool canResearch(Technology technology, int depTechLvl)
 {
   bool result=true;
-  if(playerResources[0]<(technology.resource1Cost*(technology.level+1)))
+  if(PlayerResources[0]<(technology.resource1Cost*(technology.level+1)))
   {
     result=false; 
   }
-  if(playerResources[1]<(technology.resource2Cost*(technology.level+1)))
+  if(PlayerResources[1]<(technology.resource2Cost*(technology.level+1)))
   {
     result=false; 
   }
-  if(playerResources[2]<(technology.resource3Cost*(technology.level+1)))
+  if(PlayerResources[2]<(technology.resource3Cost*(technology.level+1)))
   {
     result=false;
   }
-  if(depTechLvl>0)
+  if(technology.depTechLevel>0)
   {
     if(technology.depTechLevel>depTechLvl)
     {

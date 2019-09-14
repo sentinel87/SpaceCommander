@@ -12,9 +12,9 @@ Fleet flCustomFleet={1,false,0,20,0,0,0,0,0,0,0};
 //Report
 int flReportPage=1;
 
-int playerFleets(Fleet PlayerFleets[5])
+int playerFleets()
 {
-  drawPlayerFleets(PlayerFleets,flMarkerPosX,flMarkerPosY);
+  drawPlayerFleets(flMarkerPosX,flMarkerPosY);
   if(gb.buttons.pressed(BUTTON_B))
   {
     return 0;
@@ -22,9 +22,9 @@ int playerFleets(Fleet PlayerFleets[5])
   return 8;
 }
 
-int enemyFleets(Fleet EnemyFleets[5])
+int enemyFleets()
 {
-  drawEnemyFleets(EnemyFleets,flMarkerPosX,flMarkerPosY);
+  drawEnemyFleets(flMarkerPosX,flMarkerPosY);
   if(gb.buttons.pressed(BUTTON_B))
   {
     return 0;
@@ -32,17 +32,17 @@ int enemyFleets(Fleet EnemyFleets[5])
   return 9;
 }
 
-int playerFleetStats(int8_t fleet[11])
+int playerFleetStats()
 {
   if(gb.buttons.pressed(BUTTON_B))
   {
     return 0;
   }
-  drawFleetStats(fleet);
+  drawFleetStats();
   return 10;
 }
 
-bool playerFleetSelection(Fleet PlayerFleets[5],int8_t PlayerShips[11])
+bool playerFleetSelection()
 {
   if(gb.buttons.pressed(BUTTON_B))
   {
@@ -148,7 +148,7 @@ bool playerFleetSelection(Fleet PlayerFleets[5],int8_t PlayerShips[11])
     PlayerFleets[0]=flCustomFleet;
     return true;
   }
-  drawFleetSelection(PlayerShips,flMarker2PosY,flSelectedShip,flCustomFleet,flQuantity);
+  drawFleetSelection(flMarker2PosY,flSelectedShip,flCustomFleet,flQuantity);
   return false;
 }
 

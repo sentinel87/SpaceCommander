@@ -1,45 +1,45 @@
-int8_t currentBuilding=0;
+int8_t inCurrentBuilding=0;
 
-int8_t infrastructure(Building colony[15],Technology techTree[20],int playerResources[3])
+int8_t infrastructure()
 {
-  int techIndex=colony[currentBuilding].depTechId;
-  int buildingIndex=colony[currentBuilding].depBuildingId;
-  String dependencyTechName=techTree[techIndex].techName;
-  int dependencyTechLevel=techTree[techIndex].level;
-  String dependencyBuildingName=colony[buildingIndex].bName;
-  int dependencyBuuildingLevel=colony[buildingIndex].level;
-  drawInfrastructureScreen(colony[currentBuilding],dependencyTechName,dependencyTechLevel,dependencyBuildingName,dependencyBuuildingLevel,playerResources,true);
+  int techIndex=Colony[inCurrentBuilding].depTechId;
+  int buildingIndex=Colony[inCurrentBuilding].depBuildingId;
+  String dependencyTechName=TechTree[techIndex].techName;
+  int dependencyTechLevel=TechTree[techIndex].level;
+  String dependencyBuildingName=Colony[buildingIndex].bName;
+  int dependencyBuildingLevel=Colony[buildingIndex].level;
+  drawInfrastructureScreen(Colony[inCurrentBuilding],dependencyTechName,dependencyTechLevel,dependencyBuildingName,dependencyBuildingLevel,true);
   if(gb.buttons.pressed(BUTTON_RIGHT))
   {
-    if(currentBuilding==14)
+    if(inCurrentBuilding==14)
     {
-      currentBuilding=0;
+      inCurrentBuilding=0;
     }
     else
     {
-      currentBuilding++;
+      inCurrentBuilding++;
     }
   }
   else if(gb.buttons.pressed(BUTTON_LEFT))
   {
-    if(currentBuilding==0)
+    if(inCurrentBuilding==0)
     {
-      currentBuilding=14;
+      inCurrentBuilding=14;
     }
     else
     {
-      currentBuilding--;
+      inCurrentBuilding--;
     }
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
     if(true)
     {
-      colony[currentBuilding].level++;
-      //colony[currentBuilding].depTechLevel++;
-      playerResources[0]-=(colony[currentBuilding].resource1Cost*(colony[currentBuilding].level+1));
-      playerResources[1]-=(colony[currentBuilding].resource2Cost*(colony[currentBuilding].level+1));
-      playerResources[2]-=(colony[currentBuilding].resource3Cost*(colony[currentBuilding].level+1)); 
+      PlayerResources[0]-=(Colony[inCurrentBuilding].resource1Cost*(Colony[inCurrentBuilding].level+1));
+      PlayerResources[1]-=(Colony[inCurrentBuilding].resource2Cost*(Colony[inCurrentBuilding].level+1));
+      PlayerResources[2]-=(Colony[inCurrentBuilding].resource3Cost*(Colony[inCurrentBuilding].level+1)); 
+      Colony[inCurrentBuilding].level++;
+      //Colony[inCurrentBuilding].depTechLevel++;
     }
   }
   else if(gb.buttons.pressed(BUTTON_B))

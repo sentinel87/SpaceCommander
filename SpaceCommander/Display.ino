@@ -1415,7 +1415,7 @@ void drawMap(int astronomy,int posX,int posY)
   gb.display.drawImage(posX,posY,Cursor);
 }
 
-void drawPlanetsColors(Planet System[30])
+void drawPlanetsColors()
 {
   for(int i=0;i<30;i++)
   {
@@ -1432,21 +1432,21 @@ void drawPlanetsColors(Planet System[30])
   }
 }
 
-void drawWarRoom(int posX,int posY,String choice,int playerResources[3])
+void drawWarRoom(int posX,int posY,String choice)
 {
   gb.display.setColor(BLUE);
   gb.display.drawRect(1,1,3,3);
   gb.display.setCursor(6,0);
   gb.display.setFontSize(1);
-  gb.display.println(playerResources[0]);
+  gb.display.println(PlayerResources[0]);
   gb.display.setColor(PURPLE);
   gb.display.drawRect(27,1,3,3);
   gb.display.setCursor(33,0);
-  gb.display.println(playerResources[1]);
+  gb.display.println(PlayerResources[1]);
   gb.display.setColor(YELLOW);
   gb.display.drawRect(54,1,3,3);
   gb.display.setCursor(60,0);
-  gb.display.println(playerResources[2]);
+  gb.display.println(PlayerResources[2]);
   gb.display.drawImage(71,9,IMAGE_BUILD_BTN);
   gb.display.drawImage(71,16,IMAGE_RESEARCH_BTN);
   gb.display.drawImage(71,23,IMAGE_MAP_BTN);
@@ -1464,21 +1464,21 @@ void drawWarRoom(int posX,int posY,String choice,int playerResources[3])
   gb.display.println(choice);
 }
 
-void drawTechScreen(Technology technology,String depTechName, int depLevel,int playerResources[3],bool canResearch)
+void drawTechScreen(Technology technology,String depTechName, int depLevel,bool canResearch)
 {
   gb.display.setColor(BLUE);
   gb.display.drawRect(1,1,3,3);
   gb.display.setCursor(6,0);
   gb.display.setFontSize(1);
-  gb.display.println(playerResources[0]);
+  gb.display.println(PlayerResources[0]);
   gb.display.setColor(PURPLE);
   gb.display.drawRect(27,1,3,3);
   gb.display.setCursor(33,0);
-  gb.display.println(playerResources[1]);
+  gb.display.println(PlayerResources[1]);
   gb.display.setColor(YELLOW);
   gb.display.drawRect(54,1,3,3);
   gb.display.setCursor(60,0);
-  gb.display.println(playerResources[2]);
+  gb.display.println(PlayerResources[2]);
   gb.display.setColor(GRAY);
   gb.display.drawRect(2,9,15,15);
   gb.display.setColor(WHITE);
@@ -1517,21 +1517,21 @@ void drawTechScreen(Technology technology,String depTechName, int depLevel,int p
   }
 }
 
-void drawInfrastructureScreen(Building building,String depTechName, int depLevel, String depBuildingName,int depBuildingLevel, int playerResources[3],bool canBuild)
+void drawInfrastructureScreen(Building building, String depTechName, int depLevel, String depBuildingName,int depBuildingLevel,bool canBuild)
 {
   gb.display.setColor(BLUE);
   gb.display.drawRect(1,1,3,3);
   gb.display.setCursor(6,0);
   gb.display.setFontSize(1);
-  gb.display.println(playerResources[0]);
+  gb.display.println(PlayerResources[0]);
   gb.display.setColor(PURPLE);
   gb.display.drawRect(27,1,3,3);
   gb.display.setCursor(33,0);
-  gb.display.println(playerResources[1]);
+  gb.display.println(PlayerResources[1]);
   gb.display.setColor(YELLOW);
   gb.display.drawRect(54,1,3,3);
   gb.display.setCursor(60,0);
-  gb.display.println(playerResources[2]);
+  gb.display.println(PlayerResources[2]);
   gb.display.setColor(GRAY);
   gb.display.drawRect(2,9,15,15);
   gb.display.setColor(WHITE);
@@ -1570,7 +1570,7 @@ void drawInfrastructureScreen(Building building,String depTechName, int depLevel
   //}
 }
 
-void drawPlayerFleets(Fleet PlayerFleets[5],int posX,int posY)
+void drawPlayerFleets(int posX,int posY)
 {
   gb.display.drawImage(0,0,IMAGE_MAIN_THEME);
   gb.display.setColor(BLACK);
@@ -1607,7 +1607,7 @@ void drawPlayerFleets(Fleet PlayerFleets[5],int posX,int posY)
   }
 }
 
-void drawEnemyFleets(Fleet EnemyFleets[5],int posX,int posY)
+void drawEnemyFleets(int posX,int posY)
 {
   gb.display.drawImage(0,0,IMAGE_MAIN_THEME);
   gb.display.setColor(BLACK);
@@ -1656,7 +1656,7 @@ String setTimeString(int8_t seconds,int8_t minutes)
   return strMinutes+":"+strSeconds;
 }
 
-void drawStarRoutes(TradeRoute PlayerRoutes[12])
+void drawStarRoutes()
 {
   gb.display.drawImage(0,0,IMAGE_MAIN_THEME);
   gb.display.setColor(BLACK);
@@ -1751,9 +1751,10 @@ void drawDropdownMenu(int posX,int posY,int selection)
   gb.display.println("EXPLORE");
 }
 
-void drawFleetStats(int8_t fleet[11])
+void drawFleetStats()
 {
-  gb.display.setColor(WHITE);
+  gb.display.drawImage(0,0,IMAGE_MAIN_THEME);
+  gb.display.setColor(BLACK);
   gb.display.println("FLEET STATUS");
   gb.display.setColor(BLUE);
   gb.display.setCursor(1,9);
@@ -1779,29 +1780,29 @@ void drawFleetStats(int8_t fleet[11])
   gb.display.println("C TR");
   gb.display.setCursor(40,37);
   gb.display.println("F TR");
-  gb.display.setColor(WHITE);
+  gb.display.setColor(BLACK);
   gb.display.setCursor(19,9);
-  gb.display.println(fleet[0]);
+  gb.display.println(PlayerShips[0]);
   gb.display.setCursor(19,16);
-  gb.display.println(fleet[1]);
+  gb.display.println(PlayerShips[1]);
   gb.display.setCursor(19,23);
-  gb.display.println(fleet[2]);
+  gb.display.println(PlayerShips[2]);
   gb.display.setCursor(19,30);
-  gb.display.println(fleet[3]);
+  gb.display.println(PlayerShips[3]);
   gb.display.setCursor(19,37);
-  gb.display.println(fleet[4]);
+  gb.display.println(PlayerShips[4]);
   gb.display.setCursor(19,44);
-  gb.display.println(fleet[5]);
+  gb.display.println(PlayerShips[5]);
   gb.display.setCursor(59,9);
-  gb.display.println(fleet[6]);
+  gb.display.println(PlayerShips[6]);
   gb.display.setCursor(59,16);
-  gb.display.println(fleet[7]);
+  gb.display.println(PlayerShips[7]);
   gb.display.setCursor(59,23);
-  gb.display.println(fleet[8]);
+  gb.display.println(PlayerShips[8]);
   gb.display.setCursor(59,30);
-  gb.display.println(fleet[9]);
+  gb.display.println(PlayerShips[9]);
   gb.display.setCursor(59,37);
-  gb.display.println(fleet[10]);
+  gb.display.println(PlayerShips[10]);
 }
 
 void drawBattleResult1()
@@ -1882,9 +1883,10 @@ void drawBattleResult2()
   gb.display.println("-9999");
 }
 
-void drawFleetSelection(int8_t fleet[11],int posY, bool selectedShip, Fleet CustomFleet,int quantity)
+void drawFleetSelection(int posY, bool selectedShip, Fleet CustomFleet,int quantity)
 {
-  gb.display.setColor(WHITE);
+  gb.display.drawImage(0,0,IMAGE_MAIN_THEME);
+  gb.display.setColor(BLACK);
   gb.display.println("SET FLEET SHIPS");
   gb.display.setColor(BLUE);
   gb.display.setCursor(2,9);
@@ -1899,20 +1901,20 @@ void drawFleetSelection(int8_t fleet[11],int posY, bool selectedShip, Fleet Cust
   gb.display.println("S DR");
   gb.display.setCursor(2,49);
   gb.display.println("S DS");
-  gb.display.setColor(WHITE);
+  gb.display.setColor(GREEN);
   gb.display.setCursor(19,9);
-  gb.display.println(fleet[0]);
+  gb.display.println(PlayerShips[0]);
   gb.display.setCursor(19,17);
-  gb.display.println(fleet[1]);
+  gb.display.println(PlayerShips[1]);
   gb.display.setCursor(19,25);
-  gb.display.println(fleet[2]);
+  gb.display.println(PlayerShips[2]);
   gb.display.setCursor(19,33);
-  gb.display.println(fleet[3]);
+  gb.display.println(PlayerShips[3]);
   gb.display.setCursor(19,41);
-  gb.display.println(fleet[4]);
+  gb.display.println(PlayerShips[4]);
   gb.display.setCursor(19,49);
-  gb.display.println(fleet[5]);
-  gb.display.setColor(GRAY);
+  gb.display.println(PlayerShips[5]);
+  gb.display.setColor(BLACK);
   gb.display.setCursor(40,9);
   gb.display.println(CustomFleet.Fighters);
   gb.display.setCursor(40,17);
@@ -1927,7 +1929,7 @@ void drawFleetSelection(int8_t fleet[11],int posY, bool selectedShip, Fleet Cust
   gb.display.println(CustomFleet.SolarDestroyers);
   if(selectedShip==true)
   {
-    gb.display.setColor(YELLOW);
+    gb.display.setColor(RED);
     gb.display.drawRect(0,posY,80,9);
     gb.display.setCursor(56,posY+2);
     gb.display.println("+-"+(String)quantity);

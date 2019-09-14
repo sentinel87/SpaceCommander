@@ -287,31 +287,31 @@ void loop() {
     }
     else if(ScreenSelection==1)
     {
-      ScreenSelection=infrastructure(Colony,TechTree,PlayerResources);
+      ScreenSelection=infrastructure();
     }
     else if(ScreenSelection==2)
     {
-      ScreenSelection=research(TechTree,PlayerResources);
+      ScreenSelection=research();
     }
     else if(ScreenSelection==3)
     {
-      ScreenSelection=starMap(TechTree[0].level,System);
+      ScreenSelection=starMap(TechTree[0].level);
     }
     else if(ScreenSelection==6)
     {
-      ScreenSelection=starRoutes(TechTree[5].level,PlayerRoutes);
+      ScreenSelection=starRoutes(TechTree[5].level);
     }
     else if(ScreenSelection==8)
     {
-      ScreenSelection=playerFleets(PlayerFleets);
+      ScreenSelection=playerFleets();
     }
     else if(ScreenSelection==9)
     {
-      ScreenSelection=enemyFleets(EnemyFleets);
+      ScreenSelection=enemyFleets();
     }
     else if(ScreenSelection==10)
     {
-      ScreenSelection=fleetTotalStatus();
+      ScreenSelection=playerFleetStats();
     }
     else if(ScreenSelection==20)
     {
@@ -321,15 +321,9 @@ void loop() {
   }
 }
 
-int8_t fleetTotalStatus()
-{
-  int8_t result = playerFleetStats(PlayerShips);
-  return result;
-}
-
 bool fleetSelection()
 {
-  bool result=playerFleetSelection(PlayerFleets,PlayerShips);
+  bool result=playerFleetSelection();
   return result;
 }
 
@@ -339,8 +333,8 @@ void sendFleet()
   {
     //EnemyFleets[0].Active=true;
     //EnemyFleets[0].Seconds=10;
-    //TechTree[0].level++;
-    //techEvents(TechTree);
+    TechTree[0].level++;
+    techEvents();
   }
 }
 

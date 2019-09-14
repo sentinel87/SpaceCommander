@@ -1,13 +1,13 @@
 int pages=1;
 
-int starRoutes(int Logistics,TradeRoute PlayerRoutes[12])
+int starRoutes(int Logistics)
 {
   
   if(gb.buttons.pressed(BUTTON_B))
   {
     return 0;
   }
-  drawStarRoutes(PlayerRoutes);
+  drawStarRoutes();
   return 6;
 }
 

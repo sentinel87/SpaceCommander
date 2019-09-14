@@ -4,9 +4,9 @@ int stPosY=28;
 int stSelection=1;
 bool stDropDownMenu=false;
 
-int8_t starMap(int Astronomy,Planet System[30])
+int8_t starMap(int Astronomy)
 {
-  if(gb.buttons.repeat(BUTTON_UP,0))
+  if(gb.buttons.pressed(BUTTON_UP))
   {
     if(stDropDownMenu==true)
     {
@@ -27,7 +27,7 @@ int8_t starMap(int Astronomy,Planet System[30])
       } 
     }
   }
-  else if(gb.buttons.repeat(BUTTON_DOWN,0))
+  else if(gb.buttons.pressed(BUTTON_DOWN))
   {
     if(stDropDownMenu==true)
     {
@@ -48,7 +48,7 @@ int8_t starMap(int Astronomy,Planet System[30])
       } 
     }
   }
-  else if(gb.buttons.repeat(BUTTON_LEFT,0))
+  else if(gb.buttons.pressed(BUTTON_LEFT))
   {
     if(stDropDownMenu==false)
     {
@@ -58,7 +58,7 @@ int8_t starMap(int Astronomy,Planet System[30])
       }
     }
   }
-  else if(gb.buttons.repeat(BUTTON_RIGHT,0))
+  else if(gb.buttons.pressed(BUTTON_RIGHT))
   {
     if(stDropDownMenu==false)
     {
@@ -98,7 +98,7 @@ int8_t starMap(int Astronomy,Planet System[30])
     }
   }
   drawMap(Astronomy,stPosX,stPosY);
-  drawPlanetsColors(System);
+  drawPlanetsColors();
   if(stDropDownMenu==true)
   {
     drawDropdownMenu(stPosX,stPosY,stSelection);

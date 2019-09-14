@@ -7,7 +7,7 @@ int8_t Column=2;
 
 int8_t warRoom(int playerResources[3])
 {
-  drawWarRoom(CursorPosX,CursorPosY,selectedChoice(),playerResources);
+  drawWarRoom(CursorPosX,CursorPosY,selectedChoice());
   if(gb.buttons.pressed(BUTTON_UP))
   {
     if(Column==2)
