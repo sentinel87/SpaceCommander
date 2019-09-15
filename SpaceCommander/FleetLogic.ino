@@ -306,3 +306,13 @@ bool battleResults()
   return false;
 }
 
+int scoutReports()
+{
+  if(gb.buttons.pressed(BUTTON_B))
+  {
+    return 0;
+  }
+  drawSpyReport(IntelligenceReports[1]);
+  return 11;
+}
+

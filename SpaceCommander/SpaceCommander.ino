@@ -15,39 +15,40 @@ struct Planet
   int Resource3;
   bool Owned;
   bool TradeRoute;
+  int GarrisonIndex;
 };
 
 Planet System[]={
-  {true,"Earth",38,28,false,"Player",0,0,0,true,false},
-  {false,"Sheeza Prime",76,28,true,"Shezz",0,0,0,false,false},
-  {false,"Cligga Prime",0,28,true,"Cligg",0,0,0,false,false},
-  {false,"Tau 14",8,3,false,"None",0,0,0,false,false},
-  {false,"Cassia",14,3,false,"None",0,0,0,false,false},
-  {false,"Kanton",27,9,false,"None",0,0,0,false,false},
-  {false,"Nova 5",34,2,false,"None",0,0,0,false,false},
-  {false,"Andromeda",44,6,false,"None",0,0,0,false,false},
-  {false,"Syrius",55,11,false,"None",0,0,0,false,false},
-  {false,"Arnval",71,7,false,"None",0,0,0,false,false},
-  {false,"Duna",5,15,false,"None",0,0,0,false,false},
-  {false,"Armag",14,22,false,"None",0,0,0,false,false},
-  {false,"Tibann",26,19,false,"None",0,0,0,false,false},
-  {false,"San Da",48,17,false,"None",0,0,0,false,false},
-  {false,"Tolka",63,23,false,"None",0,0,0,false,false},
-  {false,"Raven",33,24,false,"None",0,0,0,false,false},
-  {false,"Novaria",36,26,false,"None",0,0,0,false,false},
-  {false,"Eden",15,30,false,"None",0,0,0,false,false},
-  {false,"Brantal V",24,32,false,"None",0,0,0,false,false},
-  {false,"Ganimedes",33,35,false,"None",0,0,0,false,false},
-  {false,"Dan 11",54,32,false,"None",0,0,0,false,false},
-  {false,"Janya",7,43,false,"None",0,0,0,false,false},
-  {false,"Arti Ka",15,41,false,"None",0,0,0,false,false},
-  {false,"Tyra",27,45,false,"None",0,0,0,false,false},
-  {false,"Galant",51,48,false,"None",0,0,0,false,false},
-  {false,"Saxa",60,40,false,"None",0,0,0,false,false},
-  {false,"Rea 8",73,37,false,"None",0,0,0,false,false},
-  {false,"IO",66,54,false,"None",0,0,0,false,false},
-  {false,"Taka Van",33,55,false,"None",0,0,0,false,false},
-  {false,"Europa",3,55,false,"None",0,0,0,false,false}
+  {true,"Earth",38,28,false,"Player",0,0,0,true,false,-1},
+  {false,"Sheeza Prime",76,28,true,"Shezz",0,0,0,false,false,-1},
+  {false,"Cligga Prime",0,28,true,"Cligg",0,0,0,false,false,0},
+  {false,"Tau 14",8,3,false,"None",0,0,0,false,false,-1},
+  {false,"Cassia",14,3,false,"None",0,0,0,false,false,-1},
+  {false,"Kanton",27,9,false,"None",0,0,0,false,false,-1},
+  {false,"Nova 5",34,2,false,"None",0,0,0,false,false,-1},
+  {false,"Andromeda",44,6,false,"None",0,0,0,false,false,-1},
+  {false,"Syrius",55,11,false,"None",0,0,0,false,false,-1},
+  {false,"Arnval",71,7,false,"None",0,0,0,false,false,-1},
+  {false,"Duna",5,15,false,"None",0,0,0,false,false,-1},
+  {false,"Armag",14,22,false,"None",0,0,0,false,false,-1},
+  {false,"Tibann",26,19,false,"None",0,0,0,false,false,-1},
+  {false,"San Da",48,17,false,"None",0,0,0,false,false,-1},
+  {false,"Tolka",63,23,false,"None",0,0,0,false,false,-1},
+  {false,"Raven",33,24,false,"None",0,0,0,false,false,-1},
+  {false,"Novaria",36,26,false,"None",0,0,0,false,false,-1},
+  {false,"Eden",15,30,false,"None",0,0,0,false,false,-1},
+  {false,"Brantal V",24,32,false,"None",0,0,0,false,false,-1},
+  {false,"Ganimedes",33,35,false,"None",0,0,0,false,false,-1},
+  {false,"Dan 11",54,32,false,"None",0,0,0,false,false,-1},
+  {false,"Janya",7,43,false,"None",0,0,0,false,false,-1},
+  {false,"Arti Ka",15,41,false,"None",0,0,0,false,false,-1},
+  {false,"Tyra",27,45,false,"None",0,0,0,false,false,-1},
+  {false,"Galant",51,48,false,"None",0,0,0,false,false,-1},
+  {false,"Saxa",60,40,false,"None",0,0,0,false,false,-1},
+  {false,"Rea 8",73,37,false,"None",0,0,0,false,false,-1},
+  {false,"IO",66,54,false,"None",0,0,0,false,false,-1},
+  {false,"Taka Van",33,55,false,"None",0,0,0,false,false,-1},
+  {false,"Europa",3,55,false,"None",0,0,0,false,false,-1}
 };
 
 struct Technology
@@ -150,16 +151,18 @@ Ship Shipyard[]={
 
 struct EnemyGarrison
 {
-  int8_t SpyBots;
+  int planetIndex;
   int8_t Fighters;
-  int8_t Interceptor;
-  int8_t Frigate;
-  int8_t WarCruiser;
-  int8_t StarDreadnought;
-  int8_t SolarDestroyer;
+  int8_t Interceptors;
+  int8_t Frigates;
+  int8_t WarCruisers;
+  int8_t StarDreadnoughts;
+  int8_t SolarDestroyers;
 };
 
 EnemyGarrison Enemy1Garrison[]={
+  {2,100,50,25,10,5,0}, //Capital
+  {0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0},
@@ -239,6 +242,29 @@ TradeRoute PlayerRoutes[]={
   {false,"",0,0,0}
 };
 
+struct Report
+{
+  String PlanetName;
+  int Type;
+  int Fighters;
+  int Interceptors;
+  int Frigates;
+  int WarCruisers;
+  int StarDreadnoughts;
+  int SolarDestroyers;
+  int Resource1;
+  int Resource2;
+  int Resource3;
+};
+
+Report IntelligenceReports[]={
+  {"Cligga Prime",1,2,3,4,5,6,7,0,0,0},
+  {"Cligga Prime",2,0,0,0,0,0,0,7,8,2},
+  {"",0,0,0,0,0,0,0,0,0,0},
+  {"",0,0,0,0,0,0,0,0,0,0},
+  {"",0,0,0,0,0,0,0,0,0,0}
+};
+
 int8_t ScreenSelection=0;
 
 int PlayerResources[]={2200,2200,2000};
@@ -312,6 +338,10 @@ void loop() {
     else if(ScreenSelection==10)
     {
       ScreenSelection=playerFleetStats();
+    }
+    else if(ScreenSelection==11)
+    {
+      ScreenSelection=scoutReports();
     }
     else if(ScreenSelection==20)
     {

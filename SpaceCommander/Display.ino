@@ -1941,3 +1941,66 @@ void drawFleetSelection(int posY, bool selectedShip, Fleet CustomFleet,int quant
   }
 }
 
+void drawSpyReport(Report IntelligenceReport)
+{
+  gb.display.drawImage(0,0,IMAGE_MAIN_THEME);
+  gb.display.setColor(BLACK);
+  String title="REPORT:" + IntelligenceReport.PlanetName;
+  gb.display.println(title);
+  gb.display.setCursor(0,9);
+  gb.display.println("TYPE: ");
+  if(IntelligenceReport.Type==1) //hostile report
+  {
+    gb.display.setCursor(40,9);
+    gb.display.setColor(RED);
+    gb.display.println("HOSTILE");
+    gb.display.setColor(BLUE);
+    gb.display.setCursor(2,17);
+    gb.display.println("FIG");
+    gb.display.setCursor(2,25);
+    gb.display.println("INT");
+    gb.display.setCursor(2,33);
+    gb.display.println("FRI");
+    gb.display.setCursor(2,41);
+    gb.display.println("W CR");
+    gb.display.setCursor(2,49);
+    gb.display.println("S DR");
+    gb.display.setCursor(2,57);
+    gb.display.println("S DS");
+    gb.display.setColor(BLACK);
+    gb.display.setCursor(25,17);
+    gb.display.println(IntelligenceReport.Fighters);
+    gb.display.setCursor(25,25);
+    gb.display.println(IntelligenceReport.Interceptors);
+    gb.display.setCursor(25,33);
+    gb.display.println(IntelligenceReport.Frigates);
+    gb.display.setCursor(25,41);
+    gb.display.println(IntelligenceReport.WarCruisers);
+    gb.display.setCursor(25,49);
+    gb.display.println(IntelligenceReport.StarDreadnoughts);
+    gb.display.setCursor(25,57);
+    gb.display.println(IntelligenceReport.SolarDestroyers);
+  }
+  else
+  {
+    gb.display.setCursor(40,9);
+    gb.display.setColor(ORANGE);
+    gb.display.println("MINING");
+    gb.display.setColor(BLUE);
+    gb.display.setCursor(2,17);
+    gb.display.println("METAL");
+    gb.display.setCursor(30,17);
+    gb.display.println("+"+(String)IntelligenceReport.Resource1);
+    gb.display.setColor(PURPLE);
+    gb.display.setCursor(2,25);
+    gb.display.println("CRYSTAL");
+    gb.display.setCursor(30,25);
+    gb.display.println("+"+(String)IntelligenceReport.Resource2);
+    gb.display.setColor(ORANGE);
+    gb.display.setCursor(2,33);
+    gb.display.println("FUEL");
+    gb.display.setCursor(30,33);
+    gb.display.println("+"+(String)IntelligenceReport.Resource3);
+  }
+}
+
