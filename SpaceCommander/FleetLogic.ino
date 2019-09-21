@@ -322,6 +322,7 @@ bool sendSpy()
         {
           PlayerShips[6]--;
           PlayerFleets[i]=CustomFleet;
+          gb.gui.popup("FLEET SEND!",50);
           break;
         }
       }
@@ -365,7 +366,7 @@ int scoutReports()
   {
     return 0;
   }
-  drawSpyReport(IntelligenceReports[1]);
+  drawSpyReport(IntelligenceReports[0]);
   return 11;
 }
 

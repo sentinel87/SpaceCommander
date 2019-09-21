@@ -155,12 +155,12 @@ Ship Shipyard[]={
 struct EnemyGarrison
 {
   int planetIndex;
-  int8_t Fighters;
-  int8_t Interceptors;
-  int8_t Frigates;
-  int8_t WarCruisers;
-  int8_t StarDreadnoughts;
-  int8_t SolarDestroyers;
+  int Fighters;
+  int Interceptors;
+  int Frigates;
+  int WarCruisers;
+  int StarDreadnoughts;
+  int SolarDestroyers;
 };
 
 EnemyGarrison Enemy1Garrison[]={
@@ -185,25 +185,26 @@ struct Fleet
   int WarCruisers;
   int StarDreadnoughts;
   int SolarDestroyers;
+  String DestinationName;
 };
 
 Fleet PlayerFleets[]={
-  {1,false,0,20,0,0,0,0,0,0,0},
-  {2,false,0,30,0,0,0,0,0,0,0},
-  {3,false,0,40,0,0,0,0,0,0,0},
-  {1,false,0,50,0,0,0,0,0,0,0},
-  {1,false,1,20,0,0,0,0,0,0,0}
+  {1,false,0,20,0,0,0,0,0,0,0,""},
+  {2,false,0,30,0,0,0,0,0,0,0,""},
+  {3,false,0,40,0,0,0,0,0,0,0,""},
+  {1,false,0,50,0,0,0,0,0,0,0,""},
+  {1,false,1,20,0,0,0,0,0,0,0,""}
 };
 
 Fleet EnemyFleets[]={
-  {4,false,0,20,0,0,0,0,0,0,0},
-  {4,false,0,30,0,0,0,0,0,0,0},
-  {4,false,0,40,0,0,0,0,0,0,0},
-  {4,false,0,50,0,0,0,0,0,0,0},
-  {4,false,1,20,0,0,0,0,0,0,0}
+  {4,false,0,20,0,0,0,0,0,0,0,""},
+  {4,false,0,30,0,0,0,0,0,0,0,""},
+  {4,false,0,40,0,0,0,0,0,0,0,""},
+  {4,false,0,50,0,0,0,0,0,0,0,""},
+  {4,false,1,20,0,0,0,0,0,0,0,""}
 };
 
-Fleet CustomFleet={0,false,0,0,0,0,0,0,0,0,0};
+Fleet CustomFleet={0,false,0,0,0,0,0,0,0,0,0,""};
 
 int FleetFuelCost=0;
 
@@ -445,12 +446,45 @@ void updatePlayerFleetTime(int index)
     if(PlayerFleets[index].Type==3)
     {
       gb.lights.fill(YELLOW);
+      scoutMission(PlayerFleets[index]);
     }
   }
   else
   {
     PlayerFleets[index].Seconds--;
   }
+}
+
+void scoutMission(Fleet fleet)
+{
+  for(int i=0;i<30;i++)
+  {
+    if(System[i].Name==fleet.DestinationName)
+    {
+      System[i].Status=true;
+      if(System[i].Hostile==true)
+      {
+        //TODO: Hostile Report
+      }
+      else
+      {
+        Report Mining={System[i].Name,2,0,0,0,0,0,0,System[i].Resource1,System[i].Resource2,System[i].Resource3};
+        generateScoutReport(Mining);
+      }
+      break;
+    }
+  }
+}
+
+void generateScoutReport(Report report)
+{
+  Report Temp[5]=IntelligenceReports;
+  IntelligenceReports[0]=report;
+  for(int i=1;i<4;i++)
+  {
+    IntelligenceReports[i]=Temp[i-1];
+  }
+  gb.gui.popup("NEW SCOUT REPORT!",50);
 }
 
 void updateResources()

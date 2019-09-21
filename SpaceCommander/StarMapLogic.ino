@@ -79,7 +79,7 @@ int8_t starMap(int Astronomy)
       stDropDownMenu=false;
       if(stSelection==1)
       {
-        Fleet spyFleet={3,true,0,0,1,0,0,0,0,0,0};
+        Fleet spyFleet={3,true,0,0,1,0,0,0,0,0,0,SelectedPlanet.Name};
         CustomFleet=spyFleet;
         setFleetParameters();
         return 21; //SPY MISSION CONFIRMATION
