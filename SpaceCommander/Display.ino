@@ -1886,7 +1886,7 @@ void drawBattleResult2()
   gb.display.println("-9999");
 }
 
-void drawFleetSelection(int posY, bool selectedShip, Fleet CustomFleet,int quantity)
+void drawFleetSelection(int posY, bool selectedShip,int quantity)
 {
   gb.display.drawImage(0,0,IMAGE_MAIN_THEME);
   gb.display.setColor(BLACK);
@@ -1944,7 +1944,7 @@ void drawFleetSelection(int posY, bool selectedShip, Fleet CustomFleet,int quant
   }
 }
 
-void drawSendFleetConfirmation(int fuelCost, int mission)
+void drawSendFleetConfirmation(int mission)
 {
   gb.display.drawImage(0,7,IMAGE_MAIN_THEME,0,6,80,57);
   gb.display.setColor(BLUE);
@@ -1967,12 +1967,18 @@ void drawSendFleetConfirmation(int fuelCost, int mission)
   gb.display.println("MISSION: ");
   gb.display.setCursor(2,22);
   gb.display.println("FUEL COST: ");
-  gb.display.setCursor(40,15);
+  gb.display.setCursor(2,29);
+  gb.display.println("FLIGHT TIME: ");
+  gb.display.setCursor(35,15);
   if(mission==3)
   {
     gb.display.setColor(ORANGE);
     gb.display.println("SCOUT");
   }
+  gb.display.setCursor(42,22);
+  gb.display.println(FleetFuelCost);
+  gb.display.setCursor(50,29);
+  gb.display.println(setTimeString(CustomFleet.Seconds,CustomFleet.Minutes));
 }
 
 void drawSpyReport(Report IntelligenceReport)

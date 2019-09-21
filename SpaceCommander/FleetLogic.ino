@@ -7,7 +7,6 @@ int flMarker2PosY=7;
 int flShipSelection=1;
 bool flSelectedShip=false;
 int flQuantity=10;
-Fleet flCustomFleet={1,false,0,20,0,0,0,0,0,0,0};
 
 //Report
 int flReportPage=1;
@@ -145,10 +144,10 @@ bool playerFleetSelection()
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
-    PlayerFleets[0]=flCustomFleet;
+    PlayerFleets[0]=CustomFleet;
     return true;
   }
-  drawFleetSelection(flMarker2PosY,flSelectedShip,flCustomFleet,flQuantity);
+  drawFleetSelection(flMarker2PosY,flSelectedShip,flQuantity);
   return false;
 }
 
@@ -158,55 +157,55 @@ void increaseShips()
   {
     case 1:
     {
-      flCustomFleet.Fighters+=flQuantity;
-      if(flCustomFleet.Fighters>9999)
+      CustomFleet.Fighters+=flQuantity;
+      if(CustomFleet.Fighters>9999)
       {
-        flCustomFleet.Fighters=0;
+        CustomFleet.Fighters=0;
       }
     }
     break;
     case 2:
     {
-      flCustomFleet.Interceptors+=flQuantity;
-      if(flCustomFleet.Interceptors>9999)
+      CustomFleet.Interceptors+=flQuantity;
+      if(CustomFleet.Interceptors>9999)
       {
-        flCustomFleet.Interceptors=0;
+        CustomFleet.Interceptors=0;
       }
     }
     break;
     case 3:
     {
-      flCustomFleet.Frigates+=flQuantity;
-      if(flCustomFleet.Frigates>9999)
+      CustomFleet.Frigates+=flQuantity;
+      if(CustomFleet.Frigates>9999)
       {
-        flCustomFleet.Frigates=0;
+        CustomFleet.Frigates=0;
       }
     }
     break;
     case 4:
     {
-      flCustomFleet.WarCruisers+=flQuantity;
-      if(flCustomFleet.WarCruisers>9999)
+      CustomFleet.WarCruisers+=flQuantity;
+      if(CustomFleet.WarCruisers>9999)
       {
-        flCustomFleet.WarCruisers=0;
+        CustomFleet.WarCruisers=0;
       }
     }
     break;
     case 5:
     {
-      flCustomFleet.StarDreadnoughts+=flQuantity;
-      if(flCustomFleet.StarDreadnoughts>9999)
+      CustomFleet.StarDreadnoughts+=flQuantity;
+      if(CustomFleet.StarDreadnoughts>9999)
       {
-        flCustomFleet.StarDreadnoughts=0;
+        CustomFleet.StarDreadnoughts=0;
       }
     }
     break;
     case 6:
     {
-      flCustomFleet.SolarDestroyers+=flQuantity;
-      if(flCustomFleet.SolarDestroyers>9999)
+      CustomFleet.SolarDestroyers+=flQuantity;
+      if(CustomFleet.SolarDestroyers>9999)
       {
-        flCustomFleet.SolarDestroyers=0;
+        CustomFleet.SolarDestroyers=0;
       }
     }
     break;
@@ -219,55 +218,55 @@ void decreaseShips()
   {
     case 1:
     {
-      flCustomFleet.Fighters-=flQuantity;
-      if(flCustomFleet.Fighters<0)
+      CustomFleet.Fighters-=flQuantity;
+      if(CustomFleet.Fighters<0)
       {
-        flCustomFleet.Fighters=9999;
+        CustomFleet.Fighters=9999;
       }
     }
     break;
     case 2:
     {
-      flCustomFleet.Interceptors-=flQuantity;
-      if(flCustomFleet.Interceptors<0)
+      CustomFleet.Interceptors-=flQuantity;
+      if(CustomFleet.Interceptors<0)
       {
-        flCustomFleet.Interceptors=9999;
+        CustomFleet.Interceptors=9999;
       }
     }
     break;
     case 3:
     {
-      flCustomFleet.Frigates-=flQuantity;
-      if(flCustomFleet.Frigates<0)
+      CustomFleet.Frigates-=flQuantity;
+      if(CustomFleet.Frigates<0)
       {
-        flCustomFleet.Frigates=9999;
+        CustomFleet.Frigates=9999;
       }
     }
     break;
     case 4:
     {
-      flCustomFleet.WarCruisers-=flQuantity;
-      if(flCustomFleet.WarCruisers<0)
+      CustomFleet.WarCruisers-=flQuantity;
+      if(CustomFleet.WarCruisers<0)
       {
-        flCustomFleet.WarCruisers=9999;
+        CustomFleet.WarCruisers=9999;
       }
     }
     break;
     case 5:
     {
-      flCustomFleet.StarDreadnoughts-=flQuantity;
-      if(flCustomFleet.StarDreadnoughts<0)
+      CustomFleet.StarDreadnoughts-=flQuantity;
+      if(CustomFleet.StarDreadnoughts<0)
       {
-        flCustomFleet.StarDreadnoughts=9999;
+        CustomFleet.StarDreadnoughts=9999;
       }
     }
     break;
     case 6:
     {
-      flCustomFleet.SolarDestroyers-=flQuantity;
-      if(flCustomFleet.SolarDestroyers<0)
+      CustomFleet.SolarDestroyers-=flQuantity;
+      if(CustomFleet.SolarDestroyers<0)
       {
-        flCustomFleet.SolarDestroyers=9999;
+        CustomFleet.SolarDestroyers=9999;
       }
     }
     break;
@@ -322,8 +321,7 @@ bool sendSpy()
         if(PlayerFleets[i].Active==false)
         {
           PlayerShips[6]--;
-          Fleet spyFleet={3,true,0,25,1,0,0,0,0,0,0};
-          PlayerFleets[i]=spyFleet;
+          PlayerFleets[i]=CustomFleet;
           break;
         }
       }
@@ -334,7 +332,7 @@ bool sendSpy()
       return false; 
     }
   }
-  drawSendFleetConfirmation(20,3);
+  drawSendFleetConfirmation(3);
   return false;
 }
 
@@ -354,7 +352,7 @@ bool fleetPreStartCheck()
     }
   }
   bool fuelCost=false;
-  if(PlayerResources[2]>20)
+  if(PlayerResources[2]>FleetFuelCost)
   {
     fuelCost=true;
   }

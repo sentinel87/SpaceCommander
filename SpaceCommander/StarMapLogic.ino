@@ -79,6 +79,9 @@ int8_t starMap(int Astronomy)
       stDropDownMenu=false;
       if(stSelection==1)
       {
+        Fleet spyFleet={3,true,0,0,1,0,0,0,0,0,0};
+        CustomFleet=spyFleet;
+        setFleetParameters();
         return 21; //SPY MISSION CONFIRMATION
       }
       else if(stSelection==3)
@@ -136,5 +139,48 @@ void selectedPlanet()
     }
   }
   SelectedPlanet={false,"",0,0,false,"None",0,0,0,false,false,-1,false};
+}
+
+void setFleetParameters()
+{
+  FleetFuelCost=0;
+  int Speed=0; //in seconds per 1 unit 
+  //Calculate distance
+  int distance=0;
+  if(SelectedPlanet.posX<38)
+  {
+    distance+=38-SelectedPlanet.posX;
+  }
+  else
+  {
+    distance+=SelectedPlanet.posX-38;
+  }
+  if(SelectedPlanet.posY<28)
+  {
+    distance+=28-SelectedPlanet.posY;
+  }
+  else
+  {
+    distance+=SelectedPlanet.posY-28;
+  }
+  //Calculate fuel cost
+  if(CustomFleet.SpyBots>0)
+  {
+    FleetFuelCost+=CustomFleet.SpyBots*(30-TechTree[2].level); //Jet Proplusion decrease cost
+    Speed=5;
+  }
+  //Calculate minutes and seconds (1 unit - speed)
+  int totalSeconds=distance*Speed;
+  if(totalSeconds>59) //at least 1 minute
+  {
+    int minutes=totalSeconds/60;
+    int seconds=totalSeconds-(minutes*60);
+    CustomFleet.Seconds=seconds;
+    CustomFleet.Minutes=minutes;
+  }
+  else
+  {
+    CustomFleet.Seconds=totalSeconds;
+  }
 }
 

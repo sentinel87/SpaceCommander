@@ -203,6 +203,10 @@ Fleet EnemyFleets[]={
   {4,false,1,20,0,0,0,0,0,0,0}
 };
 
+Fleet CustomFleet={0,false,0,0,0,0,0,0,0,0,0};
+
+int FleetFuelCost=0;
+
 int8_t PlayerShips[]={
   0, //Fighter
   0, //Interceptor
