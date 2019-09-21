@@ -24,6 +24,7 @@ int8_t starMap(int Astronomy)
       if(stPosY!=0)
       {
         stPosY--;
+        selectedPlanet();
       } 
     }
   }
@@ -45,6 +46,7 @@ int8_t starMap(int Astronomy)
       if(stPosY!=56)
       {
         stPosY++;
+        selectedPlanet();
       } 
     }
   }
@@ -55,6 +57,7 @@ int8_t starMap(int Astronomy)
       if(stPosX!=0)
       {
         stPosX--;
+        selectedPlanet();
       }
     }
   }
@@ -65,6 +68,7 @@ int8_t starMap(int Astronomy)
       if(stPosX!=76)
       {
         stPosX++;
+        selectedPlanet();
       }
     }
   }
@@ -73,7 +77,11 @@ int8_t starMap(int Astronomy)
     if(stDropDownMenu==true)
     {
       stDropDownMenu=false;
-      if(stSelection==3)
+      if(stSelection==1)
+      {
+        return 21; //SPY MISSION CONFIRMATION
+      }
+      else if(stSelection==3)
       {
         return 20; //FLEET SELECTION SCREEN
       }
@@ -81,8 +89,11 @@ int8_t starMap(int Astronomy)
     }
     else
     {
-      stDropDownMenu=true;
-      stSelection=1;
+      if(SelectedPlanet.Name!="")
+      {
+        stDropDownMenu=true;
+        stSelection=1; 
+      }
     }
   }
   else if(gb.buttons.pressed(BUTTON_B))
@@ -112,5 +123,18 @@ int8_t starMap(int Astronomy)
   //gb.display.setCursor(10, 19);
   //gb.display.println(Astronomy);
   return 3;
+}
+
+void selectedPlanet()
+{
+  for(int i=0;i<30;i++)
+  {
+    if(System[i].posX==stPosX && System[i].posY==stPosY && System[i].Discovered==true)
+    {
+      SelectedPlanet=System[i];
+      return;
+    }
+  }
+  SelectedPlanet={false,"",0,0,false,"None",0,0,0,false,false,-1,false};
 }
 

@@ -1409,22 +1409,25 @@ Image FleetSelector(IMAGE_FLEET_SELECT);
 
 void drawMap(int astronomy,int posX,int posY)
 {
-  gb.display.drawImage(0,0,IMAGE_MAIN_THEME);
+  gb.display.drawImage(0,0,IMAGE_MAIN_THEME,0,6,79,58);
   int mapSize=1+astronomy*2;
   gb.display.drawImage((79-mapSize)/2,(59-mapSize)/2,IMAGE_MAP,(79-mapSize)/2,(59-mapSize)/2,mapSize,mapSize);
   gb.display.drawImage(posX,posY,Cursor);
+  gb.display.setColor(RED);
+  gb.display.setCursor(1,58);
+  gb.display.println(SelectedPlanet.Name);
 }
 
 void drawPlanetsColors()
 {
   for(int i=0;i<30;i++)
   {
-    if(System[i].Hostile==true)
+    if(System[i].Hostile==true && System[i].Status==true)
     {
       gb.display.setColor(RED);
       gb.display.fillRect(System[i].posX+1,System[i].posY+1,1,1);
     }
-    else if(System[i].Discovered==true)
+    else if(System[i].Discovered==true && System[i].Status==true)
     {
       gb.display.setColor(LIGHTGREEN);
       gb.display.fillRect(System[i].posX+1,System[i].posY+1,1,1);
@@ -1938,6 +1941,37 @@ void drawFleetSelection(int posY, bool selectedShip, Fleet CustomFleet,int quant
   {
     gb.display.setColor(GRAY);
     gb.display.drawRect(0,posY,80,9);
+  }
+}
+
+void drawSendFleetConfirmation(int fuelCost, int mission)
+{
+  gb.display.drawImage(0,7,IMAGE_MAIN_THEME,0,6,80,57);
+  gb.display.setColor(BLUE);
+  gb.display.drawRect(1,1,3,3);
+  gb.display.setCursor(6,0);
+  gb.display.setFontSize(1);
+  gb.display.println(PlayerResources[0]);
+  gb.display.setColor(PURPLE);
+  gb.display.drawRect(27,1,3,3);
+  gb.display.setCursor(33,0);
+  gb.display.println(PlayerResources[1]);
+  gb.display.setColor(YELLOW);
+  gb.display.drawRect(54,1,3,3);
+  gb.display.setCursor(60,0);
+  gb.display.println(PlayerResources[2]);
+  gb.display.setColor(BLACK);
+  gb.display.setCursor(2,8);
+  gb.display.println("PLANET: "+SelectedPlanet.Name);
+  gb.display.setCursor(2,15);
+  gb.display.println("MISSION: ");
+  gb.display.setCursor(2,22);
+  gb.display.println("FUEL COST: ");
+  gb.display.setCursor(40,15);
+  if(mission==3)
+  {
+    gb.display.setColor(ORANGE);
+    gb.display.println("SCOUT");
   }
 }
 

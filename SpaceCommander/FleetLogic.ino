@@ -306,6 +306,61 @@ bool battleResults()
   return false;
 }
 
+bool sendSpy()
+{
+  if(gb.buttons.pressed(BUTTON_B))
+  {
+    return true;
+  }
+  else if(gb.buttons.pressed(BUTTON_A))
+  {
+    if(fleetPreStartCheck()==true)
+    {
+      PlayerResources[2]-=20;
+      for(int i=0;i<5;i++)
+      {
+        if(PlayerFleets[i].Active==false)
+        {
+          PlayerShips[6]--;
+          Fleet spyFleet={3,true,0,25,1,0,0,0,0,0,0};
+          PlayerFleets[i]=spyFleet;
+          break;
+        }
+      }
+      return true;
+    }
+    else
+    {
+      return false; 
+    }
+  }
+  drawSendFleetConfirmation(20,3);
+  return false;
+}
+
+bool fleetPreStartCheck()
+{
+  if(PlayerShips[6]==0)
+  {
+    return false;
+  }
+  bool fleetSlot=false;
+  for(int i=0;i<5;i++)
+  {
+    if(PlayerFleets[i].Active==false)
+    {
+      fleetSlot=true;
+      break;
+    }
+  }
+  bool fuelCost=false;
+  if(PlayerResources[2]>20)
+  {
+    fuelCost=true;
+  }
+  return fleetSlot && fuelCost;
+}
+
 int scoutReports()
 {
   if(gb.buttons.pressed(BUTTON_B))
