@@ -179,6 +179,7 @@ struct Fleet
   int8_t Minutes;
   int8_t Seconds;
   int SpyBots;
+  int Colonizers;
   int Fighters;
   int Interceptors;
   int Frigates;
@@ -189,22 +190,22 @@ struct Fleet
 };
 
 Fleet PlayerFleets[]={
-  {1,false,0,20,0,0,0,0,0,0,0,""},
-  {2,false,0,30,0,0,0,0,0,0,0,""},
-  {3,false,0,40,0,0,0,0,0,0,0,""},
-  {1,false,0,50,0,0,0,0,0,0,0,""},
-  {1,false,1,20,0,0,0,0,0,0,0,""}
+  {1,false,0,20,0,0,0,0,0,0,0,0,""},
+  {2,false,0,30,0,0,0,0,0,0,0,0,""},
+  {3,false,0,40,0,0,0,0,0,0,0,0,""},
+  {1,false,0,50,0,0,0,0,0,0,0,0,""},
+  {1,false,1,20,0,0,0,0,0,0,0,0,""}
 };
 
 Fleet EnemyFleets[]={
-  {4,false,0,20,0,0,0,0,0,0,0,""},
-  {4,false,0,30,0,0,0,0,0,0,0,""},
-  {4,false,0,40,0,0,0,0,0,0,0,""},
-  {4,false,0,50,0,0,0,0,0,0,0,""},
-  {4,false,1,20,0,0,0,0,0,0,0,""}
+  {4,false,0,20,0,0,0,0,0,0,0,0,""},
+  {4,false,0,30,0,0,0,0,0,0,0,0,""},
+  {4,false,0,40,0,0,0,0,0,0,0,0,""},
+  {4,false,0,50,0,0,0,0,0,0,0,0,""},
+  {4,false,1,20,0,0,0,0,0,0,0,0,""}
 };
 
-Fleet CustomFleet={0,false,0,0,0,0,0,0,0,0,0,""};
+Fleet CustomFleet={0,false,0,0,0,0,0,0,0,0,0,0,""};
 
 int FleetFuelCost=0;
 
@@ -216,7 +217,7 @@ int8_t PlayerShips[]={
   0, //Star Dreadnought
   0, //Solar Destroyer
   3, //Spy Bot
-  0, //Colonizer
+  1, //Colonizer
   0, //Metal Transport
   0, //Crystal Transport
   0  //Fuel Transport
@@ -287,6 +288,7 @@ bool fight=false;
 //Fleet Selection
 bool flSelection=false;
 bool spyMission=false;
+bool colonizeMission=false;
 
 void setup() {
   gb.begin();
@@ -319,6 +321,14 @@ void loop() {
     if(selected==true)
     {
       spyMission=false;
+    }
+  }
+  else if(colonizeMission==true)// set spy to scout
+  {
+    bool selected=sendColonizer();
+    if(selected==true)
+    {
+      colonizeMission=false;
     }
   }
   else
@@ -370,6 +380,11 @@ void loop() {
     {
       ScreenSelection=3; //RETURN TO STAR MAP AFTER FLEET SELECTION
       spyMission=true;
+    }
+    else if(ScreenSelection==22)
+    {
+      ScreenSelection=3; //RETURN TO STAR MAP AFTER FLEET SELECTION
+      colonizeMission=true;
     }
   }
 }
@@ -443,7 +458,12 @@ void updatePlayerFleetTime(int index)
   {
     PlayerFleets[index].Seconds=0;
     PlayerFleets[index].Active=false;
-    if(PlayerFleets[index].Type==3)
+    if(PlayerFleets[index].Type==2)
+    {
+      gb.lights.fill(BLUE);
+      colonizePlanet(PlayerFleets[index]);
+    }
+    else if(PlayerFleets[index].Type==3)
     {
       gb.lights.fill(YELLOW);
       scoutMission(PlayerFleets[index]);
@@ -454,7 +474,7 @@ void updatePlayerFleetTime(int index)
     PlayerFleets[index].Seconds--;
   }
 }
-
+//Fleet reached destination (Actions) 
 void scoutMission(Fleet fleet)
 {
   for(int i=0;i<30;i++)
@@ -476,6 +496,20 @@ void scoutMission(Fleet fleet)
   }
 }
 
+void colonizePlanet(Fleet fleet)
+{
+  for(int i=0;i<30;i++)
+  {
+    if(System[i].Name==fleet.DestinationName)
+    {
+      System[i].Owned=true;
+      break;
+    }
+  }
+  String info=fleet.DestinationName + " COLONIZED!";
+  gb.gui.popup("PLANET COLONIZED!",50);
+}
+
 void generateScoutReport(Report report)
 {
   Report Temp[5]=IntelligenceReports;
@@ -486,6 +520,8 @@ void generateScoutReport(Report report)
   }
   gb.gui.popup("NEW SCOUT REPORT!",50);
 }
+
+//----------------------------------------------
 
 void updateResources()
 {

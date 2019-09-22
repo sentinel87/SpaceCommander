@@ -79,10 +79,17 @@ int8_t starMap(int Astronomy)
       stDropDownMenu=false;
       if(stSelection==1)
       {
-        Fleet spyFleet={3,true,0,0,1,0,0,0,0,0,0,SelectedPlanet.Name};
+        Fleet spyFleet={3,true,0,0,1,0,0,0,0,0,0,0,SelectedPlanet.Name};
         CustomFleet=spyFleet;
         setFleetParameters();
         return 21; //SPY MISSION CONFIRMATION
+      }
+      else if(stSelection==2)
+      {
+        Fleet colonizationFleet={2,true,0,0,0,1,0,0,0,0,0,0,SelectedPlanet.Name};
+        CustomFleet=colonizationFleet;
+        setFleetParameters();
+        return 22; //COLONIZATION MISSION CONFIRMATION
       }
       else if(stSelection==3)
       {
@@ -167,6 +174,11 @@ void setFleetParameters()
   if(CustomFleet.SpyBots>0)
   {
     FleetFuelCost+=CustomFleet.SpyBots*(30-TechTree[2].level); //Jet Proplusion decrease cost
+    Speed=2;
+  }
+  else if(CustomFleet.Colonizers>0)
+  {
+    FleetFuelCost+=CustomFleet.Colonizers*(300-(TechTree[2].level*2)); //Jet Proplusion decrease cost
     Speed=5;
   }
   //Calculate minutes and seconds (1 unit - speed)

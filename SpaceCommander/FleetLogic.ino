@@ -315,7 +315,7 @@ bool sendSpy()
   {
     if(fleetPreStartCheck()==true)
     {
-      PlayerResources[2]-=20;
+      PlayerResources[2]-=FleetFuelCost;
       for(int i=0;i<5;i++)
       {
         if(PlayerFleets[i].Active==false)
@@ -334,6 +334,38 @@ bool sendSpy()
     }
   }
   drawSendFleetConfirmation(3);
+  return false;
+}
+
+bool sendColonizer()
+{
+  if(gb.buttons.pressed(BUTTON_B))
+  {
+    return true;
+  }
+  else if(gb.buttons.pressed(BUTTON_A))
+  {
+    if(fleetPreStartCheck()==true)
+    {
+      PlayerResources[2]-=FleetFuelCost;
+      for(int i=0;i<5;i++)
+      {
+        if(PlayerFleets[i].Active==false)
+        {
+          PlayerShips[7]--;
+          PlayerFleets[i]=CustomFleet;
+          gb.gui.popup("FLEET SEND!",50);
+          break;
+        }
+      }
+      return true;
+    }
+    else
+    {
+      return false; 
+    }
+  }
+  drawSendFleetConfirmation(2);
   return false;
 }
 
