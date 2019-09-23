@@ -41,11 +41,11 @@ int playerFleetStats()
   return 10;
 }
 
-bool playerFleetSelection()
+int playerFleetSelection()
 {
   if(gb.buttons.pressed(BUTTON_B))
   {
-    return true;
+    return 0;
   }
   else if(gb.buttons.pressed(BUTTON_UP))
   {
@@ -135,6 +135,7 @@ bool playerFleetSelection()
   {
     if(flSelectedShip==true)
     {
+      checkQuantity();
       flSelectedShip=false;
     }
     else if(flSelectedShip==false && flShipSelection!=7)
@@ -144,11 +145,13 @@ bool playerFleetSelection()
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
-    PlayerFleets[0]=CustomFleet;
-    return true;
+    if(flSelectedShip!=true && (CustomFleet.Fighters!=0 || CustomFleet.Interceptors!=0 || CustomFleet.Frigates!=0 || CustomFleet.WarCruisers!=0 || CustomFleet.StarDreadnoughts!=0 || CustomFleet.SolarDestroyers!=0))
+    {
+      return 2; 
+    }
   }
   drawFleetSelection(flMarker2PosY,flSelectedShip,flQuantity);
-  return false;
+  return 1;
 }
 
 void increaseShips()
@@ -273,6 +276,61 @@ void decreaseShips()
   }
 }
 
+void checkQuantity()
+{
+  switch(flShipSelection)
+  {
+    case 1:
+    {
+      if(CustomFleet.Fighters>PlayerShips[0])
+      {
+        CustomFleet.Fighters=PlayerShips[0];
+      }
+    }
+    break;
+    case 2:
+    {
+      if(CustomFleet.Interceptors>PlayerShips[1])
+      {
+        CustomFleet.Interceptors=PlayerShips[1];
+      }
+    }
+    break;
+    case 3:
+    {
+      if(CustomFleet.Frigates>PlayerShips[2])
+      {
+        CustomFleet.Frigates=PlayerShips[2];
+      }
+    }
+    break;
+    case 4:
+    {
+      if(CustomFleet.WarCruisers>PlayerShips[3])
+      {
+        CustomFleet.WarCruisers=PlayerShips[3];
+      }
+    }
+    break;
+    case 5:
+    {
+      if(CustomFleet.StarDreadnoughts>PlayerShips[4])
+      {
+        CustomFleet.StarDreadnoughts=PlayerShips[4];
+      }
+    }
+    break;
+    case 6:
+    {
+      if(CustomFleet.SolarDestroyers>PlayerShips[5])
+      {
+        CustomFleet.SolarDestroyers=PlayerShips[5];
+      }
+    }
+    break;
+  }
+}
+
 bool battleResults()
 {
   if(gb.buttons.pressed(BUTTON_B))
@@ -369,12 +427,40 @@ bool sendColonizer()
   return false;
 }
 
+bool sendAttack()
+{
+  if(gb.buttons.pressed(BUTTON_B))
+  {
+    return true;
+  }
+  else if(gb.buttons.pressed(BUTTON_A))
+  {
+    if(fleetPreStartCheck()==true)
+    {
+      PlayerResources[2]-=FleetFuelCost;
+      for(int i=0;i<5;i++)
+      {
+        if(PlayerFleets[i].Active==false)
+        {
+          
+          PlayerFleets[i]=CustomFleet;
+          gb.gui.popup("FLEET SEND!",50);
+          break;
+        }
+      }
+      return true;
+    }
+    else
+    {
+      return false; 
+    }
+  }
+  drawSendFleetConfirmation(1);
+  return false;
+}
+
 bool fleetPreStartCheck()
 {
-  if(PlayerShips[6]==0)
-  {
-    return false;
-  }
   bool fleetSlot=false;
   for(int i=0;i<5;i++)
   {

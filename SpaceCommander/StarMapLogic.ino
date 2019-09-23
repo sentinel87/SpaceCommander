@@ -93,6 +93,8 @@ int8_t starMap(int Astronomy)
       }
       else if(stSelection==3)
       {
+        Fleet attackFleet={1,true,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name};
+        CustomFleet=attackFleet;
         return 20; //FLEET SELECTION SCREEN
       }
       //CHOICE LOGIC
@@ -176,10 +178,41 @@ void setFleetParameters()
     FleetFuelCost+=CustomFleet.SpyBots*(30-TechTree[2].level); //Jet Proplusion decrease cost
     Speed=2;
   }
-  else if(CustomFleet.Colonizers>0)
+  if(CustomFleet.Colonizers>0)
   {
     FleetFuelCost+=CustomFleet.Colonizers*(300-(TechTree[2].level*2)); //Jet Proplusion decrease cost
     Speed=5;
+  }
+  if(CustomFleet.Fighters>0)
+  {
+    FleetFuelCost+=CustomFleet.Fighters;
+    Speed=13;
+  }
+  if(CustomFleet.Interceptors>0)
+  {
+    FleetFuelCost+=CustomFleet.Interceptors*5;
+    Speed=15;
+  }
+  if(CustomFleet.Frigates>0)
+  {
+    FleetFuelCost+=CustomFleet.Frigates*10;
+    Speed=17;
+  }
+  if(CustomFleet.WarCruisers>0)
+  {
+    FleetFuelCost+=CustomFleet.WarCruisers*20;
+    if(Speed>10 || Speed==0)
+    {
+      Speed=10; 
+    }
+  }
+  if(CustomFleet.StarDreadnoughts>0)
+  {
+    FleetFuelCost+=CustomFleet.StarDreadnoughts*40;
+    if(Speed>8 || Speed==0)
+    {
+      Speed=8; 
+    }
   }
   //Calculate minutes and seconds (1 unit - speed)
   int totalSeconds=distance*Speed;

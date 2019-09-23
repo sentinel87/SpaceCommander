@@ -209,13 +209,13 @@ Fleet CustomFleet={0,false,0,0,0,0,0,0,0,0,0,0,""};
 
 int FleetFuelCost=0;
 
-int8_t PlayerShips[]={
-  0, //Fighter
-  0, //Interceptor
-  0, //Frigate
-  0, //War Cruiser
-  0, //Star Dreadnought
-  0, //Solar Destroyer
+int PlayerShips[]={
+  1000, //Fighter
+  500, //Interceptor
+  250, //Frigate
+  125, //War Cruiser
+  60, //Star Dreadnought
+  1, //Solar Destroyer
   3, //Spy Bot
   1, //Colonizer
   0, //Metal Transport
@@ -288,6 +288,7 @@ bool fight=false;
 //Fleet Selection
 bool flSelection=false;
 bool spyMission=false;
+bool attackMission=false;
 bool colonizeMission=false;
 
 void setup() {
@@ -308,11 +309,24 @@ void loop() {
   }
   else if(flSelection==true)// set fleet to attack
   {
-    bool selected=playerFleetSelection();
-    if(selected==true)
+    int selected=playerFleetSelection();
+    if(selected==2)
+    {
+      setFleetParameters();
+      attackMission=true;
+      flSelection=false;
+    }
+    else if(selected==0)
     {
       flSelection=false;
-      PlayerFleets[0].Active=true;
+    }
+  }
+  else if(attackMission==true)
+  {
+    bool selected=sendAttack();
+    if(selected==true)
+    {
+      attackMission=false;
     }
   }
   else if(spyMission==true)// set spy to scout
@@ -458,7 +472,12 @@ void updatePlayerFleetTime(int index)
   {
     PlayerFleets[index].Seconds=0;
     PlayerFleets[index].Active=false;
-    if(PlayerFleets[index].Type==2)
+    if(PlayerFleets[index].Type==1)
+    {
+      gb.lights.fill(GREEN);
+      //TODO: Attack report + return fleet
+    }
+    else if(PlayerFleets[index].Type==2)
     {
       gb.lights.fill(BLUE);
       colonizePlanet(PlayerFleets[index]);

@@ -1969,6 +1969,13 @@ void drawFleetSelection(int posY, bool selectedShip,int quantity)
   gb.display.println(CustomFleet.StarDreadnoughts);
   gb.display.setCursor(40,49);
   gb.display.println(CustomFleet.SolarDestroyers);
+  gb.display.drawImage(2,56,IMAGE_OK_BTN);
+  gb.display.drawImage(64,56,IMAGE_CANCEL_BTN);
+  gb.display.setColor(WHITE);
+  gb.display.setCursor(4,57);
+  gb.display.println("A");
+  gb.display.setCursor(66,57);
+  gb.display.println("B");
   if(selectedShip==true)
   {
     gb.display.setColor(RED);
@@ -2009,7 +2016,12 @@ void drawSendFleetConfirmation(int mission)
   gb.display.setCursor(2,29);
   gb.display.println("FLIGHT TIME: ");
   gb.display.setCursor(35,15);
-  if(mission==2)
+  if(mission==1)
+  {
+    gb.display.setColor(RED);
+    gb.display.println("ATTACK");
+  }
+  else if(mission==2)
   {
     gb.display.setColor(BLUE);
     gb.display.println("COLONIZE");
