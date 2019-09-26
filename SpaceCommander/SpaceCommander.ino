@@ -72,11 +72,11 @@ struct Technology
 Technology TechTree[]={
   {1,"Astronomy",0,1,100,100,0,"Increases visibility on the Star Map.","None",0,0},
   {2,"Espionage",0,0,250,50,50,"Unlocks Spy Bots unit and Intelligence building.","Astronomy",1,2},
-  {3,"Jet Proplusion",0,0,100,100,100,"Unlocks Fighter unit and increases it's speed.","Astronomy",1,2},
-  {4,"Default",0,0,0,0,0,"Default","None",0,0},
-  {5,"Default",0,0,0,0,0,"Default","None",0,0},
+  {3,"Jet Proplusion",0,0,100,100,100,"Unlocks Fighters and increases theirs speed.","Astronomy",1,2},
+  {4,"Impulse Engine",0,0,50,250,200,"Unlocks Frigates and increases their speed.","Jet Proplusion",3,5},
+  {5,"Hyperdrive",0,0,100,500,400,"Unlocks War Cruisers and increases their speed.","None",4,5},
   {6,"Logistics",0,0,120,120,50,"+ 1 to Star Routes and Colonies.","Astronomy",1,4},
-  {7,"Default",0,0,0,0,0,"Default","None",0,0},
+  {7,"Radiolocation",0,0,100,150,0,"Unlock Radar building and increases visibility.","None",2,0},
   {8,"Default",0,0,0,0,0,"Default","None",0,0},
   {9,"Default",0,0,0,0,0,"Default","None",0,0},
   {10,"Default",0,0,0,0,0,"Default","None",0,0},
@@ -114,8 +114,8 @@ Building Colony[]={
   {2,"Metal Mine",0,1,"Deliver metal resource.",0,0,0,"None",0,0,1,2},
   {3,"Crystal Mine",0,1,"Deliver crystal resource.",0,0,0,"None",0,0,1,2},
   {4,"Fuel Refinery",0,1,"Deliver fuel resource.",0,0,0,"None",0,0,1,2},
-  {5,"None",0,1,"None",0,0,0,"None",0,0},
-  {6,"None",0,1,"None",0,0,0,"None",0,0},
+  {5,"Intelligence",0,0,"Reveal more intel in enemy reports.",0,0,0,"None",2,0,0,0},
+  {6,"Radar",0,0,"Detects enemy fleets +1 visibility/lvl.",0,0,0,"None",7,0,5,0},
   {7,"None",0,1,"None",0,0,0,"None",0,0},
   {8,"None",0,1,"None",0,0,0,"None",0,0},
   {9,"None",0,1,"None",0,0,0,"None",0,0},
@@ -174,7 +174,7 @@ EnemyGarrison Enemy1Garrison[]={
 
 struct Fleet
 {
-  int8_t Type; //1 - player armada 2 - Colonize 3 - Spy 4 - Enemy
+  int8_t Type; //1 - player armada 2 - Colonize 3 - Spy 4 - Enemy 5 - Return
   bool Active;
   int8_t Minutes;
   int8_t Seconds;
@@ -190,11 +190,11 @@ struct Fleet
 };
 
 Fleet PlayerFleets[]={
-  {1,false,0,20,0,0,0,0,0,0,0,0,""},
-  {2,false,0,30,0,0,0,0,0,0,0,0,""},
-  {3,false,0,40,0,0,0,0,0,0,0,0,""},
-  {1,false,0,50,0,0,0,0,0,0,0,0,""},
-  {1,false,1,20,0,0,0,0,0,0,0,0,""}
+  {0,false,0,0,0,0,0,0,0,0,0,0,""},
+  {0,false,0,0,0,0,0,0,0,0,0,0,""},
+  {0,false,0,0,0,0,0,0,0,0,0,0,""},
+  {0,false,0,0,0,0,0,0,0,0,0,0,""},
+  {0,false,0,0,0,0,0,0,0,0,0,0,""}
 };
 
 Fleet EnemyFleets[]={
@@ -210,12 +210,12 @@ Fleet CustomFleet={0,false,0,0,0,0,0,0,0,0,0,0,""};
 int FleetFuelCost=0;
 
 int PlayerShips[]={
-  1000, //Fighter
-  500, //Interceptor
-  250, //Frigate
-  125, //War Cruiser
-  60, //Star Dreadnought
-  1, //Solar Destroyer
+  10, //Fighter
+  10, //Interceptor
+  10, //Frigate
+  10, //War Cruiser
+  10, //Star Dreadnought
+  10, //Solar Destroyer
   3, //Spy Bot
   1, //Colonizer
   0, //Metal Transport
@@ -470,22 +470,31 @@ void updatePlayerFleetTime(int index)
   }
   else if(PlayerFleets[index].Seconds==0 && PlayerFleets[index].Minutes==0)
   {
+    Fleet Cleanup={0,false,0,20,0,0,0,0,0,0,0,0,""};
     PlayerFleets[index].Seconds=0;
     PlayerFleets[index].Active=false;
     if(PlayerFleets[index].Type==1)
     {
       gb.lights.fill(GREEN);
-      //TODO: Attack report + return fleet
+      attackPlanet(index);
     }
     else if(PlayerFleets[index].Type==2)
     {
       gb.lights.fill(BLUE);
       colonizePlanet(PlayerFleets[index]);
+      PlayerFleets[index]=Cleanup;
     }
     else if(PlayerFleets[index].Type==3)
     {
       gb.lights.fill(YELLOW);
       scoutMission(PlayerFleets[index]);
+      PlayerFleets[index]=Cleanup;
+    }
+    else if(PlayerFleets[index].Type==5)
+    {
+      gb.lights.fill(GREEN);
+      fleetReturns(PlayerFleets[index]);
+      PlayerFleets[index]=Cleanup;
     }
   }
   else
@@ -525,7 +534,6 @@ void colonizePlanet(Fleet fleet)
       break;
     }
   }
-  String info=fleet.DestinationName + " COLONIZED!";
   gb.gui.popup("PLANET COLONIZED!",50);
 }
 
@@ -540,6 +548,26 @@ void generateScoutReport(Report report)
   gb.gui.popup("NEW SCOUT REPORT!",50);
 }
 
+void attackPlanet(int index)
+{
+  PlayerFleets[index].Active=true;
+  //TODO: Battle Function
+  if(true) //If fleet wasn't destroyed
+  {
+    setFleetReturnParameters(index);
+  }
+}
+
+void fleetReturns(Fleet fleet)
+{
+  PlayerShips[0]+=fleet.Fighters;
+  PlayerShips[1]+=fleet.Interceptors;
+  PlayerShips[2]+=fleet.Frigates;
+  PlayerShips[3]+=fleet.WarCruisers;
+  PlayerShips[4]+=fleet.StarDreadnoughts;
+  PlayerShips[5]+=fleet.SolarDestroyers;
+  gb.gui.popup("FLEET HAS RETURNED!",50);
+}
 //----------------------------------------------
 
 void updateResources()

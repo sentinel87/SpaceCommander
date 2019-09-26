@@ -442,7 +442,12 @@ bool sendAttack()
       {
         if(PlayerFleets[i].Active==false)
         {
-          
+          PlayerShips[0]-=CustomFleet.Fighters;
+          PlayerShips[1]-=CustomFleet.Interceptors;
+          PlayerShips[2]-=CustomFleet.Frigates;
+          PlayerShips[3]-=CustomFleet.WarCruisers;
+          PlayerShips[4]-=CustomFleet.StarDreadnoughts;
+          PlayerShips[5]-=CustomFleet.SolarDestroyers;
           PlayerFleets[i]=CustomFleet;
           gb.gui.popup("FLEET SEND!",50);
           break;

@@ -229,3 +229,75 @@ void setFleetParameters()
   }
 }
 
+void setFleetReturnParameters(int index)
+{
+  Planet StartPlanet={false,"none",0,0,false,"Player",0,0,0,false,false,-1,false};
+  for(int i=0;i<30;i++)
+  {
+    if(System[i].Name==PlayerFleets[index].DestinationName)
+    {
+      StartPlanet=System[i];
+      break;
+    } 
+  }
+  int Speed=0; //in seconds per 1 unit 
+  //Calculate distance
+  int distance=0;
+  if(StartPlanet.posX<38)
+  {
+    distance+=38-StartPlanet.posX;
+  }
+  else
+  {
+    distance+=StartPlanet.posX-38;
+  }
+  if(SelectedPlanet.posY<28)
+  {
+    distance+=28-StartPlanet.posY;
+  }
+  else
+  {
+    distance+=StartPlanet.posY-28;
+  }
+  //Calculate max speed
+  if(PlayerFleets[index].Fighters>0)
+  {
+    Speed=13;
+  }
+  if(PlayerFleets[index].Interceptors>0)
+  {
+    Speed=15;
+  }
+  if(PlayerFleets[index].Frigates>0)
+  {
+    Speed=17;
+  }
+  if(PlayerFleets[index].WarCruisers>0)
+  {
+    if(Speed>10 || Speed==0)
+    {
+      Speed=10; 
+    }
+  }
+  if(PlayerFleets[index].StarDreadnoughts>0)
+  {
+    if(Speed>8 || Speed==0)
+    {
+      Speed=8; 
+    }
+  }
+  //Calculate minutes and seconds (1 unit - speed)
+  int totalSeconds=distance*Speed;
+  if(totalSeconds>59) //at least 1 minute
+  {
+    int minutes=totalSeconds/60;
+    int seconds=totalSeconds-(minutes*60);
+    PlayerFleets[index].Seconds=seconds;
+    PlayerFleets[index].Minutes=minutes;
+  }
+  else
+  {
+    PlayerFleets[index].Seconds=totalSeconds;
+  }
+  PlayerFleets[index].Type=5; //set returning fleet
+}
