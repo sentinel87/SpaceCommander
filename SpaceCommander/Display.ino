@@ -1682,7 +1682,7 @@ void drawEnemyFleets(int posX,int posY)
   int ActiveFleets=0;
   for(int i=0;i<5;i++)
   {
-    if(EnemyFleets[i].Active==true)
+    if(EnemyFleets[i].Active==true && EnemyFleets[i].Visible==true)
     {
       gb.display.drawImage(1,posFlY,IMAGE_FLEET_ROW_ENEMY);
       gb.display.setColor(WHITE);

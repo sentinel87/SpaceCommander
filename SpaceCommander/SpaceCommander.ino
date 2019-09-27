@@ -115,7 +115,7 @@ Building Colony[]={
   {3,"Crystal Mine",0,1,"Deliver crystal resource.",0,0,0,"None",0,0,1,2},
   {4,"Fuel Refinery",0,1,"Deliver fuel resource.",0,0,0,"None",0,0,1,2},
   {5,"Intelligence",0,0,"Reveal more intel in enemy reports.",0,0,0,"None",2,0,0,0},
-  {6,"Radar",0,0,"Detects enemy fleets +1 visibility/lvl.",0,0,0,"None",7,0,5,0},
+  {6,"Radar",0,19,"Detects enemy fleets +1 visibility/lvl.",0,0,0,"None",7,0,5,0},
   {7,"None",0,1,"None",0,0,0,"None",0,0},
   {8,"None",0,1,"None",0,0,0,"None",0,0},
   {9,"None",0,1,"None",0,0,0,"None",0,0},
@@ -187,25 +187,27 @@ struct Fleet
   int StarDreadnoughts;
   int SolarDestroyers;
   String DestinationName;
+  bool Visible;
 };
 
 Fleet PlayerFleets[]={
-  {0,false,0,0,0,0,0,0,0,0,0,0,""},
-  {0,false,0,0,0,0,0,0,0,0,0,0,""},
-  {0,false,0,0,0,0,0,0,0,0,0,0,""},
-  {0,false,0,0,0,0,0,0,0,0,0,0,""},
-  {0,false,0,0,0,0,0,0,0,0,0,0,""}
+  {0,false,0,0,0,0,0,0,0,0,0,0,"",true},
+  {0,false,0,0,0,0,0,0,0,0,0,0,"",true},
+  {0,false,0,0,0,0,0,0,0,0,0,0,"",true},
+  {0,false,0,0,0,0,0,0,0,0,0,0,"",true},
+  {0,false,0,0,0,0,0,0,0,0,0,0,"",true}
 };
 
 Fleet EnemyFleets[]={
-  {4,false,0,20,0,0,0,0,0,0,0,0,""},
-  {4,false,0,30,0,0,0,0,0,0,0,0,""},
-  {4,false,0,40,0,0,0,0,0,0,0,0,""},
-  {4,false,0,50,0,0,0,0,0,0,0,0,""},
-  {4,false,1,20,0,0,0,0,0,0,0,0,""}
+  {4,false,0,20,0,0,0,0,0,0,0,0,"",false},
+  {4,false,0,30,0,0,0,0,0,0,0,0,"",false},
+  {4,false,0,40,0,0,0,0,0,0,0,0,"",false},
+  {4,false,0,50,0,0,0,0,0,0,0,0,"",false},
+  {4,false,1,20,0,0,0,0,0,0,0,0,"",false}
 };
 
-Fleet CustomFleet={0,false,0,0,0,0,0,0,0,0,0,0,""};
+Fleet CustomFleet={0,false,0,0,0,0,0,0,0,0,0,0,"",false};
+Fleet CustomEnemyFleet={4,false,0,0,0,0,0,0,0,0,0,0,"",false};
 
 int FleetFuelCost=0;
 
@@ -281,6 +283,8 @@ int PlayerResources[]={2200,2200,2000};
 //Timer
 int8_t frames=0;
 bool timeUpdate=false;
+int8_t visibilitySeconds=0;
+int8_t visibilityMinutes=0;
 
 //Attack
 bool fight=false;
@@ -407,10 +411,10 @@ void sendFleet()
 {
   if(gb.buttons.pressed(BUTTON_MENU))
   {
-    //EnemyFleets[0].Active=true;
-    //EnemyFleets[0].Seconds=10;
-    TechTree[0].level++;
-    techEvents();
+    prepareEnemyFleet();
+    EnemyFleets[0]=CustomEnemyFleet;
+    //TechTree[0].level++;
+    //techEvents();
   }
 }
 
@@ -419,12 +423,28 @@ void timeCalculations()
   if(frames==25)// every second tick update game mechanics
   {
     frames=0;
+    updateVisibilityDistance();
     updateResources();
     updateFleets();
   }
   else
   {
     frames++;
+  }
+}
+
+void updateVisibilityDistance()
+{
+  int base=10+(Colony[5].level*10);
+  if(base>59)
+  {
+    visibilityMinutes=base/60;
+    visibilitySeconds=base-(visibilityMinutes*60);
+  }
+  else
+  {
+    visibilityMinutes=0;
+    visibilitySeconds=base;
   }
 }
 
@@ -435,6 +455,12 @@ void updateFleets()
     if(EnemyFleets[i].Active==true)
     {
       updateEnemyFleetTime(i);
+      if(EnemyFleets[i].Minutes==visibilityMinutes && EnemyFleets[i].Seconds==visibilitySeconds)
+      {
+        EnemyFleets[i].Visible=true;
+        gb.lights.fill(RED);
+        gb.gui.popup("INCOMING ATTACK!",50);
+      }
     }
     if(PlayerFleets[i].Active==true)
     {
@@ -568,12 +594,67 @@ void fleetReturns(Fleet fleet)
   PlayerShips[5]+=fleet.SolarDestroyers;
   gb.gui.popup("FLEET HAS RETURNED!",50);
 }
-//----------------------------------------------
+//--------Resources----------------------------
 
 void updateResources()
 {
   PlayerResources[0]+=1;
   PlayerResources[1]+=1;
   PlayerResources[2]+=1;
+}
+
+//--------Enemy Attacks------------------------
+void prepareEnemyFleet()
+{
+  Fleet temp={4,true,0,0,0,0,0,0,0,0,0,0,"",false};
+  CustomEnemyFleet=temp;
+  int Speed=0; //in seconds per 1 unit 
+  int distance=37;
+  //TODO: Fleet ships algorithm
+  CustomEnemyFleet.Fighters=1;
+  CustomEnemyFleet.Interceptors=1;
+  CustomEnemyFleet.Frigates=1;
+  CustomEnemyFleet.WarCruisers=1;
+  CustomEnemyFleet.StarDreadnoughts=1;
+  //Calculate speed
+  if(CustomEnemyFleet.Fighters>0)
+  {
+    Speed=9;
+  }
+  if(CustomEnemyFleet.Interceptors>0)
+  {
+    Speed=11;
+  }
+  if(CustomEnemyFleet.Frigates>0)
+  {
+    Speed=13;
+  }
+  if(CustomEnemyFleet.WarCruisers>0)
+  {
+    if(Speed>7 || Speed==0)
+    {
+      Speed=7; 
+    }
+  }
+  if(CustomEnemyFleet.StarDreadnoughts>0)
+  {
+    if(Speed>6 || Speed==0)
+    {
+      Speed=6; 
+    }
+  }
+  //Calculate minutes and seconds (1 unit - speed)
+  int totalSeconds=distance*Speed;
+  if(totalSeconds>59) //at least 1 minute
+  {
+    int minutes=totalSeconds/60;
+    int seconds=totalSeconds-(minutes*60);
+    CustomEnemyFleet.Seconds=seconds;
+    CustomEnemyFleet.Minutes=minutes;
+  }
+  else
+  {
+    CustomEnemyFleet.Seconds=totalSeconds;
+  }
 }
 

@@ -79,21 +79,21 @@ int8_t starMap(int Astronomy)
       stDropDownMenu=false;
       if(stSelection==1)
       {
-        Fleet spyFleet={3,true,0,0,1,0,0,0,0,0,0,0,SelectedPlanet.Name};
+        Fleet spyFleet={3,true,0,0,1,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
         CustomFleet=spyFleet;
         setFleetParameters();
         return 21; //SPY MISSION CONFIRMATION
       }
       else if(stSelection==2)
       {
-        Fleet colonizationFleet={2,true,0,0,0,1,0,0,0,0,0,0,SelectedPlanet.Name};
+        Fleet colonizationFleet={2,true,0,0,0,1,0,0,0,0,0,0,SelectedPlanet.Name,true};
         CustomFleet=colonizationFleet;
         setFleetParameters();
         return 22; //COLONIZATION MISSION CONFIRMATION
       }
       else if(stSelection==3)
       {
-        Fleet attackFleet={1,true,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name};
+        Fleet attackFleet={1,true,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
         CustomFleet=attackFleet;
         return 20; //FLEET SELECTION SCREEN
       }
