@@ -77,7 +77,7 @@ Technology TechTree[]={
   {5,"Hyperdrive",0,0,100,500,400,"Unlocks War Cruisers and increases their speed.","None",4,5},
   {6,"Logistics",0,0,120,120,50,"+ 1 to Star Routes and Colonies.","Astronomy",1,4},
   {7,"Radiolocation",0,0,100,150,0,"Unlock Radar building and increases visibility.","None",2,0},
-  {8,"Default",0,0,0,0,0,"Default","None",0,0},
+  {8,"Military Science",0,1,100,25,0,"Needed to upgrade shipyard level and build high level ships.","None",0,0},
   {9,"Default",0,0,0,0,0,"Default","None",0,0},
   {10,"Default",0,0,0,0,0,"Default","None",0,0},
   {11,"Default",0,0,0,0,0,"Default","None",0,0},
@@ -115,8 +115,8 @@ Building Colony[]={
   {3,"Crystal Mine",0,1,"Deliver crystal resource.",0,0,0,"None",0,0,1,2},
   {4,"Fuel Refinery",0,1,"Deliver fuel resource.",0,0,0,"None",0,0,1,2},
   {5,"Intelligence",0,0,"Reveal more intel in enemy reports.",0,0,0,"None",2,0,0,0},
-  {6,"Radar",0,19,"Detects enemy fleets +1 visibility/lvl.",0,0,0,"None",7,0,5,0},
-  {7,"None",0,1,"None",0,0,0,"None",0,0},
+  {6,"Radar",0,0,"Detects enemy fleets +1 visibility/lvl.",0,0,0,"None",7,0,5,0},
+  {7,"Shipyard",0,1,"Required to build high level ships.",75,75,75,"None",0,0},
   {8,"None",0,1,"None",0,0,0,"None",0,0},
   {9,"None",0,1,"None",0,0,0,"None",0,0},
   {10,"None",0,1,"None",0,0,0,"None",0,0},
@@ -132,24 +132,24 @@ struct Ship
   String type;
   int8_t imageId;
   String describtion;
+  int resource1Cost;
+  int resource2Cost;
   int8_t hitPoints;
   int8_t attack;
-  int8_t resource1Cost;
-  int8_t resource2Cost;
 };
 
 Ship Shipyard[]={
-  {"Spy Bot",1,"Fragile probe used to scan planets and enemy fleet.",1,1,5,5},
-  {"Fighter",2,"Basic unit. Weak, but swarm of fighters is the basic fleet defence.",1,1,5,5},
-  {"Fighter",3,"Basic unit. Weak, but swarm of fighters is the basic fleet defence.",1,1,5,5},
-  {"Fighter",4,"Basic unit. Weak, but swarm of fighters is the basic fleet defence.",1,1,5,5},
-  {"Fighter",5,"Basic unit. Weak, but swarm of fighters is the basic fleet defence.",1,1,5,5},
-  {"Fighter",6,"Basic unit. Weak, but swarm of fighters is the basic fleet defence.",1,1,5,5},
-  {"Fighter",7,"Basic unit. Weak, but swarm of fighters is the basic fleet defence.",1,1,5,5},
-  {"Metal Cargo Transport",8,"Transport metal from colonies.",1,0,500,5},
-  {"Crystal Cargo Transport",9,"Transport crystals from colonies.",1,0,500,250},
-  {"Tank Cargo Transport",10,"Transport fuel from colonies.",1,0,750,500},
-  {"Colonizer",11,"Set colony on the planet.",5,0,1000,1000}
+  {"Spy Bot",1,"Fragile probe used to scan planets and enemy fleet.",5,5,1,1},
+  {"Fighter",2,"Swarm of fighters is the basic fleet defence.",75,25,1,1},
+  {"Interceptor",3,"Ship designed to hunt fighters.",150,75,1,1},
+  {"Frigate",4,"Light armored ship.",400,200,1,1},
+  {"War Cruiser",5,"Primary planetary defense ship.",750,400,1,1},
+  {"Star Dreadnought",6,"Heavy armored ship designed to transport entire fleet.",1000,750,1,1},
+  {"Solar Destroyer",7,"Ship designed to destroy entire planet.",5000,5000,1,1},
+  {"Metal Transport",8,"Transport metal from colonies.",500,5,0,1},
+  {"Crystal Transport",9,"Transport crystals from colonies.",500,250,1,0},
+  {"Fuel Transport",10,"Transport fuel from colonies.",750,500,1,0},
+  {"Colonizer",11,"Set colony on the planet.",1000,1000,5,0}
 };
 
 struct EnemyGarrison
@@ -368,6 +368,10 @@ void loop() {
     else if(ScreenSelection==3)
     {
       ScreenSelection=starMap(TechTree[0].level);
+    }
+    else if(ScreenSelection==4)
+    {
+      ScreenSelection=shipyard(TechTree[7].level);
     }
     else if(ScreenSelection==6)
     {

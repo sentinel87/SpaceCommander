@@ -13,11 +13,11 @@ int flReportPage=1;
 
 int playerFleets()
 {
-  drawPlayerFleets(flMarkerPosX,flMarkerPosY);
   if(gb.buttons.pressed(BUTTON_B))
   {
     return 0;
   }
+  drawPlayerFleets(flMarkerPosX,flMarkerPosY);
   return 8;
 }
 

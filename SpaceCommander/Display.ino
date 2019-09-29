@@ -1461,6 +1461,8 @@ const uint16_t IMAGE_BUILDING15[] = {
 Image Selector(IMAGE_BTN_SELECT);
 Image FleetSelector(IMAGE_FLEET_SELECT);
 
+//---------------Star Map Logic---------
+
 void drawMap(int astronomy,int posX,int posY)
 {
   gb.display.drawImage(0,0,IMAGE_MAIN_THEME,0,6,79,58);
@@ -1631,6 +1633,8 @@ void drawInfrastructureScreen(Building building, String depTechName, int depLeve
   //  gb.display.println(technology.depTechLevel); 
   //}
 }
+
+//---------------Fleet Logic------------
 
 void drawPlayerFleets(int posX,int posY)
 {
@@ -2129,5 +2133,43 @@ void drawSpyReport(Report IntelligenceReport)
     gb.display.setCursor(30,33);
     gb.display.println("+"+(String)IntelligenceReport.Resource3);
   }
+}
+
+//---------------Shipyard Logic---------
+
+void drawShipyardScreen(Ship ship,bool canBuild)
+{
+  gb.display.setColor(BLUE);
+  gb.display.drawRect(1,1,3,3);
+  gb.display.setCursor(6,0);
+  gb.display.setFontSize(1);
+  gb.display.println(PlayerResources[0]);
+  gb.display.setColor(PURPLE);
+  gb.display.drawRect(27,1,3,3);
+  gb.display.setCursor(33,0);
+  gb.display.println(PlayerResources[1]);
+  gb.display.setColor(YELLOW);
+  gb.display.drawRect(54,1,3,3);
+  gb.display.setCursor(60,0);
+  gb.display.println(PlayerResources[2]);
+  gb.display.setColor(GRAY);
+  gb.display.drawRect(2,15,30,15);
+  gb.display.setColor(WHITE);
+  gb.display.setCursor(2,9);
+  gb.display.println(ship.type);
+  gb.display.setColor(BLUE);
+  gb.display.setCursor(36,15);
+  gb.display.println(ship.resource1Cost);
+  if(canBuild)
+  {
+    gb.display.drawImage(65,15,IMAGE_SHIPS_BTN);
+    gb.display.drawImage(64,14,Selector); 
+  }
+  gb.display.setColor(PURPLE);
+  gb.display.setCursor(36,21);
+  gb.display.println(ship.resource2Cost);
+  gb.display.setColor(WHITE);
+  gb.display.setCursor(0,35);
+  gb.display.println(ship.describtion);
 }
 
