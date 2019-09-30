@@ -103,9 +103,9 @@ struct Building
   int8_t resource2Cost;
   int8_t resource3Cost;
   String restriction;
-  int8_t depTechId;
+  int depTechId;
   int8_t depTechLevel;
-  int8_t depBuildingId;
+  int depBuildingId;
   int8_t depBuildingLevel;
 };
 
@@ -115,16 +115,16 @@ Building Colony[]={
   {3,"Crystal Mine",0,1,"Deliver crystal resource.",0,0,0,"None",0,0,1,2},
   {4,"Fuel Refinery",0,1,"Deliver fuel resource.",0,0,0,"None",0,0,1,2},
   {5,"Intelligence",0,0,"Reveal more intel in enemy reports.",0,0,0,"None",2,0,0,0},
-  {6,"Radar",0,0,"Detects enemy fleets +1 visibility/lvl.",0,0,0,"None",7,0,5,0},
-  {7,"Shipyard",0,1,"Required to build high level ships.",75,75,75,"None",0,0},
-  {8,"None",0,1,"None",0,0,0,"None",0,0},
-  {9,"None",0,1,"None",0,0,0,"None",0,0},
-  {10,"None",0,1,"None",0,0,0,"None",0,0},
-  {11,"None",0,1,"None",0,0,0,"None",0,0},
-  {12,"None",0,1,"None",0,0,0,"None",0,0},
-  {13,"None",0,1,"None",0,0,0,"None",0,0},
-  {14,"None",0,1,"None",0,0,0,"None",0,0},
-  {15,"None",0,1,"None",0,0,0,"None",0,0},
+  {6,"Radar",0,0,"Detects enemy fleets +1 visibility/lvl.",0,0,0,"None",7,1,5,1},
+  {7,"Shipyard",0,1,"Required to build high level ships.",75,75,75,"None",0,0,0,0},
+  {8,"None",0,1,"None",0,0,0,"None",0,0,0,0},
+  {9,"None",0,1,"None",0,0,0,"None",0,0,0,0},
+  {10,"None",0,1,"None",0,0,0,"None",0,0,0,0},
+  {11,"None",0,1,"None",0,0,0,"None",0,0,0,0},
+  {12,"None",0,1,"None",0,0,0,"None",0,0,0,0},
+  {13,"None",0,1,"None",0,0,0,"None",0,0,0,0},
+  {14,"None",0,1,"None",0,0,0,"None",0,0,0,0},
+  {15,"None",0,1,"None",0,0,0,"None",0,0,0,0},
 };
 
 struct Ship
@@ -278,7 +278,7 @@ Report IntelligenceReports[]={
 
 int8_t ScreenSelection=0;
 
-int PlayerResources[]={2200,2200,2000};
+int PlayerResources[]={5200,5200,5000};
 
 //Timer
 int8_t frames=0;

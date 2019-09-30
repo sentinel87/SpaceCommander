@@ -1624,14 +1624,22 @@ void drawInfrastructureScreen(Building building, String depTechName, int depLeve
   gb.display.setColor(WHITE);
   gb.display.setCursor(0,35);
   gb.display.println(building.describtion);
-  //if((technology.depTechLevel>depLevel)&&depTechName!="")
-  //{
-  //  gb.display.setColor(RED);
-  //  gb.display.setCursor(0,58);
-  //  gb.display.println(depTechName);
-  //  gb.display.setCursor(65,58);
-  //  gb.display.println(technology.depTechLevel); 
-  //}
+  if((building.depTechLevel>depLevel)&&depTechName!="")
+  {
+    gb.display.setColor(RED);
+    gb.display.setCursor(0,58);
+    gb.display.println(depTechName);
+    gb.display.setCursor(65,58);
+    gb.display.println(building.depTechLevel); 
+  }
+  else if((building.depBuildingLevel>depLevel)&&depBuildingName!="")
+  {
+    gb.display.setColor(RED);
+    gb.display.setCursor(0,58);
+    gb.display.println(depBuildingName);
+    gb.display.setCursor(65,58);
+    gb.display.println(building.depBuildingLevel);
+  }
 }
 
 //---------------Fleet Logic------------
