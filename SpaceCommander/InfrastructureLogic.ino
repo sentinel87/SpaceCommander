@@ -2,7 +2,7 @@ int8_t inCurrentBuilding=0;
 
 int8_t infrastructure()
 {
-  bool CanBuild=false;
+  bool CanBuild=true;
   
   int techIndex=Colony[inCurrentBuilding].depTechId-1;
   int buildingIndex=Colony[inCurrentBuilding].depBuildingId-1;
@@ -15,7 +15,7 @@ int8_t infrastructure()
   {
     dependencyBuildingName=Colony[buildingIndex].bName;
     dependencyBuildingLevel=Colony[buildingIndex].level;
-    if(Colony[inCurrentBuilding].depBuildingLevel>Colony[inCurrentBuilding].level)
+    if(Colony[inCurrentBuilding].depBuildingLevel<=Colony[buildingIndex].level)
     {
       CanBuild=true;
     }
@@ -28,7 +28,7 @@ int8_t infrastructure()
   {
     dependencyTechName=TechTree[techIndex].techName;
     dependencyTechLevel=TechTree[techIndex].level;
-    if(Colony[inCurrentBuilding].depTechLevel>Colony[inCurrentBuilding].level)
+    if(Colony[inCurrentBuilding].depTechLevel<=TechTree[techIndex].level)
     {
       CanBuild=true;
     }
@@ -87,7 +87,6 @@ int8_t infrastructure()
         Colony[inCurrentBuilding].depBuildingLevel++;
       }
       Colony[inCurrentBuilding].level++;
-      gb.gui.popup("INCOMING ATTACK!",50);
     }
   }
   else if(gb.buttons.pressed(BUTTON_B))
