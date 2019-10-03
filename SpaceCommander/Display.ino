@@ -2145,7 +2145,7 @@ void drawSpyReport(Report IntelligenceReport)
 
 //---------------Shipyard Logic---------
 
-void drawShipyardScreen(Ship ship,bool canBuild)
+void drawShipyardScreen(Ship ship,bool canBuild, bool selection, int quantity, int quantityToBuy)
 {
   gb.display.setColor(BLUE);
   gb.display.drawRect(1,1,3,3);
@@ -2179,5 +2179,15 @@ void drawShipyardScreen(Ship ship,bool canBuild)
   gb.display.setColor(WHITE);
   gb.display.setCursor(0,35);
   gb.display.println(ship.describtion);
+  if(selection)
+  {
+    gb.display.setColor(GRAY);
+    gb.display.setCursor(2,57);
+    gb.display.println(quantityToBuy);
+    gb.display.setColor(YELLOW);
+    gb.display.drawRect(0,55,40,9);
+    gb.display.setCursor(19,57);
+    gb.display.println("+-"+(String)quantity);
+  }
 }
 
