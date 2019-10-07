@@ -1,10 +1,11 @@
 int8_t shCurrentShip=0;
-int shQuantity=10;
+int shQuantity=1;
 bool shSelectedShip=false;
-int shQuantityToBuy=0;
+int shQuantityToBuy=1;
 
 int8_t shipyard(int MilitaryScience)
 {
+  bool canBuy=resourceCostValidation();
   if(gb.buttons.pressed(BUTTON_B))
   {
     if(shSelectedShip!=true)
@@ -16,10 +17,12 @@ int8_t shipyard(int MilitaryScience)
   {
     if(shSelectedShip==true)
     {
-      shSelectedShip=false;
-      shQuantityToBuy=0;
-      shQuantity=10;
-      gb.gui.popup("ACQUIRED!",50);
+      if(canBuy==true)
+      {
+        buySelectedShipQuantity();
+        shSelectedShip=false;
+        shQuantityToBuy=1; 
+      }
     }
   }
   else if(gb.buttons.pressed(BUTTON_RIGHT))
@@ -34,6 +37,8 @@ int8_t shipyard(int MilitaryScience)
       {
         shCurrentShip++;
       }
+      shQuantity=1;
+      shQuantityToBuy=1;
     }
     else
     {
@@ -62,7 +67,9 @@ int8_t shipyard(int MilitaryScience)
       else
       {
         shCurrentShip--;
-      } 
+      }
+      shQuantity=1;
+      shQuantityToBuy=1; 
     }
     else
     {
@@ -105,8 +112,21 @@ int8_t shipyard(int MilitaryScience)
       shSelectedShip=true;
     }
   }
-  drawShipyardScreen(Shipyard[shCurrentShip],true,shSelectedShip,shQuantity,shQuantityToBuy);
+  drawShipyardScreen(Shipyard[shCurrentShip],canBuy,shSelectedShip,shQuantity,shQuantityToBuy,PlayerShips[shCurrentShip]);
   return 4;
+}
+
+bool resourceCostValidation()
+{
+  if(((Shipyard[shCurrentShip].resource1Cost)*shQuantityToBuy)>PlayerResources[0])
+  {
+    return false;
+  }
+  if(((Shipyard[shCurrentShip].resource2Cost)*shQuantityToBuy)>PlayerResources[1])
+  {
+    return false;
+  }
+  return true;
 }
 
 void increaseQuantity()
@@ -125,5 +145,18 @@ void decreaseQuantity()
   {
     shQuantityToBuy=999;
   }
+}
+
+void buySelectedShipQuantity()
+{
+  int fixedQuantity=shQuantityToBuy;
+  if(PlayerShips[shCurrentShip]+shQuantityToBuy>9999)
+  {
+    fixedQuantity=9999-PlayerShips[shCurrentShip];
+  }
+  PlayerResources[0]-=((Shipyard[shCurrentShip].resource1Cost)*fixedQuantity);
+  PlayerResources[1]-=((Shipyard[shCurrentShip].resource2Cost)*fixedQuantity);
+  PlayerShips[shCurrentShip]+=fixedQuantity;
+  gb.gui.popup("ACQUIRED!",50); 
 }
 

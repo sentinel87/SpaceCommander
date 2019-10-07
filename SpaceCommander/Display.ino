@@ -1833,7 +1833,8 @@ void drawFleetStats()
 {
   gb.display.drawImage(0,0,IMAGE_MAIN_THEME);
   gb.display.setColor(BLACK);
-  gb.display.println("FLEET STATUS");
+  gb.display.setCursor(16,1);
+  gb.display.println("FLEET STATS");
   gb.display.setColor(BLUE);
   gb.display.setCursor(1,9);
   gb.display.println("FIG");
@@ -1881,6 +1882,11 @@ void drawFleetStats()
   gb.display.println(PlayerShips[9]);
   gb.display.setCursor(59,37);
   gb.display.println(PlayerShips[10]);
+  gb.display.setCursor(1,53);
+  gb.display.println("BATTLE EXP: ");
+  gb.display.setColor(ORANGE);
+  gb.display.setCursor(45,53);
+  gb.display.println(BattleExperience);
 }
 
 void drawBattleResult1()
@@ -2145,7 +2151,7 @@ void drawSpyReport(Report IntelligenceReport)
 
 //---------------Shipyard Logic---------
 
-void drawShipyardScreen(Ship ship,bool canBuild, bool selection, int quantity, int quantityToBuy)
+void drawShipyardScreen(Ship ship,bool canBuild, bool selection, int quantity, int quantityToBuy,int owned)
 {
   gb.display.setColor(BLUE);
   gb.display.drawRect(1,1,3,3);
@@ -2182,12 +2188,15 @@ void drawShipyardScreen(Ship ship,bool canBuild, bool selection, int quantity, i
   if(selection)
   {
     gb.display.setColor(GRAY);
-    gb.display.setCursor(2,57);
+    gb.display.setCursor(47,57);
     gb.display.println(quantityToBuy);
     gb.display.setColor(YELLOW);
-    gb.display.drawRect(0,55,40,9);
-    gb.display.setCursor(19,57);
+    gb.display.drawRect(45,55,35,9);
+    gb.display.setCursor(59,57);
     gb.display.println("+-"+(String)quantity);
   }
+  gb.display.setColor(GREEN);
+  gb.display.setCursor(2,57);
+  gb.display.println("OWNED:"+(String)owned);
 }
 

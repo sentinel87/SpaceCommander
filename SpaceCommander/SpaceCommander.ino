@@ -139,17 +139,17 @@ struct Ship
 };
 
 Ship Shipyard[]={
-  {"Spy Bot",1,"Fragile probe used to scan planets and enemy fleet.",5,5,1,1},
-  {"Fighter",2,"Swarm of fighters is the basic fleet defence.",75,25,1,1},
-  {"Interceptor",3,"Ship designed to hunt fighters.",150,75,1,1},
-  {"Frigate",4,"Light armored ship.",400,200,1,1},
-  {"War Cruiser",5,"Primary planetary defense ship.",750,400,1,1},
-  {"Star Dreadnought",6,"Heavy armored ship designed to transport entire fleet.",1000,750,1,1},
-  {"Solar Destroyer",7,"Ship designed to destroy entire planet.",5000,5000,1,1},
-  {"Metal Transport",8,"Transport metal from colonies.",500,5,0,1},
-  {"Crystal Transport",9,"Transport crystals from colonies.",500,250,1,0},
-  {"Fuel Transport",10,"Transport fuel from colonies.",750,500,1,0},
-  {"Colonizer",11,"Set colony on the planet.",1000,1000,5,0}
+  {"Fighter",1,"Swarm of fighters is the basic fleet defence.",75,25,1,1},
+  {"Interceptor",2,"Ship designed to hunt fighters.",150,75,1,1},
+  {"Frigate",3,"Light armored ship.",400,200,1,1},
+  {"War Cruiser",4,"Primary planetary defense ship.",750,400,1,1},
+  {"Star Dreadnought",5,"Heavy armored ship designed to transport entire fleet.",1000,750,1,1},
+  {"Solar Destroyer",6,"Ship designed to destroy entire planet.",5000,5000,1,1},
+  {"Spy Bot",7,"Fragile probe used to scan planets and enemy fleet.",5,5,1,1},
+  {"Colonizer",8,"Set colony on the planet.",1000,1000,5,0},
+  {"Metal Transport",9,"Transport metal from colonies.",500,5,0,1},
+  {"Crystal Transport",10,"Transport crystals from colonies.",500,250,1,0},
+  {"Fuel Transport",11,"Transport fuel from colonies.",750,500,1,0}
 };
 
 struct EnemyGarrison
@@ -282,6 +282,7 @@ int PlayerResources[]={5200,5200,5000};
 
 //Timer
 int8_t frames=0;
+int8_t framesCount=0;
 bool timeUpdate=false;
 int8_t visibilitySeconds=0;
 int8_t visibilityMinutes=0;
@@ -294,6 +295,8 @@ bool flSelection=false;
 bool spyMission=false;
 bool attackMission=false;
 bool colonizeMission=false;
+
+int BattleExperience=0;
 
 void setup() {
   gb.begin();
@@ -415,8 +418,8 @@ void sendFleet()
 {
   if(gb.buttons.pressed(BUTTON_MENU))
   {
-    prepareEnemyFleet();
-    EnemyFleets[0]=CustomEnemyFleet;
+    //prepareEnemyFleet();
+    //EnemyFleets[0]=CustomEnemyFleet;
     //TechTree[0].level++;
     //techEvents();
   }
@@ -426,14 +429,19 @@ void timeCalculations()
 {
   if(frames==25)// every second tick update game mechanics
   {
+    framesCount++;
     frames=0;
     updateVisibilityDistance();
-    updateResources();
     updateFleets();
   }
   else
   {
     frames++;
+  }
+  if(framesCount==2)//slow time
+  {
+    framesCount=0;
+    updateResources();
   }
 }
 
@@ -602,9 +610,9 @@ void fleetReturns(Fleet fleet)
 
 void updateResources()
 {
-  PlayerResources[0]+=1;
-  PlayerResources[1]+=1;
-  PlayerResources[2]+=1;
+  PlayerResources[0]+=1 + Colony[1].level*2; //Metal Mine
+  PlayerResources[1]+=1 + Colony[2].level*2; //Crystal Mine
+  PlayerResources[2]+=1 + Colony[3].level*2; //Fuel Refinery
 }
 
 //--------Enemy Attacks------------------------
