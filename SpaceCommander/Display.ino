@@ -1902,9 +1902,9 @@ void drawBattleResult1()
   gb.display.println("Frigates");
   gb.display.setColor(WHITE);
   gb.display.setCursor(0,18);
-  gb.display.println("9999");
+  gb.display.println(BtResult.PlFighters);
   gb.display.setCursor(44,18);
-  gb.display.println("9999");
+  gb.display.println(BtResult.EnFighters);
   gb.display.setCursor(0,30);
   gb.display.println("9999");
   gb.display.setCursor(44,30);
@@ -1915,9 +1915,9 @@ void drawBattleResult1()
   gb.display.println("9999");
   gb.display.setColor(RED);
   gb.display.setCursor(16,18);
-  gb.display.println("-9999");  
+  gb.display.println("-"+(String)BtResult.PlFightersLost);  
   gb.display.setCursor(60,18);
-  gb.display.println("-9999");
+  gb.display.println("-"+(String)BtResult.EnFightersLost);
   gb.display.setCursor(16,30);
   gb.display.println("-9999");
   gb.display.setCursor(60,30);

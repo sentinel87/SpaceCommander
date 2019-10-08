@@ -191,7 +191,7 @@ struct Fleet
 };
 
 Fleet PlayerFleets[]={
-  {0,false,0,0,0,0,0,0,0,0,0,0,"",true},
+  {0,false,0,0,0,0,1000,0,0,0,0,0,"",true},
   {0,false,0,0,0,0,0,0,0,0,0,0,"",true},
   {0,false,0,0,0,0,0,0,0,0,0,0,"",true},
   {0,false,0,0,0,0,0,0,0,0,0,0,"",true},
@@ -199,7 +199,7 @@ Fleet PlayerFleets[]={
 };
 
 Fleet EnemyFleets[]={
-  {4,false,0,20,0,0,0,0,0,0,0,0,"",false},
+  {4,false,0,20,0,0,250,0,0,0,0,0,"",false},
   {4,false,0,30,0,0,0,0,0,0,0,0,"",false},
   {4,false,0,40,0,0,0,0,0,0,0,0,"",false},
   {4,false,0,50,0,0,0,0,0,0,0,0,"",false},
@@ -212,14 +212,14 @@ Fleet CustomEnemyFleet={4,false,0,0,0,0,0,0,0,0,0,0,"",false};
 int FleetFuelCost=0;
 
 int PlayerShips[]={
-  10, //Fighter
-  10, //Interceptor
-  10, //Frigate
-  10, //War Cruiser
-  10, //Star Dreadnought
-  10, //Solar Destroyer
-  3, //Spy Bot
-  1, //Colonizer
+  500, //Fighter
+  0, //Interceptor
+  0, //Frigate
+  0, //War Cruiser
+  0, //Star Dreadnought
+  0, //Solar Destroyer
+  0, //Spy Bot
+  0, //Colonizer
   0, //Metal Transport
   0, //Crystal Transport
   0  //Fuel Transport
@@ -289,6 +289,37 @@ int8_t visibilityMinutes=0;
 
 //Attack
 bool fight=false;
+
+struct BattleResult
+{
+  int PlFighters;
+  int PlFightersLost;
+  int EnFighters;
+  int EnFightersLost;
+  int PlInterceptors;
+  int PlInterceptorsLost;
+  int EnInterceptors;
+  int EnInterceptorsLost;
+  int PlFrigates;
+  int PlFrigatesLost;
+  int EnFrigates;
+  int EnFrigatesLost;
+  int PlWarCruisers;
+  int PlWarCruisersLost;
+  int EnWarCruisers;
+  int EnWarCruisersLost;
+  int PlStarDreadnoughts;
+  int PlStarDreadnoughtsLost;
+  int EnStarDreadnoughts;
+  int EnStarDreadnoughtsLost;
+  int PlSolarDestroyers;
+  int PlSolarDestroyersLost;
+  int EnSolarDestroyers;
+  int EnSolarDestroyersLost;
+  bool Winning;
+};
+
+BattleResult BtResult={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false};
 
 //Fleet Selection
 bool flSelection=false;
@@ -422,6 +453,10 @@ void sendFleet()
     //EnemyFleets[0]=CustomEnemyFleet;
     //TechTree[0].level++;
     //techEvents();
+    spaceBattle(0,0,false);
+    fight=true;
+    //spaceBattle(0,0,false);
+    gb.gui.popup("BATTLE!",50); 
   }
 }
 

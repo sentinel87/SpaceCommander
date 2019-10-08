@@ -8,9 +8,6 @@ int flShipSelection=1;
 bool flSelectedShip=false;
 int flQuantity=10;
 
-//Report
-int flReportPage=1;
-
 int playerFleets()
 {
   if(gb.buttons.pressed(BUTTON_B))
@@ -329,38 +326,6 @@ void checkQuantity()
     }
     break;
   }
-}
-
-bool battleResults()
-{
-  if(gb.buttons.pressed(BUTTON_B))
-  {
-    return true;
-  }
-  else if(gb.buttons.pressed(BUTTON_RIGHT))
-  {
-    if(flReportPage==1)
-    {
-      flReportPage=2;
-    }
-  }
-  else if(gb.buttons.pressed(BUTTON_LEFT))
-  {
-    if(flReportPage==2)
-    {
-      flReportPage=1;
-    }
-  }
-
-  if(flReportPage==1)
-  {
-    drawBattleResult1();
-  }
-  else
-  {
-    drawBattleResult2();
-  }
-  return false;
 }
 
 bool sendSpy()
