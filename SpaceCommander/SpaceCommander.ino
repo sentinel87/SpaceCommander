@@ -191,7 +191,7 @@ struct Fleet
 };
 
 Fleet PlayerFleets[]={
-  {0,false,0,0,0,0,1000,0,0,0,0,0,"",true},
+  {0,false,0,0,0,0,1000,200,15,36,0,0,"",true},
   {0,false,0,0,0,0,0,0,0,0,0,0,"",true},
   {0,false,0,0,0,0,0,0,0,0,0,0,"",true},
   {0,false,0,0,0,0,0,0,0,0,0,0,"",true},
@@ -199,7 +199,7 @@ Fleet PlayerFleets[]={
 };
 
 Fleet EnemyFleets[]={
-  {4,false,0,20,0,0,250,0,0,0,0,0,"",false},
+  {4,false,0,20,0,0,250,500,30,20,0,0,"",false},
   {4,false,0,30,0,0,0,0,0,0,0,0,"",false},
   {4,false,0,40,0,0,0,0,0,0,0,0,"",false},
   {4,false,0,50,0,0,0,0,0,0,0,0,"",false},
@@ -213,9 +213,9 @@ int FleetFuelCost=0;
 
 int PlayerShips[]={
   500, //Fighter
-  0, //Interceptor
-  0, //Frigate
-  0, //War Cruiser
+  250, //Interceptor
+  60, //Frigate
+  15, //War Cruiser
   0, //Star Dreadnought
   0, //Solar Destroyer
   0, //Spy Bot
@@ -454,8 +454,8 @@ void sendFleet()
     //TechTree[0].level++;
     //techEvents();
     spaceBattle(0,0,false);
+    //spaceBattle(0,0,true);
     fight=true;
-    //spaceBattle(0,0,false);
     gb.gui.popup("BATTLE!",50); 
   }
 }

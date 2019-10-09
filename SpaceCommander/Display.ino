@@ -1906,26 +1906,26 @@ void drawBattleResult1()
   gb.display.setCursor(44,18);
   gb.display.println(BtResult.EnFighters);
   gb.display.setCursor(0,30);
-  gb.display.println("9999");
+  gb.display.println(BtResult.PlInterceptors);
   gb.display.setCursor(44,30);
-  gb.display.println("9999");
+  gb.display.println(BtResult.EnInterceptors);
   gb.display.setCursor(0,42);
-  gb.display.println("9999");
+  gb.display.println(BtResult.PlFrigates);
   gb.display.setCursor(44,42);
-  gb.display.println("9999");
+  gb.display.println(BtResult.EnFrigates);
   gb.display.setColor(RED);
   gb.display.setCursor(16,18);
   gb.display.println("-"+(String)BtResult.PlFightersLost);  
   gb.display.setCursor(60,18);
   gb.display.println("-"+(String)BtResult.EnFightersLost);
   gb.display.setCursor(16,30);
-  gb.display.println("-9999");
+  gb.display.println("-"+(String)BtResult.PlInterceptorsLost);
   gb.display.setCursor(60,30);
-  gb.display.println("-9999");  
+  gb.display.println("-"+(String)BtResult.EnInterceptorsLost);  
   gb.display.setCursor(16,42);
-  gb.display.println("-9999"); 
+  gb.display.println("-"+(String)BtResult.PlFrigatesLost); 
   gb.display.setCursor(60,42);
-  gb.display.println("-9999");
+  gb.display.println("-"+(String)BtResult.EnFrigatesLost);
 }
 
 void drawBattleResult2()
@@ -1941,9 +1941,9 @@ void drawBattleResult2()
   gb.display.println("Solar Destructors");
   gb.display.setColor(WHITE);
   gb.display.setCursor(0,18);
-  gb.display.println("9999");
+  gb.display.println(BtResult.PlWarCruisers);
   gb.display.setCursor(44,18);
-  gb.display.println("9999");
+  gb.display.println(BtResult.EnWarCruisers);
   gb.display.setCursor(0,30);
   gb.display.println("9999");
   gb.display.setCursor(44,30);
@@ -1954,9 +1954,9 @@ void drawBattleResult2()
   gb.display.println("9999");
   gb.display.setColor(RED);
   gb.display.setCursor(16,18);
-  gb.display.println("-9999");  
+  gb.display.println("-"+(String)BtResult.PlWarCruisersLost);  
   gb.display.setCursor(60,18);
-  gb.display.println("-9999");
+  gb.display.println("-"+(String)BtResult.EnWarCruisersLost);
   gb.display.setCursor(16,30);
   gb.display.println("-9999");
   gb.display.setCursor(60,30);
