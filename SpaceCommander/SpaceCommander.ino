@@ -99,9 +99,9 @@ struct Building
   int8_t imageId;
   int8_t level;
   String describtion;
-  int8_t resource1Cost;
-  int8_t resource2Cost;
-  int8_t resource3Cost;
+  int resource1Cost;
+  int resource2Cost;
+  int resource3Cost;
   String restriction;
   int depTechId;
   int8_t depTechLevel;
@@ -117,9 +117,9 @@ Building Colony[]={
   {5,"Intelligence",0,0,"Reveal more intel in enemy reports.",100,75,0,"None",2,0,0,0},
   {6,"Radar",0,0,"Detects enemy fleets +1 visibility/lvl.",25,40,0,"None",7,1,5,1},
   {7,"Shipyard",0,1,"Required to build high level ships.",75,75,75,"None",8,1,0,0},
-  {8,"Planetary Defence System",0,1,"+ 10 points to defense/lvl",100,200,50,"None",8,1,0,0},
-  {9,"None",0,1,"None",0,0,0,"None",0,0,0,0},
-  {10,"None",0,1,"None",0,0,0,"None",0,0,0,0},
+  {8,"Defence System",0,1,"+ 10 points to defense/lvl",100,200,50,"None",8,1,0,0},
+  {9,"Factory",0,1,"None",0,0,0,"None",0,0,0,0},
+  {10,"Warehouse",0,1,"None",0,0,0,"None",0,0,0,0},
   {11,"None",0,1,"None",0,0,0,"None",0,0,0,0},
   {12,"None",0,1,"None",0,0,0,"None",0,0,0,0},
   {13,"None",0,1,"None",0,0,0,"None",0,0,0,0},
