@@ -14,25 +14,11 @@ int8_t research()
   drawTechScreen(TechTree[reCurrentTech],dependencyTechName,TechTree[depIndex].level,canDevelop);
   if(gb.buttons.pressed(BUTTON_RIGHT))
   {
-    if(reCurrentTech==19)
-    {
-      reCurrentTech=0;
-    }
-    else
-    {
-      reCurrentTech++;
-    }
+    moveNext();
   }
   else if(gb.buttons.pressed(BUTTON_LEFT))
   {
-    if(reCurrentTech==0)
-    {
-      reCurrentTech=19;
-    }
-    else
-    {
-      reCurrentTech--;
-    }
+    movePrevious();
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
@@ -79,6 +65,37 @@ bool canResearch(Technology technology, int depTechLvl)
     }
   }  
   return result;
+}
+
+void moveNext()
+{
+  if(reCurrentTech+1<Colony[7].level)
+  {
+    if(reCurrentTech==19)
+    {
+      reCurrentTech=0;
+    }
+    else
+    {
+      reCurrentTech++;
+    }
+  }
+  else
+  {
+    reCurrentTech=0;
+  }
+}
+
+void movePrevious()
+{
+  if(reCurrentTech==0)
+  {
+    reCurrentTech=Colony[7].level-1;
+  }
+  else
+  {
+    reCurrentTech--;
+  }
 }
 
 void techEvents()
