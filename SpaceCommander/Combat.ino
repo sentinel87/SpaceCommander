@@ -13,6 +13,8 @@ void spaceBattle(int enIndex,int plIndex,bool attacker) //attacker - true (Playe
   resolveInterceptorsBattle(enIndex,plIndex,attacker);
   resolveFrigatesBattle(enIndex,plIndex,attacker);
   resolveWarCruisersBattle(enIndex,plIndex,attacker);
+  resolveStarDreadnoughtsBattle(enIndex,plIndex,attacker);
+  resolveSolarDestroyersBattle(enIndex,plIndex,attacker);
   //TODO: Report surviving units
   reportLosses(enIndex,plIndex,attacker);
 }
@@ -29,6 +31,10 @@ void reportShipsBeforeBattle(int enIndex,int plIndex,bool attacker)
     BtResult.EnFrigates=Enemy1Garrison[enIndex].Frigates;
     BtResult.PlWarCruisers=PlayerFleets[plIndex].WarCruisers;
     BtResult.EnWarCruisers=Enemy1Garrison[enIndex].WarCruisers;
+    BtResult.PlStarDreadnoughts=PlayerFleets[plIndex].StarDreadnoughts;
+    BtResult.EnStarDreadnoughts=Enemy1Garrison[enIndex].StarDreadnoughts;
+    BtResult.PlSolarDestroyers=PlayerFleets[plIndex].SolarDestroyers;
+    BtResult.EnSolarDestroyers=Enemy1Garrison[enIndex].SolarDestroyers;
   }
   else
   {
@@ -40,6 +46,10 @@ void reportShipsBeforeBattle(int enIndex,int plIndex,bool attacker)
     BtResult.EnFrigates=EnemyFleets[enIndex].Frigates;
     BtResult.PlWarCruisers=PlayerShips[3];
     BtResult.EnWarCruisers=EnemyFleets[enIndex].WarCruisers;
+    BtResult.PlStarDreadnoughts=PlayerShips[4];
+    BtResult.EnStarDreadnoughts=EnemyFleets[enIndex].StarDreadnoughts;
+    BtResult.PlSolarDestroyers=PlayerShips[5];
+    BtResult.EnSolarDestroyers=EnemyFleets[enIndex].SolarDestroyers;
   }
 }
 
@@ -355,6 +365,162 @@ void resolveWarCruisersBattle(int enIndex,int plIndex,bool attacker)
   }
 }
 
+void resolveStarDreadnoughtsBattle(int enIndex,int plIndex,bool attacker)
+{
+  if(attacker==true)
+  {
+    if(Enemy1Garrison[enIndex].StarDreadnoughts>0)
+    {
+      int EnemyStrenght=Enemy1Garrison[enIndex].StarDreadnoughts*50;
+      int AttackerBonus=0;
+      if(PlayerFleets[plIndex].StarDreadnoughts>0)
+      {
+         AttackerBonus=(PlayerFleets[plIndex].StarDreadnoughts*50)/10;
+      }
+      int PlayerStrenght=PlayerFleets[plIndex].StarDreadnoughts*50 + BattleExperience*50 + AttackerBonus;
+      int Result=PlayerStrenght-EnemyStrenght;
+      if(Result>0)
+      {
+        Enemy1Garrison[enIndex].StarDreadnoughts=0;
+        PlayerFleets[plIndex].StarDreadnoughts-=(EnemyStrenght/50);
+        if(PlayerFleets[plIndex].StarDreadnoughts<0)
+        {
+          PlayerFleets[plIndex].StarDreadnoughts=0;
+        }
+      }
+      else if(Result<0)
+      {
+        PlayerFleets[plIndex].StarDreadnoughts=0;
+        Enemy1Garrison[enIndex].StarDreadnoughts-=(PlayerStrenght/50);
+        if(Enemy1Garrison[enIndex].StarDreadnoughts<0)
+        {
+          Enemy1Garrison[enIndex].StarDreadnoughts=0;
+        }
+      }
+      else
+      {
+        PlayerFleets[plIndex].StarDreadnoughts=0;
+        Enemy1Garrison[enIndex].StarDreadnoughts=0;
+      }     
+    }
+  }
+  else
+  {
+    if(PlayerShips[4]>0)
+    {
+      int PlayerStrenght=(PlayerShips[4]*50)+BattleExperience;
+      int AttackerBonus=0;
+      if(EnemyFleets[enIndex].StarDreadnoughts>0)
+      {
+         AttackerBonus=(EnemyFleets[enIndex].StarDreadnoughts*50)/10;
+      }
+      int EnemyStrenght=(EnemyFleets[enIndex].StarDreadnoughts*50)+AttackerBonus;
+      int Result=EnemyStrenght-PlayerStrenght;
+      if(Result>0) //Player lose
+      {
+        PlayerShips[4]=0;
+        EnemyFleets[enIndex].StarDreadnoughts-=(PlayerStrenght/50);
+        if(EnemyFleets[enIndex].StarDreadnoughts<0)
+        {
+          EnemyFleets[enIndex].StarDreadnoughts=0;
+        }
+      }
+      else if(Result<0) //Player defend
+      {
+        EnemyFleets[enIndex].StarDreadnoughts=0;
+        PlayerShips[4]-=(EnemyStrenght/50);
+        if(PlayerShips[4]<0)
+        {
+          PlayerShips[4]=0;
+        }
+      }
+      else //draw
+      {
+        EnemyFleets[enIndex].StarDreadnoughts=0;
+        PlayerShips[4]=0;
+      }
+    }  
+  }
+}
+
+void resolveSolarDestroyersBattle(int enIndex,int plIndex,bool attacker)
+{
+  if(attacker==true)
+  {
+    if(Enemy1Garrison[enIndex].SolarDestroyers>0)
+    {
+      int EnemyStrenght=Enemy1Garrison[enIndex].SolarDestroyers*100;
+      int AttackerBonus=0;
+      if(PlayerFleets[plIndex].SolarDestroyers>0)
+      {
+         AttackerBonus=(PlayerFleets[plIndex].SolarDestroyers*100)/10;
+      }
+      int PlayerStrenght=PlayerFleets[plIndex].SolarDestroyers*100 + BattleExperience*100 + AttackerBonus;
+      int Result=PlayerStrenght-EnemyStrenght;
+      if(Result>0)
+      {
+        Enemy1Garrison[enIndex].SolarDestroyers=0;
+        PlayerFleets[plIndex].SolarDestroyers-=(EnemyStrenght/100);
+        if(PlayerFleets[plIndex].SolarDestroyers<0)
+        {
+          PlayerFleets[plIndex].SolarDestroyers=0;
+        }
+      }
+      else if(Result<0)
+      {
+        PlayerFleets[plIndex].SolarDestroyers=0;
+        Enemy1Garrison[enIndex].SolarDestroyers-=(PlayerStrenght/100);
+        if(Enemy1Garrison[enIndex].SolarDestroyers<0)
+        {
+          Enemy1Garrison[enIndex].SolarDestroyers=0;
+        }
+      }
+      else
+      {
+        PlayerFleets[plIndex].SolarDestroyers=0;
+        Enemy1Garrison[enIndex].SolarDestroyers=0;
+      }     
+    }
+  }
+  else
+  {
+    if(PlayerShips[5]>0)
+    {
+      int PlayerStrenght=(PlayerShips[5]*100)+BattleExperience;
+      int AttackerBonus=0;
+      if(EnemyFleets[enIndex].SolarDestroyers>0)
+      {
+         AttackerBonus=(EnemyFleets[enIndex].SolarDestroyers*100)/10;
+      }
+      int EnemyStrenght=(EnemyFleets[enIndex].SolarDestroyers*100)+AttackerBonus;
+      int Result=EnemyStrenght-PlayerStrenght;
+      if(Result>0) //Player lose
+      {
+        PlayerShips[5]=0;
+        EnemyFleets[enIndex].SolarDestroyers-=(PlayerStrenght/100);
+        if(EnemyFleets[enIndex].SolarDestroyers<0)
+        {
+          EnemyFleets[enIndex].SolarDestroyers=0;
+        }
+      }
+      else if(Result<0) //Player defend
+      {
+        EnemyFleets[enIndex].SolarDestroyers=0;
+        PlayerShips[5]-=(EnemyStrenght/100);
+        if(PlayerShips[5]<0)
+        {
+          PlayerShips[5]=0;
+        }
+      }
+      else //draw
+      {
+        EnemyFleets[enIndex].SolarDestroyers=0;
+        PlayerShips[5]=0;
+      }
+    }  
+  }
+}
+
 void reportLosses(int enIndex,int plIndex,bool attacker)
 {
   if(attacker==true)
@@ -367,6 +533,10 @@ void reportLosses(int enIndex,int plIndex,bool attacker)
     BtResult.EnFrigatesLost=BtResult.EnFrigates-Enemy1Garrison[enIndex].Frigates;
     BtResult.PlWarCruisersLost=BtResult.PlWarCruisers-PlayerFleets[plIndex].WarCruisers;
     BtResult.EnWarCruisersLost=BtResult.EnWarCruisers-Enemy1Garrison[enIndex].WarCruisers;
+    BtResult.PlStarDreadnoughtsLost=BtResult.PlStarDreadnoughts-PlayerFleets[plIndex].StarDreadnoughts;
+    BtResult.EnStarDreadnoughtsLost=BtResult.EnStarDreadnoughts-Enemy1Garrison[enIndex].StarDreadnoughts;
+    BtResult.PlSolarDestroyersLost=BtResult.PlSolarDestroyers-PlayerFleets[plIndex].SolarDestroyers;
+    BtResult.EnSolarDestroyersLost=BtResult.EnSolarDestroyers-Enemy1Garrison[enIndex].SolarDestroyers;
   }
   else
   {
@@ -378,6 +548,10 @@ void reportLosses(int enIndex,int plIndex,bool attacker)
     BtResult.EnFrigatesLost=BtResult.EnFrigates-EnemyFleets[enIndex].Frigates;
     BtResult.PlWarCruisersLost=BtResult.PlWarCruisers-PlayerShips[3];
     BtResult.EnWarCruisersLost=BtResult.EnWarCruisers-EnemyFleets[enIndex].WarCruisers;
+    BtResult.PlStarDreadnoughtsLost=BtResult.PlStarDreadnoughts-PlayerShips[4];
+    BtResult.EnStarDreadnoughtsLost=BtResult.EnStarDreadnoughts-EnemyFleets[enIndex].StarDreadnoughts;
+    BtResult.PlSolarDestroyersLost=BtResult.PlSolarDestroyers-PlayerShips[5];
+    BtResult.EnSolarDestroyersLost=BtResult.EnSolarDestroyers-EnemyFleets[enIndex].SolarDestroyers;
   }
 }
 

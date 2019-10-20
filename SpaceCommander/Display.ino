@@ -2253,26 +2253,26 @@ void drawBattleResult2()
   gb.display.setCursor(44,18);
   gb.display.println(BtResult.EnWarCruisers);
   gb.display.setCursor(0,30);
-  gb.display.println("9999");
+  gb.display.println(BtResult.PlStarDreadnoughts);
   gb.display.setCursor(44,30);
-  gb.display.println("9999");
+  gb.display.println(BtResult.EnStarDreadnoughts);
   gb.display.setCursor(0,42);
-  gb.display.println("9999");
+  gb.display.println(BtResult.PlSolarDestroyers);
   gb.display.setCursor(44,42);
-  gb.display.println("9999");
+  gb.display.println(BtResult.EnSolarDestroyers);
   gb.display.setColor(RED);
   gb.display.setCursor(16,18);
   gb.display.println("-"+(String)BtResult.PlWarCruisersLost);  
   gb.display.setCursor(60,18);
   gb.display.println("-"+(String)BtResult.EnWarCruisersLost);
   gb.display.setCursor(16,30);
-  gb.display.println("-9999");
+  gb.display.println("-"+(String)BtResult.PlStarDreadnoughtsLost);
   gb.display.setCursor(60,30);
-  gb.display.println("-9999");  
+  gb.display.println("-"+(String)BtResult.EnStarDreadnoughtsLost);  
   gb.display.setCursor(16,42);
-  gb.display.println("-9999"); 
+  gb.display.println("-"+(String)BtResult.PlSolarDestroyersLost); 
   gb.display.setCursor(60,42);
-  gb.display.println("-9999");
+  gb.display.println("-"+(String)BtResult.EnSolarDestroyersLost);
 }
 
 void drawFleetSelection(int posY, bool selectedShip,int quantity)
