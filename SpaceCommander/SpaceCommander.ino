@@ -25,33 +25,33 @@ Planet System[]={
   {true,"Earth",38,28,false,"Player",0,0,0,true,false,-1,true},
   {false,"Sheeza Prime",76,28,true,"Shezz",0,0,0,false,false,-1,false},
   {false,"Cligga Prime",0,28,true,"Cligg",0,0,0,false,false,0,true},
-  {false,"Tau 14",8,3,false,"None",0,0,0,false,false,-1,false},
-  {false,"Cassia",14,3,false,"None",0,0,0,false,false,-1,false},
-  {false,"Kanton",27,9,false,"None",0,0,0,false,false,-1,false},
-  {false,"Nova 5",34,2,false,"None",0,0,0,false,false,-1,false},
-  {false,"Andromeda",44,6,false,"None",0,0,0,false,false,-1,false},
-  {false,"Syrius",55,11,false,"None",0,0,0,false,false,-1,false},
-  {false,"Arnval",71,7,false,"None",0,0,0,false,false,-1,false},
-  {false,"Duna",5,15,false,"None",0,0,0,false,false,-1,false},
-  {false,"Armag",14,22,false,"None",0,0,0,false,false,-1,false},
-  {false,"Tibann",26,19,false,"None",0,0,0,false,false,-1,false},
-  {false,"San Da",48,17,false,"None",0,0,0,false,false,-1,false},
-  {false,"Tolka",63,23,false,"None",0,0,0,false,false,-1,false},
-  {false,"Raven",33,24,false,"None",0,0,0,false,false,-1,false},
-  {false,"Novaria",36,26,false,"None",0,0,0,false,false,-1,false},
-  {false,"Eden",15,30,false,"None",0,0,0,false,false,-1,false},
-  {false,"Brantal V",24,32,false,"None",0,0,0,false,false,-1,false},
-  {false,"Ganimedes",33,35,false,"None",0,0,0,false,false,-1,false},
-  {false,"Dan 11",54,32,false,"None",0,0,0,false,false,-1,false},
-  {false,"Janya",7,43,false,"None",0,0,0,false,false,-1,false},
-  {false,"Arti Ka",15,41,false,"None",0,0,0,false,false,-1,false},
-  {false,"Tyra",27,45,false,"None",0,0,0,false,false,-1,false},
-  {false,"Galant",51,48,false,"None",0,0,0,false,false,-1,false},
-  {false,"Saxa",60,40,false,"None",0,0,0,false,false,-1,false},
-  {false,"Rea 8",73,37,false,"None",0,0,0,false,false,-1,false},
-  {false,"IO",66,54,false,"None",0,0,0,false,false,-1,false},
-  {false,"Taka Van",33,55,false,"None",0,0,0,false,false,-1,false},
-  {false,"Europa",3,55,false,"None",0,0,0,false,false,-1,false}
+  {false,"Tau 14",8,3,false,"None",1,2,3,false,false,-1,false},
+  {false,"Cassia",14,3,false,"None",3,0,1,false,false,-1,false},
+  {false,"Kanton",27,9,false,"None",1,1,1,false,false,-1,false},
+  {false,"Nova 5",34,2,false,"None",4,0,2,false,false,-1,false},
+  {false,"Andromeda",44,6,false,"None",2,2,1,false,false,-1,false},
+  {false,"Syrius",55,11,false,"None",3,1,0,false,false,-1,false},
+  {false,"Arnval",71,7,false,"None",1,0,4,false,false,-1,false},
+  {false,"Duna",5,15,false,"None",0,2,1,false,false,-1,false},
+  {false,"Armag",14,22,false,"None",4,0,1,false,false,-1,false},
+  {false,"Tibann",26,19,false,"None",2,1,3,false,false,-1,false},
+  {false,"San Da",48,17,false,"None",3,1,1,false,false,-1,false},
+  {false,"Tolka",63,23,false,"None",2,2,2,false,false,-1,false},
+  {false,"Raven",33,24,false,"None",3,2,1,false,false,-1,false},
+  {false,"Novaria",36,26,false,"None",1,4,0,false,false,-1,false},
+  {false,"Eden",15,30,false,"None",0,5,0,false,false,-1,false},
+  {false,"Brantal V",24,32,false,"None",1,0,4,false,false,-1,false},
+  {false,"Ganimedes",33,35,false,"None",5,0,0,false,false,-1,false},
+  {false,"Dan 11",54,32,false,"None",0,0,5,false,false,-1,false},
+  {false,"Janya",7,43,false,"None",1,2,2,false,false,-1,false},
+  {false,"Arti Ka",15,41,false,"None",1,0,3,false,false,-1,false},
+  {false,"Tyra",27,45,false,"None",1,0,3,false,false,-1,false},
+  {false,"Galant",51,48,false,"None",2,0,2,false,false,-1,false},
+  {false,"Saxa",60,40,false,"None",1,1,1,false,false,-1,false},
+  {false,"Rea 8",73,37,false,"None",3,2,1,false,false,-1,false},
+  {false,"IO",66,54,false,"None",2,2,1,false,false,-1,false},
+  {false,"Taka Van",33,55,false,"None",3,1,2,false,false,-1,false},
+  {false,"Europa",3,55,false,"None",1,2,2,false,false,-1,false}
 };
 
 struct Technology
@@ -220,9 +220,9 @@ int PlayerShips[]={
   0, //Solar Destroyer
   0, //Spy Bot
   0, //Colonizer
-  0, //Metal Transport
-  0, //Crystal Transport
-  0  //Fuel Transport
+  5, //Metal Transport
+  2, //Crystal Transport
+  1  //Fuel Transport
 };
 
 struct TradeRoute
@@ -235,9 +235,9 @@ struct TradeRoute
 };
 
 TradeRoute PlayerRoutes[]={
-  {true,"Artemis",1,1,2},
-  {true,"Tau 12",4,2,3},
-  {true,"Io",5,5,1},
+  {false,"",0,0,0},
+  {false,"",0,0,0},
+  {false,"",0,0,0},
   {false,"",0,0,0},
   {false,"",0,0,0},
   {false,"",0,0,0},
@@ -252,6 +252,8 @@ TradeRoute PlayerRoutes[]={
   {false,"",0,0,0},
   {false,"",0,0,0}
 };
+
+TradeRoute SelectedRoute={false,"None",0,0,0};
 
 struct Report
 {
@@ -326,6 +328,7 @@ bool flSelection=false;
 bool spyMission=false;
 bool attackMission=false;
 bool colonizeMission=false;
+bool routesMission=false;
 
 int BattleExperience=0;
 
@@ -375,12 +378,20 @@ void loop() {
       spyMission=false;
     }
   }
-  else if(colonizeMission==true)// set spy to scout
+  else if(colonizeMission==true)// set colonizer
   {
     bool selected=sendColonizer();
     if(selected==true)
     {
       colonizeMission=false;
+    }
+  }
+  else if(routesMission==true)// set trade route
+  {
+    bool selected=setRoute();
+    if(selected==true)
+    {
+      routesMission=false;
     }
   }
   else
@@ -441,6 +452,11 @@ void loop() {
     {
       ScreenSelection=3; //RETURN TO STAR MAP AFTER FLEET SELECTION
       colonizeMission=true;
+    }
+    else if(ScreenSelection==23)
+    {
+      ScreenSelection=3; //RETURN TO STAR MAP AFTER FLEET SELECTION
+      routesMission=true;
     }
   }
 }

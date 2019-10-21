@@ -2070,6 +2070,68 @@ void drawStarRoutes()
   }
 }
 
+void drawRouteConfirmation(TradeRoute route,bool canSend,bool metal,bool crystal,bool fuel)
+{
+  gb.display.drawImage(0,0,IMAGE_MAIN_THEME);
+  gb.display.setColor(BLACK);
+  gb.display.println("SET " + route.Name + " ROUTE");
+  gb.display.setCursor(0,9);
+  gb.display.println(" METAL CARGO: ");
+  gb.display.setCursor(52,9);
+  gb.display.println(route.Metal);
+  gb.display.setCursor(0,17);
+  gb.display.println(" OWNED: ");
+  if(metal==false)
+  {
+    gb.display.setColor(RED);
+  }
+  else
+  {
+    gb.display.setColor(GREEN);
+  }
+  gb.display.setCursor(30,17);
+  gb.display.println(PlayerShips[8]);
+  gb.display.setColor(BLACK);
+  gb.display.setCursor(0,25);
+  gb.display.println(" CRYSTAL CARGO: ");
+  gb.display.setCursor(62,25);
+  gb.display.println(route.Crystal);
+  gb.display.setCursor(0,33);
+  gb.display.println(" OWNED: ");
+  if(crystal==false)
+  {
+    gb.display.setColor(RED);
+  }
+  else
+  {
+    gb.display.setColor(GREEN);
+  }
+  gb.display.setCursor(30,33);
+  gb.display.println(PlayerShips[9]);
+  gb.display.setColor(BLACK);
+  gb.display.setCursor(0,41);
+  gb.display.println(" FUEL CARGO: ");
+  gb.display.setCursor(51,41);
+  gb.display.println(route.Fuel);
+  gb.display.setCursor(0,49);
+  gb.display.println(" OWNED: ");
+  if(fuel==false)
+  {
+    gb.display.setColor(RED);
+  }
+  else
+  {
+    gb.display.setColor(GREEN);
+  }
+  gb.display.setCursor(30,49);
+  gb.display.println(PlayerShips[10]);
+  if(canSend==true)
+  {
+    gb.display.drawImage(2,56,IMAGE_OK_BTN); 
+  }
+  gb.display.drawImage(64,56,IMAGE_CANCEL_BTN);
+}
+
 int selectionFrame=0;
 
 void drawDropdownMenu(int posX,int posY,int selection)

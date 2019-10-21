@@ -97,7 +97,12 @@ int8_t starMap(int Astronomy)
         CustomFleet=attackFleet;
         return 20; //FLEET SELECTION SCREEN
       }
-      //CHOICE LOGIC
+      else if(stSelection==4)
+      {
+        TradeRoute route={true,SelectedPlanet.Name,SelectedPlanet.Resource1,SelectedPlanet.Resource2,SelectedPlanet.Resource3};
+        SelectedRoute=route;
+        return 23; //TRADE ROUTE CONFIRMATION
+      }
     }
     else
     {
