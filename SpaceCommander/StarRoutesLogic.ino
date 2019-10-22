@@ -1,13 +1,26 @@
-int pages=1;
+int srPages=1;
 
 int starRoutes(int Logistics)
 {
-  
   if(gb.buttons.pressed(BUTTON_B))
   {
     return 0;
   }
-  drawStarRoutes();
+  else if(gb.buttons.pressed(BUTTON_RIGHT))
+  {
+    if(srPages!=3)
+    {
+      srPages++;
+    }
+  }
+  else if(gb.buttons.pressed(BUTTON_LEFT))
+  {
+    if(srPages!=1)
+    {
+      srPages--;
+    }
+  }
+  drawStarRoutes(srPages);
   return 6;
 }
 

@@ -2042,13 +2042,14 @@ String setTimeString(int8_t seconds,int8_t minutes)
   return strMinutes+":"+strSeconds;
 }
 
-void drawStarRoutes()
+void drawStarRoutes(int page)
 {
   gb.display.drawImage(0,0,IMAGE_MAIN_THEME);
   gb.display.setColor(BLACK);
-  gb.display.println("ROUTES");
+  gb.display.println("ROUTES PAGE "+(String)page);
+  int idx=(page-1)*4;
   int posFlY=12;
-  for(int i=0;i<4;i++)
+  for(int i=idx;i<4+idx;i++)
   {
     if(PlayerRoutes[i].Active==true)
     {

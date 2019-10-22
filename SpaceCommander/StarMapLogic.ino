@@ -1,8 +1,10 @@
 int stPosX=38;
 int stPosY=28;
 
+int stIndex=0;
 int stSelection=1;
 bool stDropDownMenu=false;
+String stOptions[]={"SCOUT","CANCEL",""};
 
 int8_t starMap(int Astronomy)
 {
@@ -18,6 +20,19 @@ int8_t starMap(int Astronomy)
       {
         stSelection=4;
       }
+      
+      if(stIndex==0)
+      {
+        if(stOptions[2]!="")
+        {
+          stIndex=2;
+        }
+        else
+        {
+          stIndex=1;
+        }
+      }
+      
     }
     else
     {
@@ -39,6 +54,18 @@ int8_t starMap(int Astronomy)
       else
       {
         stSelection=1;
+      }
+
+      if(stIndex==1 || stIndex==2)
+      {
+        if(stOptions[2]!="")
+        {
+          stIndex=2;
+        }
+        else
+        {
+          stIndex=0;
+        }
       }
     }
     else
@@ -140,6 +167,30 @@ int8_t starMap(int Astronomy)
   //gb.display.setCursor(10, 19);
   //gb.display.println(Astronomy);
   return 3;
+}
+
+void buildDropdownMenu()
+{
+  if(SelectedPlanet.Hostile==true)
+  {
+    stOptions[1]="ATTACK";
+    stOptions[2]="CANCEL";
+  }
+  else if(SelectedPlanet.Owned==false)
+  {
+    stOptions[1]="COLONIZE";
+    stOptions[2]="CANCEL";
+  }
+  else if(SelectedPlanet.TradeRoute==false)
+  {
+    stOptions[1]="COLONIZE";
+    stOptions[2]="CANCEL";
+  }
+  else
+  {
+    stOptions[1]="CANCEL";
+    stOptions[2]="";
+  }
 }
 
 void selectedPlanet()
