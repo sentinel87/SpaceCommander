@@ -2135,7 +2135,7 @@ void drawRouteConfirmation(TradeRoute route,bool canSend,bool metal,bool crystal
 
 int selectionFrame=0;
 
-void drawDropdownMenu(int posX,int posY,int selection)
+void drawDropdownMenu(int posX,int posY,int selection,int enabled[5])
 {
   if(selectionFrame==0)
   {
@@ -2148,56 +2148,101 @@ void drawDropdownMenu(int posX,int posY,int selection)
   
   int fixedX=posX;
   int fixedY=posY;
-  if(posX+34>80)
+  if(posX+37>80)
   {
-    fixedX-=34;
+    fixedX-=37;
   }
-  if(posY+26>64)
+  if(posY+32>64)
   {
-    fixedY-=26;
+    fixedY-=32;
   }
   gb.display.setColor(BEIGE);
-  gb.display.fillRect(fixedX,fixedY,34,26);
-  if(selectionFrame==1 && selection==1)
+  gb.display.fillRect(fixedX,fixedY,37,32);
+  if(enabled[0]!=0)
   {
-    gb.display.setColor(RED);  
+    if(selectionFrame==1 && selection==1)
+    {
+      gb.display.setColor(RED);  
+    }
+    else
+    {
+      gb.display.setColor(BLACK); 
+    } 
   }
   else
   {
-    gb.display.setColor(BLACK); 
+    gb.display.setColor(GRAY);
   }
   gb.display.setCursor(fixedX+1,fixedY+1);
   gb.display.println("SCOUT");
-  if(selectionFrame==1 && selection==2)
+  if(enabled[1]!=0)
   {
-    gb.display.setColor(RED);  
+    if(selectionFrame==1 && selection==2)
+    {
+      gb.display.setColor(RED);  
+    }
+    else
+    {
+      gb.display.setColor(BLACK); 
+    } 
   }
   else
   {
-    gb.display.setColor(BLACK); 
+    gb.display.setColor(GRAY);
   }
   gb.display.setCursor(fixedX+1,fixedY+7);
   gb.display.println("COLONIZE");
-  if(selectionFrame==1 && selection==3)
+  if(enabled[2]!=0)
   {
-    gb.display.setColor(RED);  
+    if(selectionFrame==1 && selection==3)
+    {
+      gb.display.setColor(RED);  
+    }
+    else
+    {
+      gb.display.setColor(BLACK); 
+    } 
   }
   else
   {
-    gb.display.setColor(BLACK); 
+    gb.display.setColor(GRAY);
   }
   gb.display.setCursor(fixedX+1,fixedY+13);
   gb.display.println("ATTACK");
-  if(selectionFrame==1 && selection==4)
+  if(enabled[3]!=0)
   {
-    gb.display.setColor(RED);  
+    if(selectionFrame==1 && selection==4)
+    {
+      gb.display.setColor(RED);  
+    }
+    else
+    {
+      gb.display.setColor(BLACK); 
+    } 
   }
   else
   {
-    gb.display.setColor(BLACK); 
+    gb.display.setColor(GRAY);
   }
   gb.display.setCursor(fixedX+1,fixedY+19);
-  gb.display.println("EXPLORE");
+  gb.display.println("SET ROUTE");
+  if(enabled[4]!=0)
+  {
+    if(selectionFrame==1 && selection==5)
+    {
+      gb.display.setColor(RED);  
+    }
+    else
+    {
+      gb.display.setColor(BLACK); 
+    } 
+  }
+  else
+  {
+    gb.display.setColor(GRAY);
+  }
+  gb.display.setCursor(fixedX+1,fixedY+25);
+  gb.display.println("ABANDON");
 }
 
 void drawFleetStats()

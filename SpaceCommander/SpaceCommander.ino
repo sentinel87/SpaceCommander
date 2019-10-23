@@ -37,11 +37,11 @@ Planet System[]={
   {false,"Tibann",26,19,false,"None",2,1,3,false,false,-1,false},
   {false,"San Da",48,17,false,"None",3,1,1,false,false,-1,false},
   {false,"Tolka",63,23,false,"None",2,2,2,false,false,-1,false},
-  {false,"Raven",33,24,false,"None",3,2,1,false,false,-1,false},
+  {false,"Raven",33,24,false,"None",3,2,1,true,false,-1,false},
   {false,"Novaria",36,26,false,"None",1,4,0,false,false,-1,false},
   {false,"Eden",15,30,false,"None",0,5,0,false,false,-1,false},
   {false,"Brantal V",24,32,false,"None",1,0,4,false,false,-1,false},
-  {false,"Ganimedes",33,35,false,"None",5,0,0,false,false,-1,false},
+  {false,"Ganimedes",33,35,true,"None",5,0,0,false,false,-1,false},
   {false,"Dan 11",54,32,false,"None",0,0,5,false,false,-1,false},
   {false,"Janya",7,43,false,"None",1,2,2,false,false,-1,false},
   {false,"Arti Ka",15,41,false,"None",1,0,3,false,false,-1,false},
@@ -235,10 +235,6 @@ struct TradeRoute
 };
 
 TradeRoute PlayerRoutes[]={
-  {false,"",0,0,0},
-  {false,"",0,0,0},
-  {false,"",0,0,0},
-  {false,"",0,0,0},
   {false,"",0,0,0},
   {false,"",0,0,0},
   {false,"",0,0,0},
@@ -469,10 +465,10 @@ void sendFleet()
     //EnemyFleets[0]=CustomEnemyFleet;
     //TechTree[0].level++;
     //techEvents();
-    spaceBattle(0,0,false);
+    //spaceBattle(0,0,false);
     //spaceBattle(0,0,true);
-    fight=true;
-    gb.gui.popup("BATTLE!",50); 
+    //fight=true;
+    //gb.gui.popup("BATTLE!",50); 
   }
 }
 

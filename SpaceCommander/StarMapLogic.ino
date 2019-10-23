@@ -4,7 +4,7 @@ int stPosY=28;
 int stIndex=0;
 int stSelection=1;
 bool stDropDownMenu=false;
-String stOptions[]={"SCOUT","CANCEL",""};
+int stEnabled[]={1,0,0,0,0};
 
 int8_t starMap(int Astronomy)
 {
@@ -12,27 +12,7 @@ int8_t starMap(int Astronomy)
   {
     if(stDropDownMenu==true)
     {
-      if(stSelection!=1)
-      {
-        stSelection--;
-      }
-      else
-      {
-        stSelection=4;
-      }
-      
-      if(stIndex==0)
-      {
-        if(stOptions[2]!="")
-        {
-          stIndex=2;
-        }
-        else
-        {
-          stIndex=1;
-        }
-      }
-      
+      getPreviousChoice();   
     }
     else
     {
@@ -47,26 +27,7 @@ int8_t starMap(int Astronomy)
   {
     if(stDropDownMenu==true)
     {
-      if(stSelection!=4)
-      {
-        stSelection++;
-      }
-      else
-      {
-        stSelection=1;
-      }
-
-      if(stIndex==1 || stIndex==2)
-      {
-        if(stOptions[2]!="")
-        {
-          stIndex=2;
-        }
-        else
-        {
-          stIndex=0;
-        }
-      }
+      getNextChoice();
     }
     else
     {
@@ -130,12 +91,17 @@ int8_t starMap(int Astronomy)
         SelectedRoute=route;
         return 23; //TRADE ROUTE CONFIRMATION
       }
+      else if(stSelection==5)
+      {
+        abandonPlanet();
+      }
     }
     else
     {
       if(SelectedPlanet.Name!="")
       {
         stDropDownMenu=true;
+        buildDropdownMenu();
         stSelection=1; 
       }
     }
@@ -156,7 +122,7 @@ int8_t starMap(int Astronomy)
   drawPlanetsColors();
   if(stDropDownMenu==true)
   {
-    drawDropdownMenu(stPosX,stPosY,stSelection);
+    drawDropdownMenu(stPosX,stPosY,stSelection,stEnabled);
   }
   gb.display.setCursor(10, 5);
   gb.display.setFontSize(1);
@@ -173,23 +139,95 @@ void buildDropdownMenu()
 {
   if(SelectedPlanet.Hostile==true)
   {
-    stOptions[1]="ATTACK";
-    stOptions[2]="CANCEL";
+    stEnabled[0]=1;
+    stEnabled[1]=0;
+    stEnabled[2]=1;
+    stEnabled[3]=0;
+    stEnabled[4]=0;
   }
   else if(SelectedPlanet.Owned==false)
   {
-    stOptions[1]="COLONIZE";
-    stOptions[2]="CANCEL";
+    stEnabled[0]=1;
+    stEnabled[1]=1;
+    stEnabled[2]=0;
+    stEnabled[3]=0;
+    stEnabled[4]=0;
   }
   else if(SelectedPlanet.TradeRoute==false)
   {
-    stOptions[1]="COLONIZE";
-    stOptions[2]="CANCEL";
+    stEnabled[0]=1;
+    stEnabled[1]=0;
+    stEnabled[2]=0;
+    stEnabled[3]=1;
+    stEnabled[4]=1;
   }
   else
   {
-    stOptions[1]="CANCEL";
-    stOptions[2]="";
+    stEnabled[0]=1;
+    stEnabled[1]=0;
+    stEnabled[2]=0;
+    stEnabled[3]=0;
+    stEnabled[4]=1;
+  }
+}
+
+void abandonPlanet()
+{
+  if(SelectedPlanet.TradeRoute==true)
+  {
+    for(int i=0;i<12;i++) //Remove trade route
+    {
+      if(PlayerRoutes[i].Name==SelectedPlanet.Name)
+      {
+        TradeRoute route={false,"",0,0,0};
+        PlayerRoutes[i]=route;
+        break;
+      }
+    }
+  }
+  for(int i=0;i<30;i++)
+  {
+    if(System[i].Name==SelectedPlanet.Name)
+    {
+      System[i].Owned=false;
+      System[i].TradeRoute=false;
+      SelectedPlanet=System[i];
+      gb.gui.popup("PLANET ABANDONED!",50);
+      break;
+    }
+  }
+}
+
+void getNextChoice()
+{
+  for(int i=1;i<=5;i++)
+  {
+    if((i>(stSelection))&& stEnabled[i-1]==1)
+    {
+      stSelection=i;
+      return;
+    }
+  }
+  stSelection=1;
+}
+
+void getPreviousChoice()
+{
+  for(int i=5;i>=0;i--)
+  {
+    if((i<(stSelection))&& stEnabled[i-1]==1)
+    {
+      stSelection=i;
+      return;
+    }
+  }
+  for(int i=5;i>=0;i--)
+  {
+    if(stEnabled[i-1]==1)
+    {
+      stSelection=i;
+      return;
+    }
   }
 }
 
