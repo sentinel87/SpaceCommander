@@ -13,45 +13,46 @@ struct Planet
   int Resource1;
   int Resource2;
   int Resource3;
-  bool Owned;
-  bool TradeRoute;
+  bool Owned; //If planet is colonized
+  bool TradeRoute;  //If trade route to planet is set
   int GarrisonIndex;  //If planet is hostile
   bool Status; //If planet was classified by spy bot
+  bool ActiveMission; //If planet is currently targeted by player fleet mission 
 };
 
-Planet SelectedPlanet={true,"Earth",38,28,false,"Player",0,0,0,true,false,-1,true};
+Planet SelectedPlanet={true,"Earth",38,28,false,"Player",0,0,0,true,false,-1,true,false};
 
 Planet System[]={
-  {true,"Earth",38,28,false,"Player",0,0,0,true,false,-1,true},
-  {false,"Sheeza Prime",76,28,true,"Shezz",0,0,0,false,false,-1,false},
-  {false,"Cligga Prime",0,28,true,"Cligg",0,0,0,false,false,0,true},
-  {false,"Tau 14",8,3,false,"None",1,2,3,false,false,-1,false},
-  {false,"Cassia",14,3,false,"None",3,0,1,false,false,-1,false},
-  {false,"Kanton",27,9,false,"None",1,1,1,false,false,-1,false},
-  {false,"Nova 5",34,2,false,"None",4,0,2,false,false,-1,false},
-  {false,"Andromeda",44,6,false,"None",2,2,1,false,false,-1,false},
-  {false,"Syrius",55,11,false,"None",3,1,0,false,false,-1,false},
-  {false,"Arnval",71,7,false,"None",1,0,4,false,false,-1,false},
-  {false,"Duna",5,15,false,"None",0,2,1,false,false,-1,false},
-  {false,"Armag",14,22,false,"None",4,0,1,false,false,-1,false},
-  {false,"Tibann",26,19,false,"None",2,1,3,false,false,-1,false},
-  {false,"San Da",48,17,false,"None",3,1,1,false,false,-1,false},
-  {false,"Tolka",63,23,false,"None",2,2,2,false,false,-1,false},
-  {false,"Raven",33,24,false,"None",3,2,1,true,false,-1,false},
-  {false,"Novaria",36,26,false,"None",1,4,0,false,false,-1,false},
-  {false,"Eden",15,30,false,"None",0,5,0,false,false,-1,false},
-  {false,"Brantal V",24,32,false,"None",1,0,4,false,false,-1,false},
-  {false,"Ganimedes",33,35,true,"None",5,0,0,false,false,-1,false},
-  {false,"Dan 11",54,32,false,"None",0,0,5,false,false,-1,false},
-  {false,"Janya",7,43,false,"None",1,2,2,false,false,-1,false},
-  {false,"Arti Ka",15,41,false,"None",1,0,3,false,false,-1,false},
-  {false,"Tyra",27,45,false,"None",1,0,3,false,false,-1,false},
-  {false,"Galant",51,48,false,"None",2,0,2,false,false,-1,false},
-  {false,"Saxa",60,40,false,"None",1,1,1,false,false,-1,false},
-  {false,"Rea 8",73,37,false,"None",3,2,1,false,false,-1,false},
-  {false,"IO",66,54,false,"None",2,2,1,false,false,-1,false},
-  {false,"Taka Van",33,55,false,"None",3,1,2,false,false,-1,false},
-  {false,"Europa",3,55,false,"None",1,2,2,false,false,-1,false}
+  {true,"Earth",38,28,false,"Player",0,0,0,true,false,-1,true,false},
+  {false,"Sheeza Prime",76,28,true,"Shezz",0,0,0,false,false,-1,false,false},
+  {false,"Cligga Prime",0,28,true,"Cligg",0,0,0,false,false,0,true,false},
+  {false,"Tau 14",8,3,false,"None",1,2,3,false,false,-1,false,false},
+  {false,"Cassia",14,3,false,"None",3,0,1,false,false,-1,false,false},
+  {false,"Kanton",27,9,false,"None",1,1,1,false,false,-1,false,false},
+  {false,"Nova 5",34,2,false,"None",4,0,2,false,false,-1,false,false},
+  {false,"Andromeda",44,6,false,"None",2,2,1,false,false,-1,false,false},
+  {false,"Syrius",55,11,false,"None",3,1,0,false,false,-1,false,false},
+  {false,"Arnval",71,7,false,"None",1,0,4,false,false,-1,false,false},
+  {false,"Duna",5,15,false,"None",0,2,1,false,false,-1,false,false},
+  {false,"Armag",14,22,false,"None",4,0,1,false,false,-1,false,false},
+  {false,"Tibann",26,19,false,"None",2,1,3,false,false,-1,false,false},
+  {false,"San Da",48,17,false,"None",3,1,1,false,false,-1,false,false},
+  {false,"Tolka",63,23,false,"None",2,2,2,false,false,-1,false,false},
+  {false,"Raven",33,24,false,"None",3,2,1,true,false,-1,false,false},
+  {false,"Novaria",36,26,false,"None",1,4,0,false,false,-1,false,false},
+  {false,"Eden",15,30,false,"None",0,5,0,false,false,-1,false,false},
+  {false,"Brantal V",24,32,false,"None",1,0,4,false,false,-1,false,false},
+  {false,"Ganimedes",33,35,true,"None",5,0,0,false,false,-1,false,false},
+  {false,"Dan 11",54,32,false,"None",0,0,5,false,false,-1,false,false},
+  {false,"Janya",7,43,false,"None",1,2,2,false,false,-1,false,false},
+  {false,"Arti Ka",15,41,false,"None",1,0,3,false,false,-1,false,false},
+  {false,"Tyra",27,45,false,"None",1,0,3,false,false,-1,false,false},
+  {false,"Galant",51,48,false,"None",2,0,2,false,false,-1,false,false},
+  {false,"Saxa",60,40,false,"None",1,1,1,false,false,-1,false,false},
+  {false,"Rea 8",73,37,false,"None",3,2,1,false,false,-1,false,false},
+  {false,"IO",66,54,false,"None",2,2,1,false,false,-1,false,false},
+  {false,"Taka Van",33,55,false,"None",3,1,2,false,false,-1,false,false},
+  {false,"Europa",3,55,false,"None",1,2,2,false,false,-1,false,false}
 };
 
 struct Technology
@@ -191,7 +192,6 @@ struct Fleet
 };
 
 Fleet PlayerFleets[]={
-  {0,false,0,0,0,0,1000,200,15,36,0,0,"",true},
   {0,false,0,0,0,0,0,0,0,0,0,0,"",true},
   {0,false,0,0,0,0,0,0,0,0,0,0,"",true},
   {0,false,0,0,0,0,0,0,0,0,0,0,"",true},
@@ -202,8 +202,7 @@ Fleet EnemyFleets[]={
   {4,false,0,20,0,0,250,500,30,20,0,0,"",false},
   {4,false,0,30,0,0,0,0,0,0,0,0,"",false},
   {4,false,0,40,0,0,0,0,0,0,0,0,"",false},
-  {4,false,0,50,0,0,0,0,0,0,0,0,"",false},
-  {4,false,1,20,0,0,0,0,0,0,0,0,"",false}
+  {4,false,0,50,0,0,0,0,0,0,0,0,"",false}
 };
 
 Fleet CustomFleet={0,false,0,0,0,0,0,0,0,0,0,0,"",false};
@@ -218,7 +217,7 @@ int PlayerShips[]={
   15, //War Cruiser
   0, //Star Dreadnought
   0, //Solar Destroyer
-  0, //Spy Bot
+  90, //Spy Bot
   0, //Colonizer
   5, //Metal Transport
   2, //Crystal Transport
@@ -276,7 +275,7 @@ Report IntelligenceReports[]={
 
 int8_t ScreenSelection=0;
 
-int PlayerResources[]={5200,5200,5000};
+int PlayerResources[]={9200,9200,9000};
 
 //Timer
 int8_t frames=0;
@@ -363,6 +362,7 @@ void loop() {
     bool selected=sendAttack();
     if(selected==true)
     {
+      lockPlanet();
       attackMission=false;
     }
   }
@@ -371,6 +371,7 @@ void loop() {
     bool selected=sendSpy();
     if(selected==true)
     {
+      lockPlanet();
       spyMission=false;
     }
   }
@@ -379,6 +380,7 @@ void loop() {
     bool selected=sendColonizer();
     if(selected==true)
     {
+      lockPlanet();
       colonizeMission=false;
     }
   }
@@ -509,7 +511,7 @@ void updateVisibilityDistance()
 
 void updateFleets()
 {
-  for(int i=0;i<5;i++)
+  for(int i=0;i<4;i++)
   {
     if(EnemyFleets[i].Active==true)
     {
@@ -587,6 +589,20 @@ void updatePlayerFleetTime(int index)
     PlayerFleets[index].Seconds--;
   }
 }
+
+void lockPlanet()
+{
+  for(int i=0;i<30;i++)
+  {
+    if(System[i].Name==SelectedPlanet.Name)
+    {
+      System[i].ActiveMission=true;
+      System[i].ActiveMission=true;
+      break;
+    }
+  }
+}
+
 //Fleet reached destination (Actions) 
 void scoutMission(Fleet fleet)
 {
@@ -595,6 +611,7 @@ void scoutMission(Fleet fleet)
     if(System[i].Name==fleet.DestinationName)
     {
       System[i].Status=true;
+      System[i].ActiveMission=false;
       if(System[i].Hostile==true)
       {
         //TODO: Hostile Report
@@ -615,6 +632,7 @@ void colonizePlanet(Fleet fleet)
   {
     if(System[i].Name==fleet.DestinationName)
     {
+      System[i].ActiveMission=false;
       System[i].Owned=true;
       break;
     }

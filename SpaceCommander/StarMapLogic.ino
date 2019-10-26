@@ -70,6 +70,8 @@ int8_t starMap(int Astronomy)
         Fleet spyFleet={3,true,0,0,1,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
         CustomFleet=spyFleet;
         setFleetParameters();
+        stPosX=38;
+        stPosY=28;
         return 21; //SPY MISSION CONFIRMATION
       }
       else if(stSelection==2)
@@ -77,18 +79,24 @@ int8_t starMap(int Astronomy)
         Fleet colonizationFleet={2,true,0,0,0,1,0,0,0,0,0,0,SelectedPlanet.Name,true};
         CustomFleet=colonizationFleet;
         setFleetParameters();
+        stPosX=38;
+        stPosY=28;
         return 22; //COLONIZATION MISSION CONFIRMATION
       }
       else if(stSelection==3)
       {
         Fleet attackFleet={1,true,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
         CustomFleet=attackFleet;
+        stPosX=38;
+        stPosY=28;
         return 20; //FLEET SELECTION SCREEN
       }
       else if(stSelection==4)
       {
         TradeRoute route={true,SelectedPlanet.Name,SelectedPlanet.Resource1,SelectedPlanet.Resource2,SelectedPlanet.Resource3};
         SelectedRoute=route;
+        stPosX=38;
+        stPosY=28;
         return 23; //TRADE ROUTE CONFIRMATION
       }
       else if(stSelection==5)
@@ -101,8 +109,15 @@ int8_t starMap(int Astronomy)
       if(SelectedPlanet.Name!="")
       {
         stDropDownMenu=true;
-        buildDropdownMenu();
-        stSelection=1; 
+        bool activeChoices=buildDropdownMenu();
+        if(activeChoices==true)
+        {
+          stSelection=1;  
+        }
+        else
+        {
+          stSelection=-1; 
+        }
       }
     }
   }
@@ -135,39 +150,65 @@ int8_t starMap(int Astronomy)
   return 3;
 }
 
-void buildDropdownMenu()
+bool buildDropdownMenu()
 {
-  if(SelectedPlanet.Hostile==true)
+  bool IsFleetSlot=checkFleetSlots();
+  if(IsFleetSlot==true) //If Player Fleet Slot is available
   {
-    stEnabled[0]=1;
-    stEnabled[1]=0;
-    stEnabled[2]=1;
-    stEnabled[3]=0;
-    stEnabled[4]=0;
-  }
-  else if(SelectedPlanet.Owned==false)
-  {
-    stEnabled[0]=1;
-    stEnabled[1]=1;
-    stEnabled[2]=0;
-    stEnabled[3]=0;
-    stEnabled[4]=0;
-  }
-  else if(SelectedPlanet.TradeRoute==false)
-  {
-    stEnabled[0]=1;
-    stEnabled[1]=0;
-    stEnabled[2]=0;
-    stEnabled[3]=1;
-    stEnabled[4]=1;
+    if(SelectedPlanet.ActiveMission==true) //If planet has active mission
+    {
+      stEnabled[0]=0;
+      stEnabled[1]=0;
+      stEnabled[2]=0;
+      stEnabled[3]=0;
+      stEnabled[4]=0;
+      return false;
+    }
+    if(SelectedPlanet.Hostile==true)
+    {
+      stEnabled[0]=1;
+      stEnabled[1]=0;
+      stEnabled[2]=1;
+      stEnabled[3]=0;
+      stEnabled[4]=0;
+      return true;
+    }
+    else if(SelectedPlanet.Owned==false)
+    {
+      stEnabled[0]=1;
+      stEnabled[1]=1;
+      stEnabled[2]=0;
+      stEnabled[3]=0;
+      stEnabled[4]=0;
+      return true;
+    }
+    else if(SelectedPlanet.TradeRoute==false)
+    {
+      stEnabled[0]=1;
+      stEnabled[1]=0;
+      stEnabled[2]=0;
+      stEnabled[3]=1;
+      stEnabled[4]=1;
+      return true;
+    }
+    else
+    {
+      stEnabled[0]=1;
+      stEnabled[1]=0;
+      stEnabled[2]=0;
+      stEnabled[3]=0;
+      stEnabled[4]=1;
+      return true;
+    }
   }
   else
   {
-    stEnabled[0]=1;
+    stEnabled[0]=0;
     stEnabled[1]=0;
     stEnabled[2]=0;
     stEnabled[3]=0;
-    stEnabled[4]=1;
+    stEnabled[4]=0;
+    return false;
   }
 }
 
@@ -200,34 +241,48 @@ void abandonPlanet()
 
 void getNextChoice()
 {
-  for(int i=1;i<=5;i++)
+  if(SelectedPlanet.ActiveMission==false)
   {
-    if((i>(stSelection))&& stEnabled[i-1]==1)
+    for(int i=1;i<=5;i++)
     {
-      stSelection=i;
-      return;
+      if((i>(stSelection))&& stEnabled[i-1]==1)
+      {
+        stSelection=i;
+        return;
+      }
     }
+    stSelection=1; 
   }
-  stSelection=1;
+  else
+  {
+    stSelection=-1;
+  }
 }
 
 void getPreviousChoice()
 {
-  for(int i=5;i>=0;i--)
+  if(SelectedPlanet.ActiveMission==false)
   {
-    if((i<(stSelection))&& stEnabled[i-1]==1)
+    for(int i=5;i>=0;i--)
     {
-      stSelection=i;
-      return;
+      if((i<(stSelection))&& stEnabled[i-1]==1)
+      {
+        stSelection=i;
+        return;
+      }
+    }
+    for(int i=5;i>=0;i--)
+    {
+      if(stEnabled[i-1]==1)
+      {
+        stSelection=i;
+        return;
+      }
     }
   }
-  for(int i=5;i>=0;i--)
+  else
   {
-    if(stEnabled[i-1]==1)
-    {
-      stSelection=i;
-      return;
-    }
+    stSelection=-1;
   }
 }
 
@@ -395,3 +450,16 @@ void setFleetReturnParameters(int index)
   }
   PlayerFleets[index].Type=5; //set returning fleet
 }
+
+bool checkFleetSlots()
+{
+  for(int i=0;i<4;i++)
+  {
+    if(PlayerFleets[i].Active==false)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+

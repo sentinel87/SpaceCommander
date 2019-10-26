@@ -339,7 +339,7 @@ bool sendSpy()
     if(fleetPreStartCheck()==true)
     {
       PlayerResources[2]-=FleetFuelCost;
-      for(int i=0;i<5;i++)
+      for(int i=0;i<4;i++)
       {
         if(PlayerFleets[i].Active==false)
         {
@@ -371,7 +371,7 @@ bool sendColonizer()
     if(fleetPreStartCheck()==true)
     {
       PlayerResources[2]-=FleetFuelCost;
-      for(int i=0;i<5;i++)
+      for(int i=0;i<4;i++)
       {
         if(PlayerFleets[i].Active==false)
         {
@@ -403,7 +403,7 @@ bool sendAttack()
     if(fleetPreStartCheck()==true)
     {
       PlayerResources[2]-=FleetFuelCost;
-      for(int i=0;i<5;i++)
+      for(int i=0;i<4;i++)
       {
         if(PlayerFleets[i].Active==false)
         {
@@ -432,7 +432,7 @@ bool sendAttack()
 bool fleetPreStartCheck()
 {
   bool fleetSlot=false;
-  for(int i=0;i<5;i++)
+  for(int i=0;i<4;i++)
   {
     if(PlayerFleets[i].Active==false)
     {

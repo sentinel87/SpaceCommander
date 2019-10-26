@@ -1959,7 +1959,7 @@ void drawPlayerFleets(int posX,int posY)
   gb.display.println("ACTIVE FLEETS");
   int posFlY=7;
   int ActiveFleets=0;
-  for(int i=0;i<5;i++)
+  for(int i=0;i<4;i++)
   {
     if(PlayerFleets[i].Active==true)
     {
