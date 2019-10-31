@@ -27,8 +27,8 @@ int8_t warRoom(int playerResources[3])
     {
       if(CursorPosY==8)
       {
-        Choice=11;
-        CursorPosY=29; 
+        Choice=12;
+        CursorPosY=36; 
       }
       else
       {
@@ -54,7 +54,7 @@ int8_t warRoom(int playerResources[3])
     }
     else
     {
-      if(CursorPosY==29)
+      if(CursorPosY==36)
       {
         Choice=8;
         CursorPosY=8;
@@ -134,6 +134,8 @@ String selectedChoice()
       result="FLEET STATS";break;
     case 11:
       result="REPORTS";break;
+    case 12:
+      result="TRANSFORM RESOURCES";break;
   }
   return result;
 }

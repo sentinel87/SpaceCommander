@@ -72,6 +72,7 @@ int8_t starMap(int Astronomy)
         setFleetParameters();
         stPosX=38;
         stPosY=28;
+        selectedPlanet();
         return 21; //SPY MISSION CONFIRMATION
       }
       else if(stSelection==2)
@@ -81,6 +82,7 @@ int8_t starMap(int Astronomy)
         setFleetParameters();
         stPosX=38;
         stPosY=28;
+        selectedPlanet();
         return 22; //COLONIZATION MISSION CONFIRMATION
       }
       else if(stSelection==3)
@@ -89,6 +91,7 @@ int8_t starMap(int Astronomy)
         CustomFleet=attackFleet;
         stPosX=38;
         stPosY=28;
+        selectedPlanet();
         return 20; //FLEET SELECTION SCREEN
       }
       else if(stSelection==4)
@@ -97,6 +100,7 @@ int8_t starMap(int Astronomy)
         SelectedRoute=route;
         stPosX=38;
         stPosY=28;
+        selectedPlanet();
         return 23; //TRADE ROUTE CONFIRMATION
       }
       else if(stSelection==5)
