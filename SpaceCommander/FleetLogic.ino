@@ -448,13 +448,3 @@ bool fleetPreStartCheck()
   return fleetSlot && fuelCost;
 }
 
-int scoutReports()
-{
-  if(gb.buttons.pressed(BUTTON_B))
-  {
-    return 0;
-  }
-  drawSpyReport(IntelligenceReports[0]);
-  return 11;
-}
-

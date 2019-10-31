@@ -25,7 +25,7 @@ Planet SelectedPlanet={true,"Earth",38,28,false,"Player",0,0,0,true,false,-1,tru
 Planet System[]={
   {true,"Earth",38,28,false,"Player",0,0,0,true,false,-1,true,false},
   {false,"Sheeza Prime",76,28,true,"Shezz",0,0,0,false,false,-1,false,false},
-  {false,"Cligga Prime",0,28,true,"Cligg",0,0,0,false,false,0,true,false},
+  {false,"Cligga Prime",0,28,true,"Cligg",0,0,0,false,false,-1,true,false},
   {false,"Tau 14",8,3,false,"None",1,2,3,false,false,-1,false,false},
   {false,"Cassia",14,3,false,"None",3,0,1,false,false,-1,false,false},
   {false,"Kanton",27,9,false,"None",1,1,1,false,false,-1,false,false},
@@ -42,7 +42,7 @@ Planet System[]={
   {false,"Novaria",36,26,false,"None",1,4,0,false,false,-1,false,false},
   {false,"Eden",15,30,false,"None",0,5,0,false,false,-1,false,false},
   {false,"Brantal V",24,32,false,"None",1,0,4,false,false,-1,false,false},
-  {false,"Ganimedes",33,35,true,"None",5,0,0,false,false,-1,false,false},
+  {false,"Ganimedes",33,35,true,"None",5,0,0,false,false,0,false,false},
   {false,"Dan 11",54,32,false,"None",0,0,5,false,false,-1,false,false},
   {false,"Janya",7,43,false,"None",1,2,2,false,false,-1,false,false},
   {false,"Arti Ka",15,41,false,"None",1,0,3,false,false,-1,false,false},
@@ -115,7 +115,7 @@ Building Colony[]={
   {2,"Metal Mine",0,1,"Deliver metal       resource.",50,0,0,"None",0,0,1,2},
   {3,"Crystal Mine",0,1,"Deliver crystal     resource.",0,50,0,"None",0,0,1,2},
   {4,"Fuel Refinery",0,1,"Deliver fuel        resource.",50,50,0,"None",0,0,1,2},
-  {5,"Intelligence",0,0,"Reveal more intel inenemy reports.",100,75,0,"None",2,0,0,0},
+  {5,"Intelligence",0,0,"Reveal more intel inenemy reports.",100,75,0,"None",2,1,0,0},
   {6,"Radar",0,0,"Detects enemy fleets+1 visibility / lvl.",25,40,0,"None",7,1,5,1},
   {7,"Shipyard",0,1,"Required to build   high level ships.",75,75,75,"None",8,1,0,0},
   {8,"Research Lab",0,1,"Unlocks additional  technology / lvl.",100,100,100,"None",0,0,0,0},
@@ -266,11 +266,11 @@ struct Report
 };
 
 Report IntelligenceReports[]={
-  {"Cligga Prime",1,2,3,4,5,6,7,0,0,0},
-  {"Cligga Prime",2,0,0,0,0,0,0,7,8,2},
-  {"",0,0,0,0,0,0,0,0,0,0},
-  {"",0,0,0,0,0,0,0,0,0,0},
-  {"",0,0,0,0,0,0,0,0,0,0}
+  {"Empty",0,0,0,0,0,0,0,0,0,0},
+  {"Empty",0,0,0,0,0,0,0,0,0,0},
+  {"Empty",0,0,0,0,0,0,0,0,0,0},
+  {"Empty",0,0,0,0,0,0,0,0,0,0},
+  {"Empty",0,0,0,0,0,0,0,0,0,0}
 };
 
 int8_t ScreenSelection=0;
@@ -415,6 +415,10 @@ void loop() {
     else if(ScreenSelection==4)
     {
       ScreenSelection=shipyard(TechTree[7].level);
+    }
+    else if(ScreenSelection==5)
+    {
+      ScreenSelection=intelligence();
     }
     else if(ScreenSelection==6)
     {
@@ -614,7 +618,12 @@ void scoutMission(Fleet fleet)
       System[i].ActiveMission=false;
       if(System[i].Hostile==true)
       {
-        //TODO: Hostile Report
+        int gIdx=System[i].GarrisonIndex;
+        if(gIdx>=0 && gIdx<6)
+        {
+          Report Hostile={System[i].Name,1,Enemy1Garrison[gIdx].Fighters,Enemy1Garrison[gIdx].Interceptors,Enemy1Garrison[gIdx].Frigates,Enemy1Garrison[gIdx].WarCruisers,Enemy1Garrison[gIdx].StarDreadnoughts,Enemy1Garrison[gIdx].SolarDestroyers,0,0,0};
+          generateScoutReport(Hostile);
+        }
       }
       else
       {
@@ -623,6 +632,7 @@ void scoutMission(Fleet fleet)
       }
       break;
     }
+    //TODO: Hostile Report - Enemy Fleet??
   }
 }
 
@@ -638,17 +648,6 @@ void colonizePlanet(Fleet fleet)
     }
   }
   gb.gui.popup("PLANET COLONIZED!",50);
-}
-
-void generateScoutReport(Report report)
-{
-  Report Temp[5]=IntelligenceReports;
-  IntelligenceReports[0]=report;
-  for(int i=1;i<4;i++)
-  {
-    IntelligenceReports[i]=Temp[i-1];
-  }
-  gb.gui.popup("NEW SCOUT REPORT!",50);
 }
 
 void attackPlanet(int index)

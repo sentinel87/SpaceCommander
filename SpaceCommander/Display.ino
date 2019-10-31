@@ -1733,10 +1733,10 @@ const uint16_t IMAGE_BUILDING15[] = {
   0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248
 };
 
-//Ship Graphics
-
 Image Selector(IMAGE_BTN_SELECT);
 Image FleetSelector(IMAGE_FLEET_SELECT);
+
+int selectionFrame=0;
 
 //---------------Star Map Logic---------
 
@@ -1772,6 +1772,118 @@ void drawPlanetsColors()
     }
   }
 }
+
+void drawDropdownMenu(int posX,int posY,int selection,int enabled[5])
+{
+  if(selectionFrame==0)
+  {
+    selectionFrame=1;
+  }
+  else
+  {
+    selectionFrame=0;
+  }
+  
+  int fixedX=posX;
+  int fixedY=posY;
+  if(posX+37>80)
+  {
+    fixedX-=37;
+  }
+  if(posY+32>64)
+  {
+    fixedY-=32;
+  }
+  gb.display.setColor(BEIGE);
+  gb.display.fillRect(fixedX,fixedY,37,32);
+  if(enabled[0]!=0)
+  {
+    if(selectionFrame==1 && selection==1)
+    {
+      gb.display.setColor(RED);  
+    }
+    else
+    {
+      gb.display.setColor(BLACK); 
+    } 
+  }
+  else
+  {
+    gb.display.setColor(GRAY);
+  }
+  gb.display.setCursor(fixedX+1,fixedY+1);
+  gb.display.println("SCOUT");
+  if(enabled[1]!=0)
+  {
+    if(selectionFrame==1 && selection==2)
+    {
+      gb.display.setColor(RED);  
+    }
+    else
+    {
+      gb.display.setColor(BLACK); 
+    } 
+  }
+  else
+  {
+    gb.display.setColor(GRAY);
+  }
+  gb.display.setCursor(fixedX+1,fixedY+7);
+  gb.display.println("COLONIZE");
+  if(enabled[2]!=0)
+  {
+    if(selectionFrame==1 && selection==3)
+    {
+      gb.display.setColor(RED);  
+    }
+    else
+    {
+      gb.display.setColor(BLACK); 
+    } 
+  }
+  else
+  {
+    gb.display.setColor(GRAY);
+  }
+  gb.display.setCursor(fixedX+1,fixedY+13);
+  gb.display.println("ATTACK");
+  if(enabled[3]!=0)
+  {
+    if(selectionFrame==1 && selection==4)
+    {
+      gb.display.setColor(RED);  
+    }
+    else
+    {
+      gb.display.setColor(BLACK); 
+    } 
+  }
+  else
+  {
+    gb.display.setColor(GRAY);
+  }
+  gb.display.setCursor(fixedX+1,fixedY+19);
+  gb.display.println("SET ROUTE");
+  if(enabled[4]!=0)
+  {
+    if(selectionFrame==1 && selection==5)
+    {
+      gb.display.setColor(RED);  
+    }
+    else
+    {
+      gb.display.setColor(BLACK); 
+    } 
+  }
+  else
+  {
+    gb.display.setColor(GRAY);
+  }
+  gb.display.setCursor(fixedX+1,fixedY+25);
+  gb.display.println("ABANDON");
+}
+
+//---------------War Room Logic---------
 
 void drawWarRoom(int posX,int posY,String choice)
 {
@@ -2133,118 +2245,6 @@ void drawRouteConfirmation(TradeRoute route,bool canSend,bool metal,bool crystal
   gb.display.drawImage(64,56,IMAGE_CANCEL_BTN);
 }
 
-int selectionFrame=0;
-
-void drawDropdownMenu(int posX,int posY,int selection,int enabled[5])
-{
-  if(selectionFrame==0)
-  {
-    selectionFrame=1;
-  }
-  else
-  {
-    selectionFrame=0;
-  }
-  
-  int fixedX=posX;
-  int fixedY=posY;
-  if(posX+37>80)
-  {
-    fixedX-=37;
-  }
-  if(posY+32>64)
-  {
-    fixedY-=32;
-  }
-  gb.display.setColor(BEIGE);
-  gb.display.fillRect(fixedX,fixedY,37,32);
-  if(enabled[0]!=0)
-  {
-    if(selectionFrame==1 && selection==1)
-    {
-      gb.display.setColor(RED);  
-    }
-    else
-    {
-      gb.display.setColor(BLACK); 
-    } 
-  }
-  else
-  {
-    gb.display.setColor(GRAY);
-  }
-  gb.display.setCursor(fixedX+1,fixedY+1);
-  gb.display.println("SCOUT");
-  if(enabled[1]!=0)
-  {
-    if(selectionFrame==1 && selection==2)
-    {
-      gb.display.setColor(RED);  
-    }
-    else
-    {
-      gb.display.setColor(BLACK); 
-    } 
-  }
-  else
-  {
-    gb.display.setColor(GRAY);
-  }
-  gb.display.setCursor(fixedX+1,fixedY+7);
-  gb.display.println("COLONIZE");
-  if(enabled[2]!=0)
-  {
-    if(selectionFrame==1 && selection==3)
-    {
-      gb.display.setColor(RED);  
-    }
-    else
-    {
-      gb.display.setColor(BLACK); 
-    } 
-  }
-  else
-  {
-    gb.display.setColor(GRAY);
-  }
-  gb.display.setCursor(fixedX+1,fixedY+13);
-  gb.display.println("ATTACK");
-  if(enabled[3]!=0)
-  {
-    if(selectionFrame==1 && selection==4)
-    {
-      gb.display.setColor(RED);  
-    }
-    else
-    {
-      gb.display.setColor(BLACK); 
-    } 
-  }
-  else
-  {
-    gb.display.setColor(GRAY);
-  }
-  gb.display.setCursor(fixedX+1,fixedY+19);
-  gb.display.println("SET ROUTE");
-  if(enabled[4]!=0)
-  {
-    if(selectionFrame==1 && selection==5)
-    {
-      gb.display.setColor(RED);  
-    }
-    else
-    {
-      gb.display.setColor(BLACK); 
-    } 
-  }
-  else
-  {
-    gb.display.setColor(GRAY);
-  }
-  gb.display.setCursor(fixedX+1,fixedY+25);
-  gb.display.println("ABANDON");
-}
-
 void drawFleetStats()
 {
   gb.display.drawImage(0,0,IMAGE_MAIN_THEME);
@@ -2502,6 +2502,14 @@ void drawSendFleetConfirmation(int mission)
   gb.display.println("B");
 }
 
+//---------------Intelligence Logic---------
+
+void drawIntelligence()
+{
+  gb.display.setColor(WHITE);
+  gb.display.println("INTELLIGENCE");
+}
+
 void drawSpyReport(Report IntelligenceReport)
 {
   gb.display.drawImage(0,0,IMAGE_MAIN_THEME);
@@ -2530,19 +2538,61 @@ void drawSpyReport(Report IntelligenceReport)
     gb.display.println("S DS");
     gb.display.setColor(BLACK);
     gb.display.setCursor(25,17);
-    gb.display.println(IntelligenceReport.Fighters);
+    if(Colony[4].level>=2) //Intelligence building
+    {
+      gb.display.println(IntelligenceReport.Fighters);
+    }
+    else
+    {
+      gb.display.println("???");
+    }
     gb.display.setCursor(25,25);
-    gb.display.println(IntelligenceReport.Interceptors);
+    if(Colony[4].level>=4)
+    {
+      gb.display.println(IntelligenceReport.Interceptors);
+    }
+    else
+    {
+      gb.display.println("???");
+    }
     gb.display.setCursor(25,33);
-    gb.display.println(IntelligenceReport.Frigates);
+    if(Colony[4].level>=6)
+    {
+      gb.display.println(IntelligenceReport.Frigates);
+    }
+    else
+    {
+      gb.display.println("???");
+    }
     gb.display.setCursor(25,41);
-    gb.display.println(IntelligenceReport.WarCruisers);
+    if(Colony[4].level>=8)
+    {
+      gb.display.println(IntelligenceReport.WarCruisers);
+    }
+    else
+    {
+      gb.display.println("???");
+    }
     gb.display.setCursor(25,49);
-    gb.display.println(IntelligenceReport.StarDreadnoughts);
+    if(Colony[4].level>=10)
+    {
+      gb.display.println(IntelligenceReport.StarDreadnoughts);
+    }
+    else
+    {
+      gb.display.println("???");
+    }
     gb.display.setCursor(25,57);
-    gb.display.println(IntelligenceReport.SolarDestroyers);
+    if(Colony[4].level==12) //Intelligence building
+    {
+      gb.display.println(IntelligenceReport.SolarDestroyers);
+    }
+    else
+    {
+      gb.display.println("???");
+    }
   }
-  else
+  else if(IntelligenceReport.Type==2)
   {
     gb.display.setCursor(40,9);
     gb.display.setColor(ORANGE);
