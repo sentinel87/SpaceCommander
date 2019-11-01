@@ -335,6 +335,7 @@ void loop() {
   while(!gb.update())
   gb.display.clear();
   gb.lights.clear();
+  mainMenu(); return;
   if(fight==true) //stop game to see fight results
   {
     bool resolved=battleResults();
