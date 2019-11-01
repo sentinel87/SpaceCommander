@@ -327,6 +327,14 @@ bool routesMission=false;
 
 int BattleExperience=0;
 
+bool IsMainMenu=true;
+bool IsOptionMenu=false;
+
+//Game options
+
+int EnemyCount=1;
+String Difficulty="NORMAL"; 
+
 void setup() {
   gb.begin();
 }
@@ -335,131 +343,160 @@ void loop() {
   while(!gb.update())
   gb.display.clear();
   gb.lights.clear();
-  mainMenu(); return;
-  if(fight==true) //stop game to see fight results
+  if(IsMainMenu==true)  //MAIN MENU
   {
-    bool resolved=battleResults();
-    if(resolved==true)
+    int8_t choice=mainMenu();
+    if(choice==0 || choice==1)
     {
-      fight=false;
+      IsMainMenu=false;
+    }
+    else if(choice==2)
+    {
+      IsMainMenu=false;
+      IsOptionMenu=true;
     }
   }
-  else if(flSelection==true)// set fleet to attack
+  else if(IsOptionMenu) //OPTIONS MENU
   {
-    int selected=playerFleetSelection();
-    if(selected==2)
+    bool accepted=optionsMenu();
+    if(accepted==true)
     {
-      setFleetParameters();
-      attackMission=true;
-      flSelection=false;
-    }
-    else if(selected==0)
-    {
-      flSelection=false;
+      IsOptionMenu=false;
+      IsMainMenu=true;
     }
   }
-  else if(attackMission==true)
+  else //GAME
   {
-    bool selected=sendAttack();
-    if(selected==true)
+    if(fight==true) //stop game to see fight results
     {
-      lockPlanet();
-      attackMission=false;
+      bool resolved=battleResults();
+      if(resolved==true)
+      {
+        fight=false;
+      }
     }
-  }
-  else if(spyMission==true)// set spy to scout
-  {
-    bool selected=sendSpy();
-    if(selected==true)
+    else if(flSelection==true)// set fleet to attack
     {
-      lockPlanet();
-      spyMission=false;
+      int selected=playerFleetSelection();
+      if(selected==2)
+      {
+        setFleetParameters();
+        attackMission=true;
+        flSelection=false;
+      }
+      else if(selected==0)
+      {
+        flSelection=false;
+      }
     }
-  }
-  else if(colonizeMission==true)// set colonizer
-  {
-    bool selected=sendColonizer();
-    if(selected==true)
+    else if(attackMission==true)
     {
-      lockPlanet();
-      colonizeMission=false;
+      bool selected=sendAttack();
+      if(selected==true)
+      {
+        lockPlanet();
+        attackMission=false;
+      }
     }
-  }
-  else if(routesMission==true)// set trade route
-  {
-    bool selected=setRoute();
-    if(selected==true)
+    else if(spyMission==true)// set spy to scout
     {
-      routesMission=false;
+      bool selected=sendSpy();
+      if(selected==true)
+      {
+        lockPlanet();
+        spyMission=false;
+      }
     }
-  }
-  else
-  {
-    sendFleet();
-    timeCalculations();
-    if(ScreenSelection==0)
+    else if(colonizeMission==true)// set colonizer
     {
-      ScreenSelection=warRoom(PlayerResources);  
+      bool selected=sendColonizer();
+      if(selected==true)
+      {
+        lockPlanet();
+        colonizeMission=false;
+      }
     }
-    else if(ScreenSelection==1)
+    else if(routesMission==true)// set trade route
     {
-      ScreenSelection=infrastructure();
+      bool selected=setRoute();
+      if(selected==true)
+      {
+        routesMission=false;
+      }
     }
-    else if(ScreenSelection==2)
+    else
     {
-      ScreenSelection=research();
-    }
-    else if(ScreenSelection==3)
-    {
-      ScreenSelection=starMap(TechTree[0].level);
-    }
-    else if(ScreenSelection==4)
-    {
-      ScreenSelection=shipyard(TechTree[7].level);
-    }
-    else if(ScreenSelection==5)
-    {
-      ScreenSelection=intelligence();
-    }
-    else if(ScreenSelection==6)
-    {
-      ScreenSelection=starRoutes(TechTree[5].level);
-    }
-    else if(ScreenSelection==8)
-    {
-      ScreenSelection=playerFleets();
-    }
-    else if(ScreenSelection==9)
-    {
-      ScreenSelection=enemyFleets();
-    }
-    else if(ScreenSelection==10)
-    {
-      ScreenSelection=playerFleetStats();
-    }
-    else if(ScreenSelection==11)
-    {
-      ScreenSelection=scoutReports();
-    }
-    else if(ScreenSelection==20)
-    {
-      ScreenSelection=3; //RETURN TO STAR MAP AFTER FLEET SELECTION
-      flSelection=true;
-    }
-    else if(ScreenSelection==21)
-    {
-      ScreenSelection=3; //RETURN TO STAR MAP AFTER FLEET SELECTION
-      spyMission=true;
-    }
-    else if(ScreenSelection==22)
-    {
-      ScreenSelection=3; //RETURN TO STAR MAP AFTER FLEET SELECTION
-      colonizeMission=true;
-    }
-    else if(ScreenSelection==23)
-    {
-      ScreenSelection=3; //RETURN TO STAR MAP AFTER FLEET SELECTION
-      routesMission=true;
+      sendFleet();
+      timeCalculations();
+      if(ScreenSelection==0)
+      {
+        ScreenSelection=warRoom(PlayerResources);  
+      }
+      else if(ScreenSelection==1)
+      {
+        ScreenSelection=infrastructure();
+      }
+      else if(ScreenSelection==2)
+      {
+        ScreenSelection=research();
+      }
+      else if(ScreenSelection==3)
+      {
+        ScreenSelection=starMap(TechTree[0].level);
+      }
+      else if(ScreenSelection==4)
+      {
+        ScreenSelection=shipyard(TechTree[7].level);
+      }
+      else if(ScreenSelection==5)
+      {
+        ScreenSelection=intelligence();
+      }
+      else if(ScreenSelection==6)
+      {
+        ScreenSelection=starRoutes(TechTree[5].level);
+      }
+      else if(ScreenSelection==7) //SAVE GAME
+      {
+        ScreenSelection=0;
+        IsMainMenu=true;
+      }
+      else if(ScreenSelection==8)
+      {
+        ScreenSelection=playerFleets();
+      }
+      else if(ScreenSelection==9)
+      {
+        ScreenSelection=enemyFleets();
+      }
+      else if(ScreenSelection==10)
+      {
+        ScreenSelection=playerFleetStats();
+      }
+      else if(ScreenSelection==11)
+      {
+        ScreenSelection=scoutReports();
+      }
+      else if(ScreenSelection==20)
+      {
+        ScreenSelection=3; //RETURN TO STAR MAP AFTER FLEET SELECTION
+        flSelection=true;
+      }
+      else if(ScreenSelection==21)
+      {
+        ScreenSelection=3; //RETURN TO STAR MAP AFTER FLEET SELECTION
+        spyMission=true;
+      }
+      else if(ScreenSelection==22)
+      {
+        ScreenSelection=3; //RETURN TO STAR MAP AFTER FLEET SELECTION
+        colonizeMission=true;
+      }
+      else if(ScreenSelection==23)
+      {
+        ScreenSelection=3; //RETURN TO STAR MAP AFTER FLEET SELECTION
+        routesMission=true;
+      }
     }
   }
 }

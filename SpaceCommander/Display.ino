@@ -1861,6 +1861,62 @@ void drawMainMenu(int selection)
     gb.display.setColor(WHITE); 
   } 
   gb.display.println("CONTINUE GAME");
+  gb.display.setCursor(16,52);
+  if(selectionFrame==1 && selection==2)
+  {
+    gb.display.setColor(BLUE);  
+  }
+  else
+  {
+    gb.display.setColor(WHITE); 
+  } 
+  gb.display.println("GAME OPTIONS");
+}
+
+void drawOptionsMenu(int selection)
+{
+  if(selectionFrame==0)
+  {
+    selectionFrame=1;
+  }
+  else
+  {
+    selectionFrame=0;
+  }
+  gb.display.setCursor(15,2);
+  gb.display.setColor(BLUE);
+  gb.display.println("GAME OPTIONS");
+  gb.display.setFontSize(1);
+  gb.display.setCursor(22,20);
+  if(selectionFrame==1 && selection==0)
+  {
+    gb.display.setColor(BLUE);  
+  }
+  else
+  {
+    gb.display.setColor(WHITE); 
+  } 
+  gb.display.println("ENEMIES: 1");
+  gb.display.setCursor(4,26);
+  if(selectionFrame==1 && selection==1)
+  {
+    gb.display.setColor(BLUE);  
+  }
+  else
+  {
+    gb.display.setColor(WHITE); 
+  } 
+  gb.display.println("DIFFICULTY: "+Difficulty);
+  gb.display.setCursor(22,32);
+  if(selectionFrame==1 && selection==2)
+  {
+    gb.display.setColor(BLUE);  
+  }
+  else
+  {
+    gb.display.setColor(WHITE); 
+  } 
+  gb.display.println("BACK");
 }
 
 //---------------Star Map Logic---------
