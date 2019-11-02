@@ -70,9 +70,6 @@ int8_t starMap(int Astronomy)
         Fleet spyFleet={3,true,0,0,1,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
         CustomFleet=spyFleet;
         setFleetParameters();
-        stPosX=38;
-        stPosY=28;
-        selectedPlanet();
         return 21; //SPY MISSION CONFIRMATION
       }
       else if(stSelection==2)
@@ -80,27 +77,19 @@ int8_t starMap(int Astronomy)
         Fleet colonizationFleet={2,true,0,0,0,1,0,0,0,0,0,0,SelectedPlanet.Name,true};
         CustomFleet=colonizationFleet;
         setFleetParameters();
-        stPosX=38;
-        stPosY=28;
-        selectedPlanet();
         return 22; //COLONIZATION MISSION CONFIRMATION
       }
       else if(stSelection==3)
       {
         Fleet attackFleet={1,true,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
         CustomFleet=attackFleet;
-        stPosX=38;
-        stPosY=28;
-        selectedPlanet();
+        setFleetParameters();
         return 20; //FLEET SELECTION SCREEN
       }
       else if(stSelection==4)
       {
         TradeRoute route={true,SelectedPlanet.Name,SelectedPlanet.Resource1,SelectedPlanet.Resource2,SelectedPlanet.Resource3};
         SelectedRoute=route;
-        stPosX=38;
-        stPosY=28;
-        selectedPlanet();
         return 23; //TRADE ROUTE CONFIRMATION
       }
       else if(stSelection==5)

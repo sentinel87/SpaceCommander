@@ -165,7 +165,7 @@ struct EnemyGarrison
 };
 
 EnemyGarrison Enemy1Garrison[]={
-  {2,100,50,25,10,5,0}, //Capital
+  {2,100,0,1,0,0,0}, //Capital
   {0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0},
@@ -313,7 +313,7 @@ struct BattleResult
   int PlSolarDestroyersLost;
   int EnSolarDestroyers;
   int EnSolarDestroyersLost;
-  bool Winning;
+  int Winner;
 };
 
 BattleResult BtResult={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false};
@@ -588,6 +588,8 @@ void updateEnemyFleetTime(int index)
   {
     EnemyFleets[index].Seconds=0;
     EnemyFleets[index].Active=false;
+    spaceBattle(index,-1,false);
+    fight=true;
     enemyFleetsCheck(); 
   }
   else
@@ -663,7 +665,7 @@ void lockPlanet()
     if(System[i].Name==SelectedPlanet.Name)
     {
       System[i].ActiveMission=true;
-      System[i].ActiveMission=true;
+      SelectedPlanet.ActiveMission=true;
       break;
     }
   }
@@ -714,11 +716,25 @@ void colonizePlanet(Fleet fleet)
 
 void attackPlanet(int index)
 {
-  PlayerFleets[index].Active=true;
-  //TODO: Battle Function
-  if(true) //If fleet wasn't destroyed
+  String planet=PlayerFleets[index].DestinationName;
+  for(int i=0;i<30;i++)
   {
-    setFleetReturnParameters(index);
+    if(System[i].Name==planet)
+    {
+      int idx=System[i].GarrisonIndex;
+      if(idx!=-1)
+      {
+        int8_t winner=spaceBattle(idx,index,true);
+        fight=true;
+        if(winner==1) //if player wins move fleet back
+        {
+          setFleetReturnParameters(index);
+          PlayerFleets[index].Active=true;
+        }
+        System[i].ActiveMission=false;
+      }
+      break;
+    }
   }
 }
 
@@ -763,7 +779,6 @@ void enemyAttackTimer()
         int idx=getEnemyFleetSlot();
         if(idx!=-1)
         {
-          gb.gui.popup("Chance 1!",50);
           EnemyFleets[idx]=CustomEnemyFleet;
           attackUnderway=true;
           timeToAttack=10; // 2 minutes
@@ -779,7 +794,6 @@ void enemyAttackTimer()
         int idx=getEnemyFleetSlot();
         if(idx!=-1)
         {
-          gb.gui.popup("Chance 2!",50);
           EnemyFleets[idx]=CustomEnemyFleet;
           timeToAttack=-1; //stop attacks
         }
@@ -795,11 +809,11 @@ void prepareEnemyFleet()
   int Speed=0; //in seconds per 1 unit 
   int distance=37;
   //TODO: Fleet ships algorithm
-  CustomEnemyFleet.Fighters=1;
-  CustomEnemyFleet.Interceptors=1;
-  CustomEnemyFleet.Frigates=1;
-  CustomEnemyFleet.WarCruisers=1;
-  CustomEnemyFleet.StarDreadnoughts=1;
+  CustomEnemyFleet.Fighters=10;
+  CustomEnemyFleet.Interceptors=10;
+  CustomEnemyFleet.Frigates=10;
+  CustomEnemyFleet.WarCruisers=10;
+  CustomEnemyFleet.StarDreadnoughts=10;
   //Calculate speed
   if(CustomEnemyFleet.Fighters>0)
   {

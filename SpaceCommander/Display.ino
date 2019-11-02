@@ -2528,6 +2528,22 @@ void drawBattleResult1()
   gb.display.println("-"+(String)BtResult.PlFrigatesLost); 
   gb.display.setCursor(60,42);
   gb.display.println("-"+(String)BtResult.EnFrigatesLost);
+  gb.display.setCursor(24,50);
+  if(BtResult.Winner==1)
+  {
+    gb.display.setColor(GREEN);
+    gb.display.println("VICTORY!"); 
+  }
+  else if(BtResult.Winner==2)
+  {
+    gb.display.setColor(RED);
+    gb.display.println("LOST!"); 
+  }
+  else
+  {
+    gb.display.setColor(BLACK);
+    gb.display.println("DRAW"); 
+  }
 }
 
 void drawBattleResult2()
@@ -2567,6 +2583,22 @@ void drawBattleResult2()
   gb.display.println("-"+(String)BtResult.PlSolarDestroyersLost); 
   gb.display.setCursor(60,42);
   gb.display.println("-"+(String)BtResult.EnSolarDestroyersLost);
+  gb.display.setCursor(24,50);
+  if(BtResult.Winner==1)
+  {
+    gb.display.setColor(GREEN);
+    gb.display.println("VICTORY!"); 
+  }
+  else if(BtResult.Winner==2)
+  {
+    gb.display.setColor(RED);
+    gb.display.println("LOST!"); 
+  }
+  else
+  {
+    gb.display.setColor(BLACK);
+    gb.display.println("DRAW"); 
+  }
 }
 
 void drawFleetSelection(int posY, bool selectedShip,int quantity)
