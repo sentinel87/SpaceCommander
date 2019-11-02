@@ -116,7 +116,7 @@ Building Colony[]={
   {3,"Crystal Mine",0,1,"Deliver crystal     resource.",0,50,0,"None",0,0,1,2},
   {4,"Fuel Refinery",0,1,"Deliver fuel        resource.",50,50,0,"None",0,0,1,2},
   {5,"Intelligence",0,0,"Reveal more intel inenemy reports.",100,75,0,"None",2,1,0,0},
-  {6,"Radar",0,0,"Detects enemy fleets+1 visibility / lvl.",25,40,0,"None",7,1,5,1},
+  {6,"Radar",0,15,"Detects enemy fleets+1 visibility / lvl.",25,40,0,"None",7,1,5,1},
   {7,"Shipyard",0,1,"Required to build   high level ships.",75,75,75,"None",8,1,0,0},
   {8,"Research Lab",0,1,"Unlocks additional  technology / lvl.",100,100,100,"None",0,0,0,0},
   {9,"Defence System",0,1,"+ 10 points to      defense / lvl.",100,200,50,"None",9,1,0,0},
@@ -199,10 +199,10 @@ Fleet PlayerFleets[]={
 };
 
 Fleet EnemyFleets[]={
-  {4,false,0,20,0,0,250,500,30,20,0,0,"",false},
-  {4,false,0,30,0,0,0,0,0,0,0,0,"",false},
-  {4,false,0,40,0,0,0,0,0,0,0,0,"",false},
-  {4,false,0,50,0,0,0,0,0,0,0,0,"",false}
+  {4,false,0,0,0,0,0,0,0,0,0,0,"",false},
+  {4,false,0,0,0,0,0,0,0,0,0,0,"",false},
+  {4,false,0,0,0,0,0,0,0,0,0,0,"",false},
+  {4,false,0,0,0,0,0,0,0,0,0,0,"",false}
 };
 
 Fleet CustomFleet={0,false,0,0,0,0,0,0,0,0,0,0,"",false};
@@ -333,7 +333,11 @@ bool IsOptionMenu=false;
 //Game options
 
 int EnemyCount=1;
-String Difficulty="NORMAL"; 
+String Difficulty="NORMAL";
+
+//Enemy Timer
+int timeToAttack=20;//4 minutes interval
+bool attackUnderway=false;
 
 void setup() {
   gb.begin();
@@ -524,6 +528,7 @@ void timeCalculations()
     frames=0;
     updateVisibilityDistance();
     updateFleets();
+    enemyAttackTimer();
   }
   else
   {
@@ -582,11 +587,30 @@ void updateEnemyFleetTime(int index)
   else if(EnemyFleets[index].Seconds==0 && EnemyFleets[index].Minutes==0)
   {
     EnemyFleets[index].Seconds=0;
-    EnemyFleets[index].Active=false; 
+    EnemyFleets[index].Active=false;
+    enemyFleetsCheck(); 
   }
   else
   {
     EnemyFleets[index].Seconds--;
+  }
+}
+
+void enemyFleetsCheck() //check if all attacks are completed and reset prepare timer
+{
+  bool allClear=true;
+  for(int i=0;i<4;i++)
+  {
+    if(EnemyFleets[i].Active!=false)
+    {
+      allClear=false;
+      break;
+    }
+  }
+  if(allClear==true)
+  {
+    attackUnderway=false;
+    timeToAttack=20; //4 minutes
   }
 }
 
@@ -718,6 +742,52 @@ void updateResources()
 }
 
 //--------Enemy Attacks------------------------
+void enemyAttackTimer()
+{
+  if(timeToAttack==-1) //at least two fleets are attacking
+  {
+    return;
+  }
+  if(timeToAttack>0)  //"Peace" time
+  {
+    timeToAttack--;  
+  }
+  else
+  {
+    if(!attackUnderway)
+    {
+      int chance=random(0, 5);
+      if(chance==0 || chance==2 || chance==4)
+      {
+        prepareEnemyFleet();
+        int idx=getEnemyFleetSlot();
+        if(idx!=-1)
+        {
+          gb.gui.popup("Chance 1!",50);
+          EnemyFleets[idx]=CustomEnemyFleet;
+          attackUnderway=true;
+          timeToAttack=10; // 2 minutes
+        }
+      }
+    }
+    else
+    {
+      int chance=random(0, 6);
+      if(chance==1 || chance==3)
+      {
+        prepareEnemyFleet();
+        int idx=getEnemyFleetSlot();
+        if(idx!=-1)
+        {
+          gb.gui.popup("Chance 2!",50);
+          EnemyFleets[idx]=CustomEnemyFleet;
+          timeToAttack=-1; //stop attacks
+        }
+      }
+    }
+  }
+}
+
 void prepareEnemyFleet()
 {
   Fleet temp={4,true,0,0,0,0,0,0,0,0,0,0,"",false};
@@ -770,5 +840,19 @@ void prepareEnemyFleet()
   {
     CustomEnemyFleet.Seconds=totalSeconds;
   }
+}
+
+int getEnemyFleetSlot()
+{
+  int result=-1;
+  for(int i=0;i<4;i++)
+  {
+    if(EnemyFleets[i].Active==false)
+    {
+      result=i;
+      break;
+    }
+  }
+  return result;
 }
 
