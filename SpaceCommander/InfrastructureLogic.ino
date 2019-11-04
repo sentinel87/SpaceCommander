@@ -48,10 +48,17 @@ int8_t infrastructure()
       CanBuild=false;
     }
   }
+  if(CanBuild==true)
+  {
+    if(Colony[inCurrentBuilding].maxLevel==Colony[inCurrentBuilding].level)
+    {
+      CanBuild=false;
+    }
+  }
  
   if(gb.buttons.pressed(BUTTON_RIGHT))
   {
-    if(inCurrentBuilding==14)
+    if(inCurrentBuilding==12)
     {
       inCurrentBuilding=0;
     }
@@ -64,7 +71,7 @@ int8_t infrastructure()
   {
     if(inCurrentBuilding==0)
     {
-      inCurrentBuilding=14;
+      inCurrentBuilding=12;
     }
     else
     {

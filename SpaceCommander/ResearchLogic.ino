@@ -63,7 +63,11 @@ bool canResearch(Technology technology, int depTechLvl)
     {
       result=false;     
     }
-  }  
+  }
+  if(technology.maxLevel==technology.level)
+  {
+    result=false;  
+  }
   return result;
 }
 
@@ -71,7 +75,7 @@ void moveNext()
 {
   if(reCurrentTech+1<Colony[7].level)
   {
-    if(reCurrentTech==19)
+    if(reCurrentTech==14)
     {
       reCurrentTech=0;
     }

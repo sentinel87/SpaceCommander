@@ -68,29 +68,24 @@ struct Technology
   String restriction;
   int8_t depTechId;
   int8_t depTechLevel;
+  int8_t maxLevel;
 };
 
 Technology TechTree[]={
-  {1,"Astronomy",0,1,100,100,0,"Increases visibility on the Star Map.","None",0,0},
-  {2,"Espionage",0,0,250,50,50,"Unlocks Intelligence building.","Astronomy",1,2},
-  {3,"Jet Proplusion",0,0,100,100,100,"Unlocks Fighters and increases theirs speed.","Astronomy",1,2},
-  {4,"Impulse Engine",0,0,50,250,200,"Unlocks Frigates and increases their speed.","Jet Proplusion",3,5},
-  {5,"Hyperdrive",0,0,100,500,400,"Unlocks War Cruisers and increases their speed.","Impulse Engine",4,5},
-  {6,"Logistics",0,0,120,120,50,"+ 1 to Star Routes and Colonies.","Astronomy",1,4},
-  {7,"Radiolocation",0,0,100,150,0,"Unlock Radar building and increases visibility.","Espionage",2,2},
-  {8,"Military Science",0,1,100,25,0,"Needed to upgrade shipyard level and build high level ships.","None",0,0},
-  {9,"Shielding",0,0,400,500,0,"Unlock Planetary Defense System and increases it's power.","Military Science",8,10},
-  {10,"Construction Mechanics",0,0,0,0,0,"Unlock Warehouse and increases it's capacity.","Logistics",6,1},
-  {11,"Ship Weapons",0,0,125,300,75,"Needed to build high level ships.","Military Science",8,1},
-  {12,"Fusion Reaction",0,0,0,0,0,"Unlocks Transformer and its upgrades.","Military Science",8,8},
-  {13,"Flight Control",0,0,0,0,0,"Unlocks Logistic Centre and its upgrades","Logistics",6,10},
-  {14,"Default",0,0,0,0,0,"Default","None",0,0},
-  {15,"Default",0,0,0,0,0,"Default","None",0,0},
-  {16,"Default",0,0,0,0,0,"Default","None",0,0},
-  {17,"Default",0,0,0,0,0,"Default","None",0,0},
-  {18,"Default",0,0,0,0,0,"Default","None",0,0},
-  {19,"Default",0,0,0,0,0,"Default","None",0,0},
-  {20,"Default",0,0,0,0,0,"Default","None",0,0}
+  {1,"Astronomy",0,1,100,100,0,"Increases visibilityon the Star Map.","None",0,0,32},
+  {2,"Espionage",0,0,250,50,50,"Unlocks Intelligencebuilding.","Astronomy",1,2,21},
+  {3,"Jet Proplusion",0,0,100,100,100,"Unlocks Fighters andincreases their     speed.","Astronomy",1,2,15},
+  {4,"Impulse Engine",0,0,50,250,200,"Unlocks Frigates andincreases their     speed.","Jet Proplusion",3,5,10},
+  {5,"Hyperdrive",0,0,100,500,400,"Unlocks War Cruisersand increases their speed.","Impulse Engine",4,2,10},
+  {6,"Logistics",0,0,120,120,50,"+ 1 to Star Routes  and Colonies.","Astronomy",1,4,12},
+  {7,"Radiolocation",0,0,100,150,0,"Unlock Radar and    increases visibilityrange.","Espionage",2,2,20},
+  {8,"Fleet Tactics",0,1,100,25,0,"Needed to upgrade   shipyard and build  high level ships.","Astronomy",1,10},
+  {9,"Shielding",0,0,400,500,0,"Unlock Planetary    Defense System and  increases firepower.","Fleet Tactics",8,5,15},
+  {10,"Statics",0,0,0,0,0,"Unlock Warehouse andincreases it's      capacity.","Logistics",6,2,11},
+  {11,"Ship Weapons",0,0,125,300,75,"Final level unlocks Star Dreadnoughts.","Military Science",8,1,10},
+  {12,"Fusion Reaction",0,0,0,0,0,"Unlocks Transformer and its upgrades.","Military Science",8,8,10},
+  {13,"Flight Control",0,0,0,0,0,"Unlocks Logistic    Centre and its      upgrades.","Statics",10,2,10},
+  {14,"Gravity Weapon",0,0,0,0,0,"Final level of this technology unlocks  Solar Destroyer.","Fusion Reaction",12,1,10}
 };
 
 struct Building
@@ -108,24 +103,23 @@ struct Building
   int8_t depTechLevel;
   int depBuildingId;
   int8_t depBuildingLevel;
+  int8_t maxLevel;
 };
 
 Building Colony[]={
-  {1,"Power Plant",0,1,"Required to build   higher level        structures.",50,50,50,"None",0,0,0,0},
-  {2,"Metal Mine",0,1,"Deliver metal       resource.",50,0,0,"None",0,0,1,2},
-  {3,"Crystal Mine",0,1,"Deliver crystal     resource.",0,50,0,"None",0,0,1,2},
-  {4,"Fuel Refinery",0,1,"Deliver fuel        resource.",50,50,0,"None",0,0,1,2},
-  {5,"Intelligence",0,0,"Reveal more intel inenemy reports.",100,75,0,"None",2,1,0,0},
-  {6,"Radar",0,15,"Detects enemy fleets+1 visibility / lvl.",25,40,0,"None",7,1,5,1},
+  {1,"Power Plant",0,1,"Required to build   higher level        structures.",50,50,50,"None",0,0,0,0,21},
+  {2,"Metal Mine",0,1,"Deliver metal       resource.",50,0,0,"None",0,0,1,2,20},
+  {3,"Crystal Mine",0,1,"Deliver crystal     resource.",0,50,0,"None",0,0,1,2,20},
+  {4,"Fuel Refinery",0,1,"Deliver fuel        resource.",50,50,0,"None",0,0,1,2,20},
+  {5,"Intelligence",0,0,"Reveal more intel inenemy reports.",100,75,0,"None",2,1,0,0,13},
+  {6,"Radar",0,15,"Detects enemy fleets+1 visibility / lvl.",25,40,0,"None",7,1,5,1,20},
   {7,"Shipyard",0,1,"Required to build   high level ships.",75,75,75,"None",8,1,0,0},
-  {8,"Research Lab",0,1,"Unlocks additional  technology / lvl.",100,100,100,"None",0,0,0,0},
-  {9,"Defence System",0,1,"+ 10 points to      defense / lvl.",100,200,50,"None",9,1,0,0},
-  {10,"Factory",0,1,"None",0,0,0,"None",0,0,0,0},
-  {11,"Warehouse",0,1,"None",0,0,0,"None",0,0,0,0},
-  {12,"Transformer",0,0,"Converts one        resource to another.",500,500,750,"None",12,1,0,0},
-  {13,"Logistic Centre",0,0,"Increases resource  transport from trade routes.",300,100,200,"None",13,1,0,0},
-  {14,"None",0,1,"None",0,0,0,"None",0,0,0,0},
-  {15,"None",0,1,"None",0,0,0,"None",0,0,0,0},
+  {8,"Research Lab",0,1,"Unlocks additional  technology / lvl.",100,100,100,"None",0,0,0,0,14},
+  {9,"Defence System",0,1,"+ 10 points to      defense / lvl.",100,200,50,"None",9,1,0,0,10},
+  {10,"Factory",0,1,"Reduces Metal and   Crystal cost of     buildings.",100,150,0,"None",0,0,0,0,0},
+  {11,"Warehouse",0,1,"Stores resources    when losing battle. +100 for each       resource / lvl.",250,250,0,"None",10,1,0,0,10},
+  {12,"Transformer",0,0,"Converts one        resource to another.",500,500,750,"None",12,1,0,0,10},
+  {13,"Logistic Centre",0,0,"Increases resource  transport from traderoutes.",300,100,200,"None",13,1,0,0,10}
 };
 
 struct Ship
@@ -588,7 +582,11 @@ void updateEnemyFleetTime(int index)
   {
     EnemyFleets[index].Seconds=0;
     EnemyFleets[index].Active=false;
-    spaceBattle(index,-1,false);
+    int8_t winner=spaceBattle(index,-1,false);
+    if(winner==2)//battle lost
+    {
+      resourcePillage();
+    }
     fight=true;
     enemyFleetsCheck(); 
   }
@@ -755,6 +753,18 @@ void updateResources()
   PlayerResources[0]+=1 + Colony[1].level*2; //Metal Mine
   PlayerResources[1]+=1 + Colony[2].level*2; //Crystal Mine
   PlayerResources[2]+=1 + Colony[3].level*2; //Fuel Refinery
+}
+
+void resourcePillage()
+{
+  int reserve=Colony[10].level*100; //Warehouse protection
+  for(int i=0;i<3;i++)
+  {
+    if(PlayerResources[i]>=reserve)
+    {
+      PlayerResources[i]=reserve;
+    }
+  }
 }
 
 //--------Enemy Attacks------------------------
