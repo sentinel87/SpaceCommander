@@ -116,3 +116,20 @@ void setDifficulty()
   }
 }
 
+void prepareNewGame()
+{
+  ProgressPointsLimit=0;
+  if(Difficulty=="EASY")
+  {
+    ProgressPointsLimit=60;
+  }
+  else if(Difficulty=="NORMAL")
+  {
+    ProgressPointsLimit=120;
+  }
+  else
+  {
+    ProgressPointsLimit=120;
+  }
+}
+

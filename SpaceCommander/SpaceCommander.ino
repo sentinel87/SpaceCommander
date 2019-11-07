@@ -328,6 +328,8 @@ bool IsOptionMenu=false;
 
 int EnemyCount=1;
 String Difficulty="NORMAL";
+int ProgressPoints=105;
+int ProgressPointsLimit=120;
 
 //Enemy Timer
 int timeToAttack=20;//4 minutes interval
