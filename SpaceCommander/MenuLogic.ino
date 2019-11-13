@@ -119,17 +119,54 @@ void setDifficulty()
 void prepareNewGame()
 {
   ProgressPointsLimit=0;
+  visibilitySeconds=0;
+  visibilityMinutes=0;
+  FleetFuelCost=0;
+  ScreenSelection=0;
+  
   if(Difficulty=="EASY")
   {
     ProgressPointsLimit=60;
+    PlayerResources[0]=600;
+    PlayerResources[1]=600;
+    PlayerResources[2]=500;
   }
   else if(Difficulty=="NORMAL")
   {
     ProgressPointsLimit=120;
+    PlayerResources[0]=400;
+    PlayerResources[1]=400;
+    PlayerResources[2]=350;
   }
   else
   {
     ProgressPointsLimit=120;
+    PlayerResources[0]=200;
+    PlayerResources[1]=200;
+    PlayerResources[2]=150;
+  }
+  
+  //Reset player ships
+  for(int i=0;i<11;i++)
+  {
+    PlayerShips[i]=0;
+  }
+  
+  //Fleets reset
+  Fleet ResetFleet={0,false,0,0,0,0,0,0,0,0,0,0,"",false};
+  CustomFleet=ResetFleet;
+  CustomEnemyFleet=ResetFleet;
+  for(int i=0;i<4;i++)
+  {
+    PlayerFleets[i]=ResetFleet;
+    PlayerFleets[i].Visible=true;
+    EnemyFleets[i]=ResetFleet;    
+  }
+  
+  //Routes reset
+  TradeRoute ResetRoute={false,"",0,0,0};
+  for(int i=0;i<12;i++)
+  {
+    PlayerRoutes[i]=ResetRoute;    
   }
 }
-
