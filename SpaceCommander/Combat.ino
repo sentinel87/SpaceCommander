@@ -9,6 +9,7 @@ int8_t spaceBattle(int enIndex,int plIndex,bool attacker) //attacker - true (Pla
   //TODO: Report starting units
   reportShipsBeforeBattle(enIndex,plIndex,attacker);
   //BATTLE
+  resolveBonuses(enIndex,plIndex,attacker);
   resolveFightersBattle(enIndex,plIndex,attacker);
   resolveInterceptorsBattle(enIndex,plIndex,attacker);
   resolveFrigatesBattle(enIndex,plIndex,attacker);
@@ -20,6 +21,58 @@ int8_t spaceBattle(int enIndex,int plIndex,bool attacker) //attacker - true (Pla
   reportLosses(enIndex,plIndex,attacker,winner);
   
   return winner;
+}
+
+void resolveBonuses(int enIndex,int plIndex,bool attacker)
+{
+  if(attacker==true)
+  {
+    Enemy1Garrison[enIndex].Fighters-=PlayerFleets[plIndex].Frigates*3;
+    if(Enemy1Garrison[enIndex].Fighters<0)
+    {
+      Enemy1Garrison[enIndex].Fighters=0;
+    }
+    PlayerFleets[plIndex].Fighters-=Enemy1Garrison[enIndex].Frigates*3;
+    if(PlayerFleets[plIndex].Fighters<0)
+    {
+      PlayerFleets[plIndex].Fighters=0;
+    }
+
+    Enemy1Garrison[enIndex].Interceptors-=PlayerFleets[plIndex].WarCruisers*5;
+    if(Enemy1Garrison[enIndex].Interceptors<0)
+    {
+      Enemy1Garrison[enIndex].Interceptors=0;
+    }
+    PlayerFleets[plIndex].Interceptors-=Enemy1Garrison[enIndex].WarCruisers*3;
+    if(PlayerFleets[plIndex].Fighters<0)
+    {
+      PlayerFleets[plIndex].Fighters=0;
+    }
+  }
+  else
+  {
+    PlayerShips[0]-=EnemyFleets[enIndex].Frigates*3;
+    if(PlayerShips[0]<0)
+    {
+      PlayerShips[0]=0;
+    }
+    EnemyFleets[enIndex].Fighters-=PlayerShips[2];
+    if(EnemyFleets[enIndex].Fighters<0)
+    {
+      EnemyFleets[enIndex].Fighters=0;
+    }
+
+    PlayerShips[1]-=EnemyFleets[enIndex].WarCruisers*5;
+    if(PlayerShips[1]<0)
+    {
+      PlayerShips[1]=0;
+    }
+    EnemyFleets[enIndex].Interceptors-=PlayerShips[3]*5;
+    if(EnemyFleets[enIndex].Interceptors<0)
+    {
+      EnemyFleets[enIndex].Interceptors=0;
+    }
+  }
 }
 
 void reportShipsBeforeBattle(int enIndex,int plIndex,bool attacker)

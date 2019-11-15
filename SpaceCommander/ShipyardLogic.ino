@@ -157,6 +157,74 @@ void buySelectedShipQuantity()
   PlayerResources[0]-=((Shipyard[shCurrentShip].resource1Cost)*fixedQuantity);
   PlayerResources[1]-=((Shipyard[shCurrentShip].resource2Cost)*fixedQuantity);
   PlayerShips[shCurrentShip]+=fixedQuantity;
+  if(shCurrentShip<=4)
+  {
+    fillGarrisons();
+  }
   gb.gui.popup("ACQUIRED!",50); 
+}
+
+void fillGarrisons()
+{
+  int modifier=0;
+  if(Difficulty=="EASY")
+  {
+    modifier=4;
+  }
+  else if(Difficulty=="NORMAL")
+  {
+    modifier=2;
+  }
+  else
+  {
+    modifier=1;
+  }
+  int toDistribute=shQuantityToBuy/modifier;
+  for(int i=0;i<6;i++)
+  {
+    switch(shCurrentShip)
+    {
+      case 0:
+      {
+        if((Enemy1Garrison[i].Fighters+toDistribute)!=9999)
+        {
+          Enemy1Garrison[i].Fighters+=toDistribute; 
+        }
+        break;
+      }
+      case 1:
+      {
+        if((Enemy1Garrison[i].Interceptors+toDistribute)!=9999)
+        {
+          Enemy1Garrison[i].Interceptors+=toDistribute; 
+        }
+        break;
+      }
+      case 2:
+      {
+        if((Enemy1Garrison[i].Frigates+toDistribute)!=9999)
+        {
+          Enemy1Garrison[i].Frigates+=toDistribute; 
+        }
+        break;
+      }
+      case 3:
+      {
+        if((Enemy1Garrison[i].WarCruisers+toDistribute)!=9999)
+        {
+          Enemy1Garrison[i].WarCruisers+=toDistribute; 
+        }
+        break;
+      }
+      case 4:
+      {
+        if((Enemy1Garrison[i].StarDreadnoughts+toDistribute)!=9999)
+        {
+          Enemy1Garrison[i].StarDreadnoughts+=toDistribute; 
+        }
+        break;
+      }
+    }
+  }
 }
 

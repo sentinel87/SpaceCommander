@@ -169,4 +169,10 @@ void prepareNewGame()
   {
     PlayerRoutes[i]=ResetRoute;    
   }
+  //Prepare Garrisons
+  EnemyGarrison ResetGarrison={-1,200,100,20,5,2,0};
+  for(int i=0;i<6;i++)
+  {
+    Enemy1Garrison[i]=ResetGarrison;
+  }
 }

@@ -157,7 +157,7 @@ struct EnemyGarrison
 };
 
 EnemyGarrison Enemy1Garrison[]={
-  {2,100,0,1,0,0,0}, //Capital
+  {0,0,0,0,0,0,0}, //Capital
   {0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0},
@@ -818,11 +818,9 @@ void enemyAttackTimer()
 
 void prepareEnemyFleet()
 {
-  Fleet temp={4,true,0,0,0,0,0,0,0,0,0,0,"",false};
-  CustomEnemyFleet=temp;
+  CustomEnemyFleet=setEnemyFleet();
   int Speed=0; //in seconds per 1 unit 
   int distance=37;
-  //TODO: Fleet ships algorithm
   CustomEnemyFleet.Fighters=10;
   CustomEnemyFleet.Interceptors=10;
   CustomEnemyFleet.Frigates=10;
