@@ -2225,8 +2225,8 @@ void drawWarRoom(int posX,int posY,String choice)
   gb.display.drawImage(71,23,IMAGE_MAP_BTN);
   gb.display.drawImage(71,30,IMAGE_SHIPS_BTN);
   gb.display.drawImage(71,37,IMAGE_INTEL_BTN);
-  gb.display.drawImage(71,44,IMAGE_TRANSPORT_BTN);
-  gb.display.drawImage(71,51,IMAGE_SAVE_BTN);
+  gb.display.drawImage(62,44,IMAGE_TRANSPORT_BTN);
+  gb.display.drawImage(71,44,IMAGE_SAVE_BTN);
   gb.display.drawImage(62,9,IMAGE_FLEET_BTN);
   gb.display.drawImage(62,16,IMAGE_RADIOLOCATION_BTN);
   gb.display.drawImage(62,23,IMAGE_STATS_BTN);
@@ -2523,6 +2523,7 @@ void drawRouteConfirmation(TradeRoute route,bool canSend,bool metal,bool crystal
   gb.display.setCursor(5,0);
   gb.display.setColor(WHITE);
   gb.display.println("SET " + route.Name + " ROUTE");
+  gb.display.setColor(BLACK);
   gb.display.setCursor(0,9);
   gb.display.println(" METAL CARGO: ");
   gb.display.setCursor(52,9);

@@ -21,7 +21,7 @@ int starRoutes(int Logistics)
     }
   }
   drawStarRoutes(srPages);
-  return 6;
+  return 11;
 }
 
 bool setRoute()
@@ -57,11 +57,24 @@ bool setRoute()
       PlayerShips[9]-=SelectedRoute.Crystal;
       PlayerShips[10]-=SelectedRoute.Fuel;
       PlayerRoutes[0]=SelectedRoute;
+      setPlanetRouteMarker(SelectedRoute.Name);
       gb.gui.popup("ROUTE SET!",50); 
       return true; 
     }
   }
   drawRouteConfirmation(SelectedRoute,canSet,metal,crystal,fuel);
   return false;
+}
+
+void setPlanetRouteMarker(String planetName)
+{
+  for(int i=0;i<30;i++)
+  {
+    if(System[i].Name==planetName)
+    {
+      System[i].TradeRoute=true;
+      break;
+    }
+  }
 }
 

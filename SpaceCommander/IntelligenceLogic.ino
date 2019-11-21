@@ -7,7 +7,7 @@ int8_t intelligence()
     return 0;
   }
   drawIntelligence();
-  return 5;
+  return 10;
 }
 
 int8_t scoutReports()
@@ -40,7 +40,7 @@ int8_t scoutReports()
     }
   }
   drawSpyReport(IntelligenceReports[inReportIdx]);
-  return 11;
+  return 7;
 }
 
 void generateScoutReport(Report report)

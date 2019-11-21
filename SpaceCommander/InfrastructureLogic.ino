@@ -102,5 +102,5 @@ int8_t infrastructure()
   }
   
   drawInfrastructureScreen(Colony[inCurrentBuilding],dependencyTechName,dependencyTechLevel,dependencyBuildingName,dependencyBuildingLevel,CanBuild);
-  return 1;
+  return 2;
 }

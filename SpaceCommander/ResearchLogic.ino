@@ -39,7 +39,7 @@ int8_t research()
   {
     return 0;
   }
-  return 2;
+  return 4;
 }
 
 bool canResearch(Technology technology, int depTechLvl)

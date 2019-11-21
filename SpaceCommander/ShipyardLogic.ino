@@ -113,7 +113,7 @@ int8_t shipyard(int MilitaryScience)
     }
   }
   drawShipyardScreen(Shipyard[shCurrentShip],canBuy,shSelectedShip,shQuantity,shQuantityToBuy,PlayerShips[shCurrentShip]);
-  return 4;
+  return 8;
 }
 
 bool resourceCostValidation()

@@ -19,7 +19,7 @@ int8_t starMap(int Astronomy)
       if(stPosY!=0)
       {
         stPosY--;
-        selectedPlanet();
+        //selectedPlanet();
       } 
     }
   }
@@ -34,7 +34,7 @@ int8_t starMap(int Astronomy)
       if(stPosY!=56)
       {
         stPosY++;
-        selectedPlanet();
+        //selectedPlanet();
       } 
     }
   }
@@ -45,7 +45,7 @@ int8_t starMap(int Astronomy)
       if(stPosX!=0)
       {
         stPosX--;
-        selectedPlanet();
+        //selectedPlanet();
       }
     }
   }
@@ -56,7 +56,7 @@ int8_t starMap(int Astronomy)
       if(stPosX!=76)
       {
         stPosX++;
-        selectedPlanet();
+        //selectedPlanet();
       }
     }
   }
@@ -101,6 +101,7 @@ int8_t starMap(int Astronomy)
     {
       if(SelectedPlanet.Name!="")
       {
+        selectedPlanet();
         stDropDownMenu=true;
         bool activeChoices=buildDropdownMenu();
         if(activeChoices==true)
@@ -140,7 +141,7 @@ int8_t starMap(int Astronomy)
   gb.display.println(gb.getFreeRam());
   //gb.display.setCursor(10, 19);
   //gb.display.println(Astronomy);
-  return 3;
+  return 6;
 }
 
 bool buildDropdownMenu()

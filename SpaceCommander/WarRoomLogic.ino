@@ -2,108 +2,85 @@
 int CursorPosX=70;
 int CursorPosY=8;
 
-int8_t Choice=1;
-int8_t Column=2;
+int8_t Choice=2;
+int8_t Column=1;
+int8_t Row=0;
+
+int8_t SelectionArray[6][2]={
+  {1,2},
+  {3,4},
+  {5,6},
+  {7,8},
+  {9,10},
+  {11,12}
+};
 
 int8_t warRoom(int playerResources[3])
 {
-  drawWarRoom(CursorPosX,CursorPosY,selectedChoice());
   if(gb.buttons.pressed(BUTTON_UP))
   {
-    if(Column==2)
+    if(Row==0)
     {
-     if(CursorPosY==8)
-     {
-        Choice=7;
-        CursorPosY=50; 
-     }
-     else
-     {
-        Choice--;
-        CursorPosY-=7;
-     } 
+      Row=5;
     }
     else
     {
-      if(CursorPosY==8)
-      {
-        Choice=12;
-        CursorPosY=36; 
-      }
-      else
-      {
-        Choice--;
-        CursorPosY-=7;
-      } 
+      Row--;
     }
+    CursorPosY=8+Row*7;
+    Choice=SelectionArray[Row][Column];
+    selectedChoice();
+    
   }
   else if(gb.buttons.pressed(BUTTON_DOWN))
   {
-    if(Column==2)
+    if(Row==5)
     {
-      if(CursorPosY==50)
-      {
-        Choice=1;
-        CursorPosY=8;
-      }
-      else
-      {
-        Choice++;
-        CursorPosY+=7;
-      } 
+      Row=0;
     }
     else
     {
-      if(CursorPosY==36)
-      {
-        Choice=8;
-        CursorPosY=8;
-      }
-      else
-      {
-        Choice++;
-        CursorPosY+=7;
-      } 
+      Row++;
     }
+    CursorPosY=8+Row*7;
+    Choice=SelectionArray[Row][Column];
+    selectedChoice();
   }
   else if(gb.buttons.pressed(BUTTON_RIGHT))
   {
-    if(Column==2)
+    if(Column==0)
     {
-      CursorPosY=8;
-      Choice=8;
-      CursorPosX=61;
+      CursorPosX=70;
       Column=1;
     }
     else
     {
-      Choice=1;
-      CursorPosY=8;
-      CursorPosX=70;
-      Column=2;
+      CursorPosX=61;
+      Column=0;
     }
+    Choice=SelectionArray[Row][Column];
+    selectedChoice();
   }
   else if(gb.buttons.pressed(BUTTON_LEFT))
   {
-    if(Column==2)
+    if(Column==0)
     {
-      CursorPosY=8;
-      Choice=8;
-      CursorPosX=61;
+      CursorPosX=70;
       Column=1;
     }
     else
     {
-      Choice=1;
-      CursorPosY=8;
-      CursorPosX=70;
-      Column=2;
+      CursorPosX=61;
+      Column=0;
     }
+    Choice=SelectionArray[Row][Column];
+    selectedChoice();
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
     return Choice;   
   }
+  drawWarRoom(CursorPosX,CursorPosY,selectedChoice());
   return 0;
 }
 
@@ -112,29 +89,29 @@ String selectedChoice()
   String result="";
   switch(Choice)
   {
-    case 1:
-      result="BUILDINGS";break;
     case 2:
-      result="TECHNOLOGIES";break;
-    case 3:
-      result="STAR MAP";break;
+      result="BUILDINGS";break;
     case 4:
-      result="SHIPYARD";break;
-    case 5:
-      result="INTELLIGENCE";break;
+      result="TECHNOLOGIES";break;
     case 6:
-      result="STAR ROUTES";break;
-    case 7:
-      result="SAVE GAME";break;
+      result="STAR MAP";break;
     case 8:
-      result="ACTIVE FLEETS";break;
-    case 9:
-      result="ENEMY FLEETS";break;
+      result="SHIPYARD";break;
     case 10:
-      result="FLEET STATS";break;
+      result="INTELLIGENCE";break;
     case 11:
-      result="REPORTS";break;
+      result="STAR ROUTES";break;
     case 12:
+      result="SAVE GAME";break;
+    case 1:
+      result="ACTIVE FLEETS";break;
+    case 3:
+      result="ENEMY FLEETS";break;
+    case 5:
+      result="FLEET STATS";break;
+    case 7:
+      result="REPORTS";break;
+    case 9:
       result="TRANSFORM RESOURCES";break;
   }
   return result;

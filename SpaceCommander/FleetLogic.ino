@@ -15,7 +15,7 @@ int playerFleets()
     return 0;
   }
   drawPlayerFleets(flMarkerPosX,flMarkerPosY);
-  return 8;
+  return 1;
 }
 
 int enemyFleets()
@@ -25,7 +25,7 @@ int enemyFleets()
   {
     return 0;
   }
-  return 9;
+  return 3;
 }
 
 int playerFleetStats()
@@ -35,7 +35,7 @@ int playerFleetStats()
     return 0;
   }
   drawFleetStats();
-  return 10;
+  return 5;
 }
 
 int playerFleetSelection()
@@ -328,11 +328,11 @@ void checkQuantity()
   }
 }
 
-bool sendSpy()
+int8_t sendSpy()
 {
   if(gb.buttons.pressed(BUTTON_B))
   {
-    return true;
+    return 2;
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
@@ -349,22 +349,22 @@ bool sendSpy()
           break;
         }
       }
-      return true;
+      return 1;
     }
     else
     {
-      return false; 
+      return 0; 
     }
   }
   drawSendFleetConfirmation(3);
-  return false;
+  return 0;
 }
 
-bool sendColonizer()
+int8_t sendColonizer()
 {
   if(gb.buttons.pressed(BUTTON_B))
   {
-    return true;
+    return 2;
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
@@ -381,22 +381,22 @@ bool sendColonizer()
           break;
         }
       }
-      return true;
+      return 1;
     }
     else
     {
-      return false; 
+      return 0; 
     }
   }
   drawSendFleetConfirmation(2);
-  return false;
+  return 0;
 }
 
-bool sendAttack()
+int8_t sendAttack()
 {
   if(gb.buttons.pressed(BUTTON_B))
   {
-    return true;
+    return 2;
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
@@ -418,15 +418,15 @@ bool sendAttack()
           break;
         }
       }
-      return true;
+      return 1;
     }
     else
     {
-      return false; 
+      return 0; 
     }
   }
   drawSendFleetConfirmation(1);
-  return false;
+  return 0;
 }
 
 bool fleetPreStartCheck()

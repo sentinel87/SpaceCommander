@@ -389,28 +389,40 @@ void loop() {
     }
     else if(attackMission==true)
     {
-      bool selected=sendAttack();
-      if(selected==true)
+      int8_t selected=sendAttack();
+      if(selected==1)
       {
         lockPlanet();
+        attackMission=false;
+      }
+      else if(selected==2)
+      {
         attackMission=false;
       }
     }
     else if(spyMission==true)// set spy to scout
     {
-      bool selected=sendSpy();
-      if(selected==true)
+      int8_t selected=sendSpy();
+      if(selected==1)
       {
         lockPlanet();
+        spyMission=false;
+      }
+      else if(selected==2)
+      {
         spyMission=false;
       }
     }
     else if(colonizeMission==true)// set colonizer
     {
-      bool selected=sendColonizer();
-      if(selected==true)
+      int8_t selected=sendColonizer();
+      if(selected==1)
       {
         lockPlanet();
+        colonizeMission=false;
+      }
+      else if(selected==2)
+      {
         colonizeMission=false;
       }
     }
@@ -430,69 +442,69 @@ void loop() {
       {
         ScreenSelection=warRoom(PlayerResources);  
       }
-      else if(ScreenSelection==1)
+      else if(ScreenSelection==2)
       {
         ScreenSelection=infrastructure();
       }
-      else if(ScreenSelection==2)
+      else if(ScreenSelection==4)
       {
         ScreenSelection=research();
       }
-      else if(ScreenSelection==3)
+      else if(ScreenSelection==6)
       {
         ScreenSelection=starMap(TechTree[0].level);
       }
-      else if(ScreenSelection==4)
+      else if(ScreenSelection==8)
       {
         ScreenSelection=shipyard(TechTree[7].level);
       }
-      else if(ScreenSelection==5)
+      else if(ScreenSelection==10)
       {
         ScreenSelection=intelligence();
       }
-      else if(ScreenSelection==6)
+      else if(ScreenSelection==11)
       {
         ScreenSelection=starRoutes(TechTree[5].level);
       }
-      else if(ScreenSelection==7) //SAVE GAME
+      else if(ScreenSelection==12) //SAVE GAME
       {
         ScreenSelection=0;
         IsMainMenu=true;
       }
-      else if(ScreenSelection==8)
+      else if(ScreenSelection==1)
       {
         ScreenSelection=playerFleets();
       }
-      else if(ScreenSelection==9)
+      else if(ScreenSelection==3)
       {
         ScreenSelection=enemyFleets();
       }
-      else if(ScreenSelection==10)
+      else if(ScreenSelection==5)
       {
         ScreenSelection=playerFleetStats();
       }
-      else if(ScreenSelection==11)
+      else if(ScreenSelection==7)
       {
         ScreenSelection=scoutReports();
       }
       else if(ScreenSelection==20)
       {
-        ScreenSelection=3; //RETURN TO STAR MAP AFTER FLEET SELECTION
+        ScreenSelection=6; //RETURN TO STAR MAP AFTER FLEET SELECTION
         flSelection=true;
       }
       else if(ScreenSelection==21)
       {
-        ScreenSelection=3; //RETURN TO STAR MAP AFTER FLEET SELECTION
+        ScreenSelection=6; //RETURN TO STAR MAP AFTER FLEET SELECTION
         spyMission=true;
       }
       else if(ScreenSelection==22)
       {
-        ScreenSelection=3; //RETURN TO STAR MAP AFTER FLEET SELECTION
+        ScreenSelection=6; //RETURN TO STAR MAP AFTER FLEET SELECTION
         colonizeMission=true;
       }
       else if(ScreenSelection==23)
       {
-        ScreenSelection=3; //RETURN TO STAR MAP AFTER FLEET SELECTION
+        ScreenSelection=6; //RETURN TO STAR MAP AFTER FLEET SELECTION
         routesMission=true;
       }
     }
@@ -757,6 +769,25 @@ void updateResources()
   PlayerResources[0]+=1 + Colony[1].level*2; //Metal Mine
   PlayerResources[1]+=1 + Colony[2].level*2; //Crystal Mine
   PlayerResources[2]+=1 + Colony[3].level*2; //Fuel Refinery
+
+  for(int i=0;i<12;i++)
+  {
+    PlayerResources[0]+=PlayerRoutes[i].Metal;
+    PlayerResources[1]+=PlayerRoutes[i].Crystal;
+    PlayerResources[2]+=PlayerRoutes[i].Fuel;
+  }
+  if(PlayerResources[0]>9999)
+  {
+    PlayerResources[0]=9999;
+  }
+  if(PlayerResources[1]>9999)
+  {
+    PlayerResources[1]=9999;
+  }
+  if(PlayerResources[2]>9999)
+  {
+    PlayerResources[2]=9999;
+  }
 }
 
 void resourcePillage()
