@@ -111,7 +111,7 @@ Building Colony[]={
   {4,"Fuel Refinery",0,1,"Deliver fuel        resource.",50,50,0,0,0,1,2,20},
   {5,"Intelligence",0,0,"Reveal more intel inenemy reports.",100,75,0,2,1,0,0,13},
   {6,"Radar",0,15,"Detects enemy fleets+1 visibility / lvl.",25,40,0,8,1,5,1,20},
-  {7,"Shipyard",0,1,"Required to build   high level ships.",75,75,75,9,1,0,0},
+  {7,"Shipyard",0,1,"Required to build   high level ships.",75,75,75,9,1,0,10},
   {8,"Research Lab",0,1,"Unlocks additional  technology / lvl.",100,100,100,0,0,0,0,15},
   {9,"Defence System",0,1,"+ 10 points to      defense / lvl.",100,200,50,10,1,0,0,10},
   {10,"Factory",0,1,"Reduces Metal and   Crystal cost of     buildings.",100,150,0,0,0,0,0,0},
@@ -772,9 +772,9 @@ void updateResources()
 
   for(int i=0;i<12;i++)
   {
-    PlayerResources[0]+=PlayerRoutes[i].Metal;
-    PlayerResources[1]+=PlayerRoutes[i].Crystal;
-    PlayerResources[2]+=PlayerRoutes[i].Fuel;
+    PlayerResources[0]+=PlayerRoutes[i].Metal + Colony[12].level;
+    PlayerResources[1]+=PlayerRoutes[i].Crystal + Colony[12].level;
+    PlayerResources[2]+=PlayerRoutes[i].Fuel + Colony[12].level;
   }
   if(PlayerResources[0]>9999)
   {

@@ -3046,7 +3046,7 @@ void drawSpyReport(Report IntelligenceReport)
 
 //---------------Shipyard Logic---------
 
-void drawShipyardScreen(Ship ship,bool canBuild, bool selection, int quantity, int quantityToBuy,int owned)
+void drawShipyardScreen(Ship ship,bool canBuild, bool selection, int quantity, int quantityToBuy,int owned,String restriction)
 {
   gb.display.drawImage(0,0,IMAGE_INFO_2);
   gb.display.setColor(BLUE);
@@ -3081,19 +3081,28 @@ void drawShipyardScreen(Ship ship,bool canBuild, bool selection, int quantity, i
   gb.display.setColor(WHITE);
   gb.display.setCursor(0,35);
   gb.display.println(ship.describtion);
-  if(selection)
+  if(restriction!="")
   {
-    gb.display.setColor(GRAY);
-    gb.display.setCursor(47,57);
-    gb.display.println(quantityToBuy);
-    gb.display.setColor(YELLOW);
-    gb.display.drawRect(45,55,35,9);
-    gb.display.setCursor(59,57);
-    gb.display.println("+-"+(String)quantity);
+    gb.display.setColor(RED);
+    gb.display.setCursor(2,57);
+    gb.display.println(restriction);
   }
-  gb.display.setColor(GREEN);
-  gb.display.setCursor(2,57);
-  gb.display.println("OWNED:"+(String)owned);
+  else
+  {
+    if(selection)
+    {
+      gb.display.setColor(GRAY);
+      gb.display.setCursor(47,57);
+      gb.display.println(quantityToBuy);
+      gb.display.setColor(YELLOW);
+      gb.display.drawRect(45,55,35,9);
+      gb.display.setCursor(59,57);
+      gb.display.println("+-"+(String)quantity);
+    }
+    gb.display.setColor(GREEN);
+    gb.display.setCursor(2,57);
+    gb.display.println("OWNED:"+(String)owned);
+  }
 }
 
 void drawShipImage(int id)

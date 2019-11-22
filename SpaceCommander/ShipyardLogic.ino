@@ -6,6 +6,7 @@ int shQuantityToBuy=1;
 int8_t shipyard(int MilitaryScience)
 {
   bool canBuy=resourceCostValidation();
+  String restriction=restrictionValidation(); 
   if(gb.buttons.pressed(BUTTON_B))
   {
     if(shSelectedShip!=true)
@@ -103,16 +104,19 @@ int8_t shipyard(int MilitaryScience)
   }
   else if(gb.buttons.pressed(BUTTON_MENU))
   {
-    if(shSelectedShip==true)
+    if(restriction=="")
     {
-      shSelectedShip=false;
-    }
-    else
-    {
-      shSelectedShip=true;
+      if(shSelectedShip==true)
+      {
+        shSelectedShip=false;
+      }
+      else
+      {
+        shSelectedShip=true;
+      } 
     }
   }
-  drawShipyardScreen(Shipyard[shCurrentShip],canBuy,shSelectedShip,shQuantity,shQuantityToBuy,PlayerShips[shCurrentShip]);
+  drawShipyardScreen(Shipyard[shCurrentShip],canBuy,shSelectedShip,shQuantity,shQuantityToBuy,PlayerShips[shCurrentShip],restriction);
   return 8;
 }
 
@@ -127,6 +131,42 @@ bool resourceCostValidation()
     return false;
   }
   return true;
+}
+
+String restrictionValidation()
+{
+  String result="";
+  int requiredLvl=1;
+  switch(shCurrentShip)//Shipyard Level
+  {
+    case 0:
+      requiredLvl=2; break;
+    case 1:
+      requiredLvl=3; break;
+    case 2:
+      requiredLvl=5; break;
+    case 3:
+      requiredLvl=6; break;
+    case 4:
+      requiredLvl=8; break;
+    case 5:
+      requiredLvl=10; break;
+    case 6:
+      requiredLvl=1; break;
+    case 7:
+      requiredLvl=3; break;
+    case 8:
+      requiredLvl=2; break;
+    case 9:
+      requiredLvl=2; break;
+    case 10:
+      requiredLvl=2; break;
+  }
+  if(Colony[6].level<requiredLvl)
+  {
+    result="Shipyard lvl "+(String)requiredLvl;
+  }
+  return result;
 }
 
 void increaseQuantity()
