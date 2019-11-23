@@ -11,7 +11,11 @@ int8_t research()
     dependencyTechLevel=TechTree[reCurrentTech].depTechLevel;   
   }
   bool canDevelop=canResearch(TechTree[reCurrentTech],TechTree[depIndex].level);
-  drawTechScreen(TechTree[reCurrentTech],dependencyTechName,TechTree[depIndex].level,canDevelop);
+  bool MaxLevelReached=true;
+  if(TechTree[reCurrentTech].level<TechTree[reCurrentTech].maxLevel)
+  {
+    MaxLevelReached=false;
+  }
   if(gb.buttons.pressed(BUTTON_RIGHT))
   {
     moveNext();
@@ -22,7 +26,7 @@ int8_t research()
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
-    if(canDevelop)
+    if(canDevelop==true && MaxLevelReached==false)
     {
       PlayerResources[0]-=(TechTree[reCurrentTech].resource1Cost*(TechTree[reCurrentTech].level+1));
       PlayerResources[1]-=(TechTree[reCurrentTech].resource2Cost*(TechTree[reCurrentTech].level+1));
@@ -39,6 +43,7 @@ int8_t research()
   {
     return 0;
   }
+  drawTechScreen(TechTree[reCurrentTech],dependencyTechName,TechTree[depIndex].level,canDevelop,MaxLevelReached);
   return 4;
 }
 

@@ -2238,7 +2238,7 @@ void drawWarRoom(int posX,int posY,String choice)
   gb.display.println(choice);
 }
 
-void drawTechScreen(Technology technology,String depTechName, int depLevel,bool canResearch)
+void drawTechScreen(Technology technology,String depTechName, int depLevel,bool canResearch,bool maxReached)
 {
   gb.display.drawImage(0,0,IMAGE_INFO_1);
   gb.display.setColor(BLUE);
@@ -2282,17 +2282,26 @@ void drawTechScreen(Technology technology,String depTechName, int depLevel,bool 
   gb.display.setColor(WHITE);
   gb.display.setCursor(0,35);
   gb.display.println(technology.describtion);
-  if((technology.depTechLevel>depLevel)&&depTechName!="")
+  if(maxReached==false)
   {
-    gb.display.setColor(RED);
+    if((technology.depTechLevel>depLevel)&&depTechName!="")
+    {
+      gb.display.setColor(RED);
+      gb.display.setCursor(0,58);
+      gb.display.println(depTechName);
+      gb.display.setCursor(65,58);
+      gb.display.println(technology.depTechLevel); 
+    }
+  }
+  else
+  {
+    gb.display.setColor(GREEN);
     gb.display.setCursor(0,58);
-    gb.display.println(depTechName);
-    gb.display.setCursor(65,58);
-    gb.display.println(technology.depTechLevel); 
+    gb.display.println("MAX LEVEL REACHED");
   }
 }
 
-void drawInfrastructureScreen(Building building, String depTechName, int depLevel, String depBuildingName,int depBuildingLevel,bool canBuild)
+void drawInfrastructureScreen(Building building, String depTechName, int depLevel, String depBuildingName,int depBuildingLevel,bool canBuild,bool maxReached)
 {
   gb.display.drawImage(0,0,IMAGE_INFO_1);
   gb.display.setColor(BLUE);
@@ -2336,21 +2345,30 @@ void drawInfrastructureScreen(Building building, String depTechName, int depLeve
   gb.display.setColor(WHITE);
   gb.display.setCursor(0,35);
   gb.display.println(building.describtion);
-  if((building.depBuildingLevel>depBuildingLevel)&&depBuildingName!="")
+  if(maxReached==false)
   {
-    gb.display.setColor(RED);
-    gb.display.setCursor(0,58);
-    gb.display.println(depBuildingName);
-    gb.display.setCursor(65,58);
-    gb.display.println(building.depBuildingLevel);
+    if((building.depBuildingLevel>depBuildingLevel)&&depBuildingName!="")
+    {
+      gb.display.setColor(RED);
+      gb.display.setCursor(0,58);
+      gb.display.println(depBuildingName);
+      gb.display.setCursor(65,58);
+      gb.display.println(building.depBuildingLevel);
+    }
+    else if((building.depTechLevel>depLevel)&&depTechName!="")
+    {
+      gb.display.setColor(RED);
+      gb.display.setCursor(0,58);
+      gb.display.println(depTechName);
+      gb.display.setCursor(65,58);
+      gb.display.println(building.depTechLevel); 
+    }
   }
-  else if((building.depTechLevel>depLevel)&&depTechName!="")
+  else
   {
-    gb.display.setColor(RED);
+    gb.display.setColor(GREEN);
     gb.display.setCursor(0,58);
-    gb.display.println(depTechName);
-    gb.display.setCursor(65,58);
-    gb.display.println(building.depTechLevel); 
+    gb.display.println("MAX LEVEL REACHED");
   }
 }
 
@@ -2645,42 +2663,48 @@ void drawFleetStats()
 
 void drawBattleResult1()
 {
+  gb.display.drawImage(0,0,IMAGE_MAIN_THEME);
+  gb.display.drawImage(0,0,IMAGE_INFO_FRAME);
   gb.display.setColor(WHITE);
+  gb.display.setCursor(11,0);
+  gb.display.println("BATTLE RESULTS");
+  gb.display.setColor(BLACK);
+  gb.display.setCursor(6,9);
   gb.display.println("PLAYER     ENEMY");
-  gb.display.setCursor(0,12);
   gb.display.setColor(BLUE);
+  gb.display.setCursor(24,19);
   gb.display.println("Fighters");
-  gb.display.setCursor(0,24);
+  gb.display.setCursor(15,31);
   gb.display.println("Interceptors");
-  gb.display.setCursor(0,36);
+  gb.display.setCursor(24,43);
   gb.display.println("Frigates");
-  gb.display.setColor(WHITE);
-  gb.display.setCursor(0,18);
+  gb.display.setColor(BLACK);
+  gb.display.setCursor(0,25);
   gb.display.println(BtResult.PlFighters);
-  gb.display.setCursor(44,18);
+  gb.display.setCursor(44,25);
   gb.display.println(BtResult.EnFighters);
-  gb.display.setCursor(0,30);
+  gb.display.setCursor(0,37);
   gb.display.println(BtResult.PlInterceptors);
-  gb.display.setCursor(44,30);
+  gb.display.setCursor(44,37);
   gb.display.println(BtResult.EnInterceptors);
-  gb.display.setCursor(0,42);
+  gb.display.setCursor(0,49);
   gb.display.println(BtResult.PlFrigates);
-  gb.display.setCursor(44,42);
+  gb.display.setCursor(44,49);
   gb.display.println(BtResult.EnFrigates);
   gb.display.setColor(RED);
-  gb.display.setCursor(16,18);
+  gb.display.setCursor(16,25);
   gb.display.println("-"+(String)BtResult.PlFightersLost);  
-  gb.display.setCursor(60,18);
+  gb.display.setCursor(60,25);
   gb.display.println("-"+(String)BtResult.EnFightersLost);
-  gb.display.setCursor(16,30);
+  gb.display.setCursor(16,37);
   gb.display.println("-"+(String)BtResult.PlInterceptorsLost);
-  gb.display.setCursor(60,30);
+  gb.display.setCursor(60,37);
   gb.display.println("-"+(String)BtResult.EnInterceptorsLost);  
-  gb.display.setCursor(16,42);
+  gb.display.setCursor(16,49);
   gb.display.println("-"+(String)BtResult.PlFrigatesLost); 
-  gb.display.setCursor(60,42);
+  gb.display.setCursor(60,49);
   gb.display.println("-"+(String)BtResult.EnFrigatesLost);
-  gb.display.setCursor(24,50);
+  gb.display.setCursor(24,58);
   if(BtResult.Winner==1)
   {
     gb.display.setColor(GREEN);
@@ -2689,53 +2713,59 @@ void drawBattleResult1()
   else if(BtResult.Winner==2)
   {
     gb.display.setColor(RED);
-    gb.display.println("LOST!"); 
+    gb.display.println("  LOST! "); 
   }
   else
   {
     gb.display.setColor(BLACK);
-    gb.display.println("DRAW"); 
+    gb.display.println("  DRAW  "); 
   }
 }
 
 void drawBattleResult2()
 {
+  gb.display.drawImage(0,0,IMAGE_MAIN_THEME);
+  gb.display.drawImage(0,0,IMAGE_INFO_FRAME);
   gb.display.setColor(WHITE);
+  gb.display.setCursor(11,0);
+  gb.display.println("BATTLE RESULTS");
+  gb.display.setColor(BLACK);
+  gb.display.setCursor(6,9);
   gb.display.println("PLAYER     ENEMY");
-  gb.display.setCursor(0,12);
   gb.display.setColor(BLUE);
+  gb.display.setCursor(13,19);
   gb.display.println("War Cruisers");
-  gb.display.setCursor(0,24);
+  gb.display.setCursor(5,31);
   gb.display.println("Star Dreadnoughts");
-  gb.display.setCursor(0,36);
+  gb.display.setCursor(5,43);
   gb.display.println("Solar Destructors");
-  gb.display.setColor(WHITE);
-  gb.display.setCursor(0,18);
+  gb.display.setColor(BLACK);
+  gb.display.setCursor(0,25);
   gb.display.println(BtResult.PlWarCruisers);
-  gb.display.setCursor(44,18);
+  gb.display.setCursor(44,25);
   gb.display.println(BtResult.EnWarCruisers);
-  gb.display.setCursor(0,30);
+  gb.display.setCursor(0,37);
   gb.display.println(BtResult.PlStarDreadnoughts);
-  gb.display.setCursor(44,30);
+  gb.display.setCursor(44,37);
   gb.display.println(BtResult.EnStarDreadnoughts);
-  gb.display.setCursor(0,42);
+  gb.display.setCursor(0,49);
   gb.display.println(BtResult.PlSolarDestroyers);
-  gb.display.setCursor(44,42);
+  gb.display.setCursor(44,49);
   gb.display.println(BtResult.EnSolarDestroyers);
   gb.display.setColor(RED);
-  gb.display.setCursor(16,18);
+  gb.display.setCursor(16,25);
   gb.display.println("-"+(String)BtResult.PlWarCruisersLost);  
-  gb.display.setCursor(60,18);
+  gb.display.setCursor(60,25);
   gb.display.println("-"+(String)BtResult.EnWarCruisersLost);
-  gb.display.setCursor(16,30);
+  gb.display.setCursor(16,37);
   gb.display.println("-"+(String)BtResult.PlStarDreadnoughtsLost);
-  gb.display.setCursor(60,30);
+  gb.display.setCursor(60,37);
   gb.display.println("-"+(String)BtResult.EnStarDreadnoughtsLost);  
-  gb.display.setCursor(16,42);
+  gb.display.setCursor(16,49);
   gb.display.println("-"+(String)BtResult.PlSolarDestroyersLost); 
-  gb.display.setCursor(60,42);
+  gb.display.setCursor(60,49);
   gb.display.println("-"+(String)BtResult.EnSolarDestroyersLost);
-  gb.display.setCursor(24,50);
+  gb.display.setCursor(24,58);
   if(BtResult.Winner==1)
   {
     gb.display.setColor(GREEN);
@@ -2744,12 +2774,12 @@ void drawBattleResult2()
   else if(BtResult.Winner==2)
   {
     gb.display.setColor(RED);
-    gb.display.println("LOST!"); 
+    gb.display.println("  LOST! "); 
   }
   else
   {
     gb.display.setColor(BLACK);
-    gb.display.println("DRAW"); 
+    gb.display.println("  DRAW  "); 
   }
 }
 

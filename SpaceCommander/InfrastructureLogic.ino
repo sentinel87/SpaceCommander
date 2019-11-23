@@ -3,7 +3,11 @@ int8_t inCurrentBuilding=0;
 int8_t infrastructure()
 {
   bool CanBuild=true;
-  
+  bool MaxLevelReached=true;
+  if(Colony[inCurrentBuilding].level<Colony[inCurrentBuilding].maxLevel)
+  {
+    MaxLevelReached=false;
+  }
   int techIndex=Colony[inCurrentBuilding].depTechId-1;
   int buildingIndex=Colony[inCurrentBuilding].depBuildingId-1;
   String dependencyTechName="";
@@ -39,7 +43,10 @@ int8_t infrastructure()
   }
   if(CanBuild==true)
   {
-    if((PlayerResources[0]>=(Colony[inCurrentBuilding].resource1Cost*(Colony[inCurrentBuilding].level+1))) && (PlayerResources[1]>=(Colony[inCurrentBuilding].resource2Cost*(Colony[inCurrentBuilding].level+1))) && (PlayerResources[2]>=(Colony[inCurrentBuilding].resource3Cost*(Colony[inCurrentBuilding].level+1))))
+    if((PlayerResources[0]>=(Colony[inCurrentBuilding].resource1Cost*(Colony[inCurrentBuilding].level+1))) 
+    && (PlayerResources[1]>=(Colony[inCurrentBuilding].resource2Cost*(Colony[inCurrentBuilding].level+1))) 
+    && (PlayerResources[2]>=(Colony[inCurrentBuilding].resource3Cost*(Colony[inCurrentBuilding].level+1))) 
+    && MaxLevelReached==false)
     {
       CanBuild=true;
     }
@@ -101,6 +108,6 @@ int8_t infrastructure()
     return 0;
   }
   
-  drawInfrastructureScreen(Colony[inCurrentBuilding],dependencyTechName,dependencyTechLevel,dependencyBuildingName,dependencyBuildingLevel,CanBuild);
+  drawInfrastructureScreen(Colony[inCurrentBuilding],dependencyTechName,dependencyTechLevel,dependencyBuildingName,dependencyBuildingLevel,CanBuild,MaxLevelReached);
   return 2;
 }

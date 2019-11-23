@@ -164,7 +164,61 @@ String restrictionValidation()
   }
   if(Colony[6].level<requiredLvl)
   {
-    result="Shipyard lvl "+(String)requiredLvl;
+    result="Shipyard "+(String)requiredLvl;
+    return result;
+  }
+
+  int techIdx=0;
+  switch(shCurrentShip)//Tech Restrictions
+  {
+    case 0: //Fighters
+      requiredLvl=1;
+      techIdx=2; //Jet Proplusion 
+      break;
+    case 1: //Interceptors
+      requiredLvl=1; 
+      techIdx=3; //Aerodynamics
+      break;
+    case 2: //Frigates
+      requiredLvl=1; 
+      techIdx=4; //Impulse Engine
+      break;
+    case 3: //War Cruisers
+      requiredLvl=1;
+      techIdx=5; //Hyperdrive 
+      break;
+    case 4: //Star Dreadnoughts
+      requiredLvl=10; 
+      techIdx=11; //Ship Weapons 
+      break;
+    case 5: //Solar Destroyers
+      requiredLvl=10;
+      techIdx=14; //Gravity Weapon 
+      break;
+    case 6: //Spy bot
+      requiredLvl=1; //Espionage
+      techIdx=1; 
+      break;
+    case 7: //Colonizer
+      requiredLvl=0; 
+      techIdx=0; 
+      break;
+    case 8: //Transports
+      requiredLvl=1;
+      techIdx=6;   //Logistics
+      break;
+    case 9:
+      requiredLvl=1; 
+      techIdx=6; 
+      break;
+    case 10:
+      requiredLvl=1; 
+      techIdx=6; 
+      break;
+  }
+  if(TechTree[techIdx].level<requiredLvl)
+  {
+    result=TechTree[techIdx].techName + " " + (String)requiredLvl;
   }
   return result;
 }
