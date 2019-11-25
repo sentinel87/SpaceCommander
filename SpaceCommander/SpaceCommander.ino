@@ -112,7 +112,7 @@ Building Colony[]={
   {5,"Intelligence",0,0,"Reveal more intel inenemy reports.",100,75,0,2,1,0,0,13},
   {6,"Radar",0,15,"Detects enemy fleets+1 visibility / lvl.",25,40,0,8,1,5,1,20},
   {7,"Shipyard",0,1,"Required to build   high level ships.",75,75,75,9,1,0,0,10},
-  {8,"Research Lab",0,1,"Unlocks additional  technology / lvl.",100,100,100,0,0,0,0,13},
+  {8,"Research Lab",0,15,"Unlocks additional  technology / lvl.",100,100,100,0,0,0,0,15},
   {9,"Defence System",0,1,"+ 10 points to      defense / lvl.",100,200,50,10,1,0,0,10},
   {10,"Factory",0,1,"Reduces Metal and   Crystal cost of     buildings.",100,150,0,0,0,0,0,0},
   {11,"Warehouse",0,1,"Stores resources    when losing battle. +100 for each       resource / lvl.",250,250,0,11,1,0,0,10},
