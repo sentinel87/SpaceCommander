@@ -6,9 +6,9 @@ int8_t spaceBattle(int enIndex,int plIndex,bool attacker) //attacker - true (Pla
   BattleResult Reset={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false};
   BtResult=Reset;
   
-  //TODO: Report starting units
   reportShipsBeforeBattle(enIndex,plIndex,attacker);
   //BATTLE
+  defenceSystemActivation(enIndex);
   resolveBonuses(enIndex,plIndex,attacker);
   resolveFightersBattle(enIndex,plIndex,attacker);
   resolveInterceptorsBattle(enIndex,plIndex,attacker);
@@ -16,11 +16,117 @@ int8_t spaceBattle(int enIndex,int plIndex,bool attacker) //attacker - true (Pla
   resolveWarCruisersBattle(enIndex,plIndex,attacker);
   resolveStarDreadnoughtsBattle(enIndex,plIndex,attacker);
   resolveSolarDestroyersBattle(enIndex,plIndex,attacker);
-  //TODO: Report surviving units
+
   int8_t winner=determineWinner(enIndex,plIndex,attacker);
   reportLosses(enIndex,plIndex,attacker,winner);
   
   return winner;
+}
+
+void defenceSystemActivation(int enIndex)
+{
+  int DefenceStrength=Colony[8].level*10;
+  
+  if(DefenceStrength>50 && EnemyFleets[enIndex].StarDreadnoughts>0)
+  {
+    int destroyed=DefenceStrength/50;
+    EnemyFleets[enIndex].StarDreadnoughts-=destroyed;
+    if(EnemyFleets[enIndex].StarDreadnoughts<0)
+    {
+      destroyed=EnemyFleets[enIndex].StarDreadnoughts+destroyed;
+      EnemyFleets[enIndex].StarDreadnoughts=0;
+    }
+    else
+    {
+      EnemyFleets[enIndex].StarDreadnoughts-=destroyed;
+    }
+    DefenceStrength-=50*destroyed;
+  }
+  if(DefenceStrength>25 && EnemyFleets[enIndex].WarCruisers>0)
+  {
+    int destroyed=DefenceStrength/25;
+    EnemyFleets[enIndex].WarCruisers-=destroyed;
+    if(EnemyFleets[enIndex].WarCruisers<0)
+    {
+      destroyed=EnemyFleets[enIndex].WarCruisers+destroyed;
+      EnemyFleets[enIndex].WarCruisers=0;
+    }
+    else
+    {
+      EnemyFleets[enIndex].WarCruisers-=destroyed;
+    }
+    DefenceStrength-=25*destroyed;
+  }
+  if(DefenceStrength>10 && EnemyFleets[enIndex].Frigates>0)
+  {
+    int destroyed=DefenceStrength/10;
+    EnemyFleets[enIndex].Frigates-=destroyed;
+    if(EnemyFleets[enIndex].Frigates<0)
+    {
+      destroyed=EnemyFleets[enIndex].Frigates+destroyed;
+      EnemyFleets[enIndex].Frigates=0;
+    }
+    else
+    {
+      EnemyFleets[enIndex].Frigates-=destroyed;
+    }
+    DefenceStrength-=10*destroyed;
+  }
+  if(DefenceStrength>10 && EnemyFleets[enIndex].Frigates>0)
+  {
+    int destroyed=DefenceStrength/10;
+    EnemyFleets[enIndex].Frigates-=destroyed;
+    if(EnemyFleets[enIndex].Frigates<0)
+    {
+      destroyed=EnemyFleets[enIndex].Frigates+destroyed;
+      EnemyFleets[enIndex].Frigates=0;
+    }
+    else
+    {
+      EnemyFleets[enIndex].Frigates-=destroyed;
+    }
+    DefenceStrength-=10*destroyed;
+  }
+  if(DefenceStrength>3 && EnemyFleets[enIndex].Interceptors>0)
+  {
+    int destroyed=DefenceStrength/3;
+    EnemyFleets[enIndex].Interceptors-=destroyed;
+    if(EnemyFleets[enIndex].Interceptors<0)
+    {
+      destroyed=EnemyFleets[enIndex].Interceptors+destroyed;
+      EnemyFleets[enIndex].Interceptors=0;
+    }
+    else
+    {
+      EnemyFleets[enIndex].Interceptors-=destroyed;
+    }
+    DefenceStrength-=3*destroyed;
+  }
+  if(DefenceStrength>0 && EnemyFleets[enIndex].Fighters>0)
+  {
+    int destroyed=DefenceStrength;
+    EnemyFleets[enIndex].Fighters-=destroyed;
+    if(EnemyFleets[enIndex].Fighters<0)
+    {
+      destroyed=EnemyFleets[enIndex].Fighters+destroyed;
+      EnemyFleets[enIndex].Fighters=0;
+    }
+    else
+    {
+      EnemyFleets[enIndex].Fighters-=destroyed;
+    }
+    DefenceStrength-=destroyed;
+  }
+  int EnemyStrength=EnemyFleets[enIndex].Fighters+(EnemyFleets[enIndex].Interceptors*3)+(EnemyFleets[enIndex].Frigates*10)+(EnemyFleets[enIndex].WarCruisers*25)+(EnemyFleets[enIndex].StarDreadnoughts*50);
+  int Damaged=EnemyStrength/150;
+  if(Damaged>Colony[8].level)
+  {
+    Colony[8].level=0;
+  }
+  else
+  {
+    Colony[8].level-=Damaged;
+  }
 }
 
 void resolveBonuses(int enIndex,int plIndex,bool attacker)
