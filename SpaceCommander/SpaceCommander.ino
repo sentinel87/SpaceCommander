@@ -487,6 +487,10 @@ void loop() {
       {
         ScreenSelection=scoutReports();
       }
+      else if(ScreenSelection==9)
+      {
+        ScreenSelection=transformer();
+      }
       else if(ScreenSelection==20)
       {
         ScreenSelection=6; //RETURN TO STAR MAP AFTER FLEET SELECTION

@@ -3205,3 +3205,68 @@ void drawShipImage(int id)
   }
 }
 
+//---------------Transformer Logic---------
+
+void drawTransformerScreen(int mode,int multipler,int convert,int created)
+{
+  gb.display.drawImage(0,0,IMAGE_INFO_FRAME);
+  gb.display.setColor(WHITE);
+  gb.display.setCursor(15,0);
+  gb.display.println("TRANSFORMER");
+  gb.display.setCursor(0,9);
+  gb.display.println("CREATE:");
+  gb.display.setCursor(30,9); 
+  if(mode==1)
+  {
+    gb.display.setColor(BLUE);
+    gb.display.println("METAL"); 
+  }
+  else
+  {
+    gb.display.setColor(PURPLE);
+    gb.display.println("CRYSTAL"); 
+  }
+  gb.display.setColor(YELLOW);
+  gb.display.fillRect(5,32,3,3);
+  gb.display.setCursor(11,31);
+  String toConvert=createString(convert);
+  gb.display.println(toConvert);
+  if(mode==1)
+  {
+    gb.display.setColor(BLUE); 
+  }
+  else
+  {
+    gb.display.setColor(PURPLE);
+  }
+  gb.display.fillRect(54,32,3,3);
+  gb.display.setCursor(60,31);
+  String toCreate=createString(created);
+  gb.display.println(toCreate);
+  gb.display.setColor(RED);
+  gb.display.setCursor(32,22);
+  gb.display.println((String)multipler+"/1");
+}
+
+String createString(int number)
+{
+  String result="";
+  if((number>=0)&&(number<10))
+  {
+    result="   "+(String)number;
+  }
+  else if((number>9)&&(number<100))
+  {
+    result="  "+(String)number;
+  }
+  else if((number>99)&&(number<1000))
+  {
+    result=" "+(String)number;
+  }
+  else
+  {
+    result=(String)number;
+  }
+  return result;
+}
+
