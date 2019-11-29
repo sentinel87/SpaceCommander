@@ -7,6 +7,8 @@ int8_t transformer()
 {
   if(gb.buttons.pressed(BUTTON_B))
   {
+    trConvert=0;
+    trCreated=0;
     return 0;
   }
   else if(gb.buttons.pressed(BUTTON_RIGHT))
@@ -47,8 +49,11 @@ int8_t transformer()
   {
     if(trConvert<9999)
     {
-      trConvert+=trMultipler;
-      trCreated+=1;
+      if(PlayerResources[2]>(trConvert+trMultipler))
+      {
+        trConvert+=trMultipler;
+        trCreated+=3;
+      }
     }
   }
   else if(gb.buttons.pressed(BUTTON_DOWN))
@@ -56,7 +61,35 @@ int8_t transformer()
     if(trConvert!=0)
     {
       trConvert-=trMultipler;
-      trCreated-=1;
+      trCreated-=3;
+    }
+  }
+  else if(gb.buttons.pressed(BUTTON_A))
+  {
+    if(trCreated>0)
+    {
+      if(trMode==1)
+      {
+        if((PlayerResources[0]+trCreated)<9999)
+        {
+          PlayerResources[0]+=trCreated;
+          PlayerResources[2]-=trConvert;
+          trCreated=0;
+          trConvert=0;
+          gb.gui.popup("RESOURCE CREATED!",50);
+        }
+      }
+      else
+      {
+        if((PlayerResources[1]+trCreated)<9999)
+        {
+          PlayerResources[1]+=trCreated;
+          PlayerResources[2]-=trConvert;
+          trCreated=0;
+          trConvert=0;
+          gb.gui.popup("RESOURCE CREATED!",50);
+        }
+      } 
     }
   }
   drawTransformerScreen(trMode,trMultipler,trConvert,trCreated);

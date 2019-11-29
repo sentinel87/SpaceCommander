@@ -3211,7 +3211,7 @@ void drawTransformerScreen(int mode,int multipler,int convert,int created)
 {
   gb.display.drawImage(0,0,IMAGE_INFO_FRAME);
   gb.display.setColor(WHITE);
-  gb.display.setCursor(15,0);
+  gb.display.setCursor(18,0);
   gb.display.println("TRANSFORMER");
   gb.display.setCursor(0,9);
   gb.display.println("CREATE:");
