@@ -1,5 +1,6 @@
 int flMarkerPosX=1;
 int flMarkerPosY=11;
+int flSelectionIdx=-1;
 
 int flMarker2PosY=7;
 
@@ -20,12 +21,112 @@ int playerFleets()
 
 int enemyFleets()
 {
-  drawEnemyFleets(flMarkerPosX,flMarkerPosY);
+  int fleetCount=enemyFleetsCount();
+  checkFleetMarker(fleetCount);
   if(gb.buttons.pressed(BUTTON_B))
   {
     return 0;
   }
+  else if(gb.buttons.pressed(BUTTON_DOWN))
+  {
+    if(fleetCount==2 && flSelectionIdx==0)
+    {
+      flSelectionIdx=1;
+    }
+  }
+  else if(gb.buttons.pressed(BUTTON_UP))
+  {
+    if(fleetCount>1 && flSelectionIdx>0)
+    {
+      flSelectionIdx=0;
+    }
+  }
+  else if(gb.buttons.pressed(BUTTON_A))
+  {
+    for(int i=0;i<4;i++)
+    {
+      if(PlayerFleets[i].Active==false)
+      {
+        if(PlayerResources[2]>0 && PlayerShips[6]>0)
+        {
+          //if(EnemyFleets[flSelectionIdx].Minutes>0])
+          //{
+            
+          //}
+          //Fleet spyFleet={3,true,0,0,1,0,0,0,0,0,0,0,"Enemy fleet",true};
+          //CustomFleet=spyFleet;
+          //setFleetParameters();
+          //return 24; //SPY MISSION CONFIRMATION FLEET
+        }
+        break;
+      }
+    }
+  }
+  drawEnemyFleets(flMarkerPosX,flMarkerPosY,fleetCount,flSelectionIdx);
   return 3;
+}
+
+int enemyFleetsCount()
+{
+  int result=0;
+  for(int i=0;i<4;i++)
+  {
+    if(EnemyFleets[i].Active==true && EnemyFleets[i].Visible==true)
+    {
+      result++;
+    }
+  }
+  return result;
+}
+
+void checkFleetMarker(int count)
+{
+  int result=-1;
+  switch(flSelectionIdx)
+  {
+    case 0:
+    {
+      if(count>=1)
+      {
+        result=flSelectionIdx;
+      }
+      else
+      {
+        result=-1;
+      }
+    }
+    break;
+    case 1:
+    {
+      if(count==2)
+      {
+        result=flSelectionIdx;
+      }
+      else if(count==1)
+      {
+        result=0;
+      }
+      else
+      {
+        result=-1;
+      }
+    }
+    break;
+    case -1:
+    {
+      if(count>0)
+      {
+        result=0;
+      }
+      else
+      {
+        result=-1;
+      }
+    }
+    break;
+  }
+
+  flSelectionIdx=result;
 }
 
 int playerFleetStats()

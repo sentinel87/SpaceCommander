@@ -2491,7 +2491,7 @@ void drawPlayerFleets(int posX,int posY)
   }
 }
 
-void drawEnemyFleets(int posX,int posY)
+void drawEnemyFleets(int posX,int posY,int count,int selection)
 {
   gb.display.drawImage(0,0,IMAGE_MAIN_THEME);
   gb.display.drawImage(0,0,IMAGE_INFO_FRAME);
@@ -2500,7 +2500,11 @@ void drawEnemyFleets(int posX,int posY)
   gb.display.println("ENEMY FLEETS");
   int posFlY=11;
   int ActiveFleets=0;
-  for(int i=0;i<5;i++)
+  if(selection==0)
+  {
+    
+  }
+  for(int i=0;i<4;i++)
   {
     if(EnemyFleets[i].Active==true && EnemyFleets[i].Visible==true)
     {
@@ -2513,9 +2517,16 @@ void drawEnemyFleets(int posX,int posY)
       ActiveFleets++;
     }
   }
-  if(ActiveFleets>0)
+  if(count>0)
   {
-    gb.display.drawImage(posX,posY,FleetSelector); 
+    if(selection==0)
+    {
+      gb.display.drawImage(1,11,FleetSelector);
+    }
+    else if(selection==1)
+    {
+      gb.display.drawImage(1,22,FleetSelector); 
+    } 
   }
 }
 

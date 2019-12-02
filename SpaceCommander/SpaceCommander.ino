@@ -313,6 +313,7 @@ BattleResult BtResult={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false};
 //Fleet Selection
 bool flSelection=false;
 bool spyMission=false;
+bool spyMissionFleet=false;
 bool attackMission=false;
 bool colonizeMission=false;
 bool routesMission=false;
@@ -413,6 +414,18 @@ void loop() {
         spyMission=false;
       }
     }
+    else if(spyMissionFleet==true)// set spy to scout
+    {
+      int8_t selected=sendSpy();
+      if(selected==1)
+      {
+        spyMissionFleet=false;
+      }
+      else if(selected==2)
+      {
+        spyMissionFleet=false;
+      }
+    }
     else if(colonizeMission==true)// set colonizer
     {
       int8_t selected=sendColonizer();
@@ -510,6 +523,11 @@ void loop() {
       {
         ScreenSelection=6; //RETURN TO STAR MAP AFTER FLEET SELECTION
         routesMission=true;
+      }
+      else if(ScreenSelection==24)
+      {
+        ScreenSelection=3; //RETURN TO ENEMY FLEETS AFTER FLEET SELECTION
+        spyMissionFleet=true;
       }
     }
   }
