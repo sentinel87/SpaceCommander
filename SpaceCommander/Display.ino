@@ -3281,3 +3281,23 @@ String createString(int number)
   return result;
 }
 
+//---------------Game Over---------
+
+void drawEndGameScreen(bool victorious)
+{
+  gb.display.setFontSize(2);
+  gb.display.setCursor(21,5);
+  if(victorious==true)
+  {
+    gb.display.setCursor(10,25);
+    gb.display.setColor(GREEN);
+    gb.display.println("VICTORY!"); 
+  }
+  else
+  {
+    gb.display.setCursor(14,25);
+    gb.display.setColor(RED);
+    gb.display.println("DEFEAT!");
+  }
+}
+

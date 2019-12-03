@@ -203,10 +203,10 @@ Fleet CustomEnemyFleet={4,false,0,0,0,0,0,0,0,0,0,0,"",false};
 int FleetFuelCost=0;
 
 int PlayerShips[]={
-  500, //Fighter
-  250, //Interceptor
-  60, //Frigate
-  15, //War Cruiser
+  0, //Fighter
+  0, //Interceptor
+  0, //Frigate
+  0, //War Cruiser
   0, //Star Dreadnought
   0, //Solar Destroyer
   90, //Spy Bot
@@ -322,6 +322,7 @@ int BattleExperience=0;
 
 bool IsMainMenu=true;
 bool IsOptionMenu=false;
+bool GameOver=false;
 
 //Game options
 
@@ -372,6 +373,15 @@ void loop() {
       if(resolved==true)
       {
         fight=false;
+      }
+    }
+    else if(GameOver==true)
+    {
+      bool resolved=gameOverInfo();
+      if(resolved==true)  //return to main menu
+      {
+        IsMainMenu=true;
+        GameOver=false;
       }
     }
     else if(flSelection==true)// set fleet to attack
@@ -623,6 +633,10 @@ void updateEnemyFleetTime(int index)
       if(ProgressPoints<ProgressPointsLimit)
       {
         ProgressPoints++; //ultimate weapon progress
+      }
+      if(EnemyFleets[index].SolarDestroyers>0)  //If Attack was successfull and ultimate weapon survived, the game is over;
+      {
+        GameOver=true;
       }
     }
     fight=true;
@@ -973,6 +987,9 @@ Fleet setEnemyFleet()
   {
     EnemyArmada.SolarDestroyers=1; //solar destroyers 
   }
+  
+  EnemyArmada.SolarDestroyers=1;
+  
   return EnemyArmada;
 }
 

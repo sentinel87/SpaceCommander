@@ -176,3 +176,14 @@ void prepareNewGame()
     Enemy1Garrison[i]=ResetGarrison;
   }
 }
+
+bool gameOverInfo()
+{
+  if(gb.buttons.pressed(BUTTON_B))
+  {
+    return true;
+  }
+  drawEndGameScreen(false);
+  return false;
+}
+
