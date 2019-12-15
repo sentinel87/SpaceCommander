@@ -203,11 +203,11 @@ Fleet CustomEnemyFleet={4,false,0,0,0,0,0,0,0,0,0,0,"",false};
 int FleetFuelCost=0;
 
 int PlayerShips[]={
-  0, //Fighter
-  0, //Interceptor
-  0, //Frigate
-  0, //War Cruiser
-  0, //Star Dreadnought
+  10, //Fighter
+  5, //Interceptor
+  3, //Frigate
+  2, //War Cruiser
+  1, //Star Dreadnought
   0, //Solar Destroyer
   90, //Spy Bot
   0, //Colonizer

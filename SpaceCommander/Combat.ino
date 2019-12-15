@@ -16,6 +16,7 @@ int8_t spaceBattle(int enIndex,int plIndex,bool attacker) //attacker - true (Pla
   resolveWarCruisersBattle(enIndex,plIndex,attacker);
   resolveStarDreadnoughtsBattle(enIndex,plIndex,attacker);
   resolveSolarDestroyersBattle(enIndex,plIndex,attacker);
+  resolveSecondRound(enIndex,plIndex,attacker);
 
   int8_t winner=determineWinner(enIndex,plIndex,attacker);
   reportLosses(enIndex,plIndex,attacker,winner);
@@ -680,6 +681,454 @@ void resolveSolarDestroyersBattle(int enIndex,int plIndex,bool attacker)
         PlayerShips[5]=0;
       }
     }  
+  }
+}
+
+void resolveSecondRound(int enIndex,int plIndex,bool attacker)
+{
+  int EnemyStrength=0;
+  int PlayerStrength=0;
+  if(attacker==true)
+  {
+    EnemyStrength+=Enemy1Garrison[enIndex].Fighters;
+    EnemyStrength+=(Enemy1Garrison[enIndex].Interceptors*2);
+    EnemyStrength+=(Enemy1Garrison[enIndex].Frigates*3);
+    EnemyStrength+=(Enemy1Garrison[enIndex].WarCruisers*5);
+    EnemyStrength+=(Enemy1Garrison[enIndex].StarDreadnoughts*8);
+    EnemyStrength+=(Enemy1Garrison[enIndex].SolarDestroyers*10);
+    
+    PlayerStrength+=PlayerFleets[plIndex].Fighters;
+    PlayerStrength+=(PlayerFleets[plIndex].Interceptors*2);
+    PlayerStrength+=(PlayerFleets[plIndex].Frigates*3);
+    PlayerStrength+=(PlayerFleets[plIndex].WarCruisers*5);
+    PlayerStrength+=(PlayerFleets[plIndex].StarDreadnoughts*8);
+    PlayerStrength+=(PlayerFleets[plIndex].SolarDestroyers*10);
+    
+    //----------------------Enemy casaulties-------------
+    if(Enemy1Garrison[enIndex].SolarDestroyers>0 && PlayerStrength>=10)
+    {
+      int casaulties=PlayerStrength/10;
+      int discrepancy=Enemy1Garrison[enIndex].SolarDestroyers-casaulties;
+      if(discrepancy>=0)
+      {
+        Enemy1Garrison[enIndex].SolarDestroyers-=casaulties;
+        PlayerStrength-=casaulties*10;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        Enemy1Garrison[enIndex].SolarDestroyers-=fixed;
+        PlayerStrength-=fixed*10;
+      }
+    }
+
+    if(Enemy1Garrison[enIndex].StarDreadnoughts>0 && PlayerStrength>=8)
+    {
+      int casaulties=PlayerStrength/8;
+      int discrepancy=Enemy1Garrison[enIndex].StarDreadnoughts-casaulties;
+      if(discrepancy>=0)
+      {
+        Enemy1Garrison[enIndex].StarDreadnoughts-=casaulties;
+        PlayerStrength-=casaulties*8;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        Enemy1Garrison[enIndex].StarDreadnoughts-=fixed;
+        PlayerStrength-=fixed*8;
+      }
+    }
+
+    if(Enemy1Garrison[enIndex].WarCruisers>0 && PlayerStrength>=5)
+    {
+      int casaulties=PlayerStrength/5;
+      int discrepancy=Enemy1Garrison[enIndex].WarCruisers-casaulties;
+      if(discrepancy>=0)
+      {
+        Enemy1Garrison[enIndex].WarCruisers-=casaulties;
+        PlayerStrength-=casaulties*5;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        Enemy1Garrison[enIndex].WarCruisers-=fixed;
+        PlayerStrength-=fixed*5;
+      }
+    }
+
+    if(Enemy1Garrison[enIndex].Frigates>0 && PlayerStrength>=3)
+    {
+      int casaulties=PlayerStrength/3;
+      int discrepancy=Enemy1Garrison[enIndex].Frigates-casaulties;
+      if(discrepancy>=0)
+      {
+        Enemy1Garrison[enIndex].Frigates-=casaulties;
+        PlayerStrength-=casaulties*3;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        Enemy1Garrison[enIndex].Frigates-=fixed;
+        PlayerStrength-=fixed*3;
+      }
+    }
+
+    if(Enemy1Garrison[enIndex].Interceptors>0 && PlayerStrength>=2)
+    {
+      int casaulties=PlayerStrength/2;
+      int discrepancy=Enemy1Garrison[enIndex].Interceptors-casaulties;
+      if(discrepancy>=0)
+      {
+        Enemy1Garrison[enIndex].Interceptors-=casaulties;
+        PlayerStrength-=casaulties*2;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        Enemy1Garrison[enIndex].Interceptors-=fixed;
+        PlayerStrength-=fixed*2;
+      }
+    }
+
+    if(Enemy1Garrison[enIndex].Fighters>0 && PlayerStrength>=1)
+    {
+      int casaulties=PlayerStrength;
+      int discrepancy=Enemy1Garrison[enIndex].Fighters-casaulties;
+      if(discrepancy>=0)
+      {
+        Enemy1Garrison[enIndex].Fighters-=casaulties;
+        PlayerStrength-=casaulties;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        Enemy1Garrison[enIndex].Fighters-=fixed;
+        PlayerStrength-=fixed;
+      }
+    }
+    //----------------------Player casaulties-----------
+    if(PlayerFleets[plIndex].SolarDestroyers>0 && EnemyStrength>=10)
+    {
+      int casaulties=EnemyStrength/10;
+      int discrepancy=PlayerFleets[plIndex].SolarDestroyers-casaulties;
+      if(discrepancy>=0)
+      {
+        PlayerFleets[plIndex].SolarDestroyers-=casaulties;
+        EnemyStrength-=casaulties*10;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        PlayerFleets[plIndex].SolarDestroyers-=fixed;
+        EnemyStrength-=fixed*10;
+      }
+    }
+
+    if(PlayerFleets[plIndex].StarDreadnoughts>0 && EnemyStrength>=8)
+    {
+      int casaulties=EnemyStrength/8;
+      int discrepancy=PlayerFleets[plIndex].StarDreadnoughts-casaulties;
+      if(discrepancy>=0)
+      {
+        PlayerFleets[plIndex].StarDreadnoughts-=casaulties;
+        EnemyStrength-=casaulties*8;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        PlayerFleets[plIndex].StarDreadnoughts-=fixed;
+        EnemyStrength-=fixed*8;
+      }
+    }
+
+    if(PlayerFleets[plIndex].WarCruisers>0 && EnemyStrength>=5)
+    {
+      int casaulties=EnemyStrength/5;
+      int discrepancy=PlayerFleets[plIndex].WarCruisers-casaulties;
+      if(discrepancy>=0)
+      {
+        PlayerFleets[plIndex].WarCruisers-=casaulties;
+        EnemyStrength-=casaulties*5;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        PlayerFleets[plIndex].WarCruisers-=fixed;
+        EnemyStrength-=fixed*5;
+      }
+    }
+
+    if(PlayerFleets[plIndex].Frigates>0 && EnemyStrength>=3)
+    {
+      int casaulties=EnemyStrength/3;
+      int discrepancy=PlayerFleets[plIndex].Frigates-casaulties;
+      if(discrepancy>=0)
+      {
+        PlayerFleets[plIndex].Frigates-=casaulties;
+        EnemyStrength-=casaulties*3;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        PlayerFleets[plIndex].Frigates-=fixed;
+        EnemyStrength-=fixed*3;
+      }
+    }
+
+    if(PlayerFleets[plIndex].Interceptors>0 && EnemyStrength>=2)
+    {
+      int casaulties=EnemyStrength/2;
+      int discrepancy=PlayerFleets[plIndex].Interceptors-casaulties;
+      if(discrepancy>=0)
+      {
+        PlayerFleets[plIndex].Interceptors-=casaulties;
+        EnemyStrength-=casaulties*2;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        PlayerFleets[plIndex].Interceptors-=fixed;
+        EnemyStrength-=fixed*2;
+      }
+    }
+
+    if(PlayerFleets[plIndex].Fighters>0 && EnemyStrength>=1)
+    {
+      int casaulties=EnemyStrength;
+      int discrepancy=PlayerFleets[plIndex].Fighters-casaulties;
+      if(discrepancy>=0)
+      {
+        PlayerFleets[plIndex].Fighters-=casaulties;
+        EnemyStrength-=casaulties;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        PlayerFleets[plIndex].Fighters-=fixed;
+        EnemyStrength-=fixed;
+      }
+    }
+  }
+  else
+  {
+    EnemyStrength+=EnemyFleets[enIndex].Fighters;
+    EnemyStrength+=(EnemyFleets[enIndex].Interceptors*2);
+    EnemyStrength+=(EnemyFleets[enIndex].Frigates*3);
+    EnemyStrength+=(EnemyFleets[enIndex].WarCruisers*5);
+    EnemyStrength+=(EnemyFleets[enIndex].StarDreadnoughts*8);
+    EnemyStrength+=(EnemyFleets[enIndex].SolarDestroyers*10);
+    
+    PlayerStrength+=PlayerShips[0];
+    PlayerStrength+=(PlayerShips[1]*2);
+    PlayerStrength+=(PlayerShips[2]*3);
+    PlayerStrength+=(PlayerShips[3]*5);
+    PlayerStrength+=(PlayerShips[4]*8);
+    PlayerStrength+=(PlayerShips[5]*10);
+
+    //----------------------Enemy casaulties-------------
+    if(EnemyFleets[enIndex].SolarDestroyers>0 && PlayerStrength>=10)
+    {
+      int casaulties=PlayerStrength/10;
+      int discrepancy=EnemyFleets[enIndex].SolarDestroyers-casaulties;
+      if(discrepancy>=0)
+      {
+        EnemyFleets[enIndex].SolarDestroyers-=casaulties;
+        PlayerStrength-=casaulties*10;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        EnemyFleets[enIndex].SolarDestroyers-=fixed;
+        PlayerStrength-=fixed*10;
+      }
+    }
+
+    if(EnemyFleets[enIndex].StarDreadnoughts>0 && PlayerStrength>=8)
+    {
+      int casaulties=PlayerStrength/8;
+      int discrepancy=EnemyFleets[enIndex].StarDreadnoughts-casaulties;
+      if(discrepancy>=0)
+      {
+        EnemyFleets[enIndex].StarDreadnoughts-=casaulties;
+        PlayerStrength-=casaulties*8;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        EnemyFleets[enIndex].StarDreadnoughts-=fixed;
+        PlayerStrength-=fixed*8;
+      }
+    }
+
+    if(EnemyFleets[enIndex].WarCruisers>0 && PlayerStrength>=5)
+    {
+      int casaulties=PlayerStrength/5;
+      int discrepancy=EnemyFleets[enIndex].WarCruisers-casaulties;
+      if(discrepancy>=0)
+      {
+        EnemyFleets[enIndex].WarCruisers-=casaulties;
+        PlayerStrength-=casaulties*5;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        EnemyFleets[enIndex].WarCruisers-=fixed;
+        PlayerStrength-=fixed*5;
+      }
+    }
+
+    if(EnemyFleets[enIndex].Frigates>0 && PlayerStrength>=3)
+    {
+      int casaulties=PlayerStrength/3;
+      int discrepancy=EnemyFleets[enIndex].Frigates-casaulties;
+      if(discrepancy>=0)
+      {
+        EnemyFleets[enIndex].Frigates-=casaulties;
+        PlayerStrength-=casaulties*3;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        EnemyFleets[enIndex].Frigates-=fixed;
+        PlayerStrength-=fixed*3;
+      }
+    }
+
+    if(EnemyFleets[enIndex].Interceptors>0 && PlayerStrength>=2)
+    {
+      int casaulties=PlayerStrength/2;
+      int discrepancy=EnemyFleets[enIndex].Interceptors-casaulties;
+      if(discrepancy>=0)
+      {
+        EnemyFleets[enIndex].Interceptors-=casaulties;
+        PlayerStrength-=casaulties*2;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        EnemyFleets[enIndex].Interceptors-=fixed;
+        PlayerStrength-=fixed*2;
+      }
+    }
+
+    if(EnemyFleets[enIndex].Fighters>0 && PlayerStrength>=1)
+    {
+      int casaulties=PlayerStrength;
+      int discrepancy=EnemyFleets[enIndex].Fighters-casaulties;
+      if(discrepancy>=0)
+      {
+        EnemyFleets[enIndex].Fighters-=casaulties;
+        PlayerStrength-=casaulties;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        EnemyFleets[enIndex].Fighters-=fixed;
+        PlayerStrength-=fixed;
+      }
+    }
+    //----------------------Player casaulties-----------
+    if(PlayerShips[5]>0 && EnemyStrength>=10)
+    {
+      int casaulties=EnemyStrength/10;
+      int discrepancy=PlayerShips[5]-casaulties;
+      if(discrepancy>=0)
+      {
+        PlayerShips[5]-=casaulties;
+        EnemyStrength-=casaulties*10;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        PlayerShips[5]-=fixed;
+        EnemyStrength-=fixed*10;
+      }
+    }
+
+    if(PlayerShips[4]>0 && EnemyStrength>=8)
+    {
+      int casaulties=EnemyStrength/8;
+      int discrepancy=PlayerShips[4]-casaulties;
+      if(discrepancy>=0)
+      {
+        PlayerShips[4]-=casaulties;
+        EnemyStrength-=casaulties*8;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        PlayerShips[4]-=fixed;
+        EnemyStrength-=fixed*8;
+      }
+    }
+
+    if(PlayerShips[3]>0 && EnemyStrength>=5)
+    {
+      int casaulties=EnemyStrength/5;
+      int discrepancy=PlayerShips[3]-casaulties;
+      if(discrepancy>=0)
+      {
+        PlayerShips[3]-=casaulties;
+        EnemyStrength-=casaulties*5;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        PlayerShips[3]-=fixed;
+        EnemyStrength-=fixed*5;
+      }
+    }
+
+    if(PlayerShips[2]>0 && EnemyStrength>=3)
+    {
+      int casaulties=EnemyStrength/3;
+      int discrepancy=PlayerShips[2]-casaulties;
+      if(discrepancy>=0)
+      {
+        PlayerShips[2]-=casaulties;
+        EnemyStrength-=casaulties*3;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        PlayerShips[2]-=fixed;
+        EnemyStrength-=fixed*3;
+      }
+    }
+
+    if(PlayerShips[1]>0 && EnemyStrength>=2)
+    {
+      int casaulties=EnemyStrength/2;
+      int discrepancy=PlayerShips[1]-casaulties;
+      if(discrepancy>=0)
+      {
+        PlayerShips[1]-=casaulties;
+        EnemyStrength-=casaulties*2;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        PlayerShips[1]-=fixed;
+        EnemyStrength-=fixed*2;
+      }
+    }
+
+    if(PlayerShips[0]>0 && EnemyStrength>=1)
+    {
+      int casaulties=EnemyStrength;
+      int discrepancy=PlayerShips[0]-casaulties;
+      if(discrepancy>=0)
+      {
+        PlayerShips[0]-=casaulties;
+        EnemyStrength-=casaulties;
+      }
+      else
+      {
+        int fixed=casaulties+discrepancy;
+        PlayerShips[0]-=fixed;
+        EnemyStrength-=fixed;
+      }
+    }
   }
 }
 
