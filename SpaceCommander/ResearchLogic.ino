@@ -16,6 +16,9 @@ int8_t research()
   {
     MaxLevelReached=false;
   }
+  
+  drawTechScreen(TechTree[reCurrentTech],dependencyTechName,TechTree[depIndex].level,canDevelop,MaxLevelReached);
+
   if(gb.buttons.pressed(BUTTON_RIGHT))
   {
     moveNext();
@@ -43,7 +46,7 @@ int8_t research()
   {
     return 0;
   }
-  drawTechScreen(TechTree[reCurrentTech],dependencyTechName,TechTree[depIndex].level,canDevelop,MaxLevelReached);
+  
   return 4;
 }
 

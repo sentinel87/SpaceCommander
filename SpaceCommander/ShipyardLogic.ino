@@ -192,7 +192,7 @@ String restrictionValidation()
       techIdx=11; //Ship Weapons 
       break;
     case 5: //Solar Destroyers
-      requiredLvl=10;
+      requiredLvl=9;
       techIdx=14; //Gravity Weapon 
       break;
     case 6: //Spy bot

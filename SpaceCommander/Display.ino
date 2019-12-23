@@ -2238,6 +2238,8 @@ void drawWarRoom(int posX,int posY,String choice)
   gb.display.println(choice);
 }
 
+//---------------Research Logic---------
+
 void drawTechScreen(Technology technology,String depTechName, int depLevel,bool canResearch,bool maxReached)
 {
   gb.display.drawImage(0,0,IMAGE_INFO_1);
@@ -2259,9 +2261,6 @@ void drawTechScreen(Technology technology,String depTechName, int depLevel,bool 
   gb.display.setColor(WHITE);
   gb.display.setCursor(20,9);
   gb.display.println(technology.techName);
-  gb.display.setColor(BLUE);
-  gb.display.setCursor(20,15);
-  gb.display.println(technology.resource1Cost*(technology.level+1));
   gb.display.setColor(ORANGE);
   gb.display.setCursor(45,15);
   gb.display.println("LEVEL");
@@ -2272,18 +2271,21 @@ void drawTechScreen(Technology technology,String depTechName, int depLevel,bool 
     gb.display.drawImage(46,23,IMAGE_RESEARCH_BTN);
     gb.display.drawImage(45,22,Selector); 
   }
-  gb.display.setColor(PURPLE);
-  gb.display.setCursor(20,21);
-  gb.display.println(technology.resource2Cost*(technology.level+1));
-  gb.display.setColor(YELLOW);
-  gb.display.setCursor(20,27);
-  gb.display.println(technology.resource3Cost*(technology.level+1));
 
   gb.display.setColor(WHITE);
   gb.display.setCursor(0,35);
   gb.display.println(technology.describtion);
   if(maxReached==false)
   {
+    gb.display.setColor(BLUE);
+    gb.display.setCursor(20,15);
+    gb.display.println(technology.resource1Cost*(technology.level+1));
+    gb.display.setColor(PURPLE);
+    gb.display.setCursor(20,21);
+    gb.display.println(technology.resource2Cost*(technology.level+1));
+    gb.display.setColor(YELLOW);
+    gb.display.setCursor(20,27);
+    gb.display.println(technology.resource3Cost*(technology.level+1));
     if((technology.depTechLevel>depLevel)&&depTechName!="")
     {
       gb.display.setColor(RED);
@@ -2340,6 +2342,8 @@ void drawTechImage(int id)
   }
 }
 
+//---------------Infrastructure Logic---
+
 void drawInfrastructureScreen(Building building, String depTechName, int depLevel, String depBuildingName,int depBuildingLevel,bool canBuild,bool maxReached)
 {
   gb.display.drawImage(0,0,IMAGE_INFO_1);
@@ -2361,9 +2365,6 @@ void drawInfrastructureScreen(Building building, String depTechName, int depLeve
   gb.display.setColor(WHITE);
   gb.display.setCursor(20,9);
   gb.display.println(building.bName);
-  gb.display.setColor(BLUE);
-  gb.display.setCursor(20,15);
-  gb.display.println(building.resource1Cost*(building.level+1));
   gb.display.setColor(ORANGE);
   gb.display.setCursor(45,15);
   gb.display.println("LEVEL");
@@ -2374,18 +2375,22 @@ void drawInfrastructureScreen(Building building, String depTechName, int depLeve
     gb.display.drawImage(46,23,IMAGE_BUILD_BTN);
     gb.display.drawImage(45,22,Selector); 
   }
-  gb.display.setColor(PURPLE);
-  gb.display.setCursor(20,21);
-  gb.display.println(building.resource2Cost*(building.level+1));
-  gb.display.setColor(YELLOW);
-  gb.display.setCursor(20,27);
-  gb.display.println(building.resource3Cost*(building.level+1));
 
   gb.display.setColor(WHITE);
   gb.display.setCursor(0,35);
   gb.display.println(building.describtion);
   if(maxReached==false)
   {
+    gb.display.setColor(BLUE);
+    gb.display.setCursor(20,15);
+    gb.display.println((building.resource1Cost - 5*(Colony[9].level))*(building.level+1));
+    gb.display.setColor(PURPLE);
+    gb.display.setCursor(20,21);
+    gb.display.println((building.resource2Cost - 3*(Colony[9].level))*(building.level+1));
+    gb.display.setColor(YELLOW);
+    gb.display.setCursor(20,27);
+    gb.display.println(building.resource3Cost*(building.level+1));
+    
     if((building.depBuildingLevel>depBuildingLevel)&&depBuildingName!="")
     {
       gb.display.setColor(RED);
@@ -3224,38 +3229,58 @@ void drawTransformerScreen(int mode,int multipler,int convert,int created)
   gb.display.setColor(WHITE);
   gb.display.setCursor(18,0);
   gb.display.println("TRANSFORMER");
-  gb.display.setCursor(0,9);
+  gb.display.setCursor(0,14);
   gb.display.println("CREATE:");
-  gb.display.setCursor(30,9); 
+  gb.display.setCursor(30,14); 
   if(mode==1)
   {
     gb.display.setColor(BLUE);
-    gb.display.println("METAL"); 
+    gb.display.println("METAL");
+    gb.display.setColor(YELLOW);
+    gb.display.fillRect(5,37,3,3); 
+  }
+  else if(mode==2)
+  {
+    gb.display.setColor(PURPLE);
+    gb.display.println("CRYSTAL");
+    gb.display.setColor(YELLOW);
+    gb.display.fillRect(5,37,3,3); 
+  }
+  else if(mode==3)
+  {
+    gb.display.setColor(YELLOW);
+    gb.display.println("FUEL");
+    gb.display.setColor(BLUE);
+    gb.display.fillRect(5,37,3,3);
   }
   else
   {
+    gb.display.setColor(YELLOW);
+    gb.display.println("FUEL");
     gb.display.setColor(PURPLE);
-    gb.display.println("CRYSTAL"); 
+    gb.display.fillRect(5,37,3,3);
   }
-  gb.display.setColor(YELLOW);
-  gb.display.fillRect(5,32,3,3);
-  gb.display.setCursor(11,31);
+  gb.display.setCursor(11,36);
   String toConvert=createString(convert);
   gb.display.println(toConvert);
   if(mode==1)
   {
     gb.display.setColor(BLUE); 
   }
-  else
+  else if(mode==2)
   {
     gb.display.setColor(PURPLE);
   }
-  gb.display.fillRect(54,32,3,3);
-  gb.display.setCursor(60,31);
+  else
+  {
+    gb.display.setColor(YELLOW);
+  }
+  gb.display.fillRect(54,37,3,3);
+  gb.display.setCursor(60,36);
   String toCreate=createString(created);
   gb.display.println(toCreate);
   gb.display.setColor(RED);
-  gb.display.setCursor(32,22);
+  gb.display.setCursor(32,27);
   gb.display.println((String)multipler+"/1");
 }
 

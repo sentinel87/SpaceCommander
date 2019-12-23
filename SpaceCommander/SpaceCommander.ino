@@ -57,7 +57,6 @@ struct Technology
 {
   int8_t id;
   String techName;
-  int8_t imageId;
   int8_t level;
   int resource1Cost;
   int resource2Cost;
@@ -70,28 +69,27 @@ struct Technology
 };
 
 Technology TechTree[]={
-  {1,"Astronomy",0,1,100,100,0,"Increases visibilityon the Star Map.","None",0,0,39},
-  {2,"Espionage",0,0,250,50,50,"Unlocks Intelligencebuilding and        Spy Bots.","Astronomy",1,2,21},
-  {3,"Jet Proplusion",0,0,100,100,100,"Unlocks Fighters andincreases their     speed.","Astronomy",1,2,15},
-  {4,"Aerodynamics",0,0,150,120,150,"Unlocks Interceptors and increases their speed.","Jet Proplusion",3,5,10},
-  {5,"Impulse Engine",0,0,50,250,200,"Unlocks Frigates andincreases their     speed.","Jet Proplusion",3,5,10},
-  {6,"Hyperdrive",0,0,100,500,400,"Unlocks War Cruisersand increases their speed.","Impulse Engine",5,2,10},
-  {7,"Logistics",0,0,120,120,50,"+ 1 to Star Routes  and Colonies. UnlockTransports.","Astronomy",1,4,12},
-  {8,"Radiolocation",0,0,100,150,0,"Unlock Radar and    increases visibilityrange.","Espionage",2,2,20},
-  {9,"Fleet Tactics",0,10,100,25,0,"Needed to upgrade   shipyard and build  high level ships.","Astronomy",1,10},
-  {10,"Shielding",0,0,400,500,0,"Unlock Planetary    Defense System and  increases firepower.","Fleet Tactics",9,5,15},
-  {11,"Statics",0,0,0,0,0,"Unlock Warehouse andincreases it's      capacity.","Logistics",7,2,11},
-  {12,"Ship Weapons",0,0,125,300,75,"Final level unlocks Star Dreadnoughts.","Fleet Tactics",9,1,10},
-  {13,"Fusion Reaction",0,0,0,0,0,"Unlocks Transformer and its upgrades.","Fleet Tactics",9,8,10},
-  {14,"Flight Control",0,0,0,0,0,"Unlocks Logistic    Centre and its      upgrades.","Statics",11,2,10},
-  {15,"Gravity Weapon",0,0,0,0,0,"Final level of this technology unlocks  Solar Destroyer.","Fusion Reaction",13,1,10}
+  {1,"Astronomy",1,100,100,0,"Increases visibilityon the Star Map.","None",0,0,39},
+  {2,"Espionage",0,250,50,50,"Unlocks Intelligencebuilding and        Spy Bots.","Astronomy",1,2,21},
+  {3,"Jet Proplusion",0,100,100,100,"Unlocks Fighters andincreases their     speed.","Astronomy",1,2,16},
+  {4,"Aerodynamics",0,150,120,150,"Unlocks Interceptors and increases their speed.","Jet Proplusion",3,5,10},
+  {5,"Impulse Engine",0,50,250,200,"Unlocks Frigates andincreases their     speed.","Jet Proplusion",3,5,11},
+  {6,"Hyperdrive",0,100,500,400,"Unlocks War Cruisersand increases their speed.","Impulse Engine",5,2,10},
+  {7,"Logistics",0,120,120,50,"+ 1 to Star Routes  and Colonies. UnlockTransports.","Astronomy",1,4,12},
+  {8,"Radiolocation",0,100,150,0,"Unlock Radar and    increases visibilityrange.","Espionage",2,2,20},
+  {9,"Fleet Tactics",0,100,25,0,"Needed to upgrade   shipyard and build  high level ships.","Astronomy",1,5,16},
+  {10,"Shielding",0,400,500,0,"Unlock Planetary    Defense System and  increases firepower.","Fleet Tactics",9,1,15},
+  {11,"Statics",0,200,400,0,"Unlock Warehouse andincreases it's      capacity.","Logistics",7,2,11},
+  {12,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Fleet Tactics",9,1,10},
+  {13,"Fusion Reaction",0,600,600,300,"Unlocks Transformer and its upgrades.","Fleet Tactics",9,5,10},
+  {14,"Flight Control",0,350,200,250,"Unlocks Logistic    Centre and its      upgrades.","Statics",11,2,10},
+  {15,"Gravity Weapon",0,900,900,900,"Final level of this technology unlocks  Solar Destroyer.","Fusion Reaction",13,1,9}
 };
 
 struct Building
 {
   int8_t id;
   String bName;
-  int8_t imageId;
   int8_t level;
   String describtion;
   int resource1Cost;
@@ -105,19 +103,19 @@ struct Building
 };
 
 Building Colony[]={
-  {1,"Power Plant",0,1,"Required to build   higher level        structures.",50,50,50,0,0,0,0,21},
-  {2,"Metal Mine",0,1,"Deliver metal       resource.",50,0,0,0,0,1,2,20},
-  {3,"Crystal Mine",0,1,"Deliver crystal     resource.",0,50,0,0,0,1,2,20},
-  {4,"Fuel Refinery",0,1,"Deliver fuel        resource.",50,50,0,0,0,1,2,20},
-  {5,"Intelligence",0,0,"Reveal more intel inenemy reports.",100,75,0,2,1,0,0,13},
-  {6,"Radar",0,15,"Detects enemy fleets+1 visibility / lvl.",25,40,0,8,1,5,1,20},
-  {7,"Shipyard",0,1,"Required to build   high level ships.",75,75,75,9,1,0,0,10},
-  {8,"Research Lab",0,15,"Unlocks additional  technology / lvl.",100,100,100,0,0,0,0,15},
-  {9,"Defence System",0,1,"+ 10 points to      defense / lvl.",100,200,50,10,1,0,0,10},
-  {10,"Factory",0,1,"Reduces Metal and   Crystal cost of     buildings.",100,150,0,0,0,0,0,0},
-  {11,"Warehouse",0,1,"Stores resources    when losing battle. +100 for each       resource / lvl.",250,250,0,11,1,0,0,10},
-  {12,"Transformer",0,0,"Converts one        resource to another.",500,500,750,13,1,0,0,10},
-  {13,"Logistic Centre",0,0,"Increases resource  transport from traderoutes.",300,100,200,14,1,0,0,10}
+  {1,"Power Plant",1,"Required to build   higher level        structures.",150,150,150,0,0,0,0,21},
+  {2,"Metal Mine",1,"Deliver metal       resource.",190,150,0,0,0,1,2,20},
+  {3,"Crystal Mine",1,"Deliver crystal     resource.",180,220,0,0,0,1,2,20},
+  {4,"Fuel Refinery",1,"Deliver fuel        resource.",200,170,0,0,0,1,2,20},
+  {5,"Intelligence",0,"Reveal more intel inenemy reports.",200,175,0,2,1,0,0,13},
+  {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",125,140,0,8,1,5,1,20},
+  {7,"Shipyard",1,"Required to build   high level ships.",375,375,275,9,1,0,0,10},
+  {8,"Research Lab",1,"Unlocks additional  technology / lvl.",200,200,200,0,0,0,0,15},
+  {9,"Defence System",0,"+ 10 points to      defense / lvl.",100,200,50,10,1,0,0,10},
+  {10,"Factory",0,"Reduces Metal and   Crystal cost of     buildings.",400,300,0,0,0,0,0,10},
+  {11,"Warehouse",0,"Stores resources    when losing battle. +100 for each       resource / lvl.",350,350,0,11,1,0,0,10},
+  {12,"Transformer",0,"Converts one        resource to another.",600,600,850,13,1,0,0,10},
+  {13,"Logistic Centre",0,"Increases resource  transport from traderoutes.",400,200,300,14,1,0,0,10}
 };
 
 struct Ship
@@ -575,7 +573,10 @@ void timeCalculations()
   if(framesCount==2)//slow time
   {
     framesCount=0;
-    updateResources();
+    //updateResources();
+    PlayerResources[0]=9000;
+    PlayerResources[1]=9000;
+    PlayerResources[2]=9000;
   }
 }
 
