@@ -108,7 +108,7 @@ Building Colony[]={
   {3,"Crystal Mine",1,"Deliver crystal     resource.",180,220,0,0,0,1,2,20},
   {4,"Fuel Refinery",1,"Deliver fuel        resource.",200,170,0,0,0,1,2,20},
   {5,"Intelligence",0,"Reveal more intel inenemy reports.",200,175,0,2,1,0,0,13},
-  {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",125,140,0,8,1,5,1,20},
+  {6,"Radar",15,"Detects enemy fleets+1 visibility / lvl.",125,140,0,8,1,5,1,20},
   {7,"Shipyard",1,"Required to build   high level ships.",375,375,275,9,1,0,0,10},
   {8,"Research Lab",1,"Unlocks additional  technology / lvl.",200,200,200,0,0,0,0,15},
   {9,"Defence System",0,"+ 10 points to      defense / lvl.",100,200,50,10,1,0,0,10},

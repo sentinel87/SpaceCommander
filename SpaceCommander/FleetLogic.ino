@@ -43,23 +43,13 @@ int enemyFleets()
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
-    for(int i=0;i<4;i++)
+    if(PlayerShips[6]>0 && flSelectionIdx!=-1) //Generate fleet report
     {
-      if(PlayerFleets[i].Active==false)
-      {
-        if(PlayerResources[2]>0 && PlayerShips[6]>0)
-        {
-          //if(EnemyFleets[flSelectionIdx].Minutes>0])
-          //{
-            
-          //}
-          //Fleet spyFleet={3,true,0,0,1,0,0,0,0,0,0,0,"Enemy fleet",true};
-          //CustomFleet=spyFleet;
-          //setFleetParameters();
-          //return 24; //SPY MISSION CONFIRMATION FLEET
-        }
-        break;
-      }
+      String header="ENEMY FLEET "+(String)(flSelectionIdx+1);
+      Report Hostile={header,1,EnemyFleets[flSelectionIdx].Fighters,EnemyFleets[flSelectionIdx].Interceptors,EnemyFleets[flSelectionIdx].Frigates,EnemyFleets[flSelectionIdx].WarCruisers,EnemyFleets[flSelectionIdx].StarDreadnoughts,EnemyFleets[flSelectionIdx].SolarDestroyers,0,0,0};
+      generateScoutReport(Hostile);
+      gb.gui.popup("NEW FLEET REPORT!",50);
+      PlayerShips[6]--;
     }
   }
   drawEnemyFleets(flMarkerPosX,flMarkerPosY,fleetCount,flSelectionIdx);
