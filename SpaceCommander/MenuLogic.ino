@@ -169,12 +169,48 @@ void prepareNewGame()
   {
     PlayerRoutes[i]=ResetRoute;    
   }
+  
+  //Clear planets
+  for(int i=1;i<30;i++)
+  {
+    System[i].Discovered=false;
+    System[i].Hostile=false;
+    System[i].Owned=false;
+    System[i].TradeRoute=false;
+    System[i].GarrisonIndex=-1;
+    System[i].Status=false;
+    System[i].ActiveMission=false;
+  }
+  
   //Prepare Garrisons
   EnemyGarrison ResetGarrison={-1,200,100,20,5,2,0};
   for(int i=0;i<6;i++)
   {
     Enemy1Garrison[i]=ResetGarrison;
   }
+
+  Enemy1Garrison[0].planetIndex=2; //Set Capital Garrison
+  System[2].Hostile=true;
+  System[2].GarrisonIndex=0;
+
+  int gIdx=1;
+  while(gIdx!=6) //Set random planets for garrisons
+  {
+    int pIdx=random(3, 28);
+    if(System[pIdx].Hostile==false)
+    {
+      Enemy1Garrison[gIdx].planetIndex=pIdx;
+      System[pIdx].Hostile=true;
+      System[pIdx].GarrisonIndex=gIdx;
+      gIdx++;
+    }
+    else
+    {
+      continue;
+    }
+  }
+
+  
 }
 
 bool gameOverInfo()

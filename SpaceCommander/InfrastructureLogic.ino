@@ -106,6 +106,7 @@ int8_t infrastructure()
   }
   else if(gb.buttons.pressed(BUTTON_B))
   {
+    inCurrentBuilding=0;
     return 0;
   }
   
