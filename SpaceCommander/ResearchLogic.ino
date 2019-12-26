@@ -44,6 +44,7 @@ int8_t research()
   }
   else if(gb.buttons.pressed(BUTTON_B))
   {
+    reCurrentTech=0;
     return 0;
   }
   

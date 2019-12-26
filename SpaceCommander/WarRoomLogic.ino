@@ -78,7 +78,11 @@ int8_t warRoom(int playerResources[3])
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
-    return Choice;   
+    bool access=checkRestrictions();
+    if(access==true)
+    {
+      return Choice; 
+    }   
   }
   drawWarRoom(CursorPosX,CursorPosY,selectedChoice());
   return 0;
@@ -113,6 +117,57 @@ String selectedChoice()
       result="REPORTS";break;
     case 9:
       result="TRANSFORM RESOURCES";break;
+  }
+  return result;
+}
+
+bool checkRestrictions()
+{
+  bool result=false;
+  switch(Choice)
+  {
+    case 3:
+    {
+      if(Colony[5].level>0)
+      {
+        result=true;
+      }
+    }
+    break;
+    case 4:
+    {
+      if(Colony[7].level>0)
+      {
+        result=true;
+      }
+    }
+    break;
+    case 8:
+    {
+      if(Colony[6].level>0)
+      {
+        result=true;
+      }
+    }
+    break;
+    case 9:
+    {
+      if(Colony[11].level>0)
+      {
+        result=true;
+      }
+    }
+    break;
+    case 10:
+    {
+      if(Colony[4].level>0)
+      {
+        result=true;
+      }
+    }
+    break;
+    default:
+      result=true; break;
   }
   return result;
 }

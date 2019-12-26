@@ -69,7 +69,7 @@ struct Technology
 };
 
 Technology TechTree[]={
-  {1,"Astronomy",1,100,100,0,"Increases visibilityon the Star Map.","None",0,0,39},
+  {1,"Astronomy",2,100,100,0,"Increases visibilityon the Star Map.","None",0,0,39},
   {2,"Espionage",0,250,50,50,"Unlocks Intelligencebuilding and        Spy Bots.","Astronomy",1,2,21},
   {3,"Jet Proplusion",0,100,100,100,"Unlocks Fighters andincreases their     speed.","Astronomy",1,2,16},
   {4,"Aerodynamics",0,150,120,150,"Unlocks Interceptors and increases their speed.","Jet Proplusion",3,5,10},
@@ -108,9 +108,9 @@ Building Colony[]={
   {3,"Crystal Mine",1,"Deliver crystal     resource.",180,220,0,0,0,1,2,20},
   {4,"Fuel Refinery",1,"Deliver fuel        resource.",200,170,0,0,0,1,2,20},
   {5,"Intelligence",0,"Reveal more intel inenemy reports.",200,175,0,2,1,0,0,13},
-  {6,"Radar",15,"Detects enemy fleets+1 visibility / lvl.",125,140,0,8,1,5,1,20},
-  {7,"Shipyard",1,"Required to build   high level ships.",375,375,275,9,1,0,0,10},
-  {8,"Research Lab",1,"Unlocks additional  technology / lvl.",200,200,200,0,0,0,0,15},
+  {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",125,140,0,8,1,5,1,20},
+  {7,"Shipyard",0,"Required to build   high level ships.",375,375,275,9,1,0,0,10},
+  {8,"Research Lab",0,"Unlocks additional  technology / lvl.",200,200,200,0,0,0,0,15},
   {9,"Defence System",0,"+ 10 points to      defense / lvl.",100,200,50,10,1,0,0,10},
   {10,"Factory",0,"Reduces Metal and   Crystal cost of     buildings.",400,300,0,0,0,0,0,10},
   {11,"Warehouse",0,"Stores resources    when losing battle. +100 for each       resource / lvl.",350,350,0,11,1,0,0,10},
@@ -329,13 +329,13 @@ bool Victory=false;
 
 int EnemyCount=1;
 String Difficulty="NORMAL";
-int ProgressPoints=105;
+int ProgressPoints=0;
 int ProgressPointsLimit=120;
-int EnemyColonies=0;
+int EnemyColonies=5;
 int EnemyCapitals=1;
 
 //Enemy Timer
-int timeToAttack=20;//4 minutes interval
+int timeToAttack=120;//4 minutes interval
 bool attackUnderway=false;
 
 void setup() {
@@ -677,7 +677,7 @@ void enemyFleetsCheck() //check if all attacks are completed and reset prepare t
   if(allClear==true)
   {
     attackUnderway=false;
-    timeToAttack=20; //4 minutes
+    timeToAttack=120; //4 minutes
   }
 }
 
@@ -890,7 +890,7 @@ void enemyAttackTimer()
         {
           EnemyFleets[idx]=CustomEnemyFleet;
           attackUnderway=true;
-          timeToAttack=10; // 2 minutes
+          timeToAttack=60; // 2 minutes
         }
       }
     }

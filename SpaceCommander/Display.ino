@@ -2329,17 +2329,32 @@ void drawWarRoom(int posX,int posY,String choice)
   gb.display.setCursor(60,0);
   gb.display.println(PlayerResources[2]);
   gb.display.drawImage(71,9,IMAGE_BUILD_BTN);
-  gb.display.drawImage(71,16,IMAGE_RESEARCH_BTN);
+  if(Colony[7].level>0)
+  {
+    gb.display.drawImage(71,16,IMAGE_RESEARCH_BTN); 
+  }
   gb.display.drawImage(71,23,IMAGE_MAP_BTN);
-  gb.display.drawImage(71,30,IMAGE_SHIPS_BTN);
-  gb.display.drawImage(71,37,IMAGE_INTEL_BTN);
+  if(Colony[6].level>0)
+  {
+    gb.display.drawImage(71,30,IMAGE_SHIPS_BTN);
+  }
+  if(Colony[4].level>0)
+  {
+    gb.display.drawImage(71,37,IMAGE_INTEL_BTN);
+  }
   gb.display.drawImage(62,44,IMAGE_TRANSPORT_BTN);
   gb.display.drawImage(71,44,IMAGE_SAVE_BTN);
   gb.display.drawImage(62,9,IMAGE_FLEET_BTN);
-  gb.display.drawImage(62,16,IMAGE_RADIOLOCATION_BTN);
+  if(Colony[5].level>0)
+  {
+    gb.display.drawImage(62,16,IMAGE_RADIOLOCATION_BTN); 
+  }
   gb.display.drawImage(62,23,IMAGE_STATS_BTN);
   gb.display.drawImage(62,30,IMAGE_REPORT_BTN);
-  gb.display.drawImage(62,37,IMAGE_TRANSFORM_BTN);
+  if(Colony[11].level>0)
+  {
+    gb.display.drawImage(62,37,IMAGE_TRANSFORM_BTN);
+  }
   gb.display.drawImage(posX,posY,Selector);
   gb.display.setColor(WHITE);
   gb.display.setCursor(2,59);
@@ -3154,6 +3169,7 @@ void drawSpyReport(Report IntelligenceReport)
   String title="REPORT:" + IntelligenceReport.PlanetName;
   gb.display.println(title);
   gb.display.setCursor(0,9);
+  gb.display.setColor(BLACK);
   gb.display.println("TYPE: ");
   if(IntelligenceReport.Type==1) //hostile report
   {
