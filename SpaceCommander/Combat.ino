@@ -691,62 +691,62 @@ void resolveSecondRound(int enIndex,int plIndex,bool attacker)
   if(attacker==true)
   {
     EnemyStrength+=Enemy1Garrison[enIndex].Fighters;
-    EnemyStrength+=(Enemy1Garrison[enIndex].Interceptors*2);
-    EnemyStrength+=(Enemy1Garrison[enIndex].Frigates*3);
-    EnemyStrength+=(Enemy1Garrison[enIndex].WarCruisers*5);
-    EnemyStrength+=(Enemy1Garrison[enIndex].StarDreadnoughts*8);
-    EnemyStrength+=(Enemy1Garrison[enIndex].SolarDestroyers*10);
+    EnemyStrength+=(Enemy1Garrison[enIndex].Interceptors*3);
+    EnemyStrength+=(Enemy1Garrison[enIndex].Frigates*10);
+    EnemyStrength+=(Enemy1Garrison[enIndex].WarCruisers*25);
+    EnemyStrength+=(Enemy1Garrison[enIndex].StarDreadnoughts*50);
+    EnemyStrength+=(Enemy1Garrison[enIndex].SolarDestroyers*100);
     
     PlayerStrength+=PlayerFleets[plIndex].Fighters;
-    PlayerStrength+=(PlayerFleets[plIndex].Interceptors*2);
-    PlayerStrength+=(PlayerFleets[plIndex].Frigates*3);
-    PlayerStrength+=(PlayerFleets[plIndex].WarCruisers*5);
-    PlayerStrength+=(PlayerFleets[plIndex].StarDreadnoughts*8);
-    PlayerStrength+=(PlayerFleets[plIndex].SolarDestroyers*10);
+    PlayerStrength+=(PlayerFleets[plIndex].Interceptors*3);
+    PlayerStrength+=(PlayerFleets[plIndex].Frigates*10);
+    PlayerStrength+=(PlayerFleets[plIndex].WarCruisers*25);
+    PlayerStrength+=(PlayerFleets[plIndex].StarDreadnoughts*50);
+    PlayerStrength+=(PlayerFleets[plIndex].SolarDestroyers*100);
     
     //----------------------Enemy casaulties-------------
-    if(Enemy1Garrison[enIndex].SolarDestroyers>0 && PlayerStrength>=10)
+    if(Enemy1Garrison[enIndex].SolarDestroyers>0 && PlayerStrength>=100)
     {
-      int casaulties=PlayerStrength/10;
+      int casaulties=PlayerStrength/100;
       int discrepancy=Enemy1Garrison[enIndex].SolarDestroyers-casaulties;
       if(discrepancy>=0)
       {
         Enemy1Garrison[enIndex].SolarDestroyers-=casaulties;
-        PlayerStrength-=casaulties*10;
+        PlayerStrength-=casaulties*100;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         Enemy1Garrison[enIndex].SolarDestroyers-=fixed;
-        PlayerStrength-=fixed*10;
+        PlayerStrength-=fixed*100;
       }
     }
 
-    if(Enemy1Garrison[enIndex].StarDreadnoughts>0 && PlayerStrength>=8)
+    if(Enemy1Garrison[enIndex].StarDreadnoughts>0 && PlayerStrength>=50)
     {
-      int casaulties=PlayerStrength/8;
+      int casaulties=PlayerStrength/50;
       int discrepancy=Enemy1Garrison[enIndex].StarDreadnoughts-casaulties;
       if(discrepancy>=0)
       {
         Enemy1Garrison[enIndex].StarDreadnoughts-=casaulties;
-        PlayerStrength-=casaulties*8;
+        PlayerStrength-=casaulties*50;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         Enemy1Garrison[enIndex].StarDreadnoughts-=fixed;
-        PlayerStrength-=fixed*8;
+        PlayerStrength-=fixed*50;
       }
     }
 
-    if(Enemy1Garrison[enIndex].WarCruisers>0 && PlayerStrength>=5)
+    if(Enemy1Garrison[enIndex].WarCruisers>0 && PlayerStrength>=25)
     {
-      int casaulties=PlayerStrength/5;
+      int casaulties=PlayerStrength/25;
       int discrepancy=Enemy1Garrison[enIndex].WarCruisers-casaulties;
       if(discrepancy>=0)
       {
         Enemy1Garrison[enIndex].WarCruisers-=casaulties;
-        PlayerStrength-=casaulties*5;
+        PlayerStrength-=casaulties*25;
       }
       else
       {
@@ -756,37 +756,37 @@ void resolveSecondRound(int enIndex,int plIndex,bool attacker)
       }
     }
 
-    if(Enemy1Garrison[enIndex].Frigates>0 && PlayerStrength>=3)
+    if(Enemy1Garrison[enIndex].Frigates>0 && PlayerStrength>=10)
     {
-      int casaulties=PlayerStrength/3;
+      int casaulties=PlayerStrength/10;
       int discrepancy=Enemy1Garrison[enIndex].Frigates-casaulties;
       if(discrepancy>=0)
       {
         Enemy1Garrison[enIndex].Frigates-=casaulties;
-        PlayerStrength-=casaulties*3;
+        PlayerStrength-=casaulties*10;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         Enemy1Garrison[enIndex].Frigates-=fixed;
-        PlayerStrength-=fixed*3;
+        PlayerStrength-=fixed*10;
       }
     }
 
-    if(Enemy1Garrison[enIndex].Interceptors>0 && PlayerStrength>=2)
+    if(Enemy1Garrison[enIndex].Interceptors>0 && PlayerStrength>=3)
     {
-      int casaulties=PlayerStrength/2;
+      int casaulties=PlayerStrength/3;
       int discrepancy=Enemy1Garrison[enIndex].Interceptors-casaulties;
       if(discrepancy>=0)
       {
         Enemy1Garrison[enIndex].Interceptors-=casaulties;
-        PlayerStrength-=casaulties*2;
+        PlayerStrength-=casaulties*3;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         Enemy1Garrison[enIndex].Interceptors-=fixed;
-        PlayerStrength-=fixed*2;
+        PlayerStrength-=fixed*3;
       }
     }
 
@@ -809,29 +809,29 @@ void resolveSecondRound(int enIndex,int plIndex,bool attacker)
     //----------------------Player casaulties-----------
     if(PlayerFleets[plIndex].SolarDestroyers>0 && EnemyStrength>=10)
     {
-      int casaulties=EnemyStrength/10;
+      int casaulties=EnemyStrength/100;
       int discrepancy=PlayerFleets[plIndex].SolarDestroyers-casaulties;
       if(discrepancy>=0)
       {
         PlayerFleets[plIndex].SolarDestroyers-=casaulties;
-        EnemyStrength-=casaulties*10;
+        EnemyStrength-=casaulties*100;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         PlayerFleets[plIndex].SolarDestroyers-=fixed;
-        EnemyStrength-=fixed*10;
+        EnemyStrength-=fixed*100;
       }
     }
 
-    if(PlayerFleets[plIndex].StarDreadnoughts>0 && EnemyStrength>=8)
+    if(PlayerFleets[plIndex].StarDreadnoughts>0 && EnemyStrength>=50)
     {
-      int casaulties=EnemyStrength/8;
+      int casaulties=EnemyStrength/50;
       int discrepancy=PlayerFleets[plIndex].StarDreadnoughts-casaulties;
       if(discrepancy>=0)
       {
         PlayerFleets[plIndex].StarDreadnoughts-=casaulties;
-        EnemyStrength-=casaulties*8;
+        EnemyStrength-=casaulties*50;
       }
       else
       {
@@ -841,54 +841,54 @@ void resolveSecondRound(int enIndex,int plIndex,bool attacker)
       }
     }
 
-    if(PlayerFleets[plIndex].WarCruisers>0 && EnemyStrength>=5)
+    if(PlayerFleets[plIndex].WarCruisers>0 && EnemyStrength>=25)
     {
-      int casaulties=EnemyStrength/5;
+      int casaulties=EnemyStrength/25;
       int discrepancy=PlayerFleets[plIndex].WarCruisers-casaulties;
       if(discrepancy>=0)
       {
         PlayerFleets[plIndex].WarCruisers-=casaulties;
-        EnemyStrength-=casaulties*5;
+        EnemyStrength-=casaulties*25;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         PlayerFleets[plIndex].WarCruisers-=fixed;
-        EnemyStrength-=fixed*5;
+        EnemyStrength-=fixed*25;
       }
     }
 
-    if(PlayerFleets[plIndex].Frigates>0 && EnemyStrength>=3)
+    if(PlayerFleets[plIndex].Frigates>0 && EnemyStrength>=10)
     {
-      int casaulties=EnemyStrength/3;
+      int casaulties=EnemyStrength/10;
       int discrepancy=PlayerFleets[plIndex].Frigates-casaulties;
       if(discrepancy>=0)
       {
         PlayerFleets[plIndex].Frigates-=casaulties;
-        EnemyStrength-=casaulties*3;
+        EnemyStrength-=casaulties*10;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         PlayerFleets[plIndex].Frigates-=fixed;
-        EnemyStrength-=fixed*3;
+        EnemyStrength-=fixed*10;
       }
     }
 
-    if(PlayerFleets[plIndex].Interceptors>0 && EnemyStrength>=2)
+    if(PlayerFleets[plIndex].Interceptors>0 && EnemyStrength>=3)
     {
-      int casaulties=EnemyStrength/2;
+      int casaulties=EnemyStrength/3;
       int discrepancy=PlayerFleets[plIndex].Interceptors-casaulties;
       if(discrepancy>=0)
       {
         PlayerFleets[plIndex].Interceptors-=casaulties;
-        EnemyStrength-=casaulties*2;
+        EnemyStrength-=casaulties*3;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         PlayerFleets[plIndex].Interceptors-=fixed;
-        EnemyStrength-=fixed*2;
+        EnemyStrength-=fixed*3;
       }
     }
 
@@ -912,102 +912,102 @@ void resolveSecondRound(int enIndex,int plIndex,bool attacker)
   else
   {
     EnemyStrength+=EnemyFleets[enIndex].Fighters;
-    EnemyStrength+=(EnemyFleets[enIndex].Interceptors*2);
-    EnemyStrength+=(EnemyFleets[enIndex].Frigates*3);
-    EnemyStrength+=(EnemyFleets[enIndex].WarCruisers*5);
-    EnemyStrength+=(EnemyFleets[enIndex].StarDreadnoughts*8);
-    EnemyStrength+=(EnemyFleets[enIndex].SolarDestroyers*10);
+    EnemyStrength+=(EnemyFleets[enIndex].Interceptors*3);
+    EnemyStrength+=(EnemyFleets[enIndex].Frigates*10);
+    EnemyStrength+=(EnemyFleets[enIndex].WarCruisers*25);
+    EnemyStrength+=(EnemyFleets[enIndex].StarDreadnoughts*50);
+    EnemyStrength+=(EnemyFleets[enIndex].SolarDestroyers*100);
     
     PlayerStrength+=PlayerShips[0];
-    PlayerStrength+=(PlayerShips[1]*2);
-    PlayerStrength+=(PlayerShips[2]*3);
-    PlayerStrength+=(PlayerShips[3]*5);
-    PlayerStrength+=(PlayerShips[4]*8);
-    PlayerStrength+=(PlayerShips[5]*10);
+    PlayerStrength+=(PlayerShips[1]*3);
+    PlayerStrength+=(PlayerShips[2]*10);
+    PlayerStrength+=(PlayerShips[3]*25);
+    PlayerStrength+=(PlayerShips[4]*50);
+    PlayerStrength+=(PlayerShips[5]*100);
 
     //----------------------Enemy casaulties-------------
-    if(EnemyFleets[enIndex].SolarDestroyers>0 && PlayerStrength>=10)
+    if(EnemyFleets[enIndex].SolarDestroyers>0 && PlayerStrength>=100)
     {
-      int casaulties=PlayerStrength/10;
+      int casaulties=PlayerStrength/100;
       int discrepancy=EnemyFleets[enIndex].SolarDestroyers-casaulties;
       if(discrepancy>=0)
       {
         EnemyFleets[enIndex].SolarDestroyers-=casaulties;
-        PlayerStrength-=casaulties*10;
+        PlayerStrength-=casaulties*100;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         EnemyFleets[enIndex].SolarDestroyers-=fixed;
-        PlayerStrength-=fixed*10;
+        PlayerStrength-=fixed*100;
       }
     }
 
-    if(EnemyFleets[enIndex].StarDreadnoughts>0 && PlayerStrength>=8)
+    if(EnemyFleets[enIndex].StarDreadnoughts>0 && PlayerStrength>=50)
     {
-      int casaulties=PlayerStrength/8;
+      int casaulties=PlayerStrength/50;
       int discrepancy=EnemyFleets[enIndex].StarDreadnoughts-casaulties;
       if(discrepancy>=0)
       {
         EnemyFleets[enIndex].StarDreadnoughts-=casaulties;
-        PlayerStrength-=casaulties*8;
+        PlayerStrength-=casaulties*50;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         EnemyFleets[enIndex].StarDreadnoughts-=fixed;
-        PlayerStrength-=fixed*8;
+        PlayerStrength-=fixed*50;
       }
     }
 
-    if(EnemyFleets[enIndex].WarCruisers>0 && PlayerStrength>=5)
+    if(EnemyFleets[enIndex].WarCruisers>0 && PlayerStrength>=25)
     {
-      int casaulties=PlayerStrength/5;
+      int casaulties=PlayerStrength/25;
       int discrepancy=EnemyFleets[enIndex].WarCruisers-casaulties;
       if(discrepancy>=0)
       {
         EnemyFleets[enIndex].WarCruisers-=casaulties;
-        PlayerStrength-=casaulties*5;
+        PlayerStrength-=casaulties*25;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         EnemyFleets[enIndex].WarCruisers-=fixed;
-        PlayerStrength-=fixed*5;
+        PlayerStrength-=fixed*25;
       }
     }
 
-    if(EnemyFleets[enIndex].Frigates>0 && PlayerStrength>=3)
+    if(EnemyFleets[enIndex].Frigates>0 && PlayerStrength>=10)
     {
-      int casaulties=PlayerStrength/3;
+      int casaulties=PlayerStrength/10;
       int discrepancy=EnemyFleets[enIndex].Frigates-casaulties;
       if(discrepancy>=0)
       {
         EnemyFleets[enIndex].Frigates-=casaulties;
-        PlayerStrength-=casaulties*3;
+        PlayerStrength-=casaulties*10;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         EnemyFleets[enIndex].Frigates-=fixed;
-        PlayerStrength-=fixed*3;
+        PlayerStrength-=fixed*10;
       }
     }
 
-    if(EnemyFleets[enIndex].Interceptors>0 && PlayerStrength>=2)
+    if(EnemyFleets[enIndex].Interceptors>0 && PlayerStrength>=3)
     {
-      int casaulties=PlayerStrength/2;
+      int casaulties=PlayerStrength/3;
       int discrepancy=EnemyFleets[enIndex].Interceptors-casaulties;
       if(discrepancy>=0)
       {
         EnemyFleets[enIndex].Interceptors-=casaulties;
-        PlayerStrength-=casaulties*2;
+        PlayerStrength-=casaulties*3;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         EnemyFleets[enIndex].Interceptors-=fixed;
-        PlayerStrength-=fixed*2;
+        PlayerStrength-=fixed*3;
       }
     }
 
@@ -1028,88 +1028,88 @@ void resolveSecondRound(int enIndex,int plIndex,bool attacker)
       }
     }
     //----------------------Player casaulties-----------
-    if(PlayerShips[5]>0 && EnemyStrength>=10)
+    if(PlayerShips[5]>0 && EnemyStrength>=100)
     {
-      int casaulties=EnemyStrength/10;
+      int casaulties=EnemyStrength/100;
       int discrepancy=PlayerShips[5]-casaulties;
       if(discrepancy>=0)
       {
         PlayerShips[5]-=casaulties;
-        EnemyStrength-=casaulties*10;
+        EnemyStrength-=casaulties*100;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         PlayerShips[5]-=fixed;
-        EnemyStrength-=fixed*10;
+        EnemyStrength-=fixed*100;
       }
     }
 
-    if(PlayerShips[4]>0 && EnemyStrength>=8)
+    if(PlayerShips[4]>0 && EnemyStrength>=50)
     {
-      int casaulties=EnemyStrength/8;
+      int casaulties=EnemyStrength/50;
       int discrepancy=PlayerShips[4]-casaulties;
       if(discrepancy>=0)
       {
         PlayerShips[4]-=casaulties;
-        EnemyStrength-=casaulties*8;
+        EnemyStrength-=casaulties*50;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         PlayerShips[4]-=fixed;
-        EnemyStrength-=fixed*8;
+        EnemyStrength-=fixed*50;
       }
     }
 
-    if(PlayerShips[3]>0 && EnemyStrength>=5)
+    if(PlayerShips[3]>0 && EnemyStrength>=25)
     {
-      int casaulties=EnemyStrength/5;
+      int casaulties=EnemyStrength/25;
       int discrepancy=PlayerShips[3]-casaulties;
       if(discrepancy>=0)
       {
         PlayerShips[3]-=casaulties;
-        EnemyStrength-=casaulties*5;
+        EnemyStrength-=casaulties*25;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         PlayerShips[3]-=fixed;
-        EnemyStrength-=fixed*5;
+        EnemyStrength-=fixed*25;
       }
     }
 
-    if(PlayerShips[2]>0 && EnemyStrength>=3)
+    if(PlayerShips[2]>0 && EnemyStrength>=10)
     {
-      int casaulties=EnemyStrength/3;
+      int casaulties=EnemyStrength/10;
       int discrepancy=PlayerShips[2]-casaulties;
       if(discrepancy>=0)
       {
         PlayerShips[2]-=casaulties;
-        EnemyStrength-=casaulties*3;
+        EnemyStrength-=casaulties*10;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         PlayerShips[2]-=fixed;
-        EnemyStrength-=fixed*3;
+        EnemyStrength-=fixed*10;
       }
     }
 
-    if(PlayerShips[1]>0 && EnemyStrength>=2)
+    if(PlayerShips[1]>0 && EnemyStrength>=3)
     {
-      int casaulties=EnemyStrength/2;
+      int casaulties=EnemyStrength/3;
       int discrepancy=PlayerShips[1]-casaulties;
       if(discrepancy>=0)
       {
         PlayerShips[1]-=casaulties;
-        EnemyStrength-=casaulties*2;
+        EnemyStrength-=casaulties*3;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         PlayerShips[1]-=fixed;
-        EnemyStrength-=fixed*2;
+        EnemyStrength-=fixed*3;
       }
     }
 

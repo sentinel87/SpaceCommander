@@ -22,8 +22,8 @@ Planet SelectedPlanet={true,"Earth",38,28,false,"Player",0,0,0,true,false,-1,tru
 
 Planet System[]={
   {true,"Earth",38,28,false,"Player",0,0,0,true,false,-1,true,false},
-  {false,"Sheeza Prime",76,28,false,"Shezz",3,2,2,false,false,-1,false,false},
-  {false,"Cligga Prime",0,28,true,"Cligg",0,0,0,false,false,-1,false,false},
+  {false,"Sheez Prime",76,28,false,"Shezz",3,2,2,false,false,-1,false,false},
+  {false,"Cligg Prime",0,28,true,"Cligg",0,0,0,false,false,0,false,false},
   {false,"Tau 14",8,3,false,"None",5,1,1,false,false,-1,false,false},
   {false,"Cassia",14,3,false,"None",2,2,3,false,false,-1,false,false},
   {false,"Kanton",27,9,false,"None",2,0,3,false,false,-1,false,false},
@@ -155,12 +155,12 @@ struct EnemyGarrison
 };
 
 EnemyGarrison Enemy1Garrison[]={
-  {0,0,0,0,0,0,0}, //Capital
-  {0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0}
+  {2,10,0,0,0,0,0}, //Capital
+  {-1,0,0,0,0,0,0},
+  {-1,0,0,0,0,0,0},
+  {-1,0,0,0,0,0,0},
+  {-1,0,0,0,0,0,0},
+  {-1,0,0,0,0,0,0}
 };
 
 struct Fleet
@@ -206,7 +206,7 @@ int PlayerShips[]={
   3, //Frigate
   2, //War Cruiser
   1, //Star Dreadnought
-  0, //Solar Destroyer
+  1, //Solar Destroyer
   90, //Spy Bot
   0, //Colonizer
   5, //Metal Transport
@@ -318,9 +318,12 @@ bool routesMission=false;
 
 int BattleExperience=0;
 
+//Menu variables
+
 bool IsMainMenu=true;
 bool IsOptionMenu=false;
 bool GameOver=false;
+bool Victory=false;
 
 //Game options
 
@@ -328,6 +331,8 @@ int EnemyCount=1;
 String Difficulty="NORMAL";
 int ProgressPoints=105;
 int ProgressPointsLimit=120;
+int EnemyColonies=0;
+int EnemyCapitals=1;
 
 //Enemy Timer
 int timeToAttack=20;//4 minutes interval
@@ -375,7 +380,16 @@ void loop() {
     }
     else if(GameOver==true)
     {
-      bool resolved=gameOverInfo();
+      bool resolved=gameOverInfo(false);
+      if(resolved==true)  //return to main menu
+      {
+        IsMainMenu=true;
+        GameOver=false;
+      }
+    }
+    else if(Victory==true)
+    {
+      bool resolved=gameOverInfo(true);
       if(resolved==true)  //return to main menu
       {
         IsMainMenu=true;
@@ -747,7 +761,6 @@ void scoutMission(Fleet fleet)
       }
       break;
     }
-    //TODO: Hostile Report - Enemy Fleet??
   }
 }
 
@@ -781,6 +794,20 @@ void attackPlanet(int index)
         {
           setFleetReturnParameters(index);
           PlayerFleets[index].Active=true;
+          if(idx==0)//Capital planet defeated
+          {
+            if(PlayerFleets[index].SolarDestroyers>0)//At least one Solar Destroyer survived 
+            {
+              Victory=true;
+            }
+            else
+            {
+              Enemy1Garrison[idx].planetIndex=-1;
+              System[i].Hostile=false;
+              System[i].GarrisonIndex=-1;
+              EnemyColonies--; 
+            }
+          }
         }
         System[i].ActiveMission=false;
       }
@@ -988,8 +1015,6 @@ Fleet setEnemyFleet()
   {
     EnemyArmada.SolarDestroyers=1; //solar destroyers 
   }
-  
-  EnemyArmada.SolarDestroyers=1;
   
   return EnemyArmada;
 }

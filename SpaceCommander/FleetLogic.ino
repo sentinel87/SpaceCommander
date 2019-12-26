@@ -145,8 +145,8 @@ int playerFleetSelection()
     {
       if(flShipSelection==1)
       {
-        flShipSelection=7;
-        flMarker2PosY=55;
+        flShipSelection=6;
+        flMarker2PosY=47;
       }
       else
       {
@@ -163,7 +163,7 @@ int playerFleetSelection()
     }
     else
     {
-      if(flShipSelection==7)
+      if(flShipSelection==6)
       {
         flShipSelection=1;
         flMarker2PosY=7;

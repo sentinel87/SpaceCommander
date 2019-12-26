@@ -81,10 +81,27 @@ int8_t starMap(int Astronomy)
       }
       else if(stSelection==3)
       {
-        Fleet attackFleet={1,true,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
-        CustomFleet=attackFleet;
-        setFleetParameters();
-        return 20; //FLEET SELECTION SCREEN
+        if(SelectedPlanet.Name=="Cligg Prime") //Check Capital condition
+        {
+          if(EnemyColonies>0)
+          {
+            gb.gui.popup("NOT ALL COLONIES DESTROYED!",50);
+          }
+          else
+          {
+            Fleet attackFleet={1,true,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
+            CustomFleet=attackFleet;
+            setFleetParameters();
+            return 20; //FLEET SELECTION SCREEN
+          }
+        }
+        else
+        {
+          Fleet attackFleet={1,true,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
+          CustomFleet=attackFleet;
+          setFleetParameters();
+          return 20; //FLEET SELECTION SCREEN
+        }
       }
       else if(stSelection==4)
       {
@@ -99,9 +116,9 @@ int8_t starMap(int Astronomy)
     }
     else
     {
-      if(SelectedPlanet.Name!="")
+      selectedPlanet();
+      if(SelectedPlanet.Name!="" && SelectedPlanet.Name!="Earth")
       {
-        selectedPlanet();
         stDropDownMenu=true;
         bool activeChoices=buildDropdownMenu();
         if(activeChoices==true)
@@ -355,6 +372,14 @@ void setFleetParameters()
     if(Speed>8 || Speed==0)
     {
       Speed=8; 
+    }
+  }
+  if(CustomFleet.SolarDestroyers>0)
+  {
+    FleetFuelCost+=CustomFleet.SolarDestroyers*100;
+    if(Speed>2 || Speed==0)
+    {
+      Speed=2; 
     }
   }
   //Calculate minutes and seconds (1 unit - speed)

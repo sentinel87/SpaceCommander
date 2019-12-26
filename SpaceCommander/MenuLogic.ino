@@ -213,13 +213,13 @@ void prepareNewGame()
   
 }
 
-bool gameOverInfo()
+bool gameOverInfo(bool victory)
 {
   if(gb.buttons.pressed(BUTTON_B))
   {
     return true;
   }
-  drawEndGameScreen(false);
+  drawEndGameScreen(victory);
   return false;
 }
 
