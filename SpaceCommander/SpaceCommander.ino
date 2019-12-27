@@ -106,7 +106,7 @@ Building Colony[]={
   {1,"Power Plant",1,"Required to build   higher level        structures.",150,150,150,0,0,0,0,21},
   {2,"Metal Mine",1,"Deliver metal       resource.",190,150,0,0,0,1,2,20},
   {3,"Crystal Mine",1,"Deliver crystal     resource.",180,220,0,0,0,1,2,20},
-  {4,"Fuel Refinery",1,"Deliver fuel        resource.",200,170,0,0,0,1,2,20},
+  {4,"Fuel Refinery",0,"Deliver fuel        resource.",200,170,0,0,0,1,2,20},
   {5,"Intelligence",0,"Reveal more intel inenemy reports.",200,175,0,2,1,0,0,13},
   {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",125,140,0,8,1,5,1,20},
   {7,"Shipyard",0,"Required to build   high level ships.",375,375,275,9,1,0,0,10},
@@ -125,22 +125,20 @@ struct Ship
   String describtion;
   int resource1Cost;
   int resource2Cost;
-  int8_t hitPoints;
-  int8_t attack;
 };
 
 Ship Shipyard[]={
-  {"Fighter",1,"Swarm of fighters isthe basic fleet     defence.",75,25,1,1},
-  {"Interceptor",2,"Ship designed to    hunt fighters.",150,75,1,1},
-  {"Frigate",3,"Light armored ship.",400,200,1,1},
-  {"War Cruiser",4,"Primary first line attack ship.",750,400,1,1},
-  {"Star Dreadnought",5,"Heavy armored ship  used to transport   entire fleet.",1000,750,1,1},
-  {"Solar Destroyer",6,"Ship designed to    destroy entire      planet.",5000,5000,1,1},
-  {"Spy Bot",7,"Fragile probe used  to scan planets and enemy fleets.",5,5,1,1},
-  {"Colonizer",8,"Set colony on the   planet.",1000,1000,5,0},
-  {"Metal Transport",9,"Transport metal fromcolonies.",500,5,0,1},
-  {"Crystal Transport",10,"Transport crystals  from colonies.",500,250,1,0},
-  {"Fuel Transport",11,"Transport fuel from colonies.",750,500,1,0}
+  {"Fighter",1,"Swarm of fighters isthe basic fleet     defence.",75,25},
+  {"Interceptor",2,"Ship designed to    hunt fighters.",150,75},
+  {"Frigate",3,"Light armored ship.",400,200},
+  {"War Cruiser",4,"Primary first line attack ship.",750,400},
+  {"Star Dreadnought",5,"Heavy armored ship  used to transport   entire fleet.",1000,750},
+  {"Solar Destroyer",6,"Ship designed to    destroy entire      planet.",5000,5000},
+  {"Spy Bot",7,"Fragile probe used  to scan planets and enemy fleets.",5,5},
+  {"Colonizer",8,"Set colony on the   planet.",1000,1000},
+  {"Metal Transport",9,"Transport metal fromcolonies.",500,5},
+  {"Crystal Transport",10,"Transport crystals  from colonies.",500,250},
+  {"Fuel Transport",11,"Transport fuel from colonies.",750,500}
 };
 
 struct EnemyGarrison
@@ -265,7 +263,7 @@ Report IntelligenceReports[]={
 
 int8_t ScreenSelection=0;
 
-int PlayerResources[]={9200,9200,9000};
+int PlayerResources[]={0,0,0};
 
 //Timer
 int8_t frames=0;
@@ -471,7 +469,6 @@ void loop() {
     }
     else
     {
-      sendFleet();
       timeCalculations();
       if(ScreenSelection==0)
       {
@@ -555,21 +552,6 @@ void loop() {
   }
 }
 
-void sendFleet()
-{
-  if(gb.buttons.pressed(BUTTON_MENU))
-  {
-    //prepareEnemyFleet();
-    //EnemyFleets[0]=CustomEnemyFleet;
-    //TechTree[0].level++;
-    //techEvents();
-    //spaceBattle(0,0,false);
-    //spaceBattle(0,0,true);
-    //fight=true;
-    //gb.gui.popup("BATTLE!",50); 
-  }
-}
-
 void timeCalculations()
 {
   if(frames==25)// every second tick update game mechanics
@@ -587,10 +569,7 @@ void timeCalculations()
   if(framesCount==2)//slow time
   {
     framesCount=0;
-    //updateResources();
-    PlayerResources[0]=9000;
-    PlayerResources[1]=9000;
-    PlayerResources[2]=9000;
+    updateResources();
   }
 }
 

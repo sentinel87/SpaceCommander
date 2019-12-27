@@ -123,28 +123,27 @@ void prepareNewGame()
   visibilityMinutes=0;
   FleetFuelCost=0;
   ScreenSelection=0;
-  
-  if(Difficulty=="EASY")
-  {
-    ProgressPointsLimit=60;
-    PlayerResources[0]=600;
-    PlayerResources[1]=600;
-    PlayerResources[2]=500;
-  }
-  else if(Difficulty=="NORMAL")
-  {
-    ProgressPointsLimit=120;
-    PlayerResources[0]=400;
-    PlayerResources[1]=400;
-    PlayerResources[2]=350;
-  }
-  else
-  {
-    ProgressPointsLimit=120;
-    PlayerResources[0]=200;
-    PlayerResources[1]=200;
-    PlayerResources[2]=150;
-  }
+  GameOver=false;
+  Victory=false;
+
+  ScreenSelection=0;
+  fight=false;
+
+  //Set Timer variables
+  frames=0;
+  framesCount=0;
+  timeUpdate=false;
+  visibilitySeconds=0;
+  visibilityMinutes=0;
+  timeToAttack=120;
+  attackUnderway=false;
+
+  BattleResult BattleResultReset={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false};
+  BtResult=BattleResultReset;
+
+  BattleExperience=0;
+  EnemyColonies=5;
+  EnemyCapitals=1;
   
   //Reset player ships
   for(int i=0;i<11;i++)
@@ -152,25 +151,44 @@ void prepareNewGame()
     PlayerShips[i]=0;
   }
   
-  //Fleets reset
-  Fleet ResetFleet={0,false,0,0,0,0,0,0,0,0,0,0,"",false};
-  CustomFleet=ResetFleet;
-  CustomEnemyFleet=ResetFleet;
-  for(int i=0;i<4;i++)
+  if(Difficulty=="EASY")
   {
-    PlayerFleets[i]=ResetFleet;
-    PlayerFleets[i].Visible=true;
-    EnemyFleets[i]=ResetFleet;    
+    ProgressPointsLimit=120;
+    PlayerResources[0]=600;
+    PlayerResources[1]=600;
+    PlayerResources[2]=500;
+    PlayerShips[0]=100;
+    PlayerShips[1]=50;
+    PlayerShips[2]=3;
+  }
+  else if(Difficulty=="NORMAL")
+  {
+    ProgressPointsLimit=120;
+    PlayerResources[0]=400;
+    PlayerResources[1]=400;
+    PlayerResources[2]=350;
+    PlayerShips[0]=50;
+    PlayerShips[1]=25;
+  }
+  else //HARD
+  {
+    ProgressPointsLimit=60;
+    PlayerResources[0]=200;
+    PlayerResources[1]=200;
+    PlayerResources[2]=150;
   }
   
-  //Routes reset
-  TradeRoute ResetRoute={false,"",0,0,0};
-  for(int i=0;i<12;i++)
-  {
-    PlayerRoutes[i]=ResetRoute;    
-  }
-  
-  //Clear planets
+  preparePlanets();
+  prepareGarrisons();
+  prepareTechs();
+  prepareBuildings();
+  prepareFleets();
+  prepareRoutes();
+  prepareReports();
+}
+
+void preparePlanets()
+{
   for(int i=1;i<30;i++)
   {
     System[i].Discovered=false;
@@ -181,8 +199,10 @@ void prepareNewGame()
     System[i].Status=false;
     System[i].ActiveMission=false;
   }
-  
-  //Prepare Garrisons
+}
+
+void prepareGarrisons()
+{
   EnemyGarrison ResetGarrison={-1,200,100,20,5,2,0};
   for(int i=0;i<6;i++)
   {
@@ -209,8 +229,111 @@ void prepareNewGame()
       continue;
     }
   }
+}
 
+void prepareTechs()
+{
+  TechTree[0].level=1;
+  TechTree[1].level=0;
+  TechTree[1].depTechLevel=2;
+  TechTree[2].level=0;
+  TechTree[2].depTechLevel=2;
+  TechTree[3].level=0;
+  TechTree[3].depTechLevel=5;
+  TechTree[4].level=0;
+  TechTree[4].depTechLevel=5;
+  TechTree[5].level=0;
+  TechTree[5].depTechLevel=2;
+  TechTree[6].level=0;
+  TechTree[6].depTechLevel=4;
+  TechTree[7].level=0;
+  TechTree[7].depTechLevel=2;
+  TechTree[8].level=0;
+  TechTree[8].depTechLevel=5;
+  TechTree[9].level=0;
+  TechTree[9].depTechLevel=1;
+  TechTree[10].level=0;
+  TechTree[10].depTechLevel=2;
+  TechTree[11].level=0;
+  TechTree[11].depTechLevel=1;
+  TechTree[12].level=0;
+  TechTree[12].depTechLevel=5;
+  TechTree[13].level=0;
+  TechTree[13].depTechLevel=2;
+  TechTree[14].level=0;
+  TechTree[14].depTechLevel=1;
+}
+
+void prepareBuildings()
+{
+  Colony[0].level=1;
+  Colony[1].level=1;
+  Colony[1].depBuildingLevel=2;
+  Colony[2].level=1;
+  Colony[2].depBuildingLevel=2;
+  Colony[3].level=0;
+  Colony[3].depBuildingLevel=1;
+  Colony[4].level=0;
+  Colony[4].depTechLevel=1;
+  Colony[5].level=0;
+  Colony[5].depTechLevel=1;
+  Colony[5].depBuildingLevel=1;
+  Colony[6].level=0;
+  Colony[6].depTechLevel=1;
+  Colony[7].level=0;
+  Colony[8].level=0;
+  Colony[8].depTechLevel=1;
+  Colony[9].level=0;
+  Colony[10].level=0;
+  Colony[10].depTechLevel=1;
+  Colony[11].level=0;
+  Colony[11].depTechLevel=1;
+  Colony[12].level=0;
+  Colony[12].depTechLevel=1;
+}
+
+void prepareFleets()
+{
+  Fleet ResetFleet={0,false,0,0,0,0,0,0,0,0,0,0,"",false};
+  CustomFleet=ResetFleet;
+  CustomEnemyFleet=ResetFleet;
+  FleetFuelCost=0;
   
+  for(int i=0;i<4;i++)
+  {
+    PlayerFleets[i]=ResetFleet;
+    PlayerFleets[i].Visible=true;
+    EnemyFleets[i]=ResetFleet;
+    EnemyFleets[i].Type=4;    
+  }
+
+  //Fleet Selection
+  flSelection=false;
+  spyMission=false;
+  spyMissionFleet=false;
+  attackMission=false;
+  colonizeMission=false;
+  routesMission=false;
+}
+
+void prepareRoutes()
+{
+  TradeRoute ResetRoute={false,"",0,0,0};
+  for(int i=0;i<12;i++)
+  {
+    PlayerRoutes[i]=ResetRoute;    
+  }
+  
+  SelectedRoute=ResetRoute;
+}
+
+void prepareReports()
+{
+  Report Reset={"Empty",0,0,0,0,0,0,0,0,0,0};
+  for(int i=0;i<5;i++)
+  {
+    IntelligenceReports[i]=Reset;
+  }
 }
 
 bool gameOverInfo(bool victory)

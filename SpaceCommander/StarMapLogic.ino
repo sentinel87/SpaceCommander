@@ -19,7 +19,6 @@ int8_t starMap(int Astronomy)
       if(stPosY!=0)
       {
         stPosY--;
-        //selectedPlanet();
       } 
     }
   }
@@ -34,7 +33,6 @@ int8_t starMap(int Astronomy)
       if(stPosY!=56)
       {
         stPosY++;
-        //selectedPlanet();
       } 
     }
   }
@@ -45,7 +43,6 @@ int8_t starMap(int Astronomy)
       if(stPosX!=0)
       {
         stPosX--;
-        //selectedPlanet();
       }
     }
   }
@@ -56,7 +53,6 @@ int8_t starMap(int Astronomy)
       if(stPosX!=76)
       {
         stPosX++;
-        //selectedPlanet();
       }
     }
   }
@@ -346,17 +342,25 @@ void setFleetParameters()
   if(CustomFleet.Fighters>0)
   {
     FleetFuelCost+=CustomFleet.Fighters;
-    Speed=13;
+    Speed=28-TechTree[2].level;
   }
   if(CustomFleet.Interceptors>0)
   {
     FleetFuelCost+=CustomFleet.Interceptors*5;
-    Speed=15;
+    int Sp=20-TechTree[3].level;
+    if(Sp<Speed || Speed==0)
+    {
+      Speed=Sp;
+    }
   }
   if(CustomFleet.Frigates>0)
   {
     FleetFuelCost+=CustomFleet.Frigates*10;
-    Speed=17;
+    int Sp=25-TechTree[4].level;
+    if(Sp<Speed || Speed==0)
+    {
+      Speed=Sp;
+    }
   }
   if(CustomFleet.WarCruisers>0)
   {
@@ -430,15 +434,23 @@ void setFleetReturnParameters(int index)
   //Calculate max speed
   if(PlayerFleets[index].Fighters>0)
   {
-    Speed=13;
+    Speed=28-TechTree[2].level;
   }
   if(PlayerFleets[index].Interceptors>0)
   {
-    Speed=15;
+    int Sp=20-TechTree[3].level;
+    if(Sp<Speed || Speed==0)
+    {
+      Speed=Sp;
+    }
   }
   if(PlayerFleets[index].Frigates>0)
   {
-    Speed=17;
+    int Sp=25-TechTree[4].level;
+    if(Sp<Speed || Speed==0)
+    {
+      Speed=Sp;
+    }
   }
   if(PlayerFleets[index].WarCruisers>0)
   {
