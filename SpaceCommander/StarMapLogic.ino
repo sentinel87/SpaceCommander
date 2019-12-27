@@ -63,17 +63,31 @@ int8_t starMap(int Astronomy)
       stDropDownMenu=false;
       if(stSelection==1)
       {
-        Fleet spyFleet={3,true,0,0,1,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
-        CustomFleet=spyFleet;
-        setFleetParameters();
-        return 21; //SPY MISSION CONFIRMATION
+        if(PlayerShips[6]>0)
+        {
+          Fleet spyFleet={3,true,0,0,1,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
+          CustomFleet=spyFleet;
+          setFleetParameters();
+          return 21; //SPY MISSION CONFIRMATION
+        }
+        else
+        {
+          gb.gui.popup("NO SPY BOTS!",50);
+        }
       }
       else if(stSelection==2)
       {
-        Fleet colonizationFleet={2,true,0,0,0,1,0,0,0,0,0,0,SelectedPlanet.Name,true};
-        CustomFleet=colonizationFleet;
-        setFleetParameters();
-        return 22; //COLONIZATION MISSION CONFIRMATION
+        if(PlayerShips[7]>0)
+        {
+          Fleet colonizationFleet={2,true,0,0,0,1,0,0,0,0,0,0,SelectedPlanet.Name,true};
+          CustomFleet=colonizationFleet;
+          setFleetParameters();
+          return 22; //COLONIZATION MISSION CONFIRMATION
+        }
+        else
+        {
+          gb.gui.popup("NO COLONIZERS!",50);
+        }
       }
       else if(stSelection==3)
       {

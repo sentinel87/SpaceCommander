@@ -3236,7 +3236,7 @@ void drawSpyReport(Report IntelligenceReport)
       gb.display.println("???");
     }
     gb.display.setCursor(25,57);
-    if(Colony[4].level==12) //Intelligence building
+    if(Colony[4].level==13) //Intelligence building
     {
       gb.display.println(IntelligenceReport.SolarDestroyers);
     }

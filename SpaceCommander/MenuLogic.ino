@@ -135,7 +135,7 @@ void prepareNewGame()
   timeUpdate=false;
   visibilitySeconds=0;
   visibilityMinutes=0;
-  timeToAttack=120;
+  timeToAttack=180;
   attackUnderway=false;
 
   BattleResult BattleResultReset={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false};

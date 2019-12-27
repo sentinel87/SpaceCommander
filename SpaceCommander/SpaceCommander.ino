@@ -153,7 +153,7 @@ struct EnemyGarrison
 };
 
 EnemyGarrison Enemy1Garrison[]={
-  {2,10,0,0,0,0,0}, //Capital
+  {-1,0,0,0,0,0,0}, //Capital
   {-1,0,0,0,0,0,0},
   {-1,0,0,0,0,0,0},
   {-1,0,0,0,0,0,0},
@@ -820,9 +820,9 @@ void fleetReturns(Fleet fleet)
 
 void updateResources()
 {
-  PlayerResources[0]+=Colony[1].level*2; //Metal Mine
-  PlayerResources[1]+=Colony[2].level*2; //Crystal Mine
-  PlayerResources[2]+=Colony[3].level*2; //Fuel Refinery
+  PlayerResources[0] += 1 + Colony[1].level*2; //Metal Mine
+  PlayerResources[1] += 1 + Colony[2].level*2; //Crystal Mine
+  PlayerResources[2] += 1 + Colony[3].level*2; //Fuel Refinery
 
   for(int i=0;i<12;i++)
   {
@@ -906,11 +906,7 @@ void prepareEnemyFleet()
   CustomEnemyFleet=setEnemyFleet();
   int Speed=0; //in seconds per 1 unit 
   int distance=37;
-  CustomEnemyFleet.Fighters=10;
-  CustomEnemyFleet.Interceptors=10;
-  CustomEnemyFleet.Frigates=10;
-  CustomEnemyFleet.WarCruisers=10;
-  CustomEnemyFleet.StarDreadnoughts=10;
+  
   //Calculate speed
   if(CustomEnemyFleet.Fighters>0)
   {
@@ -984,22 +980,22 @@ Fleet setEnemyFleet()
     modifier=2;
   }
   
-  EnemyArmada.Fighters = 100 + PlayerShips[0]+(PlayerShips[0]/modifier) + random(0,20);
+  EnemyArmada.Fighters = PlayerShips[0]+(PlayerShips[0]/modifier) + random(0,20);
   if(TechTree[2].level>2)//Jet Proplusion
   {
-    EnemyArmada.Interceptors = 50 + PlayerShips[1]+(PlayerShips[1]/modifier) + random(0,15);
+    EnemyArmada.Interceptors = PlayerShips[1]+(PlayerShips[1]/modifier) + random(0,15);
   }
   if(TechTree[3].level>5)//Aerodynamics
   {
-    EnemyArmada.Frigates = 10 + PlayerShips[2]+(PlayerShips[2]/modifier) + random(0,5);
+    EnemyArmada.Frigates = PlayerShips[2]+(PlayerShips[2]/modifier) + random(0,5);
   }
   if(TechTree[4].level>5)//Impulse Engine
   {
-    EnemyArmada.WarCruisers = 5 + PlayerShips[3]+(PlayerShips[3]/modifier) + random(0,2);
+    EnemyArmada.WarCruisers = PlayerShips[3]+(PlayerShips[3]/modifier) + random(0,2);
   }
   if(TechTree[5].level>5)//Hyperdrive
   {
-    EnemyArmada.StarDreadnoughts = 2 + PlayerShips[4]+(PlayerShips[4]/modifier) + random(0,2);
+    EnemyArmada.StarDreadnoughts = PlayerShips[4]+(PlayerShips[4]/modifier) + random(0,2);
   }
   if(ProgressPoints==ProgressPointsLimit) //ultimate weapon discovered
   {
