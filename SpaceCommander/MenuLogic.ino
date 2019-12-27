@@ -154,9 +154,9 @@ void prepareNewGame()
   if(Difficulty=="EASY")
   {
     ProgressPointsLimit=120;
-    PlayerResources[0]=600;
-    PlayerResources[1]=600;
-    PlayerResources[2]=500;
+    PlayerResources[0]=2600;
+    PlayerResources[1]=2600;
+    PlayerResources[2]=2500;
     PlayerShips[0]=100;
     PlayerShips[1]=50;
     PlayerShips[2]=3;
@@ -164,18 +164,18 @@ void prepareNewGame()
   else if(Difficulty=="NORMAL")
   {
     ProgressPointsLimit=120;
-    PlayerResources[0]=400;
-    PlayerResources[1]=400;
-    PlayerResources[2]=350;
+    PlayerResources[0]=1800;
+    PlayerResources[1]=1800;
+    PlayerResources[2]=1800;
     PlayerShips[0]=50;
     PlayerShips[1]=25;
   }
   else //HARD
   {
     ProgressPointsLimit=60;
-    PlayerResources[0]=200;
-    PlayerResources[1]=200;
-    PlayerResources[2]=150;
+    PlayerResources[0]=800;
+    PlayerResources[1]=800;
+    PlayerResources[2]=750;
   }
   
   preparePlanets();

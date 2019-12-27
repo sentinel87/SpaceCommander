@@ -106,7 +106,7 @@ Building Colony[]={
   {1,"Power Plant",1,"Required to build   higher level        structures.",150,150,150,0,0,0,0,21},
   {2,"Metal Mine",1,"Deliver metal       resource.",190,150,0,0,0,1,2,20},
   {3,"Crystal Mine",1,"Deliver crystal     resource.",180,220,0,0,0,1,2,20},
-  {4,"Fuel Refinery",0,"Deliver fuel        resource.",200,170,0,0,0,1,2,20},
+  {4,"Fuel Refinery",0,"Deliver fuel        resource.",200,170,0,0,0,1,1,20},
   {5,"Intelligence",0,"Reveal more intel inenemy reports.",200,175,0,2,1,0,0,13},
   {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",125,140,0,8,1,5,1,20},
   {7,"Shipyard",0,"Required to build   high level ships.",375,375,275,9,1,0,0,10},
@@ -349,6 +349,11 @@ void loop() {
     int8_t choice=mainMenu();
     if(choice==0 || choice==1)
     {
+      prepareNewGame();
+      IsMainMenu=false;
+    }
+    else if(choice==1)
+    {
       IsMainMenu=false;
     }
     else if(choice==2)
@@ -558,6 +563,7 @@ void timeCalculations()
   {
     framesCount++;
     frames=0;
+    updateResources();
     updateVisibilityDistance();
     updateFleets();
     enemyAttackTimer();
@@ -569,7 +575,7 @@ void timeCalculations()
   if(framesCount==2)//slow time
   {
     framesCount=0;
-    updateResources();
+    //updateResources();
   }
 }
 
@@ -632,6 +638,10 @@ void updateEnemyFleetTime(int index)
       {
         GameOver=true;
       }
+    }
+    else
+    {
+      BattleExperience++;
     }
     fight=true;
     enemyFleetsCheck(); 
@@ -771,6 +781,7 @@ void attackPlanet(int index)
         fight=true;
         if(winner==1) //if player wins move fleet back
         {
+          BattleExperience++;
           setFleetReturnParameters(index);
           PlayerFleets[index].Active=true;
           if(idx==0)//Capital planet defeated
@@ -809,9 +820,9 @@ void fleetReturns(Fleet fleet)
 
 void updateResources()
 {
-  PlayerResources[0]+=1 + Colony[1].level*2; //Metal Mine
-  PlayerResources[1]+=1 + Colony[2].level*2; //Crystal Mine
-  PlayerResources[2]+=1 + Colony[3].level*2; //Fuel Refinery
+  PlayerResources[0]+=Colony[1].level*2; //Metal Mine
+  PlayerResources[1]+=Colony[2].level*2; //Crystal Mine
+  PlayerResources[2]+=Colony[3].level*2; //Fuel Refinery
 
   for(int i=0;i<12;i++)
   {
@@ -973,22 +984,22 @@ Fleet setEnemyFleet()
     modifier=2;
   }
   
-  EnemyArmada.Fighters = 100 + PlayerShips[0]+(PlayerShips[0]/modifier);
+  EnemyArmada.Fighters = 100 + PlayerShips[0]+(PlayerShips[0]/modifier) + random(0,20);
   if(TechTree[2].level>2)//Jet Proplusion
   {
-    EnemyArmada.Interceptors = 50 + PlayerShips[1]+(PlayerShips[1]/modifier);
+    EnemyArmada.Interceptors = 50 + PlayerShips[1]+(PlayerShips[1]/modifier) + random(0,15);
   }
   if(TechTree[3].level>5)//Aerodynamics
   {
-    EnemyArmada.Frigates = 10 + PlayerShips[2]+(PlayerShips[2]/modifier);
+    EnemyArmada.Frigates = 10 + PlayerShips[2]+(PlayerShips[2]/modifier) + random(0,5);
   }
   if(TechTree[4].level>5)//Impulse Engine
   {
-    EnemyArmada.WarCruisers = 5 + PlayerShips[3]+(PlayerShips[3]/modifier);
+    EnemyArmada.WarCruisers = 5 + PlayerShips[3]+(PlayerShips[3]/modifier) + random(0,2);
   }
   if(TechTree[5].level>5)//Hyperdrive
   {
-    EnemyArmada.StarDreadnoughts = 2 + PlayerShips[4]+(PlayerShips[4]/modifier);
+    EnemyArmada.StarDreadnoughts = 2 + PlayerShips[4]+(PlayerShips[4]/modifier) + random(0,2);
   }
   if(ProgressPoints==ProgressPointsLimit) //ultimate weapon discovered
   {

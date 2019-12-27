@@ -146,12 +146,12 @@ int8_t starMap(int Astronomy)
   {
     drawDropdownMenu(stPosX,stPosY,stSelection,stEnabled);
   }
-  gb.display.setCursor(10, 5);
-  gb.display.setFontSize(1);
-  gb.display.setColor(RED);
-  gb.display.println(gb.getCpuLoad());
-  gb.display.setCursor(10, 12);
-  gb.display.println(gb.getFreeRam());
+  //gb.display.setCursor(10, 5);
+  //gb.display.setFontSize(1);
+  //gb.display.setColor(RED);
+  //gb.display.println(gb.getCpuLoad());
+  //gb.display.setCursor(10, 12);
+  //gb.display.println(gb.getFreeRam());
   //gb.display.setCursor(10, 19);
   //gb.display.println(Astronomy);
   return 6;
@@ -342,12 +342,12 @@ void setFleetParameters()
   if(CustomFleet.Fighters>0)
   {
     FleetFuelCost+=CustomFleet.Fighters;
-    Speed=28-TechTree[2].level;
+    Speed=30-TechTree[2].level;
   }
   if(CustomFleet.Interceptors>0)
   {
     FleetFuelCost+=CustomFleet.Interceptors*5;
-    int Sp=20-TechTree[3].level;
+    int Sp=22-TechTree[3].level;
     if(Sp<Speed || Speed==0)
     {
       Speed=Sp;
@@ -356,7 +356,7 @@ void setFleetParameters()
   if(CustomFleet.Frigates>0)
   {
     FleetFuelCost+=CustomFleet.Frigates*10;
-    int Sp=25-TechTree[4].level;
+    int Sp=21-TechTree[4].level;
     if(Sp<Speed || Speed==0)
     {
       Speed=Sp;
@@ -365,9 +365,10 @@ void setFleetParameters()
   if(CustomFleet.WarCruisers>0)
   {
     FleetFuelCost+=CustomFleet.WarCruisers*20;
-    if(Speed>10 || Speed==0)
+    int Sp=19-TechTree[4].level;
+    if(Sp<Speed || Speed==0)
     {
-      Speed=10; 
+      Speed=Sp;
     }
   }
   if(CustomFleet.StarDreadnoughts>0)
@@ -381,9 +382,9 @@ void setFleetParameters()
   if(CustomFleet.SolarDestroyers>0)
   {
     FleetFuelCost+=CustomFleet.SolarDestroyers*100;
-    if(Speed>2 || Speed==0)
+    if(Speed>5 || Speed==0)
     {
-      Speed=2; 
+      Speed=5; 
     }
   }
   //Calculate minutes and seconds (1 unit - speed)
@@ -434,11 +435,11 @@ void setFleetReturnParameters(int index)
   //Calculate max speed
   if(PlayerFleets[index].Fighters>0)
   {
-    Speed=28-TechTree[2].level;
+    Speed=30-TechTree[2].level;
   }
   if(PlayerFleets[index].Interceptors>0)
   {
-    int Sp=20-TechTree[3].level;
+    int Sp=22-TechTree[3].level;
     if(Sp<Speed || Speed==0)
     {
       Speed=Sp;
@@ -446,7 +447,7 @@ void setFleetReturnParameters(int index)
   }
   if(PlayerFleets[index].Frigates>0)
   {
-    int Sp=25-TechTree[4].level;
+    int Sp=21-TechTree[4].level;
     if(Sp<Speed || Speed==0)
     {
       Speed=Sp;
@@ -454,16 +455,17 @@ void setFleetReturnParameters(int index)
   }
   if(PlayerFleets[index].WarCruisers>0)
   {
-    if(Speed>10 || Speed==0)
+    int Sp=19-TechTree[4].level;
+    if(Sp<Speed || Speed==0)
     {
-      Speed=10; 
+      Speed=Sp;
     }
   }
   if(PlayerFleets[index].StarDreadnoughts>0)
   {
-    if(Speed>8 || Speed==0)
+    if(Speed>5 || Speed==0)
     {
-      Speed=8; 
+      Speed=5; 
     }
   }
   //Calculate minutes and seconds (1 unit - speed)
