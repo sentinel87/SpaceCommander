@@ -2487,17 +2487,17 @@ void drawTechImage(int id)
     case 3:
       gb.display.drawImage(2,9,IMAGE_TECH_JET_PROPLUSION); break;
     case 4:
-      gb.display.drawImage(2,9,IMAGE_TECH_AERODYNAMICS); break;
+      gb.display.drawImage(2,9,IMAGE_TECH_FLEET_TACTICS); break;
     case 5:
-      gb.display.drawImage(2,9,IMAGE_TECH_IMPULSE_ENGINE); break;
+      gb.display.drawImage(2,9,IMAGE_TECH_RADIOLOCATION); break;
     case 6:
-      gb.display.drawImage(2,9,IMAGE_TECH_HYPERDRIVE); break;
+      gb.display.drawImage(2,9,IMAGE_TECH_AERODYNAMICS); break;
     case 7:
       gb.display.drawImage(2,9,IMAGE_TECH_LOGISTIC); break;
     case 8:
-      gb.display.drawImage(2,9,IMAGE_TECH_RADIOLOCATION); break;
+      gb.display.drawImage(2,9,IMAGE_TECH_IMPULSE_ENGINE); break;
     case 9:
-      gb.display.drawImage(2,9,IMAGE_TECH_FLEET_TACTICS); break;
+      gb.display.drawImage(2,9,IMAGE_TECH_HYPERDRIVE); break;
     case 10:
       gb.display.drawImage(2,9,IMAGE_TECH_SHIELDING); break;
     case 11:
@@ -2511,7 +2511,7 @@ void drawTechImage(int id)
     case 15:
       gb.display.drawImage(2,9,IMAGE_TECH_GRAVITY_WEAPON); break;
     default:
-      gb.display.drawRect(2,9,15,15);; break;
+      gb.display.drawRect(2,9,15,15); break;
   }
 }
 

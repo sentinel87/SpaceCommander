@@ -133,7 +133,7 @@ void setDifficulty()
 void prepareNewGame()
 {
   ProgressPointsLimit=0;
-  ProgressPoints=13;
+  ProgressPoints=0;
   visibilitySeconds=0;
   visibilityMinutes=0;
   FleetFuelCost=0;
