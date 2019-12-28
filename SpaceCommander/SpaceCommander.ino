@@ -72,16 +72,16 @@ Technology TechTree[]={
   {1,"Astronomy",2,100,100,0,"Increases visibilityon the Star Map.","None",0,0,39},
   {2,"Espionage",0,250,50,50,"Unlocks Intelligencebuilding and        Spy Bots.","Astronomy",1,2,21},
   {3,"Jet Proplusion",0,100,100,100,"Unlocks Fighters andincreases their     speed.","Astronomy",1,2,16},
-  {4,"Aerodynamics",0,150,120,150,"Unlocks Interceptors and increases their speed.","Jet Proplusion",3,5,10},
-  {5,"Impulse Engine",0,50,250,200,"Unlocks Frigates andincreases their     speed.","Jet Proplusion",3,5,11},
-  {6,"Hyperdrive",0,100,500,400,"Unlocks War Cruisersand increases their speed.","Impulse Engine",5,2,10},
+  {4,"Fleet Tactics",0,100,25,0,"Needed to upgrade   shipyard and build  high level ships.","Astronomy",1,5,16},//1
+  {5,"Radiolocation",0,100,150,0,"Unlock Radar and    increases visibilityrange.","Espionage",2,2,20},//2
+  {6,"Aerodynamics",0,150,120,150,"Unlocks Interceptors and increases their speed.","Jet Proplusion",3,5,10},//3
   {7,"Logistics",0,120,120,50,"+ 1 to Star Routes  and Colonies. UnlockTransports.","Astronomy",1,4,12},
-  {8,"Radiolocation",0,100,150,0,"Unlock Radar and    increases visibilityrange.","Espionage",2,2,20},
-  {9,"Fleet Tactics",0,100,25,0,"Needed to upgrade   shipyard and build  high level ships.","Astronomy",1,5,16},
-  {10,"Shielding",0,400,500,0,"Unlock Planetary    Defense System and  increases firepower.","Fleet Tactics",9,1,15},
+  {8,"Impulse Engine",0,50,250,200,"Unlocks Frigates andincreases their     speed.","Jet Proplusion",3,5,11},//4
+  {9,"Hyperdrive",0,100,500,400,"Unlocks War Cruisersand increases their speed.","Impulse Engine",8,2,10},//5
+  {10,"Shielding",0,400,500,0,"Unlock Planetary    Defense System and  increases firepower.","Fleet Tactics",4,1,15},
   {11,"Statics",0,200,400,0,"Unlock Warehouse andincreases it's      capacity.","Logistics",7,2,11},
-  {12,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Fleet Tactics",9,1,10},
-  {13,"Fusion Reaction",0,600,600,300,"Unlocks Transformer and its upgrades.","Fleet Tactics",9,5,10},
+  {12,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Fleet Tactics",4,1,10},
+  {13,"Fusion Reaction",0,600,600,300,"Unlocks Transformer and its upgrades.","Fleet Tactics",4,5,10},
   {14,"Flight Control",0,350,200,250,"Unlocks Logistic    Centre and its      upgrades.","Statics",11,2,10},
   {15,"Gravity Weapon",0,900,900,900,"Final level of this technology unlocks  Solar Destroyer.","Fusion Reaction",13,1,9}
 };
@@ -108,8 +108,8 @@ Building Colony[]={
   {3,"Crystal Mine",1,"Deliver crystal     resource.",180,220,0,0,0,1,2,20},
   {4,"Fuel Refinery",0,"Deliver fuel        resource.",200,170,0,0,0,1,1,20},
   {5,"Intelligence",0,"Reveal more intel inenemy reports.",200,175,0,2,1,0,0,13},
-  {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",125,140,0,8,1,5,1,20},
-  {7,"Shipyard",0,"Required to build   high level ships.",375,375,275,9,1,0,0,10},
+  {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",125,140,0,5,1,5,1,20},
+  {7,"Shipyard",0,"Required to build   high level ships.",375,375,275,4,1,0,0,10},
   {8,"Research Lab",0,"Unlocks additional  technology / lvl.",200,200,200,0,0,0,0,15},
   {9,"Defence System",0,"+ 10 points to      defense / lvl.",100,200,50,10,1,0,0,10},
   {10,"Factory",0,"Reduces Metal and   Crystal cost of     buildings.",400,300,0,0,0,0,0,10},
@@ -322,6 +322,7 @@ bool IsMainMenu=true;
 bool IsOptionMenu=false;
 bool GameOver=false;
 bool Victory=false;
+bool GameStarted=false;
 
 //Game options
 
@@ -347,7 +348,7 @@ void loop() {
   if(IsMainMenu==true)  //MAIN MENU
   {
     int8_t choice=mainMenu();
-    if(choice==0 || choice==1)
+    if(choice==0)
     {
       prepareNewGame();
       IsMainMenu=false;
@@ -980,22 +981,22 @@ Fleet setEnemyFleet()
     modifier=2;
   }
   
-  EnemyArmada.Fighters = PlayerShips[0]+(PlayerShips[0]/modifier) + random(0,20);
-  if(TechTree[2].level>2)//Jet Proplusion
+  EnemyArmada.Fighters = 10 + PlayerShips[0]+(PlayerShips[0]/modifier) + random(0,20);
+  if(TechTree[2].level>3)//Jet Proplusion
   {
-    EnemyArmada.Interceptors = PlayerShips[1]+(PlayerShips[1]/modifier) + random(0,15);
+    EnemyArmada.Interceptors = 5 + PlayerShips[1]+(PlayerShips[1]/modifier) + random(0,15);
   }
-  if(TechTree[3].level>5)//Aerodynamics
+  if(TechTree[5].level>5)//Aerodynamics
   {
-    EnemyArmada.Frigates = PlayerShips[2]+(PlayerShips[2]/modifier) + random(0,5);
+    EnemyArmada.Frigates = 3 + PlayerShips[2]+(PlayerShips[2]/modifier) + random(0,5);
   }
-  if(TechTree[4].level>5)//Impulse Engine
+  if(TechTree[7].level>5)//Impulse Engine
   {
-    EnemyArmada.WarCruisers = PlayerShips[3]+(PlayerShips[3]/modifier) + random(0,2);
+    EnemyArmada.WarCruisers = 2 + PlayerShips[3]+(PlayerShips[3]/modifier) + random(0,2);
   }
-  if(TechTree[5].level>5)//Hyperdrive
+  if(TechTree[8].level>5)//Hyperdrive
   {
-    EnemyArmada.StarDreadnoughts = PlayerShips[4]+(PlayerShips[4]/modifier) + random(0,2);
+    EnemyArmada.StarDreadnoughts = 1 + PlayerShips[4]+(PlayerShips[4]/modifier) + random(0,2);
   }
   if(ProgressPoints==ProgressPointsLimit) //ultimate weapon discovered
   {

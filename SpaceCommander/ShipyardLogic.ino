@@ -177,15 +177,15 @@ String restrictionValidation()
       break;
     case 1: //Interceptors
       requiredLvl=1; 
-      techIdx=3; //Aerodynamics
+      techIdx=5; //Aerodynamics
       break;
     case 2: //Frigates
       requiredLvl=1; 
-      techIdx=4; //Impulse Engine
+      techIdx=7; //Impulse Engine
       break;
     case 3: //War Cruisers
       requiredLvl=1;
-      techIdx=5; //Hyperdrive 
+      techIdx=8; //Hyperdrive 
       break;
     case 4: //Star Dreadnoughts
       requiredLvl=10; 

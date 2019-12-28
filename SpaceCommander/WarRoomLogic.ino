@@ -106,7 +106,7 @@ String selectedChoice()
     case 11:
       result="STAR ROUTES";break;
     case 12:
-      result="SAVE GAME";break;
+      result="PAUSE";break;
     case 1:
       result="ACTIVE FLEETS";break;
     case 3:

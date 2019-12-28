@@ -361,7 +361,7 @@ void setFleetParameters()
   if(CustomFleet.Interceptors>0)
   {
     FleetFuelCost+=CustomFleet.Interceptors*5;
-    int Sp=22-TechTree[3].level;
+    int Sp=22-TechTree[5].level;
     if(Sp<Speed || Speed==0)
     {
       Speed=Sp;
@@ -370,7 +370,7 @@ void setFleetParameters()
   if(CustomFleet.Frigates>0)
   {
     FleetFuelCost+=CustomFleet.Frigates*10;
-    int Sp=21-TechTree[4].level;
+    int Sp=21-TechTree[7].level;
     if(Sp<Speed || Speed==0)
     {
       Speed=Sp;
@@ -379,7 +379,7 @@ void setFleetParameters()
   if(CustomFleet.WarCruisers>0)
   {
     FleetFuelCost+=CustomFleet.WarCruisers*20;
-    int Sp=19-TechTree[4].level;
+    int Sp=19-TechTree[7].level;
     if(Sp<Speed || Speed==0)
     {
       Speed=Sp;
@@ -453,7 +453,7 @@ void setFleetReturnParameters(int index)
   }
   if(PlayerFleets[index].Interceptors>0)
   {
-    int Sp=22-TechTree[3].level;
+    int Sp=22-TechTree[5].level;
     if(Sp<Speed || Speed==0)
     {
       Speed=Sp;
@@ -461,7 +461,7 @@ void setFleetReturnParameters(int index)
   }
   if(PlayerFleets[index].Frigates>0)
   {
-    int Sp=21-TechTree[4].level;
+    int Sp=21-TechTree[7].level;
     if(Sp<Speed || Speed==0)
     {
       Speed=Sp;
@@ -469,7 +469,7 @@ void setFleetReturnParameters(int index)
   }
   if(PlayerFleets[index].WarCruisers>0)
   {
-    int Sp=19-TechTree[4].level;
+    int Sp=19-TechTree[7].level;
     if(Sp<Speed || Speed==0)
     {
       Speed=Sp;

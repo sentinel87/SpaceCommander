@@ -45,11 +45,32 @@ int enemyFleets()
   {
     if(PlayerShips[6]>0 && flSelectionIdx!=-1) //Generate fleet report
     {
-      String header="ENEMY FLEET "+(String)(flSelectionIdx+1);
-      Report Hostile={header,1,EnemyFleets[flSelectionIdx].Fighters,EnemyFleets[flSelectionIdx].Interceptors,EnemyFleets[flSelectionIdx].Frigates,EnemyFleets[flSelectionIdx].WarCruisers,EnemyFleets[flSelectionIdx].StarDreadnoughts,EnemyFleets[flSelectionIdx].SolarDestroyers,0,0,0};
-      generateScoutReport(Hostile);
-      gb.gui.popup("NEW FLEET REPORT!",50);
-      PlayerShips[6]--;
+      int fixedIdx=0;
+      for(int i=0;i<4;i++)
+      {
+        if(EnemyFleets[flSelectionIdx].Active==true)
+        {
+          if(flSelectionIdx==0)
+            break;
+          else
+          {
+            fixedIdx++;
+            break;    
+          }
+        }
+        else
+        {
+          fixedIdx=1;
+        }
+      }
+      if(fixedIdx<4)
+      {
+        String header="ENEMY FLEET "+(String)(fixedIdx+1);
+        Report Hostile={header,1,EnemyFleets[fixedIdx].Fighters,EnemyFleets[fixedIdx].Interceptors,EnemyFleets[fixedIdx].Frigates,EnemyFleets[fixedIdx].WarCruisers,EnemyFleets[fixedIdx].StarDreadnoughts,EnemyFleets[fixedIdx].SolarDestroyers,0,0,0};
+        generateScoutReport(Hostile);
+        gb.gui.popup("NEW FLEET REPORT!",50);
+        PlayerShips[6]--;
+      }
     }
   }
   drawEnemyFleets(flMarkerPosX,flMarkerPosY,fleetCount,flSelectionIdx);

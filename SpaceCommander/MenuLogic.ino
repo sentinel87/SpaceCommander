@@ -12,7 +12,14 @@ int8_t mainMenu()
     }
     else
     {
-      mmSelection--;
+      if(GameStarted!=true)
+      {
+        mmSelection=0;
+      }
+      else
+      {
+        mmSelection--; 
+      }
     }
   }
   else if(gb.buttons.pressed(BUTTON_DOWN))
@@ -23,7 +30,14 @@ int8_t mainMenu()
     }
     else
     {
-      mmSelection++;
+      if(GameStarted!=true)
+      {
+        mmSelection=2;
+      }
+      else
+      {
+        mmSelection++; 
+      }
     }
   }
   else if(gb.buttons.pressed(BUTTON_A))
@@ -119,6 +133,7 @@ void setDifficulty()
 void prepareNewGame()
 {
   ProgressPointsLimit=0;
+  ProgressPoints=13;
   visibilitySeconds=0;
   visibilityMinutes=0;
   FleetFuelCost=0;
@@ -158,7 +173,7 @@ void prepareNewGame()
     PlayerResources[1]=2600;
     PlayerResources[2]=2500;
     PlayerShips[0]=100;
-    PlayerShips[1]=50;
+    PlayerShips[1]=150;
     PlayerShips[2]=3;
   }
   else if(Difficulty=="NORMAL")
@@ -167,8 +182,8 @@ void prepareNewGame()
     PlayerResources[0]=1800;
     PlayerResources[1]=1800;
     PlayerResources[2]=1800;
-    PlayerShips[0]=50;
-    PlayerShips[1]=25;
+    PlayerShips[0]=100;
+    PlayerShips[1]=100;
   }
   else //HARD
   {
@@ -185,6 +200,7 @@ void prepareNewGame()
   prepareFleets();
   prepareRoutes();
   prepareReports();
+  GameStarted=true;
 }
 
 void preparePlanets()
