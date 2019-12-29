@@ -177,7 +177,7 @@ String restrictionValidation()
       break;
     case 1: //Interceptors
       requiredLvl=1; 
-      techIdx=5; //Aerodynamics
+      techIdx=6; //Aerodynamics
       break;
     case 2: //Frigates
       requiredLvl=1; 
@@ -205,7 +205,7 @@ String restrictionValidation()
       break;
     case 8: //Transports
       requiredLvl=1;
-      techIdx=6;   //Logistics
+      techIdx=5;   //Logistics
       break;
     case 9:
       requiredLvl=1; 

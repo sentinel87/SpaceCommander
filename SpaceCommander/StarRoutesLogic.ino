@@ -53,13 +53,25 @@ bool setRoute()
   {
     if(canSet==true)
     {
-      PlayerShips[8]-=SelectedRoute.Metal;
-      PlayerShips[9]-=SelectedRoute.Crystal;
-      PlayerShips[10]-=SelectedRoute.Fuel;
-      PlayerRoutes[0]=SelectedRoute;
-      setPlanetRouteMarker(SelectedRoute.Name);
-      gb.gui.popup("ROUTE SET!",50); 
-      return true; 
+      bool freePlace=checkAvailableRoutes();
+      if(freePlace==true)
+      {
+        PlayerShips[8]-=SelectedRoute.Metal;
+        PlayerShips[9]-=SelectedRoute.Crystal;
+        PlayerShips[10]-=SelectedRoute.Fuel;
+        int idx=getNextFreeSlot();
+        if(idx!=-1)
+        {
+          PlayerRoutes[idx]=SelectedRoute;
+          setPlanetRouteMarker(SelectedRoute.Name);
+          gb.gui.popup("ROUTE SET!",50); 
+          return true;
+        }
+      }
+      else
+      {
+         gb.gui.popup("NO FREE SLOT!",50); 
+      }
     }
   }
   drawRouteConfirmation(SelectedRoute,canSet,metal,crystal,fuel);
@@ -76,5 +88,39 @@ void setPlanetRouteMarker(String planetName)
       break;
     }
   }
+}
+
+bool checkAvailableRoutes()
+{
+  bool canSet=false;
+  for(int i=0;i<TechTree[5].level;i++)
+  {
+    if(PlayerRoutes[i].Active==false)
+    {
+      canSet=true;
+      break;
+    }
+  }
+
+  return canSet;
+}
+
+int getNextFreeSlot()
+{
+  int idx=-1;
+  for(int i=0;i<TechTree[5].level;i++)
+  {
+    if(PlayerRoutes[i].Active==false)
+    {
+      idx=i;
+      break;
+    }
+  }
+  return idx;
+}
+
+void refreshTradeRoutes()
+{ 
+  
 }
 

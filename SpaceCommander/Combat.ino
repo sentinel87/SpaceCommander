@@ -752,7 +752,7 @@ void resolveSecondRound(int enIndex,int plIndex,bool attacker)
       {
         int fixed=casaulties+discrepancy;
         Enemy1Garrison[enIndex].WarCruisers-=fixed;
-        PlayerStrength-=fixed*5;
+        PlayerStrength-=fixed*25;
       }
     }
 
@@ -807,7 +807,7 @@ void resolveSecondRound(int enIndex,int plIndex,bool attacker)
       }
     }
     //----------------------Player casaulties-----------
-    if(PlayerFleets[plIndex].SolarDestroyers>0 && EnemyStrength>=10)
+    if(PlayerFleets[plIndex].SolarDestroyers>0 && EnemyStrength>=100)
     {
       int casaulties=EnemyStrength/100;
       int discrepancy=PlayerFleets[plIndex].SolarDestroyers-casaulties;
@@ -837,7 +837,7 @@ void resolveSecondRound(int enIndex,int plIndex,bool attacker)
       {
         int fixed=casaulties+discrepancy;
         PlayerFleets[plIndex].StarDreadnoughts-=fixed;
-        EnemyStrength-=fixed*8;
+        EnemyStrength-=fixed*50;
       }
     }
 
@@ -1220,6 +1220,7 @@ bool battleResults()
 {
   if(gb.buttons.pressed(BUTTON_B))
   {
+    flReportPage==1;
     return true;
   }
   else if(gb.buttons.pressed(BUTTON_RIGHT))

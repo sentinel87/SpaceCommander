@@ -361,7 +361,7 @@ void setFleetParameters()
   if(CustomFleet.Interceptors>0)
   {
     FleetFuelCost+=CustomFleet.Interceptors*5;
-    int Sp=22-TechTree[5].level;
+    int Sp=22-TechTree[6].level;
     if(Sp<Speed || Speed==0)
     {
       Speed=Sp;
@@ -453,7 +453,7 @@ void setFleetReturnParameters(int index)
   }
   if(PlayerFleets[index].Interceptors>0)
   {
-    int Sp=22-TechTree[5].level;
+    int Sp=22-TechTree[6].level;
     if(Sp<Speed || Speed==0)
     {
       Speed=Sp;
