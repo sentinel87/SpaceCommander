@@ -246,6 +246,7 @@ void abandonPlanet()
         break;
       }
     }
+    refreshTradeRoutes();
   }
   for(int i=0;i<30;i++)
   {

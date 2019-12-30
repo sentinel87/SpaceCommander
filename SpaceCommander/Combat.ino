@@ -8,7 +8,10 @@ int8_t spaceBattle(int enIndex,int plIndex,bool attacker) //attacker - true (Pla
   
   reportShipsBeforeBattle(enIndex,plIndex,attacker);
   //BATTLE
-  defenceSystemActivation(enIndex);
+  if(attacker==false)
+  {
+    defenceSystemActivation(enIndex); 
+  }
   resolveBonuses(enIndex,plIndex,attacker);
   resolveFightersBattle(enIndex,plIndex,attacker);
   resolveInterceptorsBattle(enIndex,plIndex,attacker);
@@ -150,10 +153,10 @@ void resolveBonuses(int enIndex,int plIndex,bool attacker)
     {
       Enemy1Garrison[enIndex].Interceptors=0;
     }
-    PlayerFleets[plIndex].Interceptors-=Enemy1Garrison[enIndex].WarCruisers*3;
-    if(PlayerFleets[plIndex].Fighters<0)
+    PlayerFleets[plIndex].Interceptors-=Enemy1Garrison[enIndex].WarCruisers*5;
+    if(PlayerFleets[plIndex].Interceptors<0)
     {
-      PlayerFleets[plIndex].Fighters=0;
+      PlayerFleets[plIndex].Interceptors=0;
     }
   }
   else
@@ -163,7 +166,7 @@ void resolveBonuses(int enIndex,int plIndex,bool attacker)
     {
       PlayerShips[0]=0;
     }
-    EnemyFleets[enIndex].Fighters-=PlayerShips[2];
+    EnemyFleets[enIndex].Fighters-=PlayerShips[2]*3;
     if(EnemyFleets[enIndex].Fighters<0)
     {
       EnemyFleets[enIndex].Fighters=0;
@@ -1220,7 +1223,7 @@ bool battleResults()
 {
   if(gb.buttons.pressed(BUTTON_B))
   {
-    flReportPage==1;
+    flReportPage=1;
     return true;
   }
   else if(gb.buttons.pressed(BUTTON_RIGHT))

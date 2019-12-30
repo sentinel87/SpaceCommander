@@ -2246,6 +2246,11 @@ void drawPlanetsColors()
       gb.display.setColor(YELLOW);
       gb.display.fillRect(System[i].posX+1,System[i].posY+1,1,1);
     }
+    else if(System[i].Discovered==true && System[i].Owned==true)
+    {
+      gb.display.setColor(LIGHTGREEN);
+      gb.display.fillRect(System[i].posX+1,System[i].posY+1,1,1);
+    }
   }
 }
 
