@@ -2496,17 +2496,17 @@ void drawTechImage(int id)
     case 5:
       gb.display.drawImage(2,9,IMAGE_TECH_RADIOLOCATION); break;
     case 6:
-      gb.display.drawImage(2,9,IMAGE_TECH_AERODYNAMICS); break;
-    case 7:
       gb.display.drawImage(2,9,IMAGE_TECH_LOGISTIC); break;
+    case 7:
+      gb.display.drawImage(2,9,IMAGE_TECH_AERODYNAMICS); break;
     case 8:
-      gb.display.drawImage(2,9,IMAGE_TECH_IMPULSE_ENGINE); break;
+      gb.display.drawImage(2,9,IMAGE_TECH_STATICS); break;
     case 9:
-      gb.display.drawImage(2,9,IMAGE_TECH_HYPERDRIVE); break;
+      gb.display.drawImage(2,9,IMAGE_TECH_IMPULSE_ENGINE); break;
     case 10:
       gb.display.drawImage(2,9,IMAGE_TECH_SHIELDING); break;
     case 11:
-      gb.display.drawImage(2,9,IMAGE_TECH_STATICS); break;
+      gb.display.drawImage(2,9,IMAGE_TECH_HYPERDRIVE); break;
     case 12:
       gb.display.drawImage(2,9,IMAGE_TECH_SHIP_WEAPONS); break;
     case 13:

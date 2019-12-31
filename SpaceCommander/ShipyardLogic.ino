@@ -181,11 +181,11 @@ String restrictionValidation()
       break;
     case 2: //Frigates
       requiredLvl=1; 
-      techIdx=7; //Impulse Engine
+      techIdx=8; //Impulse Engine
       break;
     case 3: //War Cruisers
       requiredLvl=1;
-      techIdx=8; //Hyperdrive 
+      techIdx=10; //Hyperdrive 
       break;
     case 4: //Star Dreadnoughts
       requiredLvl=10; 
@@ -209,11 +209,11 @@ String restrictionValidation()
       break;
     case 9:
       requiredLvl=1; 
-      techIdx=6; 
+      techIdx=5; 
       break;
     case 10:
       requiredLvl=1; 
-      techIdx=6; 
+      techIdx=5; 
       break;
   }
   if(TechTree[techIdx].level<requiredLvl)

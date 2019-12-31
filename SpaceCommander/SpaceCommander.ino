@@ -69,20 +69,20 @@ struct Technology
 };
 
 Technology TechTree[]={
-  {1,"Astronomy",2,100,100,20,"Increases visibilityon the Star Map.","None",0,0,39},
+  {1,"Astronomy",2,100,100,25,"Increases visibilityon the Star Map.","None",0,0,39},
   {2,"Espionage",0,200,75,75,"Unlocks Intelligencebuilding and        Spy Bots.","Astronomy",1,2,21},
   {3,"Jet Proplusion",0,100,100,100,"Unlocks Fighters andincreases their     speed.","Astronomy",1,2,16},
-  {4,"Fleet Tactics",0,100,25,0,"Needed to upgrade   shipyard and build  high level ships.","Astronomy",1,5,16},
-  {5,"Radiolocation",0,100,150,10,"Unlock Radar and    increases visibilityrange.","Espionage",2,2,20},
-  {6,"Logistics",0,120,120,50,"+ 1 to Star Routes  and Colonies. UnlockTransports.","Astronomy",1,4,12},
+  {4,"Fleet Tactics",0,100,25,10,"Needed to upgrade   shipyard and build  high level ships.","Astronomy",1,5,16},
+  {5,"Radiolocation",0,100,150,50,"Unlock Radar and    increases visibilityrange.","Espionage",2,2,20},
+  {6,"Logistics",0,120,120,50,"+ 1 to Star Routes  and Colonies. UnlockTransports.","Astronomy",1,5,12},
   {7,"Aerodynamics",0,150,120,150,"Unlocks Interceptors and increases their speed.","Jet Proplusion",3,5,10},
-  {8,"Impulse Engine",0,50,250,200,"Unlocks Frigates andincreases their     speed.","Jet Proplusion",3,5,11},
-  {9,"Hyperdrive",0,100,500,400,"Unlocks War Cruisersand increases their speed.","Impulse Engine",8,2,10},
+  {8,"Statics",0,200,350,50,"Unlock Warehouse andincreases it's      capacity.","Logistics",7,2,11},
+  {9,"Impulse Engine",0,50,250,200,"Unlocks Frigates andincreases their     speed.","Jet Proplusion",3,5,11},
   {10,"Shielding",0,350,400,100,"Unlock Planetary    Defense System and  increases firepower.","Fleet Tactics",4,1,15},
-  {11,"Statics",0,200,350,50,"Unlock Warehouse andincreases it's      capacity.","Logistics",7,2,11},
+  {11,"Hyperdrive",0,100,500,400,"Unlocks War Cruisersand increases their speed.","Impulse Engine",9,2,10},
   {12,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Fleet Tactics",4,1,10},
   {13,"Fusion Reaction",0,600,600,300,"Unlocks Transformer and its upgrades.","Fleet Tactics",4,5,10},
-  {14,"Flight Control",0,350,200,250,"Unlocks Logistic    Centre and its      upgrades.","Statics",11,2,10},
+  {14,"Flight Control",0,350,200,250,"Unlocks Logistic    Centre and its      upgrades.","Statics",8,2,10},
   {15,"Gravity Weapon",0,900,900,900,"Final level of this technology unlocks  Solar Destroyer.","Fusion Reaction",13,1,9}
 };
 
@@ -113,7 +113,7 @@ Building Colony[]={
   {8,"Research Lab",0,"Unlocks additional  technology / lvl.",150,150,150,0,0,0,0,15},
   {9,"Defence System",0,"+ 10 points to      defense / lvl.",100,200,50,10,1,0,0,10},
   {10,"Factory",0,"Reduces Metal and   Crystal cost of     buildings.",300,200,50,0,0,0,0,10},
-  {11,"Warehouse",0,"Stores resources    when losing battle. +100 for each       resource / lvl.",330,300,20,11,1,0,0,10},
+  {11,"Warehouse",0,"Stores resources    when losing battle. +100 for each       resource / lvl.",330,300,20,8,1,0,0,10},
   {12,"Transformer",0,"Converts one        resource to another.",500,500,650,13,1,0,0,10},
   {13,"Logistic Centre",0,"Increases resource  transport from traderoutes.",400,200,300,14,1,0,0,10}
 };
@@ -128,17 +128,17 @@ struct Ship
 };
 
 Ship Shipyard[]={
-  {"Fighter",1,"Swarm of fighters isthe basic fleet     defence.",75,25},
-  {"Interceptor",2,"Ship designed to    hunt fighters.",150,75},
-  {"Frigate",3,"Light armored ship.",400,200},
-  {"War Cruiser",4,"Primary first line attack ship.",750,400},
-  {"Star Dreadnought",5,"Heavy armored ship  used to transport   entire fleet.",1000,750},
+  {"Fighter",1,"Swarm of fighters isthe basic fleet     defence.",50,15},
+  {"Interceptor",2,"Ship designed to    hunt fighters.",100,50},
+  {"Frigate",3,"Light armored ship. Bonus against Fighters.",340,150},
+  {"War Cruiser",4,"First line attack ship. Bonus against Interceptors",700,300},
+  {"Star Dreadnought",5,"Heavy armored ship  used to transport   entire fleet.",900,550},
   {"Solar Destroyer",6,"Ship designed to    destroy entire      planet.",5000,5000},
   {"Spy Bot",7,"Fragile probe used  to scan planets and enemy fleets.",5,5},
-  {"Colonizer",8,"Set colony on the   planet.",1000,1000},
-  {"Metal Transport",9,"Transport metal fromcolonies.",500,5},
-  {"Crystal Transport",10,"Transport crystals  from colonies.",500,250},
-  {"Fuel Transport",11,"Transport fuel from colonies.",750,500}
+  {"Colonizer",8,"Set colony on the   planet.",900,900},
+  {"Metal Transport",9,"Transport metal fromcolonies.",350,35},
+  {"Crystal Transport",10,"Transport crystals  from colonies.",400,150},
+  {"Fuel Transport",11,"Transport fuel from colonies.",300,200}
 };
 
 struct EnemyGarrison
@@ -796,6 +796,21 @@ void attackPlanet(int index)
               Enemy1Garrison[idx].planetIndex=-1;
               System[i].Hostile=false;
               System[i].GarrisonIndex=-1;
+              PlayerResources[0]+=1000; //reward
+              if(PlayerResources[0]>9999)
+              {
+                PlayerResources[0]=9999;
+              }
+              PlayerResources[1]+=1000;
+              if(PlayerResources[1]>9999)
+              {
+                PlayerResources[1]=9999;
+              }
+              PlayerResources[2]+=1000;
+              if(PlayerResources[2]>9999)
+              {
+                PlayerResources[2]=9999;
+              }
               EnemyColonies--; 
             }
           }
@@ -881,7 +896,7 @@ void enemyAttackTimer()
         {
           EnemyFleets[idx]=CustomEnemyFleet;
           attackUnderway=true;
-          timeToAttack=60; // 2 minutes
+          timeToAttack=90;
         }
       }
     }
@@ -982,7 +997,7 @@ Fleet setEnemyFleet()
   }
   
   EnemyArmada.Fighters = 10 + PlayerShips[0]+(PlayerShips[0]/modifier) + random(0,20);
-  if(TechTree[2].level>3)//Jet Proplusion
+  if(TechTree[2].level>4)//Jet Proplusion
   {
     EnemyArmada.Interceptors = 5 + PlayerShips[1]+(PlayerShips[1]/modifier) + random(0,15);
   }
@@ -990,11 +1005,11 @@ Fleet setEnemyFleet()
   {
     EnemyArmada.Frigates = 3 + PlayerShips[2]+(PlayerShips[2]/modifier) + random(0,5);
   }
-  if(TechTree[7].level>5)//Impulse Engine
+  if(TechTree[8].level>5)//Impulse Engine
   {
     EnemyArmada.WarCruisers = 2 + PlayerShips[3]+(PlayerShips[3]/modifier) + random(0,2);
   }
-  if(TechTree[8].level>5)//Hyperdrive
+  if(TechTree[10].level>5)//Hyperdrive
   {
     EnemyArmada.StarDreadnoughts = 1 + PlayerShips[4]+(PlayerShips[4]/modifier) + random(0,2);
   }
