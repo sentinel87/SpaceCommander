@@ -76,7 +76,7 @@ Technology TechTree[]={
   {5,"Radiolocation",0,100,150,50,"Unlock Radar and    increases visibilityrange.","Espionage",2,2,20},
   {6,"Logistics",0,120,120,50,"+ 1 to Star Routes  and Colonies. UnlockTransports.","Astronomy",1,5,12},
   {7,"Aerodynamics",0,150,120,150,"Unlocks Interceptors and increases their speed.","Jet Proplusion",3,5,10},
-  {8,"Statics",0,200,350,50,"Unlock Warehouse andincreases it's      capacity.","Logistics",7,2,11},
+  {8,"Statics",0,200,350,50,"Unlock Warehouse andincreases it's      capacity.","Logistics",6,2,11},
   {9,"Impulse Engine",0,50,250,200,"Unlocks Frigates andincreases their     speed.","Jet Proplusion",3,5,11},
   {10,"Shielding",0,350,400,100,"Unlock Planetary    Defense System and  increases firepower.","Fleet Tactics",4,1,15},
   {11,"Hyperdrive",0,100,500,400,"Unlocks War Cruisersand increases their speed.","Impulse Engine",9,2,10},
@@ -836,7 +836,7 @@ void fleetReturns(Fleet fleet)
 
 void updateResources()
 {
-  PlayerResources[0] += 3 + Colony[1].level*2; //Metal Mine
+  PlayerResources[0] += 3 + Colony[1].level*3; //Metal Mine
   PlayerResources[1] += 3 + Colony[2].level*2; //Crystal Mine
   PlayerResources[2] += 3 + Colony[3].level*2; //Fuel Refinery
 

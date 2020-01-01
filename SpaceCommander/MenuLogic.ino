@@ -257,11 +257,11 @@ void prepareTechs()
   TechTree[3].level=0;
   TechTree[3].depTechLevel=5;
   TechTree[4].level=0;
-  TechTree[4].depTechLevel=5;
+  TechTree[4].depTechLevel=2;
   TechTree[5].level=0;
-  TechTree[5].depTechLevel=2;
+  TechTree[5].depTechLevel=5;
   TechTree[6].level=0;
-  TechTree[6].depTechLevel=4;
+  TechTree[6].depTechLevel=5;
   TechTree[7].level=0;
   TechTree[7].depTechLevel=2;
   TechTree[8].level=0;
@@ -294,9 +294,9 @@ void prepareBuildings()
   Colony[5].level=0;
   Colony[5].depTechLevel=1;
   Colony[5].depBuildingLevel=1;
-  Colony[6].level=0;
+  Colony[6].level=10;
   Colony[6].depTechLevel=1;
-  Colony[7].level=0;
+  Colony[7].level=15;
   Colony[8].level=0;
   Colony[8].depTechLevel=1;
   Colony[9].level=0;

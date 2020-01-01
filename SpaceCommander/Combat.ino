@@ -223,7 +223,7 @@ void resolveFightersBattle(int enIndex,int plIndex,bool attacker)
 {
   if(attacker==true)
   {
-    if(Enemy1Garrison[enIndex].Fighters>0)
+    if(PlayerFleets[plIndex].Fighters>0)
     {
       int EnemyStrenght=Enemy1Garrison[enIndex].Fighters;
       int AttackerBonus=0;
@@ -231,7 +231,7 @@ void resolveFightersBattle(int enIndex,int plIndex,bool attacker)
       {
          AttackerBonus=PlayerFleets[plIndex].Fighters/10;
       }
-      int PlayerStrenght=PlayerFleets[plIndex].Fighters + BattleExperience + AttackerBonus;
+      int PlayerStrenght=PlayerFleets[plIndex].Fighters + BattleExperience/10 + AttackerBonus;
       int Result=PlayerStrenght-EnemyStrenght;
       if(Result>0)
       {
@@ -301,7 +301,7 @@ void resolveInterceptorsBattle(int enIndex,int plIndex,bool attacker)
 {
   if(attacker==true)
   {
-    if(Enemy1Garrison[enIndex].Interceptors>0)
+    if(PlayerFleets[plIndex].Interceptors>0)
     {
       int EnemyStrenght=Enemy1Garrison[enIndex].Interceptors*3;
       int AttackerBonus=0;
@@ -309,7 +309,7 @@ void resolveInterceptorsBattle(int enIndex,int plIndex,bool attacker)
       {
          AttackerBonus=(PlayerFleets[plIndex].Interceptors*3)/10;
       }
-      int PlayerStrenght=PlayerFleets[plIndex].Interceptors*3 + BattleExperience*3 + AttackerBonus;
+      int PlayerStrenght=PlayerFleets[plIndex].Interceptors*3 + (BattleExperience/10)*3 + AttackerBonus;
       int Result=PlayerStrenght-EnemyStrenght;
       if(Result>0)
       {
@@ -379,7 +379,7 @@ void resolveFrigatesBattle(int enIndex,int plIndex,bool attacker)
 {
   if(attacker==true)
   {
-    if(Enemy1Garrison[enIndex].Frigates>0)
+    if(PlayerFleets[plIndex].Frigates>0)
     {
       int EnemyStrenght=Enemy1Garrison[enIndex].Frigates*10;
       int AttackerBonus=0;
@@ -387,7 +387,7 @@ void resolveFrigatesBattle(int enIndex,int plIndex,bool attacker)
       {
          AttackerBonus=(PlayerFleets[plIndex].Frigates*10)/10;
       }
-      int PlayerStrenght=PlayerFleets[plIndex].Frigates*10 + BattleExperience*10 + AttackerBonus;
+      int PlayerStrenght=PlayerFleets[plIndex].Frigates*10 + (BattleExperience/10)*10 + AttackerBonus;
       int Result=PlayerStrenght-EnemyStrenght;
       if(Result>0)
       {
@@ -457,7 +457,7 @@ void resolveWarCruisersBattle(int enIndex,int plIndex,bool attacker)
 {
   if(attacker==true)
   {
-    if(Enemy1Garrison[enIndex].WarCruisers>0)
+    if(PlayerFleets[plIndex].WarCruisers>0)
     {
       int EnemyStrenght=Enemy1Garrison[enIndex].WarCruisers*25;
       int AttackerBonus=0;
@@ -465,7 +465,7 @@ void resolveWarCruisersBattle(int enIndex,int plIndex,bool attacker)
       {
          AttackerBonus=(PlayerFleets[plIndex].WarCruisers*25)/10;
       }
-      int PlayerStrenght=PlayerFleets[plIndex].WarCruisers*25 + BattleExperience*25 + AttackerBonus;
+      int PlayerStrenght=PlayerFleets[plIndex].WarCruisers*25 + (BattleExperience/10)*25 + AttackerBonus;
       int Result=PlayerStrenght-EnemyStrenght;
       if(Result>0)
       {
@@ -535,7 +535,7 @@ void resolveStarDreadnoughtsBattle(int enIndex,int plIndex,bool attacker)
 {
   if(attacker==true)
   {
-    if(Enemy1Garrison[enIndex].StarDreadnoughts>0)
+    if(PlayerFleets[plIndex].StarDreadnoughts>0)
     {
       int EnemyStrenght=Enemy1Garrison[enIndex].StarDreadnoughts*50;
       int AttackerBonus=0;
@@ -543,7 +543,7 @@ void resolveStarDreadnoughtsBattle(int enIndex,int plIndex,bool attacker)
       {
          AttackerBonus=(PlayerFleets[plIndex].StarDreadnoughts*50)/10;
       }
-      int PlayerStrenght=PlayerFleets[plIndex].StarDreadnoughts*50 + BattleExperience*50 + AttackerBonus;
+      int PlayerStrenght=PlayerFleets[plIndex].StarDreadnoughts*50 + (BattleExperience/10)*50 + AttackerBonus;
       int Result=PlayerStrenght-EnemyStrenght;
       if(Result>0)
       {
@@ -613,7 +613,7 @@ void resolveSolarDestroyersBattle(int enIndex,int plIndex,bool attacker)
 {
   if(attacker==true)
   {
-    if(Enemy1Garrison[enIndex].SolarDestroyers>0)
+    if(PlayerFleets[plIndex].SolarDestroyers)
     {
       int EnemyStrenght=Enemy1Garrison[enIndex].SolarDestroyers*100;
       int AttackerBonus=0;
@@ -621,7 +621,7 @@ void resolveSolarDestroyersBattle(int enIndex,int plIndex,bool attacker)
       {
          AttackerBonus=(PlayerFleets[plIndex].SolarDestroyers*100)/10;
       }
-      int PlayerStrenght=PlayerFleets[plIndex].SolarDestroyers*100 + BattleExperience*100 + AttackerBonus;
+      int PlayerStrenght=PlayerFleets[plIndex].SolarDestroyers*100 + (BattleExperience/10)*100 + AttackerBonus;
       int Result=PlayerStrenght-EnemyStrenght;
       if(Result>0)
       {
