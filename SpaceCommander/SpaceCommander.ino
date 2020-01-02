@@ -69,15 +69,15 @@ struct Technology
 };
 
 Technology TechTree[]={
-  {1,"Astronomy",2,100,100,25,"Increases visibilityon the Star Map.","None",0,0,39},
+  {1,"Astronomy",2,50,50,20,"Increases visibilityon the Star Map.","None",0,0,39},
   {2,"Espionage",0,200,75,75,"Unlocks Intelligencebuilding and        Spy Bots.","Astronomy",1,2,21},
-  {3,"Jet Proplusion",0,100,100,100,"Unlocks Fighters andincreases their     speed.","Astronomy",1,2,16},
+  {3,"Jet Proplusion",0,100,100,100,"Unlocks Fighters andincreases their     speed.","Astronomy",1,2,19},
   {4,"Fleet Tactics",0,100,25,10,"Needed to upgrade   shipyard and build  high level ships.","Astronomy",1,5,16},
   {5,"Radiolocation",0,100,150,50,"Unlock Radar and    increases visibilityrange.","Espionage",2,2,20},
   {6,"Logistics",0,120,120,50,"+ 1 to Star Routes  and Colonies. UnlockTransports.","Astronomy",1,5,12},
-  {7,"Aerodynamics",0,150,120,150,"Unlocks Interceptors and increases their speed.","Jet Proplusion",3,5,10},
+  {7,"Aerodynamics",0,150,120,150,"Unlocks Interceptors and increases their speed.","Jet Proplusion",3,4,15},
   {8,"Statics",0,200,350,50,"Unlock Warehouse andincreases it's      capacity.","Logistics",6,2,11},
-  {9,"Impulse Engine",0,50,250,200,"Unlocks Frigates andincreases their     speed.","Jet Proplusion",3,5,11},
+  {9,"Impulse Engine",0,50,250,200,"Unlocks Frigates andincreases their     speed.","Aerodynamics",7,4,11},
   {10,"Shielding",0,350,400,100,"Unlock Planetary    Defense System and  increases firepower.","Fleet Tactics",4,1,15},
   {11,"Hyperdrive",0,100,500,400,"Unlocks War Cruisersand increases their speed.","Impulse Engine",9,2,10},
   {12,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Fleet Tactics",4,1,10},
@@ -565,6 +565,9 @@ void timeCalculations()
     framesCount++;
     frames=0;
     updateResources();
+    //PlayerResources[0]=9999;
+    //PlayerResources[1]=9999;
+    //PlayerResources[2]=9999;
     updateVisibilityDistance();
     updateFleets();
     enemyAttackTimer();
@@ -782,7 +785,7 @@ void attackPlanet(int index)
         fight=true;
         if(winner==1) //if player wins move fleet back
         {
-          BattleExperience++;
+          BattleExperience+=2;
           setFleetReturnParameters(index);
           PlayerFleets[index].Active=true;
           if(idx==0)//Capital planet defeated
@@ -793,9 +796,6 @@ void attackPlanet(int index)
             }
             else
             {
-              Enemy1Garrison[idx].planetIndex=-1;
-              System[i].Hostile=false;
-              System[i].GarrisonIndex=-1;
               PlayerResources[0]+=1000; //reward
               if(PlayerResources[0]>9999)
               {
@@ -811,8 +811,29 @@ void attackPlanet(int index)
               {
                 PlayerResources[2]=9999;
               }
-              EnemyColonies--; 
             }
+          }
+          else //Colony defeated
+          {
+            Enemy1Garrison[idx].planetIndex=-1;
+            System[i].Hostile=false;
+            System[i].GarrisonIndex=-1;
+            PlayerResources[0]+=1000; //reward
+            if(PlayerResources[0]>9999)
+            {
+              PlayerResources[0]=9999;
+            }
+            PlayerResources[1]+=1000;
+            if(PlayerResources[1]>9999)
+            {
+              PlayerResources[1]=9999;
+            }
+            PlayerResources[2]+=1000;
+            if(PlayerResources[2]>9999)
+            {
+              PlayerResources[2]=9999;
+            }
+            EnemyColonies--;
           }
         }
         System[i].ActiveMission=false;
@@ -997,19 +1018,19 @@ Fleet setEnemyFleet()
   }
   
   EnemyArmada.Fighters = 10 + PlayerShips[0]+(PlayerShips[0]/modifier) + random(0,20);
-  if(TechTree[2].level>4)//Jet Proplusion
+  if(TechTree[2].level>=4)//Jet Proplusion
   {
     EnemyArmada.Interceptors = 5 + PlayerShips[1]+(PlayerShips[1]/modifier) + random(0,15);
   }
-  if(TechTree[6].level>5)//Aerodynamics
+  if(TechTree[6].level>=4)//Aerodynamics
   {
     EnemyArmada.Frigates = 3 + PlayerShips[2]+(PlayerShips[2]/modifier) + random(0,5);
   }
-  if(TechTree[8].level>5)//Impulse Engine
+  if(TechTree[8].level>=2)//Impulse Engine
   {
     EnemyArmada.WarCruisers = 2 + PlayerShips[3]+(PlayerShips[3]/modifier) + random(0,2);
   }
-  if(TechTree[10].level>5)//Hyperdrive
+  if(TechTree[11].level==10)//Ship Weapons
   {
     EnemyArmada.StarDreadnoughts = 1 + PlayerShips[4]+(PlayerShips[4]/modifier) + random(0,2);
   }

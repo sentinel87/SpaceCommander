@@ -43,8 +43,8 @@ int8_t infrastructure()
   }
   if(CanBuild==true)
   {
-    if((PlayerResources[0]>=((Colony[inCurrentBuilding].resource1Cost-5*(Colony[9].level))*(Colony[inCurrentBuilding].level+1))) 
-    && (PlayerResources[1]>=((Colony[inCurrentBuilding].resource2Cost-3*(Colony[9].level))*(Colony[inCurrentBuilding].level+1))) 
+    if((PlayerResources[0]>=((Colony[inCurrentBuilding].resource1Cost-10*(Colony[9].level))*(Colony[inCurrentBuilding].level+1))) 
+    && (PlayerResources[1]>=((Colony[inCurrentBuilding].resource2Cost-10*(Colony[9].level))*(Colony[inCurrentBuilding].level+1))) 
     && (PlayerResources[2]>=(Colony[inCurrentBuilding].resource3Cost*(Colony[inCurrentBuilding].level+1))) 
     && MaxLevelReached==false)
     {
@@ -90,8 +90,8 @@ int8_t infrastructure()
   {
     if(CanBuild==true)
     {
-      PlayerResources[0]-=((Colony[inCurrentBuilding].resource1Cost-5*(Colony[9].level))*(Colony[inCurrentBuilding].level+1));
-      PlayerResources[1]-=((Colony[inCurrentBuilding].resource2Cost-3*(Colony[9].level))*(Colony[inCurrentBuilding].level+1));
+      PlayerResources[0]-=((Colony[inCurrentBuilding].resource1Cost-10*(Colony[9].level))*(Colony[inCurrentBuilding].level+1));
+      PlayerResources[1]-=((Colony[inCurrentBuilding].resource2Cost-10*(Colony[9].level))*(Colony[inCurrentBuilding].level+1));
       PlayerResources[2]-=(Colony[inCurrentBuilding].resource3Cost*(Colony[inCurrentBuilding].level+1));
       if(Colony[inCurrentBuilding].depTechLevel>0)
       {

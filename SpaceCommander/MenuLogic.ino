@@ -171,7 +171,7 @@ void prepareNewGame()
     ProgressPointsLimit=120;
     PlayerResources[0]=2600;
     PlayerResources[1]=2600;
-    PlayerResources[2]=2500;
+    PlayerResources[2]=1800;
     PlayerShips[0]=100;
     PlayerShips[1]=150;
     PlayerShips[2]=3;
@@ -181,7 +181,7 @@ void prepareNewGame()
     ProgressPointsLimit=120;
     PlayerResources[0]=1800;
     PlayerResources[1]=1800;
-    PlayerResources[2]=1800;
+    PlayerResources[2]=1200;
     PlayerShips[0]=100;
     PlayerShips[1]=100;
   }
@@ -191,6 +191,8 @@ void prepareNewGame()
     PlayerResources[0]=800;
     PlayerResources[1]=800;
     PlayerResources[2]=750;
+    PlayerShips[0]=100;
+    PlayerShips[1]=100;
   }
   
   preparePlanets();
@@ -219,7 +221,7 @@ void preparePlanets()
 
 void prepareGarrisons()
 {
-  EnemyGarrison ResetGarrison={-1,200,100,20,5,2,0};
+  EnemyGarrison ResetGarrison={-1,200,100,20,0,0,0};
   for(int i=0;i<6;i++)
   {
     Enemy1Garrison[i]=ResetGarrison;
@@ -294,9 +296,9 @@ void prepareBuildings()
   Colony[5].level=0;
   Colony[5].depTechLevel=1;
   Colony[5].depBuildingLevel=1;
-  Colony[6].level=10;
+  Colony[6].level=0;
   Colony[6].depTechLevel=1;
-  Colony[7].level=15;
+  Colony[7].level=0;
   Colony[8].level=0;
   Colony[8].depTechLevel=1;
   Colony[9].level=0;

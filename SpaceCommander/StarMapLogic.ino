@@ -357,12 +357,12 @@ void setFleetParameters()
   if(CustomFleet.Fighters>0)
   {
     FleetFuelCost+=CustomFleet.Fighters;
-    Speed=30-TechTree[2].level;
+    Speed=33-TechTree[2].level;
   }
   if(CustomFleet.Interceptors>0)
   {
     FleetFuelCost+=CustomFleet.Interceptors*5;
-    int Sp=22-TechTree[6].level;
+    int Sp=27-TechTree[6].level;
     if(Sp<Speed || Speed==0)
     {
       Speed=Sp;
@@ -450,11 +450,11 @@ void setFleetReturnParameters(int index)
   //Calculate max speed
   if(PlayerFleets[index].Fighters>0)
   {
-    Speed=30-TechTree[2].level;
+    Speed=33-TechTree[2].level;
   }
   if(PlayerFleets[index].Interceptors>0)
   {
-    int Sp=22-TechTree[6].level;
+    int Sp=27-TechTree[6].level;
     if(Sp<Speed || Speed==0)
     {
       Speed=Sp;

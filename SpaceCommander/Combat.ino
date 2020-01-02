@@ -122,7 +122,7 @@ void defenceSystemActivation(int enIndex)
     DefenceStrength-=destroyed;
   }
   int EnemyStrength=EnemyFleets[enIndex].Fighters+(EnemyFleets[enIndex].Interceptors*3)+(EnemyFleets[enIndex].Frigates*10)+(EnemyFleets[enIndex].WarCruisers*25)+(EnemyFleets[enIndex].StarDreadnoughts*50);
-  int Damaged=EnemyStrength/150;
+  int Damaged=EnemyStrength/50;
   if(Damaged>Colony[8].level)
   {
     Colony[8].level=0;
@@ -1168,6 +1168,8 @@ int8_t determineWinner(int enIndex,int plIndex,bool attacker)
     PlayerPoints+=(PlayerShips[3]*5);
     PlayerPoints+=(PlayerShips[4]*8);
     PlayerPoints+=(PlayerShips[5]*10);
+    int DefenceStrength=Colony[8].level*10;
+    PlayerPoints+=DefenceStrength;
   }
   
   if(PlayerPoints>EnemyPoints) //PLAYER WINS
