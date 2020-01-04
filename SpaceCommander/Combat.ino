@@ -121,16 +121,6 @@ void defenceSystemActivation(int enIndex)
     }
     DefenceStrength-=destroyed;
   }
-  int EnemyStrength=EnemyFleets[enIndex].Fighters+(EnemyFleets[enIndex].Interceptors*3)+(EnemyFleets[enIndex].Frigates*10)+(EnemyFleets[enIndex].WarCruisers*25)+(EnemyFleets[enIndex].StarDreadnoughts*50);
-  int Damaged=EnemyStrength/50;
-  if(Damaged>Colony[8].level)
-  {
-    Colony[8].level=0;
-  }
-  else
-  {
-    Colony[8].level-=Damaged;
-  }
 }
 
 void resolveBonuses(int enIndex,int plIndex,bool attacker)
@@ -615,18 +605,18 @@ void resolveSolarDestroyersBattle(int enIndex,int plIndex,bool attacker)
   {
     if(PlayerFleets[plIndex].SolarDestroyers)
     {
-      int EnemyStrenght=Enemy1Garrison[enIndex].SolarDestroyers*100;
+      int EnemyStrenght=Enemy1Garrison[enIndex].SolarDestroyers*200;
       int AttackerBonus=0;
       if(PlayerFleets[plIndex].SolarDestroyers>0)
       {
-         AttackerBonus=(PlayerFleets[plIndex].SolarDestroyers*100)/10;
+         AttackerBonus=(PlayerFleets[plIndex].SolarDestroyers*200)/10;
       }
-      int PlayerStrenght=PlayerFleets[plIndex].SolarDestroyers*100 + (BattleExperience/10)*100 + AttackerBonus;
+      int PlayerStrenght=PlayerFleets[plIndex].SolarDestroyers*200 + (BattleExperience/10)*200 + AttackerBonus;
       int Result=PlayerStrenght-EnemyStrenght;
       if(Result>0)
       {
         Enemy1Garrison[enIndex].SolarDestroyers=0;
-        PlayerFleets[plIndex].SolarDestroyers-=(EnemyStrenght/100);
+        PlayerFleets[plIndex].SolarDestroyers-=(EnemyStrenght/200);
         if(PlayerFleets[plIndex].SolarDestroyers<0)
         {
           PlayerFleets[plIndex].SolarDestroyers=0;
@@ -635,7 +625,7 @@ void resolveSolarDestroyersBattle(int enIndex,int plIndex,bool attacker)
       else if(Result<0)
       {
         PlayerFleets[plIndex].SolarDestroyers=0;
-        Enemy1Garrison[enIndex].SolarDestroyers-=(PlayerStrenght/100);
+        Enemy1Garrison[enIndex].SolarDestroyers-=(PlayerStrenght/200);
         if(Enemy1Garrison[enIndex].SolarDestroyers<0)
         {
           Enemy1Garrison[enIndex].SolarDestroyers=0;
@@ -652,18 +642,18 @@ void resolveSolarDestroyersBattle(int enIndex,int plIndex,bool attacker)
   {
     if(PlayerShips[5]>0)
     {
-      int PlayerStrenght=(PlayerShips[5]*100)+BattleExperience;
+      int PlayerStrenght=(PlayerShips[5]*200)+BattleExperience;
       int AttackerBonus=0;
       if(EnemyFleets[enIndex].SolarDestroyers>0)
       {
-         AttackerBonus=(EnemyFleets[enIndex].SolarDestroyers*100)/10;
+         AttackerBonus=(EnemyFleets[enIndex].SolarDestroyers*200)/10;
       }
-      int EnemyStrenght=(EnemyFleets[enIndex].SolarDestroyers*100)+AttackerBonus;
+      int EnemyStrenght=(EnemyFleets[enIndex].SolarDestroyers*200)+AttackerBonus;
       int Result=EnemyStrenght-PlayerStrenght;
       if(Result>0) //Player lose
       {
         PlayerShips[5]=0;
-        EnemyFleets[enIndex].SolarDestroyers-=(PlayerStrenght/100);
+        EnemyFleets[enIndex].SolarDestroyers-=(PlayerStrenght/200);
         if(EnemyFleets[enIndex].SolarDestroyers<0)
         {
           EnemyFleets[enIndex].SolarDestroyers=0;
@@ -672,7 +662,7 @@ void resolveSolarDestroyersBattle(int enIndex,int plIndex,bool attacker)
       else if(Result<0) //Player defend
       {
         EnemyFleets[enIndex].SolarDestroyers=0;
-        PlayerShips[5]-=(EnemyStrenght/100);
+        PlayerShips[5]-=(EnemyStrenght/200);
         if(PlayerShips[5]<0)
         {
           PlayerShips[5]=0;
@@ -698,30 +688,30 @@ void resolveSecondRound(int enIndex,int plIndex,bool attacker)
     EnemyStrength+=(Enemy1Garrison[enIndex].Frigates*10);
     EnemyStrength+=(Enemy1Garrison[enIndex].WarCruisers*25);
     EnemyStrength+=(Enemy1Garrison[enIndex].StarDreadnoughts*50);
-    EnemyStrength+=(Enemy1Garrison[enIndex].SolarDestroyers*100);
+    EnemyStrength+=(Enemy1Garrison[enIndex].SolarDestroyers*200);
     
     PlayerStrength+=PlayerFleets[plIndex].Fighters;
     PlayerStrength+=(PlayerFleets[plIndex].Interceptors*3);
     PlayerStrength+=(PlayerFleets[plIndex].Frigates*10);
     PlayerStrength+=(PlayerFleets[plIndex].WarCruisers*25);
     PlayerStrength+=(PlayerFleets[plIndex].StarDreadnoughts*50);
-    PlayerStrength+=(PlayerFleets[plIndex].SolarDestroyers*100);
+    PlayerStrength+=(PlayerFleets[plIndex].SolarDestroyers*200);
     
     //----------------------Enemy casaulties-------------
-    if(Enemy1Garrison[enIndex].SolarDestroyers>0 && PlayerStrength>=100)
+    if(Enemy1Garrison[enIndex].SolarDestroyers>0 && PlayerStrength>=200)
     {
-      int casaulties=PlayerStrength/100;
+      int casaulties=PlayerStrength/200;
       int discrepancy=Enemy1Garrison[enIndex].SolarDestroyers-casaulties;
       if(discrepancy>=0)
       {
         Enemy1Garrison[enIndex].SolarDestroyers-=casaulties;
-        PlayerStrength-=casaulties*100;
+        PlayerStrength-=casaulties*200;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         Enemy1Garrison[enIndex].SolarDestroyers-=fixed;
-        PlayerStrength-=fixed*100;
+        PlayerStrength-=fixed*200;
       }
     }
 
@@ -810,20 +800,20 @@ void resolveSecondRound(int enIndex,int plIndex,bool attacker)
       }
     }
     //----------------------Player casaulties-----------
-    if(PlayerFleets[plIndex].SolarDestroyers>0 && EnemyStrength>=100)
+    if(PlayerFleets[plIndex].SolarDestroyers>0 && EnemyStrength>=200)
     {
-      int casaulties=EnemyStrength/100;
+      int casaulties=EnemyStrength/200;
       int discrepancy=PlayerFleets[plIndex].SolarDestroyers-casaulties;
       if(discrepancy>=0)
       {
         PlayerFleets[plIndex].SolarDestroyers-=casaulties;
-        EnemyStrength-=casaulties*100;
+        EnemyStrength-=casaulties*200;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         PlayerFleets[plIndex].SolarDestroyers-=fixed;
-        EnemyStrength-=fixed*100;
+        EnemyStrength-=fixed*200;
       }
     }
 
@@ -919,30 +909,30 @@ void resolveSecondRound(int enIndex,int plIndex,bool attacker)
     EnemyStrength+=(EnemyFleets[enIndex].Frigates*10);
     EnemyStrength+=(EnemyFleets[enIndex].WarCruisers*25);
     EnemyStrength+=(EnemyFleets[enIndex].StarDreadnoughts*50);
-    EnemyStrength+=(EnemyFleets[enIndex].SolarDestroyers*100);
+    EnemyStrength+=(EnemyFleets[enIndex].SolarDestroyers*200);
     
     PlayerStrength+=PlayerShips[0];
     PlayerStrength+=(PlayerShips[1]*3);
     PlayerStrength+=(PlayerShips[2]*10);
     PlayerStrength+=(PlayerShips[3]*25);
     PlayerStrength+=(PlayerShips[4]*50);
-    PlayerStrength+=(PlayerShips[5]*100);
+    PlayerStrength+=(PlayerShips[5]*200);
 
     //----------------------Enemy casaulties-------------
-    if(EnemyFleets[enIndex].SolarDestroyers>0 && PlayerStrength>=100)
+    if(EnemyFleets[enIndex].SolarDestroyers>0 && PlayerStrength>=200)
     {
-      int casaulties=PlayerStrength/100;
+      int casaulties=PlayerStrength/200;
       int discrepancy=EnemyFleets[enIndex].SolarDestroyers-casaulties;
       if(discrepancy>=0)
       {
         EnemyFleets[enIndex].SolarDestroyers-=casaulties;
-        PlayerStrength-=casaulties*100;
+        PlayerStrength-=casaulties*200;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         EnemyFleets[enIndex].SolarDestroyers-=fixed;
-        PlayerStrength-=fixed*100;
+        PlayerStrength-=fixed*200;
       }
     }
 
@@ -1031,20 +1021,20 @@ void resolveSecondRound(int enIndex,int plIndex,bool attacker)
       }
     }
     //----------------------Player casaulties-----------
-    if(PlayerShips[5]>0 && EnemyStrength>=100)
+    if(PlayerShips[5]>0 && EnemyStrength>=200)
     {
-      int casaulties=EnemyStrength/100;
+      int casaulties=EnemyStrength/200;
       int discrepancy=PlayerShips[5]-casaulties;
       if(discrepancy>=0)
       {
         PlayerShips[5]-=casaulties;
-        EnemyStrength-=casaulties*100;
+        EnemyStrength-=casaulties*200;
       }
       else
       {
         int fixed=casaulties+discrepancy;
         PlayerShips[5]-=fixed;
-        EnemyStrength-=fixed*100;
+        EnemyStrength-=fixed*200;
       }
     }
 

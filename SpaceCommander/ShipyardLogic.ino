@@ -263,15 +263,15 @@ void fillGarrisons()
   int modifier=0;
   if(Difficulty=="EASY")
   {
-    modifier=4;
+    modifier=4 + (5-EnemyColonies);
   }
   else if(Difficulty=="NORMAL")
   {
-    modifier=2;
+    modifier=2 + (5-EnemyColonies);
   }
   else
   {
-    modifier=1;
+    modifier=1 + (5-EnemyColonies);
   }
   int toDistribute=shQuantityToBuy/modifier;
   for(int i=0;i<6;i++)

@@ -103,10 +103,10 @@ struct Building
 };
 
 Building Colony[]={
-  {1,"Power Plant",1,"Required to build   higher level        structures.",150,150,150,0,0,0,0,21},
-  {2,"Metal Mine",1,"Deliver metal       resource.",140,150,25,0,0,1,2,20},
-  {3,"Crystal Mine",1,"Deliver crystal     resource.",160,200,50,0,0,1,2,20},
-  {4,"Fuel Refinery",0,"Deliver fuel        resource.",160,170,20,0,0,1,1,20},
+  {1,"Power Plant",1,"Required to build   higher level        structures.",150,150,150,0,0,0,0,16},
+  {2,"Metal Mine",1,"Deliver metal       resource.",140,150,25,0,0,1,2,15},
+  {3,"Crystal Mine",1,"Deliver crystal     resource.",160,200,50,0,0,1,2,15},
+  {4,"Fuel Refinery",0,"Deliver fuel        resource.",160,170,20,0,0,1,1,15},
   {5,"Intelligence",0,"Reveal more intel inenemy reports.",200,175,0,2,1,0,0,13},
   {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",125,140,0,5,1,5,1,20},
   {7,"Shipyard",0,"Required to build   high level ships.",375,375,275,4,1,0,0,10},
@@ -130,9 +130,9 @@ struct Ship
 Ship Shipyard[]={
   {"Fighter",1,"Swarm of fighters isthe basic fleet     defence.",50,15},
   {"Interceptor",2,"Ship designed to    hunt fighters.",100,50},
-  {"Frigate",3,"Light armored ship. Bonus against Fighters.",340,150},
-  {"War Cruiser",4,"First line attack ship. Bonus against Interceptors",700,300},
-  {"Star Dreadnought",5,"Heavy armored ship  used to transport   entire fleet.",900,550},
+  {"Frigate",3,"Light armored ship. Bonus against       Fighters.",340,150},
+  {"War Cruiser",4,"First line attack ship. Bonus against   Interceptors",600,300},
+  {"Star Dreadnought",5,"Heavy armored ship  used to transport   entire fleet.",800,500},
   {"Solar Destroyer",6,"Ship designed to    destroy entire      planet.",5000,5000},
   {"Spy Bot",7,"Fragile probe used  to scan planets and enemy fleets.",5,5},
   {"Colonizer",8,"Set colony on the   planet.",900,900},

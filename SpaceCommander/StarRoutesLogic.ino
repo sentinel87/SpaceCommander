@@ -4,6 +4,7 @@ int starRoutes(int Logistics)
 {
   if(gb.buttons.pressed(BUTTON_B))
   {
+    srPages=1;
     return 0;
   }
   else if(gb.buttons.pressed(BUTTON_RIGHT))
