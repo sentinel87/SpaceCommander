@@ -356,7 +356,7 @@ void setFleetParameters()
   }
   if(CustomFleet.Fighters>0)
   {
-    FleetFuelCost+=CustomFleet.Fighters;
+    FleetFuelCost+=CustomFleet.Fighters*2;
     Speed=33-TechTree[2].level;
   }
   if(CustomFleet.Interceptors>0)
@@ -370,7 +370,7 @@ void setFleetParameters()
   }
   if(CustomFleet.Frigates>0)
   {
-    FleetFuelCost+=CustomFleet.Frigates*10;
+    FleetFuelCost+=CustomFleet.Frigates*12;
     int Sp=21-TechTree[8].level;
     if(Sp<Speed || Speed==0)
     {
@@ -379,8 +379,8 @@ void setFleetParameters()
   }
   if(CustomFleet.WarCruisers>0)
   {
-    FleetFuelCost+=CustomFleet.WarCruisers*20;
-    int Sp=19-TechTree[10].level;
+    FleetFuelCost+=CustomFleet.WarCruisers*25;
+    int Sp=15-TechTree[10].level;
     if(Sp<Speed || Speed==0)
     {
       Speed=Sp;
@@ -388,18 +388,18 @@ void setFleetParameters()
   }
   if(CustomFleet.StarDreadnoughts>0)
   {
-    FleetFuelCost+=CustomFleet.StarDreadnoughts*40;
-    if(Speed>8 || Speed==0)
+    FleetFuelCost+=CustomFleet.StarDreadnoughts*50;
+    if(Speed>2 || Speed==0)
     {
-      Speed=8; 
+      Speed=2; 
     }
   }
   if(CustomFleet.SolarDestroyers>0)
   {
     FleetFuelCost+=CustomFleet.SolarDestroyers*100;
-    if(Speed>5 || Speed==0)
+    if(Speed>1 || Speed==0)
     {
-      Speed=5; 
+      Speed=1; 
     }
   }
   //Calculate minutes and seconds (1 unit - speed)
@@ -470,7 +470,7 @@ void setFleetReturnParameters(int index)
   }
   if(PlayerFleets[index].WarCruisers>0)
   {
-    int Sp=19-TechTree[10].level;
+    int Sp=15-TechTree[10].level;
     if(Sp<Speed || Speed==0)
     {
       Speed=Sp;
@@ -478,9 +478,16 @@ void setFleetReturnParameters(int index)
   }
   if(PlayerFleets[index].StarDreadnoughts>0)
   {
-    if(Speed>5 || Speed==0)
+    if(Speed>2 || Speed==0)
     {
-      Speed=5; 
+      Speed=2; 
+    }
+  }
+  if(PlayerFleets[index].SolarDestroyers>0)
+  {
+    if(Speed>1 || Speed==0)
+    {
+      Speed=1; 
     }
   }
   //Calculate minutes and seconds (1 unit - speed)

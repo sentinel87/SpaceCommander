@@ -17,6 +17,7 @@ int8_t SelectionArray[6][2]={
 
 int8_t warRoom(int playerResources[3])
 {
+  bool alert=checkVisibleFleets();
   if(gb.buttons.pressed(BUTTON_UP))
   {
     if(Row==0)
@@ -84,7 +85,7 @@ int8_t warRoom(int playerResources[3])
       return Choice; 
     }   
   }
-  drawWarRoom(CursorPosX,CursorPosY,selectedChoice());
+  drawWarRoom(CursorPosX,CursorPosY,selectedChoice(),alert);
   return 0;
 }
 
@@ -168,6 +169,20 @@ bool checkRestrictions()
     break;
     default:
       result=true; break;
+  }
+  return result;
+}
+
+bool checkVisibleFleets()
+{
+  bool result=false;
+  for(int i=0;i<4;i++)
+  {
+    if(EnemyFleets[i].Visible==true)
+    {
+      result=true;
+      break;
+    }
   }
   return result;
 }

@@ -42,6 +42,10 @@ int8_t mainMenu()
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
+    if(mmSelection==1) //if game is continued we restore game difficulty
+    {
+      Difficulty=TempDiff;
+    }
     return mmSelection;
   }
   drawMainMenu(mmSelection);
@@ -172,8 +176,8 @@ void prepareNewGame()
     PlayerResources[0]=2600;
     PlayerResources[1]=2600;
     PlayerResources[2]=1800;
-    PlayerShips[0]=100;
-    PlayerShips[1]=150;
+    PlayerShips[0]=150;
+    PlayerShips[1]=100;
     PlayerShips[2]=3;
   }
   else if(Difficulty=="NORMAL")
@@ -203,6 +207,7 @@ void prepareNewGame()
   prepareRoutes();
   prepareReports();
   GameStarted=true;
+  mmSelection=1; //set default choice to continue game
 }
 
 void preparePlanets()
@@ -216,12 +221,112 @@ void preparePlanets()
     System[i].GarrisonIndex=-1;
     System[i].Status=false;
     System[i].ActiveMission=false;
+    System[i].Resource1=0;
+    System[i].Resource2=0;
+    System[i].Resource3=0;
+  }
+  //Populate resources on Planets
+  for(int i=3;i<30;i++)
+  {
+    basicResourceBalance(i);
+    if(i>=6)
+    {
+      additionalResources(i);
+    }
+    if(i>=19)
+    {
+      additionalResources(i);
+    }
+  }
+}
+
+void basicResourceBalance(int i)
+{
+  int choice=random(0,7);
+  switch(choice)
+  {
+    case 0:
+      System[i].Resource1=0;
+      System[i].Resource2=1;
+      System[i].Resource3=2; break;
+    case 1:
+      System[i].Resource1=2;
+      System[i].Resource2=0;
+      System[i].Resource3=1; break;
+    case 2:
+      System[i].Resource1=2;
+      System[i].Resource2=1;
+      System[i].Resource3=0; break;
+    case 3:
+      System[i].Resource1=1;
+      System[i].Resource2=1;
+      System[i].Resource3=1; break;
+    case 4:
+      System[i].Resource1=3;
+      System[i].Resource2=0;
+      System[i].Resource3=0; break;
+    case 5:
+      System[i].Resource1=0;
+      System[i].Resource2=3;
+      System[i].Resource3=0; break;
+    case 6:
+      System[i].Resource1=0;
+      System[i].Resource2=0;
+      System[i].Resource3=3; break;
+  }
+}
+
+void additionalResources(int i)
+{
+  int choice=random(0,6);
+  switch(choice)
+  {
+    case 0:
+      System[i].Resource1+=2; break;
+    case 1:
+      System[i].Resource2+=2; break;
+    case 2:
+      System[i].Resource3+=2; break;
+    case 3:
+      System[i].Resource1+=1;
+      System[i].Resource2+=1; break;
+    case 4:
+      System[i].Resource1+=1;
+      System[i].Resource3+=1; break;
+    case 5:
+      System[i].Resource3+=1;
+      System[i].Resource2+=1; break;
   }
 }
 
 void prepareGarrisons()
 {
-  EnemyGarrison ResetGarrison={-1,200,100,20,0,0,0};
+  int Fighters=0;
+  int Interceptors=0;
+  int Frigates=0;
+  int WarCruisers=0;
+  
+  if(Difficulty=="EASY")
+  {
+    Fighters=50;
+    Interceptors=25;
+    Frigates=5;
+  }
+  else if(Difficulty=="NORMAL")
+  {
+    Fighters=100;
+    Interceptors=50;
+    Frigates=10;
+  }
+  else //HARD
+  {
+    Fighters=200;
+    Interceptors=100;
+    Frigates=25;
+    WarCruisers=2;
+  }
+  
+  EnemyGarrison ResetGarrison={-1,Fighters,Interceptors,Frigates,WarCruisers,0,0};
   for(int i=0;i<6;i++)
   {
     Enemy1Garrison[i]=ResetGarrison;
