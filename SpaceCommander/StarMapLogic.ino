@@ -8,57 +8,17 @@ int stEnabled[]={1,0,0,0,0};
 
 int8_t starMap(int Astronomy)
 {
-  if(gb.buttons.pressed(BUTTON_UP))
+  if(stDropDownMenu==true)
   {
-    if(stDropDownMenu==true)
+    if(gb.buttons.pressed(BUTTON_UP))
     {
       getPreviousChoice();   
     }
-    else
-    {
-      if(stPosY!=0)
-      {
-        stPosY--;
-      } 
-    }
-  }
-  else if(gb.buttons.pressed(BUTTON_DOWN))
-  {
-    if(stDropDownMenu==true)
+    else if(gb.buttons.pressed(BUTTON_DOWN))
     {
       getNextChoice();
     }
-    else
-    {
-      if(stPosY!=56)
-      {
-        stPosY++;
-      } 
-    }
-  }
-  else if(gb.buttons.pressed(BUTTON_LEFT))
-  {
-    if(stDropDownMenu==false)
-    {
-      if(stPosX!=0)
-      {
-        stPosX--;
-      }
-    }
-  }
-  else if(gb.buttons.pressed(BUTTON_RIGHT))
-  {
-    if(stDropDownMenu==false)
-    {
-      if(stPosX!=76)
-      {
-        stPosX++;
-      }
-    }
-  }
-  else if(gb.buttons.pressed(BUTTON_A))
-  {
-    if(stDropDownMenu==true)
+    else if(gb.buttons.pressed(BUTTON_A))
     {
       stDropDownMenu=false;
       if(stSelection==1)
@@ -124,7 +84,48 @@ int8_t starMap(int Astronomy)
         abandonPlanet();
       }
     }
-    else
+    else if(gb.buttons.pressed(BUTTON_B))
+    {
+      stDropDownMenu=false;
+    }
+  }
+  else
+  {
+    if(gb.buttons.repeat(BUTTON_UP,3))
+    {
+      if(stPosY!=0)
+      {
+        stPosY--;
+      } 
+    }
+    else if(gb.buttons.repeat(BUTTON_DOWN,3))
+    {
+      if(stPosY!=56)
+      {
+        stPosY++;
+      }
+    }
+    else if(gb.buttons.repeat(BUTTON_LEFT,3))
+    {
+      if(stDropDownMenu==false)
+      {
+        if(stPosX!=0)
+        {
+          stPosX--;
+        }
+      }
+    }
+    else if(gb.buttons.repeat(BUTTON_RIGHT,3))
+    {
+      if(stDropDownMenu==false)
+      {
+        if(stPosX!=76)
+        {
+          stPosX++;
+        }
+      }
+    }
+    else if(gb.buttons.pressed(BUTTON_A))
     {
       selectedPlanet();
       if(SelectedPlanet.Name!="" && SelectedPlanet.Name!="Earth")
@@ -141,14 +142,7 @@ int8_t starMap(int Astronomy)
         }
       }
     }
-  }
-  else if(gb.buttons.pressed(BUTTON_B))
-  {
-    if(stDropDownMenu==true)
-    {
-      stDropDownMenu=false;
-    }
-    else
+    else if(gb.buttons.pressed(BUTTON_B))
     {
       stSelection=1;
       return 0;
