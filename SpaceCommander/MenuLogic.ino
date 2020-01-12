@@ -134,6 +134,11 @@ void setDifficulty()
   }
 }
 
+void setMenuSelection(int idx)
+{
+  mmSelection=idx;
+}
+
 void prepareNewGame()
 {
   ProgressPointsLimit=0;
@@ -150,7 +155,6 @@ void prepareNewGame()
 
   //Set Timer variables
   frames=0;
-  framesCount=0;
   timeUpdate=false;
   visibilitySeconds=0;
   visibilityMinutes=0;
@@ -308,20 +312,20 @@ void prepareGarrisons()
   
   if(Difficulty=="EASY")
   {
-    Fighters=50;
-    Interceptors=25;
-    Frigates=5;
+    Fighters=75;
+    Interceptors=50;
+    Frigates=7;
   }
   else if(Difficulty=="NORMAL")
   {
-    Fighters=100;
-    Interceptors=50;
-    Frigates=10;
+    Fighters=125;
+    Interceptors=75;
+    Frigates=13;
   }
   else //HARD
   {
     Fighters=200;
-    Interceptors=100;
+    Interceptors=125;
     Frigates=25;
     WarCruisers=2;
   }
@@ -378,9 +382,9 @@ void prepareTechs()
   TechTree[10].level=0;
   TechTree[10].depTechLevel=2;
   TechTree[11].level=0;
-  TechTree[11].depTechLevel=1;
+  TechTree[11].depTechLevel=5;
   TechTree[12].level=0;
-  TechTree[12].depTechLevel=5;
+  TechTree[12].depTechLevel=3;
   TechTree[13].level=0;
   TechTree[13].depTechLevel=2;
   TechTree[14].level=0;

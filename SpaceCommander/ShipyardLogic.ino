@@ -189,7 +189,7 @@ String restrictionValidation()
       break;
     case 4: //Star Dreadnoughts
       requiredLvl=10; 
-      techIdx=11; //Ship Weapons 
+      techIdx=12; //Ship Weapons 
       break;
     case 5: //Solar Destroyers
       requiredLvl=9;

@@ -76,21 +76,6 @@ void defenceSystemActivation(int enIndex)
     }
     DefenceStrength-=10*destroyed;
   }
-  if(DefenceStrength>10 && EnemyFleets[enIndex].Frigates>0)
-  {
-    int destroyed=DefenceStrength/10;
-    EnemyFleets[enIndex].Frigates-=destroyed;
-    if(EnemyFleets[enIndex].Frigates<0)
-    {
-      destroyed=EnemyFleets[enIndex].Frigates+destroyed;
-      EnemyFleets[enIndex].Frigates=0;
-    }
-    else
-    {
-      EnemyFleets[enIndex].Frigates-=destroyed;
-    }
-    DefenceStrength-=10*destroyed;
-  }
   if(DefenceStrength>3 && EnemyFleets[enIndex].Interceptors>0)
   {
     int destroyed=DefenceStrength/3;

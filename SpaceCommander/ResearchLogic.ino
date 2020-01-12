@@ -124,50 +124,50 @@ void discoverNewPlanet()
   switch(TechTree[0].level)
   {
     case 2:
-      System[16].Discovered=true; break;
+      System[5].Discovered=true; break;
     case 5:
-      System[15].Discovered=true; break;
+      System[4].Discovered=true; break;
     case 7:
-      System[19].Discovered=true; break;
+      System[3].Discovered=true; break;
     case 11:
-      System[13].Discovered=true; break;
+      System[10].Discovered=true; break;
     case 12:
-      System[12].Discovered=true; break;
+      System[9].Discovered=true; break;
     case 14:
-      System[18].Discovered=true; break;
+      System[13].Discovered=true; break;
     case 16:
-      System[20].Discovered=true; break;
+      System[14].Discovered=true; break;
     case 17:
       System[8].Discovered=true;
-      System[23].Discovered=true; break;
+      System[16].Discovered=true; break;
     case 19:
-      System[5].Discovered=true; break;
-    case 20:
-      System[24].Discovered=true; break;
-    case 22:
-      System[7].Discovered=true;
-      System[25].Discovered=true; break;
-    case 23:
-      System[17].Discovered=true;
-      System[22].Discovered=true; break;
-    case 24:
-      System[11].Discovered=true; break;
-    case 25:
-      System[4].Discovered=true;
-      System[14].Discovered=true; break;
-    case 26:
       System[6].Discovered=true; break;
+    case 20:
+      System[17].Discovered=true; break;
+    case 22:
+      System[22].Discovered=true;
+      System[18].Discovered=true; break;
+    case 23:
+      System[12].Discovered=true;
+      System[15].Discovered=true; break;
+    case 24:
+      System[7].Discovered=true; break;
+    case 25:
+      System[11].Discovered=true;
+      System[20].Discovered=true; break;
+    case 26:
+      System[21].Discovered=true; break;
     case 27:
       System[28].Discovered=true; break;
     case 28:
       System[27].Discovered=true; break;
     case 30:
-      System[3].Discovered=true; break;
+      System[19].Discovered=true; break;
     case 31:
-      System[21].Discovered=true; break;
+      System[25].Discovered=true; break;
     case 33:
-      System[9].Discovered=true;
-      System[10].Discovered=true; break;
+      System[23].Discovered=true;
+      System[24].Discovered=true; break;
     case 35:
       System[26].Discovered=true;
       System[29].Discovered=true; break;

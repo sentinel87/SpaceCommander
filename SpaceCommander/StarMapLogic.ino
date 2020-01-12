@@ -439,7 +439,7 @@ void setFleetReturnParameters(int index)
   {
     distance+=StartPlanet.posX-38;
   }
-  if(SelectedPlanet.posY<28)
+  if(StartPlanet.posY<28)
   {
     distance+=28-StartPlanet.posY;
   }

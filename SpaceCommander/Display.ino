@@ -3523,7 +3523,7 @@ void drawTransformerScreen(int mode,int multipler,int convert,int created)
   gb.display.println(toCreate);
   gb.display.setColor(RED);
   gb.display.setCursor(32,27);
-  gb.display.println((String)multipler+"/1");
+  gb.display.println((String)multipler+"/6");
 }
 
 String createString(int number)

@@ -80,10 +80,10 @@ Technology TechTree[]={
   {9,"Impulse Engine",0,50,250,200,"Unlocks Frigates andincreases their     speed.","Aerodynamics",7,4,11},
   {10,"Shielding",0,350,400,100,"Unlock Planetary    Defense System and  increases firepower.","Fleet Tactics",4,1,15},
   {11,"Hyperdrive",0,100,500,400,"Unlocks War Cruisersand increases their speed.","Impulse Engine",9,2,10},
-  {12,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Fleet Tactics",4,1,10},
-  {13,"Fusion Reaction",0,600,600,300,"Unlocks Transformer and its upgrades.","Fleet Tactics",4,5,10},
+  {12,"Fusion Reaction",0,500,400,250,"Unlocks Transformer and its upgrades.","Fleet Tactics",4,5,10},
+  {13,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Fleet Tactics",4,3,10},
   {14,"Flight Control",0,350,200,250,"Unlocks Logistic    Centre and its      upgrades.","Statics",8,2,10},
-  {15,"Gravity Weapon",0,900,900,900,"Final level of this technology unlocks  Solar Destroyer.","Fusion Reaction",13,1,9}
+  {15,"Gravity Weapon",0,900,900,900,"Final level of this technology unlocks  Solar Destroyer.","Fusion Reaction",12,1,9}
 };
 
 struct Building
@@ -103,7 +103,7 @@ struct Building
 };
 
 Building Colony[]={
-  {1,"Power Plant",1,"Required to build   higher level        structures.",150,150,150,0,0,0,0,16},
+  {1,"Power Plant",1,"Required to build   higher level        structures.",150,150,150,0,0,0,0,15},
   {2,"Metal Mine",1,"Deliver metal       resource.",140,150,25,0,0,1,2,15},
   {3,"Crystal Mine",1,"Deliver crystal     resource.",160,200,50,0,0,1,2,15},
   {4,"Fuel Refinery",0,"Deliver fuel        resource.",160,170,20,0,0,1,2,15},
@@ -114,7 +114,7 @@ Building Colony[]={
   {9,"Defence System",0,"+ 10 points to      defense / lvl.",200,250,50,10,1,0,0,10},
   {10,"Factory",0,"Reduces Metal and   Crystal cost of     buildings.",300,200,50,0,0,0,0,10},
   {11,"Warehouse",0,"Stores resources    when losing battle. +100 for each       resource / lvl.",330,300,20,8,1,0,0,10},
-  {12,"Transformer",0,"Converts one        resource to another.",400,400,550,13,1,0,0,10},
+  {12,"Transformer",0,"Converts one        resource to another.",400,400,550,12,1,0,0,10},
   {13,"Logistic Centre",0,"Increases resource  transport from traderoutes.",400,200,300,14,1,0,0,10}
 };
 
@@ -267,7 +267,6 @@ int PlayerResources[]={0,0,0};
 
 //Timer
 int8_t frames=0;
-int8_t framesCount=0;
 bool timeUpdate=false;
 int8_t visibilitySeconds=0;
 int8_t visibilityMinutes=0;
@@ -389,7 +388,9 @@ void loop() {
       if(resolved==true)  //return to main menu
       {
         IsMainMenu=true;
+        GameStarted=false;
         GameOver=false;
+        setMenuSelection(0);
       }
     }
     else if(Victory==true)
@@ -398,7 +399,9 @@ void loop() {
       if(resolved==true)  //return to main menu
       {
         IsMainMenu=true;
+        GameStarted=false;
         GameOver=false;
+        setMenuSelection(0);
       }
     }
     else if(flSelection==true)// set fleet to attack
@@ -564,7 +567,6 @@ void timeCalculations()
 {
   if(frames==25)// every second tick update game mechanics
   {
-    framesCount++;
     frames=0;
     updateResources();
     //PlayerResources[0]=9999;
@@ -573,15 +575,6 @@ void timeCalculations()
     updateVisibilityDistance();
     updateFleets();
     enemyAttackTimer();
-  }
-  else
-  {
-    frames++;
-  }
-  if(framesCount==2)//slow time
-  {
-    framesCount=0;
-    //updateResources();
   }
 }
 
@@ -632,6 +625,7 @@ void updateEnemyFleetTime(int index)
   {
     EnemyFleets[index].Seconds=0;
     EnemyFleets[index].Active=false;
+    EnemyFleets[index].Visible=false;
     int8_t winner=spaceBattle(index,-1,false);
     if(winner==2)//battle lost
     {
@@ -861,7 +855,7 @@ void updateResources()
 {
   PlayerResources[0] += 3 + Colony[1].level*3; //Metal Mine
   PlayerResources[1] += 3 + Colony[2].level*2; //Crystal Mine
-  PlayerResources[2] += 3 + Colony[3].level*2; //Fuel Refinery
+  PlayerResources[2] += 2 + Colony[3].level*2; //Fuel Refinery
 
   for(int i=0;i<12;i++)
   {
@@ -1032,7 +1026,7 @@ Fleet setEnemyFleet()
   {
     EnemyArmada.WarCruisers = 2 + PlayerShips[3]+(PlayerShips[3]/modifier) + random(0,2);
   }
-  if(TechTree[11].level==10)//Ship Weapons
+  if(TechTree[12].level==10)//Ship Weapons
   {
     EnemyArmada.StarDreadnoughts = 1 + PlayerShips[4]+(PlayerShips[4]/modifier) + random(0,2);
   }
