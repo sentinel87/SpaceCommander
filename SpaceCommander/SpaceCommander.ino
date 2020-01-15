@@ -81,7 +81,7 @@ Technology TechTree[]={
   {10,"Shielding",0,350,400,100,"Unlock Planetary    Defense System and  increases firepower.","Fleet Tactics",4,1,15},
   {11,"Hyperdrive",0,100,500,400,"Unlocks War Cruisersand increases their speed.","Impulse Engine",9,2,10},
   {12,"Fusion Reaction",0,500,400,250,"Unlocks Transformer and its upgrades.","Fleet Tactics",4,5,10},
-  {13,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Fleet Tactics",4,3,10},
+  {13,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Shielding",10,2,10},
   {14,"Flight Control",0,350,200,250,"Unlocks Logistic    Centre and its      upgrades.","Statics",8,2,10},
   {15,"Gravity Weapon",0,900,900,900,"Final level of this technology unlocks  Solar Destroyer.","Fusion Reaction",12,1,9}
 };
@@ -103,7 +103,7 @@ struct Building
 };
 
 Building Colony[]={
-  {1,"Power Plant",1,"Required to build   higher level        structures.",150,150,150,0,0,0,0,15},
+  {1,"Power Plant",1,"Required to build   higher level        mines.",150,150,150,0,0,0,0,15},
   {2,"Metal Mine",1,"Deliver metal       resource.",140,150,25,0,0,1,2,15},
   {3,"Crystal Mine",1,"Deliver crystal     resource.",160,200,50,0,0,1,2,15},
   {4,"Fuel Refinery",0,"Deliver fuel        resource.",160,170,20,0,0,1,2,15},
@@ -111,7 +111,7 @@ Building Colony[]={
   {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",125,140,0,5,1,5,1,20},
   {7,"Shipyard",0,"Required to build   high level ships.",375,375,275,4,1,0,0,10},
   {8,"Research Lab",0,"Unlocks additional  technology / lvl.",150,150,150,0,0,0,0,15},
-  {9,"Defence System",0,"+ 10 points to      defense / lvl.",200,250,50,10,1,0,0,10},
+  {9,"Defence System",0,"+ 20 points to      defense / lvl.",200,250,50,10,1,0,0,10},
   {10,"Factory",0,"Reduces Metal and   Crystal cost of     buildings.",300,200,50,0,0,0,0,10},
   {11,"Warehouse",0,"Stores resources    when losing battle. +100 for each       resource / lvl.",330,300,20,8,1,0,0,10},
   {12,"Transformer",0,"Converts one        resource to another.",400,400,550,12,1,0,0,10},
@@ -134,7 +134,7 @@ Ship Shipyard[]={
   {"War Cruiser",4,"First line attack ship. Bonus against   Interceptors",500,280},
   {"Star Dreadnought",5,"Heavy armored ship  used to transport   entire fleet.",650,350},
   {"Solar Destroyer",6,"Ship designed to    destroy entire      planet.",4000,4000},
-  {"Spy Bot",7,"Fragile probe used  to scan planets and enemy fleets.",10,5},
+  {"Spy Bot",7,"Fragile probe used  to scan planets and enemy fleets.",15,10},
   {"Colonizer",8,"Set colony on the   planet.",900,900},
   {"Metal Transport",9,"Transport metal fromcolonies.",350,35},
   {"Crystal Transport",10,"Transport crystals  from colonies.",400,150},
@@ -199,17 +199,17 @@ Fleet CustomEnemyFleet={4,false,0,0,0,0,0,0,0,0,0,0,"",false};
 int FleetFuelCost=0;
 
 int PlayerShips[]={
-  10, //Fighter
-  5, //Interceptor
-  3, //Frigate
-  2, //War Cruiser
-  1, //Star Dreadnought
-  1, //Solar Destroyer
-  90, //Spy Bot
+  0, //Fighter
+  0, //Interceptor
+  0, //Frigate
+  0, //War Cruiser
+  0, //Star Dreadnought
+  0, //Solar Destroyer
+  0, //Spy Bot
   0, //Colonizer
-  5, //Metal Transport
-  2, //Crystal Transport
-  1  //Fuel Transport
+  0, //Metal Transport
+  0, //Crystal Transport
+  0  //Fuel Transport
 };
 
 struct TradeRoute
@@ -334,7 +334,7 @@ int EnemyColonies=5;
 int EnemyCapitals=1;
 
 //Enemy Timer
-int timeToAttack=120;//4 minutes interval
+int timeToAttack=0;//4 minutes interval
 bool attackUnderway=false;
 
 void setup() {
@@ -576,6 +576,10 @@ void timeCalculations()
     updateFleets();
     enemyAttackTimer();
   }
+  else
+  {
+    frames++;
+  }
 }
 
 void updateVisibilityDistance()
@@ -630,6 +634,7 @@ void updateEnemyFleetTime(int index)
     if(winner==2)//battle lost
     {
       resourcePillage();
+      resetTransformerAfterAttack();
       if(ProgressPoints<ProgressPointsLimit)
       {
         ProgressPoints+=3; //ultimate weapon progress

@@ -170,6 +170,7 @@ bool buildDropdownMenu()
   bool IsFleetSlot=checkFleetSlots();
   if(IsFleetSlot==true) //If Player Fleet Slot is available
   {
+    bool freeColonies=checkColonies();
     if(SelectedPlanet.ActiveMission==true) //If planet has active mission
     {
       stEnabled[0]=0;
@@ -190,11 +191,22 @@ bool buildDropdownMenu()
     }
     else if(SelectedPlanet.Owned==false)
     {
-      stEnabled[0]=1;
-      stEnabled[1]=1;
-      stEnabled[2]=0;
-      stEnabled[3]=0;
-      stEnabled[4]=0;
+      if(freeColonies==true) //Can have more colonies
+      {
+        stEnabled[0]=1;
+        stEnabled[1]=1;
+        stEnabled[2]=0;
+        stEnabled[3]=0;
+        stEnabled[4]=0; 
+      }
+      else
+      {
+        stEnabled[0]=1;
+        stEnabled[1]=0;
+        stEnabled[2]=0;
+        stEnabled[3]=0;
+        stEnabled[4]=0;
+      }
       return true;
     }
     else if(SelectedPlanet.TradeRoute==false)
@@ -225,6 +237,24 @@ bool buildDropdownMenu()
     stEnabled[4]=0;
     return false;
   }
+}
+
+bool checkColonies()
+{
+  bool result=false;
+  int owned=0;
+  for(int i=0;i<30;i++)
+  {
+    if(System[i].Owned==true)
+    {
+      owned++;
+    }
+  }
+  if(TechTree[5].level>owned)
+  {
+    result=true;
+  }
+  return result;
 }
 
 void abandonPlanet()

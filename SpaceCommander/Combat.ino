@@ -29,9 +29,9 @@ int8_t spaceBattle(int enIndex,int plIndex,bool attacker) //attacker - true (Pla
 
 void defenceSystemActivation(int enIndex)
 {
-  int DefenceStrength=Colony[8].level*10;
+  int DefenceStrength=Colony[8].level*20;
   
-  if(DefenceStrength>50 && EnemyFleets[enIndex].StarDreadnoughts>0)
+  if(DefenceStrength>=50 && EnemyFleets[enIndex].StarDreadnoughts>0)
   {
     int destroyed=DefenceStrength/50;
     EnemyFleets[enIndex].StarDreadnoughts-=destroyed;
@@ -40,13 +40,9 @@ void defenceSystemActivation(int enIndex)
       destroyed=EnemyFleets[enIndex].StarDreadnoughts+destroyed;
       EnemyFleets[enIndex].StarDreadnoughts=0;
     }
-    else
-    {
-      EnemyFleets[enIndex].StarDreadnoughts-=destroyed;
-    }
     DefenceStrength-=50*destroyed;
   }
-  if(DefenceStrength>25 && EnemyFleets[enIndex].WarCruisers>0)
+  if(DefenceStrength>=25 && EnemyFleets[enIndex].WarCruisers>0)
   {
     int destroyed=DefenceStrength/25;
     EnemyFleets[enIndex].WarCruisers-=destroyed;
@@ -55,13 +51,9 @@ void defenceSystemActivation(int enIndex)
       destroyed=EnemyFleets[enIndex].WarCruisers+destroyed;
       EnemyFleets[enIndex].WarCruisers=0;
     }
-    else
-    {
-      EnemyFleets[enIndex].WarCruisers-=destroyed;
-    }
     DefenceStrength-=25*destroyed;
   }
-  if(DefenceStrength>10 && EnemyFleets[enIndex].Frigates>0)
+  if(DefenceStrength>=10 && EnemyFleets[enIndex].Frigates>0)
   {
     int destroyed=DefenceStrength/10;
     EnemyFleets[enIndex].Frigates-=destroyed;
@@ -70,13 +62,9 @@ void defenceSystemActivation(int enIndex)
       destroyed=EnemyFleets[enIndex].Frigates+destroyed;
       EnemyFleets[enIndex].Frigates=0;
     }
-    else
-    {
-      EnemyFleets[enIndex].Frigates-=destroyed;
-    }
     DefenceStrength-=10*destroyed;
   }
-  if(DefenceStrength>3 && EnemyFleets[enIndex].Interceptors>0)
+  if(DefenceStrength>=3 && EnemyFleets[enIndex].Interceptors>0)
   {
     int destroyed=DefenceStrength/3;
     EnemyFleets[enIndex].Interceptors-=destroyed;
@@ -84,10 +72,6 @@ void defenceSystemActivation(int enIndex)
     {
       destroyed=EnemyFleets[enIndex].Interceptors+destroyed;
       EnemyFleets[enIndex].Interceptors=0;
-    }
-    else
-    {
-      EnemyFleets[enIndex].Interceptors-=destroyed;
     }
     DefenceStrength-=3*destroyed;
   }
@@ -99,10 +83,6 @@ void defenceSystemActivation(int enIndex)
     {
       destroyed=EnemyFleets[enIndex].Fighters+destroyed;
       EnemyFleets[enIndex].Fighters=0;
-    }
-    else
-    {
-      EnemyFleets[enIndex].Fighters-=destroyed;
     }
     DefenceStrength-=destroyed;
   }

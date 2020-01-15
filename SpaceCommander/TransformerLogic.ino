@@ -74,7 +74,7 @@ int8_t transformer()
       trConvert=0;
     }
   }
-  else if(gb.buttons.pressed(BUTTON_UP))
+  else if(gb.buttons.repeat(BUTTON_UP,2))
   {
     if(trConvert<9999)
     {
@@ -104,7 +104,7 @@ int8_t transformer()
       }
     }
   }
-  else if(gb.buttons.pressed(BUTTON_DOWN))
+  else if(gb.buttons.repeat(BUTTON_DOWN,2))
   {
     if(trConvert!=0)
     {
@@ -164,5 +164,11 @@ int8_t transformer()
   }
   drawTransformerScreen(trMode,trMultipler,trConvert,trCreated);
   return 9;
+}
+
+void resetTransformerAfterAttack()
+{
+  trConvert=0;
+  trCreated=0;
 }
 

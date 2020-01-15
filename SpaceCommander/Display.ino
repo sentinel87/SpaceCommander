@@ -2221,7 +2221,7 @@ void drawOptionsMenu(int selection)
   gb.display.setColor(BLUE);
   gb.display.println("GAME OPTIONS");
   gb.display.setFontSize(1);
-  gb.display.setCursor(22,20);
+  gb.display.setCursor(4,20);
   if(selectionFrame==1 && selection==0)
   {
     gb.display.setColor(BLUE);  
@@ -2241,7 +2241,7 @@ void drawOptionsMenu(int selection)
     gb.display.setColor(WHITE); 
   } 
   gb.display.println("DIFFICULTY: "+Difficulty);
-  gb.display.setCursor(22,32);
+  gb.display.setCursor(4,32);
   if(selectionFrame==1 && selection==2)
   {
     gb.display.setColor(BLUE);  
@@ -2551,9 +2551,9 @@ void drawTechImage(int id)
     case 11:
       gb.display.drawImage(2,9,IMAGE_TECH_HYPERDRIVE); break;
     case 12:
-      gb.display.drawImage(2,9,IMAGE_TECH_SHIP_WEAPONS); break;
-    case 13:
       gb.display.drawImage(2,9,IMAGE_TECH_FUSION_REACTION); break;
+    case 13:
+      gb.display.drawImage(2,9,IMAGE_TECH_SHIP_WEAPONS); break;
     case 14:
       gb.display.drawImage(2,9,IMAGE_TECH_FLIGHT_CONTROL); break;
     case 15:
@@ -3121,7 +3121,7 @@ void drawFleetSelection(int posY, bool selectedShip,int quantity)
   gb.display.setCursor(4,57);
   gb.display.println("A");
   gb.display.setCursor(28,57);
-  gb.display.println("HOME");
+  gb.display.println("MENU");
   gb.display.setCursor(66,57);
   gb.display.println("B");
   if(selectedShip==true)
@@ -3138,7 +3138,7 @@ void drawFleetSelection(int posY, bool selectedShip,int quantity)
   }
 }
 
-void drawSendFleetConfirmation(int mission)
+void drawSendFleetConfirmation(int mission,bool canSend)
 {
   gb.display.drawImage(0,7,IMAGE_MAIN_THEME,0,6,80,57);
   gb.display.drawImage(0,0,IMAGE_INFO_FRAME);
@@ -3184,13 +3184,17 @@ void drawSendFleetConfirmation(int mission)
   gb.display.println(FleetFuelCost);
   gb.display.setCursor(50,29);
   gb.display.println(setTimeString(CustomFleet.Seconds,CustomFleet.Minutes));
-  gb.display.drawImage(2,56,IMAGE_OK_BTN);
   gb.display.drawImage(64,56,IMAGE_CANCEL_BTN);
   gb.display.setColor(WHITE);
-  gb.display.setCursor(4,57);
-  gb.display.println("A");
   gb.display.setCursor(66,57);
   gb.display.println("B");
+  if(canSend==true)
+  {
+    gb.display.drawImage(2,56,IMAGE_OK_BTN);
+    gb.display.setColor(WHITE);
+    gb.display.setCursor(4,57);
+    gb.display.println("A");
+  }
 }
 
 //---------------Intelligence Logic---------

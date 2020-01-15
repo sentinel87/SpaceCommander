@@ -442,13 +442,14 @@ void checkQuantity()
 
 int8_t sendSpy()
 {
+  bool canSend=fleetPreStartCheck();
   if(gb.buttons.pressed(BUTTON_B))
   {
     return 2;
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
-    if(fleetPreStartCheck()==true)
+    if(canSend==true)
     {
       PlayerResources[2]-=FleetFuelCost;
       for(int i=0;i<4;i++)
@@ -463,24 +464,21 @@ int8_t sendSpy()
       }
       return 1;
     }
-    else
-    {
-      return 0; 
-    }
   }
-  drawSendFleetConfirmation(3);
+  drawSendFleetConfirmation(3,canSend);
   return 0;
 }
 
 int8_t sendColonizer()
 {
+  bool canSend=fleetPreStartCheck();
   if(gb.buttons.pressed(BUTTON_B))
   {
     return 2;
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
-    if(fleetPreStartCheck()==true)
+    if(canSend==true)
     {
       PlayerResources[2]-=FleetFuelCost;
       for(int i=0;i<4;i++)
@@ -495,24 +493,21 @@ int8_t sendColonizer()
       }
       return 1;
     }
-    else
-    {
-      return 0; 
-    }
   }
-  drawSendFleetConfirmation(2);
+  drawSendFleetConfirmation(2,canSend);
   return 0;
 }
 
 int8_t sendAttack()
 {
+  bool canSend=fleetPreStartCheck();
   if(gb.buttons.pressed(BUTTON_B))
   {
     return 2;
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
-    if(fleetPreStartCheck()==true)
+    if(canSend==true)
     {
       PlayerResources[2]-=FleetFuelCost;
       for(int i=0;i<4;i++)
@@ -532,12 +527,8 @@ int8_t sendAttack()
       }
       return 1;
     }
-    else
-    {
-      return 0; 
-    }
   }
-  drawSendFleetConfirmation(1);
+  drawSendFleetConfirmation(1,canSend);
   return 0;
 }
 

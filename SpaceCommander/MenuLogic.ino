@@ -180,8 +180,8 @@ void prepareNewGame()
     PlayerResources[0]=2600;
     PlayerResources[1]=2600;
     PlayerResources[2]=1800;
-    PlayerShips[0]=150;
-    PlayerShips[1]=100;
+    PlayerShips[0]=25;
+    PlayerShips[1]=150;
     PlayerShips[2]=3;
   }
   else if(Difficulty=="NORMAL")
@@ -190,8 +190,8 @@ void prepareNewGame()
     PlayerResources[0]=1800;
     PlayerResources[1]=1800;
     PlayerResources[2]=1200;
-    PlayerShips[0]=100;
-    PlayerShips[1]=100;
+    PlayerShips[0]=25;
+    PlayerShips[1]=120;
   }
   else //HARD
   {
@@ -199,8 +199,8 @@ void prepareNewGame()
     PlayerResources[0]=800;
     PlayerResources[1]=800;
     PlayerResources[2]=750;
-    PlayerShips[0]=100;
-    PlayerShips[1]=100;
+    PlayerShips[0]=25;
+    PlayerShips[1]=120;
   }
   
   preparePlanets();
@@ -319,14 +319,14 @@ void prepareGarrisons()
   else if(Difficulty=="NORMAL")
   {
     Fighters=125;
-    Interceptors=75;
-    Frigates=13;
+    Interceptors=80;
+    Frigates=10;
   }
   else //HARD
   {
     Fighters=200;
     Interceptors=125;
-    Frigates=25;
+    Frigates=15;
     WarCruisers=2;
   }
   
