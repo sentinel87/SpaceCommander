@@ -8,6 +8,10 @@ int8_t mainMenu()
   {
     if(mmSelection==0)
     {
+      mmSelection=3;
+    }
+    else if(mmSelection==3)
+    {
       mmSelection=2;
     }
     else
@@ -24,9 +28,13 @@ int8_t mainMenu()
   }
   else if(gb.buttons.pressed(BUTTON_DOWN))
   {
-    if(mmSelection==2)
+    if(mmSelection==3)
     {
       mmSelection=0;
+    }
+    else if(mmSelection==2)
+    {
+      mmSelection=3;
     }
     else
     {
@@ -34,7 +42,7 @@ int8_t mainMenu()
       {
         mmSelection=2;
       }
-      else
+      else 
       {
         mmSelection++; 
       }
@@ -134,6 +142,16 @@ void setDifficulty()
   }
 }
 
+bool hallOfFame()
+{
+  if(gb.buttons.pressed(BUTTON_A))
+  {
+    return true;
+  }
+  drawHallOfFame();
+  return false;
+}
+
 void setMenuSelection(int idx)
 {
   mmSelection=idx;
@@ -147,6 +165,7 @@ void prepareNewGame()
   visibilityMinutes=0;
   FleetFuelCost=0;
   ScreenSelection=0;
+  Score=0;
   GameOver=false;
   Victory=false;
 

@@ -319,6 +319,7 @@ int BattleExperience=0;
 
 bool IsMainMenu=true;
 bool IsOptionMenu=false;
+bool IsFameHall=false;
 bool GameOver=false;
 bool Victory=false;
 bool GameStarted=false;
@@ -332,13 +333,29 @@ int ProgressPoints=0;
 int ProgressPointsLimit=120;
 int EnemyColonies=5;
 int EnemyCapitals=1;
+int ScoreBoard[]={0,0,0,0,0};
+int Score=12345;
 
 //Enemy Timer
 int timeToAttack=0;//4 minutes interval
 bool attackUnderway=false;
 
+const SaveDefault savefileDefaults[] = {
+  { 0,SAVETYPE_INT,0,0 },
+  { 1,SAVETYPE_INT,0,0 },
+  { 2,SAVETYPE_INT,0,0 },
+  { 3,SAVETYPE_INT,0,0 },
+  { 4,SAVETYPE_INT,0,0 }
+};
+
 void setup() {
   gb.begin();
+  gb.save.config(savefileDefaults);
+  ScoreBoard[0]=gb.save.get(0);
+  ScoreBoard[1]=gb.save.get(1);
+  ScoreBoard[2]=gb.save.get(2);
+  ScoreBoard[3]=gb.save.get(3);
+  ScoreBoard[4]=gb.save.get(4);
 }
 
 void loop() {
@@ -362,6 +379,11 @@ void loop() {
       IsMainMenu=false;
       IsOptionMenu=true;
     }
+    else if(choice==3)
+    {
+      IsMainMenu=false;
+      IsFameHall=true;
+    }
   }
   else if(IsOptionMenu) //OPTIONS MENU
   {
@@ -369,6 +391,15 @@ void loop() {
     if(accepted==true)
     {
       IsOptionMenu=false;
+      IsMainMenu=true;
+    }
+  }
+  else if(IsFameHall) //HALL OF FAME
+  {
+    bool accepted=hallOfFame();
+    if(accepted==true)
+    {
+      IsFameHall=false;
       IsMainMenu=true;
     }
   }
@@ -391,6 +422,15 @@ void loop() {
         GameStarted=false;
         GameOver=false;
         setMenuSelection(0);
+        bool HighScore=compareAndUpdateScore();
+        if(HighScore)
+        {
+          gb.save.set(0,ScoreBoard[0]);
+          gb.save.set(1,ScoreBoard[1]);
+          gb.save.set(2,ScoreBoard[2]);
+          gb.save.set(3,ScoreBoard[3]);
+          gb.save.set(4,ScoreBoard[4]);
+        }
       }
     }
     else if(Victory==true)
@@ -563,6 +603,39 @@ void loop() {
   }
 }
 
+bool compareAndUpdateScore()
+{
+  bool isScoreQualified=false;
+  int temp=0;
+  int temp2=0;
+  int index=0;
+
+  for(int i=0;i<5;i++)
+  {
+    if(Score>ScoreBoard[i])
+    {
+       temp=ScoreBoard[i];
+       ScoreBoard[i]=Score;
+       index=i;
+       isScoreQualified=true;
+       break;
+    } 
+  }
+
+  if(!isScoreQualified)
+  {
+    return false;
+  }
+
+  for(int i=index+1;i<5;i++)
+  {
+    temp2=ScoreBoard[i];
+    ScoreBoard[i]=temp;
+    temp=temp2;
+  }
+  return isScoreQualified;
+}
+
 void timeCalculations()
 {
   if(frames==25)// every second tick update game mechanics
@@ -633,6 +706,7 @@ void updateEnemyFleetTime(int index)
     int8_t winner=spaceBattle(index,-1,false);
     if(winner==2)//battle lost
     {
+      gb.lights.fill(RED);
       resourcePillage();
       resetTransformerAfterAttack();
       if(ProgressPoints<ProgressPointsLimit)
@@ -646,6 +720,7 @@ void updateEnemyFleetTime(int index)
     }
     else
     {
+      gb.lights.fill(GREEN);
       BattleExperience++;
     }
     fight=true;

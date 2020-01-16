@@ -2168,7 +2168,7 @@ void drawMainMenu(int selection)
   gb.display.setFontSize(1);
   gb.display.setCursor(22,18);
   gb.display.println("COMMANDER");
-  gb.display.setCursor(23,40);
+  gb.display.setCursor(23,34);
   if(selectionFrame==1 && selection==0)
   {
     gb.display.setColor(BLUE);  
@@ -2178,7 +2178,7 @@ void drawMainMenu(int selection)
     gb.display.setColor(WHITE); 
   } 
   gb.display.println("NEW GAME");
-  gb.display.setCursor(14,46);
+  gb.display.setCursor(14,40);
   if(GameStarted==true)
   {
     if(selectionFrame==1 && selection==1)
@@ -2195,7 +2195,7 @@ void drawMainMenu(int selection)
      gb.display.setColor(GRAY);
   }
   gb.display.println("CONTINUE GAME");
-  gb.display.setCursor(16,52);
+  gb.display.setCursor(16,46);
   if(selectionFrame==1 && selection==2)
   {
     gb.display.setColor(BLUE);  
@@ -2205,6 +2205,16 @@ void drawMainMenu(int selection)
     gb.display.setColor(WHITE); 
   } 
   gb.display.println("GAME OPTIONS");
+  gb.display.setCursor(16,52);
+  if(selectionFrame==1 && selection==3)
+  {
+    gb.display.setColor(BLUE);  
+  }
+  else
+  {
+    gb.display.setColor(WHITE); 
+  } 
+  gb.display.println("HALL OF FAME");
 }
 
 void drawOptionsMenu(int selection)
@@ -2251,6 +2261,56 @@ void drawOptionsMenu(int selection)
     gb.display.setColor(WHITE); 
   } 
   gb.display.println("BACK");
+}
+
+void drawHallOfFame()
+{
+  if(selectionFrame==0)
+  {
+    selectionFrame=1;
+  }
+  else
+  {
+    selectionFrame=0;
+  }
+  gb.display.setCursor(15,2);
+  gb.display.setColor(BLUE);
+  gb.display.println("HALL OF FAME");
+  gb.display.setFontSize(1);
+  for(int i=0;i<5;i++)
+  {
+    String scoreStr=scoreStrMod(ScoreBoard[i]);
+    String index=(String)(i+1);
+    scoreStr=index + ". " + scoreStr;
+    gb.display.setCursor(20, 15 +(i*6));
+    gb.display.println(scoreStr);
+  }
+  if(selectionFrame==1)
+  {
+    gb.display.setColor(BLUE);  
+  }
+  else
+  {
+    gb.display.setColor(WHITE); 
+  } 
+  gb.display.setCursor(32, 52);
+  gb.display.println("BACK");
+}
+
+String scoreStrMod(int score)
+{
+  String result=String(score);
+  int count=result.length();
+  if(count<6)
+  {
+    String spaces="";
+    for(int i=count;i<=6;i++)
+    {
+          spaces+=" ";
+    }
+    result=spaces + result;
+  }
+  return result;
 }
 
 //---------------Star Map Logic---------
@@ -3562,14 +3622,18 @@ void drawEndGameScreen(bool victorious)
   {
     gb.display.setCursor(10,25);
     gb.display.setColor(GREEN);
-    gb.display.println("VICTORY!"); 
+    gb.display.println("VICTORY!");
+    gb.display.setFontSize(1); 
+    gb.display.setCursor(15,46);
+    gb.display.setColor(BLUE);
+    gb.display.println("SCORE:"+scoreStrMod(Score));
   }
   else
   {
     gb.display.setCursor(14,25);
     gb.display.setColor(RED);
     gb.display.println("DEFEAT!");
+    gb.display.setFontSize(1);
   }
-  gb.display.setFontSize(1);
 }
 

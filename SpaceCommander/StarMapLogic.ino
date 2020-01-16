@@ -250,7 +250,7 @@ bool checkColonies()
       owned++;
     }
   }
-  if(TechTree[5].level>owned)
+  if(TechTree[5].level+1>owned)
   {
     result=true;
   }
