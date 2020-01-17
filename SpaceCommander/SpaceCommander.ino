@@ -111,7 +111,7 @@ Building Colony[]={
   {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",125,140,0,5,1,5,1,20},
   {7,"Shipyard",0,"Required to build   high level ships.",375,375,275,4,1,0,0,10},
   {8,"Research Lab",0,"Unlocks additional  technology / lvl.",150,150,150,0,0,0,0,15},
-  {9,"Defence System",0,"+ 20 points to      defense / lvl.",200,250,50,10,1,0,0,10},
+  {9,"Defence System",0,"+ 20 points to      defence / lvl.",200,250,50,10,1,0,0,10},
   {10,"Factory",0,"Reduces Metal and   Crystal cost of     buildings.",300,200,50,0,0,0,0,10},
   {11,"Warehouse",0,"Stores resources    when losing battle. +100 for each       resource / lvl.",330,300,20,8,1,0,0,10},
   {12,"Transformer",0,"Converts one        resource to another.",400,400,550,12,1,0,0,10},
@@ -334,7 +334,7 @@ int ProgressPointsLimit=120;
 int EnemyColonies=5;
 int EnemyCapitals=1;
 int ScoreBoard[]={0,0,0,0,0};
-int Score=12345;
+int Score=0;
 
 //Enemy Timer
 int timeToAttack=0;//4 minutes interval
@@ -422,6 +422,7 @@ void loop() {
         GameStarted=false;
         GameOver=false;
         setMenuSelection(0);
+        countFinalScore();
         bool HighScore=compareAndUpdateScore();
         if(HighScore)
         {
@@ -442,6 +443,16 @@ void loop() {
         GameStarted=false;
         GameOver=false;
         setMenuSelection(0);
+        countFinalScore();
+        bool HighScore=compareAndUpdateScore();
+        if(HighScore)
+        {
+          gb.save.set(0,ScoreBoard[0]);
+          gb.save.set(1,ScoreBoard[1]);
+          gb.save.set(2,ScoreBoard[2]);
+          gb.save.set(3,ScoreBoard[3]);
+          gb.save.set(4,ScoreBoard[4]);
+        }
       }
     }
     else if(flSelection==true)// set fleet to attack
@@ -722,6 +733,7 @@ void updateEnemyFleetTime(int index)
     {
       gb.lights.fill(GREEN);
       BattleExperience++;
+      Score+=15;
     }
     fight=true;
     enemyFleetsCheck(); 
@@ -868,6 +880,7 @@ void attackPlanet(int index)
           {
             if(PlayerFleets[index].SolarDestroyers>0)//At least one Solar Destroyer survived 
             {
+              Score+=100;
               Victory=true;
             }
             else
@@ -910,6 +923,7 @@ void attackPlanet(int index)
               PlayerResources[2]=9999;
             }
             EnemyColonies--;
+            Score+=50;
           }
         }
         System[i].ActiveMission=false;
@@ -1116,5 +1130,31 @@ Fleet setEnemyFleet()
   }
   
   return EnemyArmada;
+}
+
+//---------------------------Score--------------------------
+
+void countFinalScore()
+{
+  for(int i=0;i<12;i++)
+  {
+    if(PlayerRoutes[i].Active==true)
+    {
+      Score+=2;
+      Score+=PlayerRoutes[i].Metal;
+      Score+=PlayerRoutes[i].Crystal;
+      Score+=PlayerRoutes[i].Fuel;
+    }
+  }
+  for(int i=0;i<15;i++)
+  {
+    Score+=TechTree[i].level;
+  }
+  for(int i=0;i<13;i++)
+  {
+    Score+=Colony[i].level;
+  }
+  Score+=((ProgressPointsLimit-ProgressPoints)*3);
+  
 }
 

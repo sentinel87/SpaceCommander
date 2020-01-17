@@ -3623,17 +3623,16 @@ void drawEndGameScreen(bool victorious)
     gb.display.setCursor(10,25);
     gb.display.setColor(GREEN);
     gb.display.println("VICTORY!");
-    gb.display.setFontSize(1); 
-    gb.display.setCursor(15,46);
-    gb.display.setColor(BLUE);
-    gb.display.println("SCORE:"+scoreStrMod(Score));
   }
   else
   {
     gb.display.setCursor(14,25);
     gb.display.setColor(RED);
     gb.display.println("DEFEAT!");
-    gb.display.setFontSize(1);
   }
+  gb.display.setFontSize(1); 
+  gb.display.setCursor(15,46);
+  gb.display.setColor(BLUE);
+  gb.display.println("SCORE:"+scoreStrMod(Score));
 }
 

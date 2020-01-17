@@ -21,6 +21,10 @@ int8_t shipyard(int MilitaryScience)
       if(canBuy==true)
       {
         buySelectedShipQuantity();
+        if(shSelectedShip==5)
+        {
+          Score+=shQuantity;
+        }
         shSelectedShip=false;
         shQuantityToBuy=1; 
       }

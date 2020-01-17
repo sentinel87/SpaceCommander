@@ -29,7 +29,7 @@ int8_t spaceBattle(int enIndex,int plIndex,bool attacker) //attacker - true (Pla
 
 void defenceSystemActivation(int enIndex)
 {
-  int DefenceStrength=Colony[8].level*20;
+  int DefenceStrength=Colony[8].level*15;
   
   if(DefenceStrength>=50 && EnemyFleets[enIndex].StarDreadnoughts>0)
   {
