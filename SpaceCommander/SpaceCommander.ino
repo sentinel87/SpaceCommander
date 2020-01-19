@@ -103,16 +103,16 @@ struct Building
 };
 
 Building Colony[]={
-  {1,"Power Plant",1,"Required to build   higher level        mines.",150,150,150,0,0,0,0,15},
-  {2,"Metal Mine",1,"Deliver metal       resource.",140,150,25,0,0,1,2,15},
-  {3,"Crystal Mine",1,"Deliver crystal     resource.",160,200,50,0,0,1,2,15},
-  {4,"Fuel Refinery",0,"Deliver fuel        resource.",160,170,20,0,0,1,2,15},
-  {5,"Intelligence",0,"Reveal more intel inenemy reports.",200,175,0,2,1,0,0,13},
-  {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",125,140,0,5,1,0,0,20},
+  {1,"Power Plant",1,"Required to build   higher level        mines.",200,190,150,0,0,0,0,15},
+  {2,"Metal Mine",1,"Deliver metal       resource.",210,195,25,0,0,1,2,15},
+  {3,"Crystal Mine",1,"Deliver crystal     resource.",200,230,50,0,0,1,2,15},
+  {4,"Fuel Refinery",0,"Deliver fuel        resource.",200,185,65,0,0,1,2,15},
+  {5,"Intelligence",0,"Reveal more intel inenemy reports.",210,185,0,2,1,0,0,13},
+  {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",185,185,0,5,1,0,0,20},
   {7,"Shipyard",0,"Required to build   high level ships.",375,375,275,4,1,0,0,10},
-  {8,"Research Lab",0,"Unlocks additional  technology / lvl.",150,150,150,0,0,0,0,15},
-  {9,"Defence System",0,"+ 15 points to      defence / lvl.",200,250,50,10,1,0,0,10},
-  {10,"Factory",0,"Reduces Metal and   Crystal cost of     buildings.",300,200,50,0,0,0,0,10},
+  {8,"Research Lab",0,"Unlocks additional  technology / lvl.",200,200,150,0,0,0,0,15},
+  {9,"Defence System",0,"+ 15 points to      defence / lvl.",210,250,50,10,1,0,0,10},
+  {10,"Factory",0,"Reduces Metal and   Crystal cost of     buildings.",320,220,60,0,0,0,0,10},
   {11,"Warehouse",0,"Stores resources    when losing battle. +100 for each       resource / lvl.",330,300,20,8,1,0,0,10},
   {12,"Transformer",0,"Converts one        resource to another.",400,400,550,12,1,0,0,10},
   {13,"Logistic Centre",0,"Increases resource  transport from traderoutes.",400,200,300,14,1,0,0,10}
@@ -664,10 +664,10 @@ void timeCalculations()
   if(frames==25)// every second tick update game mechanics
   {
     frames=0;
-    updateResources();
-    //PlayerResources[0]=9999;
-    //PlayerResources[1]=9999;
-    //PlayerResources[2]=9999;
+    //updateResources();
+    PlayerResources[0]=9999;
+    PlayerResources[1]=9999;
+    PlayerResources[2]=9999;
     updateVisibilityDistance();
     updateFleets();
     enemyAttackTimer();
