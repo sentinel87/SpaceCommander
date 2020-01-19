@@ -80,10 +80,10 @@ Technology TechTree[]={
   {9,"Impulse Engine",0,50,250,200,"Unlocks Frigates andincreases their     speed.","Aerodynamics",7,4,11},
   {10,"Shielding",0,350,400,100,"Unlock Planetary    Defense System and  increases firepower.","Fleet Tactics",4,1,15},
   {11,"Hyperdrive",0,100,500,400,"Unlocks War Cruisersand increases their speed.","Impulse Engine",9,2,10},
-  {12,"Fusion Reaction",0,500,400,250,"Unlocks Transformer and its upgrades.","Fleet Tactics",4,5,10},
+  {12,"Fusion Reaction",0,450,350,250,"Unlocks Transformer and its upgrades.","Fleet Tactics",4,5,10},
   {13,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Shielding",10,2,10},
   {14,"Flight Control",0,350,200,250,"Unlocks Logistic    Centre and its      upgrades.","Statics",8,2,10},
-  {15,"Gravity Weapon",0,900,900,900,"Final level of this technology unlocks  Solar Destroyer.","Fusion Reaction",12,1,9}
+  {15,"Gravity Weapon",0,900,900,900,"Final level of this technology unlocks  Solar Destroyer.","Hyperdrive",11,1,9}
 };
 
 struct Building
@@ -108,10 +108,10 @@ Building Colony[]={
   {3,"Crystal Mine",1,"Deliver crystal     resource.",160,200,50,0,0,1,2,15},
   {4,"Fuel Refinery",0,"Deliver fuel        resource.",160,170,20,0,0,1,2,15},
   {5,"Intelligence",0,"Reveal more intel inenemy reports.",200,175,0,2,1,0,0,13},
-  {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",125,140,0,5,1,5,1,20},
+  {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",125,140,0,5,1,0,0,20},
   {7,"Shipyard",0,"Required to build   high level ships.",375,375,275,4,1,0,0,10},
   {8,"Research Lab",0,"Unlocks additional  technology / lvl.",150,150,150,0,0,0,0,15},
-  {9,"Defence System",0,"+ 20 points to      defence / lvl.",200,250,50,10,1,0,0,10},
+  {9,"Defence System",0,"+ 15 points to      defence / lvl.",200,250,50,10,1,0,0,10},
   {10,"Factory",0,"Reduces Metal and   Crystal cost of     buildings.",300,200,50,0,0,0,0,10},
   {11,"Warehouse",0,"Stores resources    when losing battle. +100 for each       resource / lvl.",330,300,20,8,1,0,0,10},
   {12,"Transformer",0,"Converts one        resource to another.",400,400,550,12,1,0,0,10},
@@ -439,6 +439,18 @@ void loop() {
       bool resolved=gameOverInfo(true);
       if(resolved==true)  //return to main menu
       {
+        if(Difficulty=="EASY")
+        {
+          Score+=250;
+        }
+        else if(Difficulty=="NORMAL")
+        {
+          Score+=500;
+        }
+        else
+        {
+          Score+=750;
+        }
         IsMainMenu=true;
         GameStarted=false;
         GameOver=false;
@@ -681,6 +693,8 @@ void updateVisibilityDistance()
   }
 }
 
+//----------------------------------Fleets-----------------------
+
 void updateFleets()
 {
   for(int i=0;i<4;i++)
@@ -723,6 +737,7 @@ void updateEnemyFleetTime(int index)
       if(ProgressPoints<ProgressPointsLimit)
       {
         ProgressPoints+=3; //ultimate weapon progress
+        garrisonUpgrade();
       }
       if(EnemyFleets[index].SolarDestroyers>0)  //If Attack was successfull and ultimate weapon survived, the game is over;
       {
@@ -741,6 +756,22 @@ void updateEnemyFleetTime(int index)
   else
   {
     EnemyFleets[index].Seconds--;
+  }
+}
+
+void garrisonUpgrade()
+{
+  for(int i=0;i<6;i++)
+  {
+    if(Enemy1Garrison[i].planetIndex!=-1)
+    {
+      Enemy1Garrison[i].Fighters+=10;
+      Enemy1Garrison[i].Interceptors+=5;
+      if(Difficulty=="NORMAL" || Difficulty=="HARD")
+      {
+          Enemy1Garrison[i].Frigates+=1;
+      }
+    }
   }
 }
 

@@ -2664,10 +2664,10 @@ void drawInfrastructureScreen(Building building, String depTechName, int depLeve
   {
     gb.display.setColor(BLUE);
     gb.display.setCursor(20,15);
-    gb.display.println((building.resource1Cost - 10*(Colony[9].level))*(building.level+1));
+    gb.display.println((building.resource1Cost - 15*(Colony[9].level))*(building.level+1));
     gb.display.setColor(PURPLE);
     gb.display.setCursor(20,21);
-    gb.display.println((building.resource2Cost - 10*(Colony[9].level))*(building.level+1));
+    gb.display.println((building.resource2Cost - 20*(Colony[9].level))*(building.level+1));
     gb.display.setColor(YELLOW);
     gb.display.setCursor(20,27);
     gb.display.println(building.resource3Cost*(building.level+1));
