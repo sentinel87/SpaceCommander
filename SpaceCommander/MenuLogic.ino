@@ -177,7 +177,7 @@ void prepareNewGame()
   timeUpdate=false;
   visibilitySeconds=0;
   visibilityMinutes=0;
-  timeToAttack=180;
+  timeToAttack=160;
   attackUnderway=false;
 
   BattleResult BattleResultReset={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false};
@@ -196,30 +196,30 @@ void prepareNewGame()
   if(Difficulty=="EASY")
   {
     ProgressPointsLimit=120;
-    PlayerResources[0]=2600;
-    PlayerResources[1]=2600;
-    PlayerResources[2]=1800;
+    PlayerResources[0]=5000;
+    PlayerResources[1]=5000;
+    PlayerResources[2]=3000;
     PlayerShips[0]=25;
-    PlayerShips[1]=150;
-    PlayerShips[2]=3;
+    PlayerShips[1]=80;
+    PlayerShips[2]=2;
   }
   else if(Difficulty=="NORMAL")
   {
     ProgressPointsLimit=120;
-    PlayerResources[0]=1800;
-    PlayerResources[1]=1800;
-    PlayerResources[2]=1200;
+    PlayerResources[0]=3000;
+    PlayerResources[1]=3000;
+    PlayerResources[2]=2500;
     PlayerShips[0]=25;
-    PlayerShips[1]=120;
+    PlayerShips[1]=60;
   }
   else //HARD
   {
     ProgressPointsLimit=60;
-    PlayerResources[0]=800;
-    PlayerResources[1]=800;
-    PlayerResources[2]=750;
+    PlayerResources[0]=1600;
+    PlayerResources[1]=1600;
+    PlayerResources[2]=1000;
     PlayerShips[0]=25;
-    PlayerShips[1]=120;
+    PlayerShips[1]=40;
   }
   
   preparePlanets();

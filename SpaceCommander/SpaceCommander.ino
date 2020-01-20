@@ -21,7 +21,7 @@ struct Planet
 Planet SelectedPlanet={true,"Earth",38,28,false,"Player",0,0,0,true,false,-1,true,false};
 
 Planet System[]={
-  {true,"Earth",38,28,false,"Player",0,0,0,true,false,-1,true,false},
+  {true,"UEF Colony",38,28,false,"Player",0,0,0,true,false,-1,true,false},
   {false,"Sheez Prime",76,28,false,"Shezz",3,2,2,false,false,-1,false,false},
   {false,"Cligg Prime",0,28,true,"Cligg",0,0,0,false,false,0,false,false},
   {false,"Ganimedes",33,35,true,"None",1,2,0,false,false,0,false,false},//Poor resources (3)
@@ -422,7 +422,6 @@ void loop() {
         GameStarted=false;
         GameOver=false;
         setMenuSelection(0);
-        countFinalScore();
         bool HighScore=compareAndUpdateScore();
         if(HighScore)
         {
@@ -439,23 +438,10 @@ void loop() {
       bool resolved=gameOverInfo(true);
       if(resolved==true)  //return to main menu
       {
-        if(Difficulty=="EASY")
-        {
-          Score+=250;
-        }
-        else if(Difficulty=="NORMAL")
-        {
-          Score+=500;
-        }
-        else
-        {
-          Score+=750;
-        }
         IsMainMenu=true;
         GameStarted=false;
         GameOver=false;
         setMenuSelection(0);
-        countFinalScore();
         bool HighScore=compareAndUpdateScore();
         if(HighScore)
         {
@@ -664,10 +650,10 @@ void timeCalculations()
   if(frames==25)// every second tick update game mechanics
   {
     frames=0;
-    //updateResources();
-    PlayerResources[0]=9999;
-    PlayerResources[1]=9999;
-    PlayerResources[2]=9999;
+    updateResources();
+    //PlayerResources[0]=9999;
+    //PlayerResources[1]=9999;
+    //PlayerResources[2]=9999;
     updateVisibilityDistance();
     updateFleets();
     enemyAttackTimer();
@@ -732,16 +718,28 @@ void updateEnemyFleetTime(int index)
     if(winner==2)//battle lost
     {
       gb.lights.fill(RED);
-      resourcePillage();
+      bool richBounty=resourcePillage();
       resetTransformerAfterAttack();
       if(ProgressPoints<ProgressPointsLimit)
       {
-        ProgressPoints+=3; //ultimate weapon progress
+        if(richBounty==true)
+        {
+          ProgressPoints+=6; //ultimate weapon progress
+        }
+        else
+        {
+          ProgressPoints+=3; //ultimate weapon progress
+        }
+        if(ProgressPoints<ProgressPointsLimit)
+        {
+          ProgressPoints=ProgressPointsLimit;
+        }
         garrisonUpgrade();
       }
       if(EnemyFleets[index].SolarDestroyers>0)  //If Attack was successfull and ultimate weapon survived, the game is over;
       {
         GameOver=true;
+        countFinalScore();
       }
     }
     else
@@ -789,7 +787,7 @@ void enemyFleetsCheck() //check if all attacks are completed and reset prepare t
   if(allClear==true)
   {
     attackUnderway=false;
-    timeToAttack=120; //4 minutes
+    timeToAttack=110;
   }
 }
 
@@ -913,6 +911,7 @@ void attackPlanet(int index)
             {
               Score+=100;
               Victory=true;
+              countFinalScore();
             }
             else
             {
@@ -1002,16 +1001,25 @@ void updateResources()
   }
 }
 
-void resourcePillage()
+bool resourcePillage()
 {
+  bool result=false;
   int reserve=Colony[10].level*100; //Warehouse protection
+  int totalPillaged=0;
   for(int i=0;i<3;i++)
   {
     if(PlayerResources[i]>=reserve)
     {
+      int pillage=PlayerResources[i]-reserve;
+      totalPillaged+=pillage;
       PlayerResources[i]=reserve;
     }
   }
+  if(totalPillaged>=1000)
+  {
+    result=true;
+  }
+  return result;
 }
 
 //--------Enemy Attacks------------------------
@@ -1167,6 +1175,18 @@ Fleet setEnemyFleet()
 
 void countFinalScore()
 {
+  if(Difficulty=="EASY")
+  {
+    Score+=250;
+  }
+  else if(Difficulty=="NORMAL")
+  {
+    Score+=500;
+  }
+  else
+  {
+    Score+=750;
+  }
   for(int i=0;i<12;i++)
   {
     if(PlayerRoutes[i].Active==true)

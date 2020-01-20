@@ -1123,7 +1123,7 @@ int8_t determineWinner(int enIndex,int plIndex,bool attacker)
     PlayerPoints+=(PlayerShips[3]*5);
     PlayerPoints+=(PlayerShips[4]*8);
     PlayerPoints+=(PlayerShips[5]*10);
-    int DefenceStrength=Colony[8].level*10;
+    int DefenceStrength=Colony[8].level*5;
     PlayerPoints+=DefenceStrength;
   }
   
