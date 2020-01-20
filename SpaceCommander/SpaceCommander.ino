@@ -730,7 +730,7 @@ void updateEnemyFleetTime(int index)
         {
           ProgressPoints+=3; //ultimate weapon progress
         }
-        if(ProgressPoints<ProgressPointsLimit)
+        if(ProgressPoints>ProgressPointsLimit)
         {
           ProgressPoints=ProgressPointsLimit;
         }
@@ -739,7 +739,7 @@ void updateEnemyFleetTime(int index)
       if(EnemyFleets[index].SolarDestroyers>0)  //If Attack was successfull and ultimate weapon survived, the game is over;
       {
         GameOver=true;
-        countFinalScore();
+        countFinalScore(false);
       }
     }
     else
@@ -911,7 +911,7 @@ void attackPlanet(int index)
             {
               Score+=100;
               Victory=true;
-              countFinalScore();
+              countFinalScore(true);
             }
             else
             {
@@ -1173,19 +1173,22 @@ Fleet setEnemyFleet()
 
 //---------------------------Score--------------------------
 
-void countFinalScore()
+void countFinalScore(bool victory)
 {
-  if(Difficulty=="EASY")
+  if(victory==true)
   {
-    Score+=250;
-  }
-  else if(Difficulty=="NORMAL")
-  {
-    Score+=500;
-  }
-  else
-  {
-    Score+=750;
+    if(Difficulty=="EASY")
+    {
+      Score+=250;
+    }
+    else if(Difficulty=="NORMAL")
+    {
+      Score+=500;
+    }
+    else
+    {
+      Score+=750;
+    }
   }
   for(int i=0;i<12;i++)
   {
