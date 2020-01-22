@@ -200,7 +200,7 @@ void prepareNewGame()
     PlayerResources[1]=5000;
     PlayerResources[2]=3000;
     PlayerShips[0]=25;
-    PlayerShips[1]=80;
+    PlayerShips[1]=70;
     PlayerShips[2]=2;
   }
   else if(Difficulty=="NORMAL")
@@ -210,7 +210,7 @@ void prepareNewGame()
     PlayerResources[1]=3000;
     PlayerResources[2]=2500;
     PlayerShips[0]=25;
-    PlayerShips[1]=60;
+    PlayerShips[1]=50;
   }
   else //HARD
   {

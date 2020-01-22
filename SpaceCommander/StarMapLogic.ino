@@ -250,6 +250,13 @@ bool checkColonies()
       owned++;
     }
   }
+  for(int i=0;i<4;i++) // check current colonization missions
+  {
+    if(PlayerFleets[i].Type==2)
+    {
+      owned++;
+    }
+  }
   if(TechTree[5].level+1>owned)
   {
     result=true;

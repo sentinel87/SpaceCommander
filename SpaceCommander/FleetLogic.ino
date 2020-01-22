@@ -442,7 +442,7 @@ void checkQuantity()
 
 int8_t sendSpy()
 {
-  bool canSend=fleetPreStartCheck();
+  bool canSend=fleetPreStartCheck(1);
   if(gb.buttons.pressed(BUTTON_B))
   {
     return 2;
@@ -471,7 +471,7 @@ int8_t sendSpy()
 
 int8_t sendColonizer()
 {
-  bool canSend=fleetPreStartCheck();
+  bool canSend=fleetPreStartCheck(2);
   if(gb.buttons.pressed(BUTTON_B))
   {
     return 2;
@@ -500,7 +500,7 @@ int8_t sendColonizer()
 
 int8_t sendAttack()
 {
-  bool canSend=fleetPreStartCheck();
+  bool canSend=fleetPreStartCheck(3);
   if(gb.buttons.pressed(BUTTON_B))
   {
     return 2;
@@ -532,7 +532,7 @@ int8_t sendAttack()
   return 0;
 }
 
-bool fleetPreStartCheck()
+bool fleetPreStartCheck(int type)
 {
   bool fleetSlot=false;
   for(int i=0;i<4;i++)
@@ -548,6 +548,28 @@ bool fleetPreStartCheck()
   {
     fuelCost=true;
   }
-  return fleetSlot && fuelCost;
+  bool requiredShips=false;
+  if(type==1)
+  {
+    if(PlayerShips[6]>0)
+    {
+      requiredShips=true; 
+    }
+  }
+  else if(type==2)
+  {
+    if(PlayerShips[7]>0)
+    {
+      requiredShips=true; 
+    }
+  }
+  else
+  {
+    if(PlayerShips[0]>=CustomFleet.Fighters && PlayerShips[1]>=CustomFleet.Interceptors && PlayerShips[2]>=CustomFleet.Frigates && PlayerShips[3]>=CustomFleet.WarCruisers && PlayerShips[4]>=CustomFleet.StarDreadnoughts && PlayerShips[5]>=CustomFleet.SolarDestroyers)
+    {
+      requiredShips=true;
+    }
+  }
+  return fleetSlot && fuelCost && requiredShips;
 }
 
