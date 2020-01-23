@@ -128,7 +128,7 @@ int8_t starMap(int Astronomy)
     else if(gb.buttons.pressed(BUTTON_A))
     {
       selectedPlanet();
-      if(SelectedPlanet.Name!="" && SelectedPlanet.Name!="Earth")
+      if(SelectedPlanet.Name!="" && SelectedPlanet.Name!="UEF Colony")
       {
         stDropDownMenu=true;
         bool activeChoices=buildDropdownMenu();
@@ -163,6 +163,12 @@ int8_t starMap(int Astronomy)
   //gb.display.setCursor(10, 19);
   //gb.display.println(Astronomy);
   return 6;
+}
+
+void resetMapMarkers()
+{
+  stPosX=38;
+  stPosY=28;
 }
 
 bool buildDropdownMenu()

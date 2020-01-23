@@ -122,6 +122,15 @@ String selectedChoice()
   return result;
 }
 
+void resetWarRoomMarkers()
+{
+  CursorPosX=70;
+  CursorPosY=8;
+  Choice=2;
+  Column=1;
+  Row=0;
+}
+
 bool checkRestrictions()
 {
   bool result=false;

@@ -18,7 +18,7 @@ struct Planet
   bool ActiveMission; //If planet is currently targeted by player fleet mission 
 };
 
-Planet SelectedPlanet={true,"Earth",38,28,false,"Player",0,0,0,true,false,-1,true,false};
+Planet SelectedPlanet={true,"UEF Colony",38,28,false,"Player",0,0,0,true,false,-1,true,false};
 
 Planet System[]={
   {true,"UEF Colony",38,28,false,"Player",0,0,0,true,false,-1,true,false},
@@ -107,14 +107,14 @@ Building Colony[]={
   {2,"Metal Mine",1,"Extract metal       resource.",210,195,25,0,0,1,2,15},
   {3,"Crystal Mine",1,"Extract crystal     resource.",200,230,50,0,0,1,2,15},
   {4,"Fuel Refinery",0,"Deliver fuel        resource.",200,185,65,0,0,1,2,15},
-  {5,"Intelligence",0,"Reveals more intel in hostile reports.",210,185,0,2,1,0,0,13},
-  {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",185,185,0,5,1,0,0,20},
-  {7,"Shipyard",0,"Required to build   colony ships.",375,375,275,4,1,0,0,10},
+  {5,"Intelligence",0,"Reveals more intel in hostile reports.",210,185,10,2,1,0,0,13},
+  {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",185,185,25,5,1,0,0,20},
+  {7,"Shipyard",0,"Required to build   colony ships.",350,350,275,4,1,0,0,10},
   {8,"Research Lab",0,"Unlocks additional  technology / lvl.",200,200,150,0,0,0,0,15},
-  {9,"Defence System",0,"Provides additional firepower for colonydefence / lvl.",210,250,50,10,1,0,0,10},
-  {10,"Factory",0,"Reduces metal and   crystal cost of     buildings.",320,220,60,0,0,0,0,10},
-  {11,"Warehouse",0,"Stores resources    when losing battle. +200 for each       resource / lvl.",330,300,20,8,1,0,0,10},
-  {12,"Transformer",0,"Converts one        resource to another.",400,400,550,12,1,0,0,10},
+  {9,"Defence System",0,"Provides additional firepower for colonydefence / lvl.",210,250,75,10,1,0,0,10},
+  {10,"Factory",0,"Reduces metal and   crystal cost of     buildings.",300,220,60,0,0,0,0,10},
+  {11,"Warehouse",0,"Stores resources    when losing battle. +200 for each       resource / lvl.",300,300,50,8,1,0,0,10},
+  {12,"Transformer",0,"Converts one        resource to another.",350,300,550,12,1,0,0,10},
   {13,"Logistic Centre",0,"Increases resource  transport from traderoutes.",400,200,300,14,1,0,0,10}
 };
 
@@ -368,6 +368,8 @@ void loop() {
     if(choice==0)
     {
       prepareNewGame();
+      resetWarRoomMarkers();
+      resetMapMarkers();
       IsMainMenu=false;
     }
     else if(choice==1)
@@ -493,7 +495,7 @@ void loop() {
         spyMission=false;
       }
     }
-    else if(spyMissionFleet==true)// set spy to scout
+    else if(spyMissionFleet==true)// set spy to scout enemy fleet
     {
       int8_t selected=sendSpy();
       if(selected==1)
@@ -752,7 +754,18 @@ void updateEnemyFleetTime(int index)
     {
       gb.lights.fill(GREEN);
       BattleExperience++;
-      Score+=15;
+      if(Difficulty=="EASY")
+      {
+        Score+=8;
+      }
+      else if(Difficulty=="HARD")
+      {
+        Score+=30;
+      }
+      else
+      {
+        Score+=15; 
+      }
     }
     fight=true;
     enemyFleetsCheck(); 
