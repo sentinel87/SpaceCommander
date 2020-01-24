@@ -215,11 +215,11 @@ void prepareNewGame()
   else //HARD
   {
     ProgressPointsLimit=60;
-    PlayerResources[0]=1600;
-    PlayerResources[1]=1600;
-    PlayerResources[2]=1000;
-    PlayerShips[0]=25;
-    PlayerShips[1]=40;
+    PlayerResources[0]=3000;
+    PlayerResources[1]=3000;
+    PlayerResources[2]=2500;
+    PlayerShips[0]=15;
+    PlayerShips[1]=50;
   }
   
   preparePlanets();

@@ -70,15 +70,15 @@ struct Technology
 
 Technology TechTree[]={
   {1,"Astronomy",2,25,30,20,"Increases visibilityon the Star Map.","None",0,0,39},
-  {2,"Espionage",0,200,75,75,"Unlocks Intelligencebuilding and        Spy Bots.","Astronomy",1,2,21},
+  {2,"Espionage",0,200,75,75,"Unlocks Intelligencebuilding and        Spy Bots.","Astronomy",1,2,16},
   {3,"Jet Proplusion",0,100,100,100,"Unlocks Fighters andincreases their     speed.","Astronomy",1,2,19},
   {4,"Fleet Tactics",0,100,25,10,"Needed to upgrade   shipyard and build  high level ships.","Astronomy",1,5,16},
-  {5,"Radiolocation",0,80,110,50,"Unlock Radar and    increases visibilityrange.","Espionage",2,2,20},
+  {5,"Radiolocation",0,80,110,50,"Unlock Radar and    increases visibilityrange.","Espionage",2,2,15},
   {6,"Logistics",0,120,120,50,"+ 1 to Star Routes  and Colonies. UnlockTransports.","Astronomy",1,5,12},
   {7,"Aerodynamics",0,150,120,150,"Unlocks Interceptorsand increases their speed.","Jet Proplusion",3,4,15},
   {8,"Statics",0,200,350,50,"Unlock Warehouse andincreases it's      capacity.","Logistics",6,2,11},
   {9,"Impulse Engine",0,50,250,200,"Unlocks Frigates andincreases their     speed.","Aerodynamics",7,4,11},
-  {10,"Shielding",0,350,400,100,"Unlock Planetary    Defence System and  increases firepower.","Fleet Tactics",4,1,15},
+  {10,"Shielding",0,350,400,100,"Unlock Planetary    Defence System and  increases firepower.","Fleet Tactics",4,1,14},
   {11,"Hyperdrive",0,100,500,400,"Unlocks War Cruisersand increases their speed.","Impulse Engine",9,2,10},
   {12,"Fusion Reaction",0,450,350,250,"Unlocks Transformer and its upgrades.","Fleet Tactics",4,5,10},
   {13,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Shielding",10,2,10},
@@ -107,11 +107,11 @@ Building Colony[]={
   {2,"Metal Mine",1,"Extract metal       resource.",210,195,25,0,0,1,2,15},
   {3,"Crystal Mine",1,"Extract crystal     resource.",200,230,50,0,0,1,2,15},
   {4,"Fuel Refinery",0,"Deliver fuel        resource.",200,185,65,0,0,1,2,15},
-  {5,"Intelligence",0,"Reveals more intel in hostile reports.",210,185,10,2,1,0,0,13},
-  {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",185,185,25,5,1,0,0,20},
+  {5,"Intelligence",0,"Reveals more intel in hostile reports.",210,185,10,2,1,0,0,12},
+  {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",185,185,25,5,1,0,0,15},
   {7,"Shipyard",0,"Required to build   colony ships.",350,350,275,4,1,0,0,10},
   {8,"Research Lab",0,"Unlocks additional  technology / lvl.",200,200,150,0,0,0,0,15},
-  {9,"Defence System",0,"Provides additional firepower for colonydefence / lvl.",210,250,75,10,1,0,0,10},
+  {9,"Defence System",0,"Provides additional firepower for colonydefence / lvl.",210,250,75,10,1,0,0,14},
   {10,"Factory",0,"Reduces metal and   crystal cost of     buildings.",300,220,60,0,0,0,0,10},
   {11,"Warehouse",0,"Stores resources    when losing battle. +200 for each       resource / lvl.",300,300,50,8,1,0,0,10},
   {12,"Transformer",0,"Converts one        resource to another.",350,300,550,12,1,0,0,10},
@@ -533,7 +533,11 @@ void loop() {
       timeCalculations();
       if(ScreenSelection==0)
       {
-        ScreenSelection=warRoom(PlayerResources);  
+        ScreenSelection=warRoom(PlayerResources);
+        if(ScreenSelection==9)
+        {
+          resetTransformer();  
+        }
       }
       else if(ScreenSelection==2)
       {

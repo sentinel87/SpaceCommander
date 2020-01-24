@@ -1,5 +1,5 @@
 int trMode=1;
-int trMultipler=15;
+int trMultipler=16;
 int trConvert=0;
 int trCreated=0;
 
@@ -7,9 +7,6 @@ int8_t transformer()
 {
   if(gb.buttons.pressed(BUTTON_B))
   {
-    trConvert=0;
-    trCreated=0;
-    trMode=1;
     return 0;
   }
   else if(gb.buttons.pressed(BUTTON_RIGHT))
@@ -24,21 +21,21 @@ int8_t transformer()
     else if(trMode==2) //convert metal to fuel
     {
       trMode=3;
-      trMultipler=50-Colony[11].level;
+      trMultipler=35-Colony[11].level;
       trCreated=0;
       trConvert=0;
     }
     else if(trMode==3) //convert crystal to fuel
     {
       trMode=4;
-      trMultipler=35-Colony[11].level;
+      trMultipler=25-Colony[11].level;
       trCreated=0;
       trConvert=0;
     }
     else  //convert metal to crystal
     {
       trMode=1;
-      trMultipler=15-Colony[11].level;
+      trMultipler=16-Colony[11].level;
       trCreated=0;
       trConvert=0;
     }
@@ -48,14 +45,14 @@ int8_t transformer()
     if(trMode==1)
     {
       trMode=4;
-      trMultipler=35-Colony[11].level;
+      trMultipler=25-Colony[11].level;
       trCreated=0;
       trConvert=0;
     }
     else if(trMode==4)
     {
       trMode=3;
-      trMultipler=50-Colony[11].level;
+      trMultipler=35-Colony[11].level;
       trCreated=0;
       trConvert=0;
     }
@@ -69,7 +66,7 @@ int8_t transformer()
     else
     {
       trMode=1;
-      trMultipler=15-Colony[11].level;
+      trMultipler=16-Colony[11].level;
       trCreated=0;
       trConvert=0;
     }
@@ -164,6 +161,14 @@ int8_t transformer()
   }
   drawTransformerScreen(trMode,trMultipler,trConvert,trCreated);
   return 9;
+}
+
+void resetTransformer()
+{
+  trMode=1;
+  trMultipler=16-Colony[11].level;
+  trConvert=0;
+  trCreated=0;
 }
 
 void resetTransformerAfterAttack()
