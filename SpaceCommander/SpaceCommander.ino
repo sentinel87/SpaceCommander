@@ -76,14 +76,17 @@ Technology TechTree[]={
   {5,"Radiolocation",0,80,110,50,"Unlock Radar and    increases visibilityrange.","Espionage",2,2,15},
   {6,"Logistics",0,120,120,50,"+ 1 to Star Routes  and Colonies. UnlockTransports.","Astronomy",1,5,12},
   {7,"Aerodynamics",0,150,120,150,"Unlocks Interceptorsand increases their speed.","Jet Proplusion",3,4,15},
-  {8,"Statics",0,200,350,50,"Unlock Warehouse andincreases it's      capacity.","Logistics",6,2,11},
-  {9,"Impulse Engine",0,50,250,200,"Unlocks Frigates andincreases their     speed.","Aerodynamics",7,4,11},
-  {10,"Shielding",0,350,400,100,"Unlock Planetary    Defence System and  increases firepower.","Fleet Tactics",4,1,14},
-  {11,"Hyperdrive",0,100,500,400,"Unlocks War Cruisersand increases their speed.","Impulse Engine",9,2,10},
-  {12,"Fusion Reaction",0,450,350,250,"Unlocks Transformer and its upgrades.","Fleet Tactics",4,5,10},
-  {13,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Shielding",10,2,10},
-  {14,"Flight Control",0,350,200,250,"Unlocks Logistic    Centre and its      upgrades.","Statics",8,2,10},
-  {15,"Gravity Weapon",0,800,800,800,"Final level of this technology unlocks  Solar Destroyer.","Hyperdrive",11,1,9}
+  {8,"Cloaking",0,150,140,100,"Unlocks Stalkers.   Stalker steal 1/lvl enemy fighter and   interceptor.","Radiolocation",5,1,11},
+  {9,"Statics",0,200,350,50,"Unlock Warehouse andincreases it's      capacity.","Logistics",6,2,11},
+  {10,"Impulse Engine",0,50,250,200,"Unlocks Frigates andincreases their     speed.","Aerodynamics",7,4,11},
+  {11,"Shielding",0,350,400,100,"Unlock Planetary    Defence System and  increases firepower.","Fleet Tactics",4,1,14},
+  {12,"Mind Control",0,200,300,300,"Unlocks Leviatans.  Leviatan steal 1/lvlenemy Frigate.","Cloaking",8,4,5},
+  {13,"Hyperdrive",0,100,500,400,"Unlocks War Cruisersand increases their speed.","Impulse Engine",10,2,10},
+  {14,"Fusion Reaction",0,450,350,250,"Unlocks Transformer and its upgrades.","Fleet Tactics",4,5,10},
+  {15,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Shielding",11,2,10},
+  {16,"Flight Control",0,350,200,250,"Unlocks Logistic    Centre and its      upgrades.","Statics",9,2,10},
+  {17,"Gravity Weapon",0,800,800,800,"Final level of this technology unlocks  Solar Destroyer.","Hyperdrive",13,1,9}
+
 };
 
 struct Building
@@ -110,12 +113,12 @@ Building Colony[]={
   {5,"Intelligence",0,"Reveals more intel  in hostile reports.",210,185,10,2,1,0,0,12},
   {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",185,185,25,5,1,0,0,15},
   {7,"Shipyard",0,"Required to build   colony ships.",350,350,275,4,1,0,0,10},
-  {8,"Research Lab",0,"Unlocks additional  technology / lvl.",200,200,150,0,0,0,0,15},
-  {9,"Defence System",0,"Provides additional firepower for colonydefence / lvl.",210,250,75,10,1,0,0,14},
+  {8,"Research Lab",0,"Unlocks additional  technology / lvl.",100,100,75,0,0,0,0,17},
+  {9,"Defence System",0,"Provides additional firepower for colonydefence / lvl.",210,250,75,11,1,0,0,14},
   {10,"Factory",0,"Reduces metal and   crystal cost of     buildings.",300,220,60,0,0,0,0,10},
-  {11,"Warehouse",0,"Stores resources    when losing battle. +200 for each       resource / lvl.",300,300,50,8,1,0,0,10},
-  {12,"Transformer",0,"Converts one        resource to another.",350,300,550,12,1,0,0,10},
-  {13,"Logistic Centre",0,"Increases resource  transport from traderoutes.",400,200,300,14,1,0,0,10}
+  {11,"Warehouse",0,"Stores resources    when losing battle. +200 for each       resource / lvl.",300,300,50,9,1,0,0,10},
+  {12,"Transformer",0,"Converts one        resource to another.",350,300,550,14,1,0,0,10},
+  {13,"Logistic Centre",0,"Increases resource  transport from traderoutes.",400,200,300,16,1,0,0,10}
 };
 
 struct Ship
@@ -138,7 +141,9 @@ Ship Shipyard[]={
   {"Colonizer",8,"Set colony on the   planet.",900,900},
   {"Metal Transport",9,"Transport metal fromcolonies.",350,35},
   {"Crystal Transport",10,"Transport crystals  from colonies.",400,150},
-  {"Fuel Transport",11,"Transport fuel from colonies.",300,200}
+  {"Fuel Transport",11,"Transport fuel from colonies.",300,200},
+  {"Stalker",12,"Steal enemy fightersand interceptors.",300,300},
+  {"Leviatan",13,"Steal enemy         frigates.",700,700}
 };
 
 struct EnemyGarrison
@@ -209,7 +214,9 @@ int PlayerShips[]={
   0, //Colonizer
   0, //Metal Transport
   0, //Crystal Transport
-  0  //Fuel Transport
+  0, //Fuel Transport
+  0, //Stalkers
+  0 //Leviatans
 };
 
 struct TradeRoute
@@ -657,9 +664,9 @@ void timeCalculations()
   {
     frames=0;
     updateResources();
-    //PlayerResources[0]=9999;
-    //PlayerResources[1]=9999;
-    //PlayerResources[2]=9999;
+    PlayerResources[0]=9999;
+    PlayerResources[1]=9999;
+    PlayerResources[2]=9999;
     updateVisibilityDistance();
     updateFleets();
     enemyAttackTimer();

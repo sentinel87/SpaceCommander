@@ -84,7 +84,7 @@ void moveNext()
 {
   if(reCurrentTech+1<Colony[7].level)
   {
-    if(reCurrentTech==15)
+    if(reCurrentTech==17)
     {
       reCurrentTech=0;
     }

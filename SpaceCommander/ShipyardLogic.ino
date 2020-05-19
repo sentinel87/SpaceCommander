@@ -34,7 +34,7 @@ int8_t shipyard(int MilitaryScience)
   {
     if(shSelectedShip!=true)
     {
-      if(shCurrentShip==10)
+      if(shCurrentShip==12)
       {
         shCurrentShip=0;
       }
@@ -67,7 +67,7 @@ int8_t shipyard(int MilitaryScience)
     {
       if(shCurrentShip==0)
       {
-        shCurrentShip=10;
+        shCurrentShip=12;
       }
       else
       {
@@ -165,6 +165,10 @@ String restrictionValidation()
       requiredLvl=2; break;
     case 10:
       requiredLvl=2; break;
+    case 11:
+      requiredLvl=3; break;
+    case 12:
+      requiredLvl=5; break;
   }
   if(Colony[6].level<requiredLvl)
   {
@@ -185,19 +189,19 @@ String restrictionValidation()
       break;
     case 2: //Frigates
       requiredLvl=1; 
-      techIdx=8; //Impulse Engine
+      techIdx=9; //Impulse Engine
       break;
     case 3: //War Cruisers
       requiredLvl=1;
-      techIdx=10; //Hyperdrive 
+      techIdx=12; //Hyperdrive 
       break;
     case 4: //Star Dreadnoughts
       requiredLvl=10; 
-      techIdx=12; //Ship Weapons 
+      techIdx=14; //Ship Weapons 
       break;
     case 5: //Solar Destroyers
       requiredLvl=9;
-      techIdx=14; //Gravity Weapon 
+      techIdx=16; //Gravity Weapon 
       break;
     case 6: //Spy bot
       requiredLvl=1; //Espionage
@@ -218,6 +222,14 @@ String restrictionValidation()
     case 10:
       requiredLvl=1; 
       techIdx=5; 
+      break;
+    case 11: //Stalkers
+      requiredLvl=1; 
+      techIdx=7; //Cloaking
+      break;
+    case 12: //Leviatans
+      requiredLvl=1; 
+      techIdx=11; //Mind Control
       break;
   }
   if(TechTree[techIdx].level<requiredLvl)
@@ -255,7 +267,7 @@ void buySelectedShipQuantity()
   PlayerResources[0]-=((Shipyard[shCurrentShip].resource1Cost)*fixedQuantity);
   PlayerResources[1]-=((Shipyard[shCurrentShip].resource2Cost)*fixedQuantity);
   PlayerShips[shCurrentShip]+=fixedQuantity;
-  if(shCurrentShip<=4)
+  if(shCurrentShip<=4 || shCurrentShip>10)
   {
     fillGarrisons();
   }
@@ -319,6 +331,22 @@ void fillGarrisons()
         if((Enemy1Garrison[i].StarDreadnoughts+toDistribute)!=9999)
         {
           Enemy1Garrison[i].StarDreadnoughts+=toDistribute; 
+        }
+        break;
+      }
+      case 11:
+      {
+        if((Enemy1Garrison[i].Fighters+(toDistribute+5))!=9999)
+        {
+          Enemy1Garrison[i].Fighters+=(toDistribute+5); 
+        }
+        break;
+      }
+      case 12:
+      {
+        if((Enemy1Garrison[i].Frigates+toDistribute)!=9999)
+        {
+          Enemy1Garrison[i].Frigates+=toDistribute; 
         }
         break;
       }
