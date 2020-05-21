@@ -24,7 +24,7 @@ Planet System[]={
   {true,"UEF Colony",38,28,false,"Player",0,0,0,true,false,-1,true,false},
   {false,"Sheez Prime",76,28,false,"Shezz",3,2,2,false,false,-1,false,false},
   {false,"Cligg Prime",0,28,true,"Cligg",0,0,0,false,false,0,false,false},
-  {false,"Ganimedes",33,35,true,"None",1,2,0,false,false,0,false,false},//Poor resources (3)
+  {false,"Ganimedes",33,35,false,"None",1,2,0,false,false,0,false,false},//Poor resources (3)
   {false,"Raven",33,24,false,"None",1,1,1,true,false,-1,false,false},
   {false,"Novaria",36,26,false,"None",1,0,2,false,false,-1,false,false},
   {false,"Kanton",27,9,false,"None",2,0,3,false,false,-1,false,false},//Medium resources(6)
@@ -180,26 +180,28 @@ struct Fleet
   int WarCruisers;
   int StarDreadnoughts;
   int SolarDestroyers;
+  int Stalkers;
+  int Leviatans;
   String DestinationName;
   bool Visible;
 };
 
 Fleet PlayerFleets[]={
-  {0,false,0,0,0,0,0,0,0,0,0,0,"",true},
-  {0,false,0,0,0,0,0,0,0,0,0,0,"",true},
-  {0,false,0,0,0,0,0,0,0,0,0,0,"",true},
-  {0,false,0,0,0,0,0,0,0,0,0,0,"",true}
+  {0,false,0,0,0,0,0,0,0,0,0,0,0,0,"",true},
+  {0,false,0,0,0,0,0,0,0,0,0,0,0,0,"",true},
+  {0,false,0,0,0,0,0,0,0,0,0,0,0,0,"",true},
+  {0,false,0,0,0,0,0,0,0,0,0,0,0,0,"",true}
 };
 
 Fleet EnemyFleets[]={
-  {4,false,0,0,0,0,0,0,0,0,0,0,"",false},
-  {4,false,0,0,0,0,0,0,0,0,0,0,"",false},
-  {4,false,0,0,0,0,0,0,0,0,0,0,"",false},
-  {4,false,0,0,0,0,0,0,0,0,0,0,"",false}
+  {4,false,0,0,0,0,0,0,0,0,0,0,0,0,"",false},
+  {4,false,0,0,0,0,0,0,0,0,0,0,0,0,"",false},
+  {4,false,0,0,0,0,0,0,0,0,0,0,0,0,"",false},
+  {4,false,0,0,0,0,0,0,0,0,0,0,0,0,"",false}
 };
 
-Fleet CustomFleet={0,false,0,0,0,0,0,0,0,0,0,0,"",false};
-Fleet CustomEnemyFleet={4,false,0,0,0,0,0,0,0,0,0,0,"",false};
+Fleet CustomFleet={0,false,0,0,0,0,0,0,0,0,0,0,0,0,"",false};
+Fleet CustomEnemyFleet={4,false,0,0,0,0,0,0,0,0,0,0,0,0,"",false};
 
 int FleetFuelCost=0;
 
@@ -319,6 +321,7 @@ bool spyMissionFleet=false;
 bool attackMission=false;
 bool colonizeMission=false;
 bool routesMission=false;
+bool raidMission=false;
 
 int BattleExperience=0;
 
@@ -616,7 +619,7 @@ void loop() {
         ScreenSelection=6; //RETURN TO STAR MAP AFTER FLEET SELECTION
         routesMission=true;
       }
-      else if(ScreenSelection==24)
+      else if(ScreenSelection==25)
       {
         ScreenSelection=3; //RETURN TO ENEMY FLEETS AFTER FLEET SELECTION
         spyMissionFleet=true;
@@ -830,7 +833,7 @@ void updatePlayerFleetTime(int index)
   }
   else if(PlayerFleets[index].Seconds==0 && PlayerFleets[index].Minutes==0)
   {
-    Fleet Cleanup={0,false,0,20,0,0,0,0,0,0,0,0,""};
+    Fleet Cleanup={0,false,0,20,0,0,0,0,0,0,0,0,0,0,""};
     PlayerFleets[index].Seconds=0;
     PlayerFleets[index].Active=false;
     if(PlayerFleets[index].Type==1)
@@ -1161,7 +1164,7 @@ int getEnemyFleetSlot()
 
 Fleet setEnemyFleet()
 {
-  Fleet EnemyArmada={4,true,0,0,0,0,0,0,0,0,0,0,"",false};
+  Fleet EnemyArmada={4,true,0,0,0,0,0,0,0,0,0,0,0,0,"",false};
   int modifier=0;
   if(Difficulty=="EASY")
   {

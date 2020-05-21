@@ -440,7 +440,7 @@ void prepareBuildings()
 
 void prepareFleets()
 {
-  Fleet ResetFleet={0,false,0,0,0,0,0,0,0,0,0,0,"",false};
+  Fleet ResetFleet={0,false,0,0,0,0,0,0,0,0,0,0,0,0,"",false};
   CustomFleet=ResetFleet;
   CustomEnemyFleet=ResetFleet;
   FleetFuelCost=0;

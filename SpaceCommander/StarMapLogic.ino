@@ -4,7 +4,7 @@ int stPosY=28;
 int stIndex=0;
 int stSelection=1;
 bool stDropDownMenu=false;
-int stEnabled[]={1,0,0,0,0};
+int stEnabled[]={1,0,0,0,0,0};
 
 int8_t starMap(int Astronomy)
 {
@@ -25,7 +25,7 @@ int8_t starMap(int Astronomy)
       {
         if(PlayerShips[6]>0)
         {
-          Fleet spyFleet={3,true,0,0,1,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
+          Fleet spyFleet={3,true,0,0,1,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
           CustomFleet=spyFleet;
           setFleetParameters();
           return 21; //SPY MISSION CONFIRMATION
@@ -39,7 +39,7 @@ int8_t starMap(int Astronomy)
       {
         if(PlayerShips[7]>0)
         {
-          Fleet colonizationFleet={2,true,0,0,0,1,0,0,0,0,0,0,SelectedPlanet.Name,true};
+          Fleet colonizationFleet={2,true,0,0,0,1,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
           CustomFleet=colonizationFleet;
           setFleetParameters();
           return 22; //COLONIZATION MISSION CONFIRMATION
@@ -59,7 +59,7 @@ int8_t starMap(int Astronomy)
           }
           else
           {
-            Fleet attackFleet={1,true,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
+            Fleet attackFleet={1,true,0,0,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
             CustomFleet=attackFleet;
             setFleetParameters();
             return 20; //FLEET SELECTION SCREEN
@@ -67,7 +67,7 @@ int8_t starMap(int Astronomy)
         }
         else
         {
-          Fleet attackFleet={1,true,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
+          Fleet attackFleet={1,true,0,0,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
           CustomFleet=attackFleet;
           setFleetParameters();
           return 20; //FLEET SELECTION SCREEN
@@ -75,11 +75,18 @@ int8_t starMap(int Astronomy)
       }
       else if(stSelection==4)
       {
+        Fleet raidFleet={6,true,0,0,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
+        CustomFleet=raidFleet;
+        setFleetParameters();
+        return 25; //RAID SELECTION SCREEN
+      }
+      else if(stSelection==5)
+      {
         TradeRoute route={true,SelectedPlanet.Name,SelectedPlanet.Resource1,SelectedPlanet.Resource2,SelectedPlanet.Resource3};
         SelectedRoute=route;
         return 23; //TRADE ROUTE CONFIRMATION
       }
-      else if(stSelection==5)
+      else if(stSelection==6)
       {
         abandonPlanet();
       }
@@ -154,12 +161,12 @@ int8_t starMap(int Astronomy)
   {
     drawDropdownMenu(stPosX,stPosY,stSelection,stEnabled);
   }
-  //gb.display.setCursor(10, 5);
-  //gb.display.setFontSize(1);
-  //gb.display.setColor(RED);
-  //gb.display.println(gb.getCpuLoad());
-  //gb.display.setCursor(10, 12);
-  //gb.display.println(gb.getFreeRam());
+  gb.display.setCursor(10, 5);
+  gb.display.setFontSize(1);
+  gb.display.setColor(RED);
+  gb.display.println(gb.getCpuLoad());
+  gb.display.setCursor(10, 12);
+  gb.display.println(gb.getFreeRam());
   //gb.display.setCursor(10, 19);
   //gb.display.println(Astronomy);
   return 6;
@@ -184,6 +191,7 @@ bool buildDropdownMenu()
       stEnabled[2]=0;
       stEnabled[3]=0;
       stEnabled[4]=0;
+      stEnabled[5]=0;
       return false;
     }
     if(SelectedPlanet.Hostile==true)
@@ -191,8 +199,9 @@ bool buildDropdownMenu()
       stEnabled[0]=1;
       stEnabled[1]=0;
       stEnabled[2]=1;
-      stEnabled[3]=0;
+      stEnabled[3]=1;
       stEnabled[4]=0;
+      stEnabled[5]=0;
       return true;
     }
     else if(SelectedPlanet.Owned==false)
@@ -203,7 +212,8 @@ bool buildDropdownMenu()
         stEnabled[1]=1;
         stEnabled[2]=0;
         stEnabled[3]=0;
-        stEnabled[4]=0; 
+        stEnabled[4]=0;
+        stEnabled[5]=0; 
       }
       else
       {
@@ -212,6 +222,7 @@ bool buildDropdownMenu()
         stEnabled[2]=0;
         stEnabled[3]=0;
         stEnabled[4]=0;
+        stEnabled[5]=0;
       }
       return true;
     }
@@ -220,8 +231,9 @@ bool buildDropdownMenu()
       stEnabled[0]=1;
       stEnabled[1]=0;
       stEnabled[2]=0;
-      stEnabled[3]=1;
+      stEnabled[3]=0;
       stEnabled[4]=1;
+      stEnabled[5]=1;
       return true;
     }
     else
@@ -230,7 +242,8 @@ bool buildDropdownMenu()
       stEnabled[1]=0;
       stEnabled[2]=0;
       stEnabled[3]=0;
-      stEnabled[4]=1;
+      stEnabled[4]=0;
+      stEnabled[5]=1;
       return true;
     }
   }
@@ -241,6 +254,7 @@ bool buildDropdownMenu()
     stEnabled[2]=0;
     stEnabled[3]=0;
     stEnabled[4]=0;
+    stEnabled[5]=0;
     return false;
   }
 }
@@ -302,7 +316,7 @@ void getNextChoice()
 {
   if(SelectedPlanet.ActiveMission==false)
   {
-    for(int i=1;i<=5;i++)
+    for(int i=1;i<=6;i++)
     {
       if((i>(stSelection))&& stEnabled[i-1]==1)
       {
@@ -322,7 +336,7 @@ void getPreviousChoice()
 {
   if(SelectedPlanet.ActiveMission==false)
   {
-    for(int i=5;i>=0;i--)
+    for(int i=6;i>=0;i--)
     {
       if((i<(stSelection))&& stEnabled[i-1]==1)
       {
@@ -330,7 +344,7 @@ void getPreviousChoice()
         return;
       }
     }
-    for(int i=5;i>=0;i--)
+    for(int i=6;i>=0;i--)
     {
       if(stEnabled[i-1]==1)
       {
@@ -439,6 +453,16 @@ void setFleetParameters()
       Speed=1; 
     }
   }
+  if(CustomFleet.Stalkers>0)
+  {
+    FleetFuelCost+=CustomFleet.Stalkers*10;
+    Speed=2;
+  }
+  if(CustomFleet.Leviatans>0)
+  {
+    FleetFuelCost+=CustomFleet.Leviatans*10;
+    Speed=4;
+  }
   //Calculate minutes and seconds (1 unit - speed)
   int totalSeconds=distance*Speed;
   if(totalSeconds>59) //at least 1 minute
@@ -526,6 +550,14 @@ void setFleetReturnParameters(int index)
     {
       Speed=1; 
     }
+  }
+  if(PlayerFleets[index].Stalkers>0)
+  {
+    Speed=2;
+  }
+  if(PlayerFleets[index].Leviatans>0)
+  {
+    Speed=4;
   }
   //Calculate minutes and seconds (1 unit - speed)
   int totalSeconds=distance*Speed;
