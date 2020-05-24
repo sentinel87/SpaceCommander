@@ -4,8 +4,8 @@ struct Planet
 {
   bool Discovered;
   String Name;
-  int8_t posX;
-  int8_t posY;
+  int posX;
+  int posY;
   bool Hostile;
   String Enemy;
   int Resource1;
@@ -55,17 +55,17 @@ Planet System[]={
 
 struct Technology
 {
-  int8_t id;
+  int id;
   String techName;
-  int8_t level;
+  int level;
   int resource1Cost;
   int resource2Cost;
   int resource3Cost;
   String describtion;
   String restriction;
-  int8_t depTechId;
-  int8_t depTechLevel;
-  int8_t maxLevel;
+  int depTechId;
+  int depTechLevel;
+  int maxLevel;
 };
 
 Technology TechTree[]={
@@ -91,18 +91,18 @@ Technology TechTree[]={
 
 struct Building
 {
-  int8_t id;
+  int id;
   String bName;
-  int8_t level;
+  int level;
   String describtion;
   int resource1Cost;
   int resource2Cost;
   int resource3Cost;
   int depTechId;
-  int8_t depTechLevel;
+  int depTechLevel;
   int depBuildingId;
-  int8_t depBuildingLevel;
-  int8_t maxLevel;
+  int depBuildingLevel;
+  int maxLevel;
 };
 
 Building Colony[]={
@@ -124,7 +124,7 @@ Building Colony[]={
 struct Ship
 {
   String type;
-  int8_t imageId;
+  int imageId;
   String describtion;
   int resource1Cost;
   int resource2Cost;
@@ -168,7 +168,7 @@ EnemyGarrison Enemy1Garrison[]={
 
 struct Fleet
 {
-  int8_t Type; //1 - player armada 2 - Colonize 3 - Spy 4 - Enemy 5 - Return
+  int Type; //1 - player armada 2 - Colonize 3 - Spy 4 - Enemy 5 - Return
   bool Active;
   int8_t Minutes;
   int8_t Seconds;
@@ -205,7 +205,7 @@ Fleet CustomEnemyFleet={4,false,0,0,0,0,0,0,0,0,0,0,0,0,"",false};
 
 int FleetFuelCost=0;
 
-int PlayerShips[]={
+uint16_t PlayerShips[]={
   0, //Fighter
   0, //Interceptor
   0, //Frigate
@@ -250,16 +250,16 @@ TradeRoute SelectedRoute={false,"None",0,0,0};
 struct Report
 {
   String PlanetName;
-  int Type;
-  int Fighters;
-  int Interceptors;
-  int Frigates;
-  int WarCruisers;
-  int StarDreadnoughts;
-  int SolarDestroyers;
-  int Resource1;
-  int Resource2;
-  int Resource3;
+  uint16_t Type;
+  uint16_t Fighters;
+  uint16_t Interceptors;
+  uint16_t Frigates;
+  uint16_t WarCruisers;
+  uint16_t StarDreadnoughts;
+  uint16_t SolarDestroyers;
+  uint16_t Resource1;
+  uint16_t Resource2;
+  uint16_t Resource3;
 };
 
 Report IntelligenceReports[]={
@@ -285,31 +285,31 @@ bool fight=false;
 
 struct BattleResult
 {
-  int PlFighters;
-  int PlFightersLost;
-  int EnFighters;
-  int EnFightersLost;
-  int PlInterceptors;
-  int PlInterceptorsLost;
-  int EnInterceptors;
-  int EnInterceptorsLost;
-  int PlFrigates;
-  int PlFrigatesLost;
-  int EnFrigates;
-  int EnFrigatesLost;
-  int PlWarCruisers;
-  int PlWarCruisersLost;
-  int EnWarCruisers;
-  int EnWarCruisersLost;
-  int PlStarDreadnoughts;
-  int PlStarDreadnoughtsLost;
-  int EnStarDreadnoughts;
-  int EnStarDreadnoughtsLost;
-  int PlSolarDestroyers;
-  int PlSolarDestroyersLost;
-  int EnSolarDestroyers;
-  int EnSolarDestroyersLost;
-  int Winner;
+  uint16_t PlFighters;
+  uint16_t PlFightersLost;
+  uint16_t EnFighters;
+  uint16_t EnFightersLost;
+  uint16_t PlInterceptors;
+  uint16_t PlInterceptorsLost;
+  uint16_t EnInterceptors;
+  uint16_t EnInterceptorsLost;
+  uint16_t PlFrigates;
+  uint16_t PlFrigatesLost;
+  uint16_t EnFrigates;
+  uint16_t EnFrigatesLost;
+  uint16_t PlWarCruisers;
+  uint16_t PlWarCruisersLost;
+  uint16_t EnWarCruisers;
+  uint16_t EnWarCruisersLost;
+  uint16_t PlStarDreadnoughts;
+  uint16_t PlStarDreadnoughtsLost;
+  uint16_t EnStarDreadnoughts;
+  uint16_t EnStarDreadnoughtsLost;
+  uint16_t PlSolarDestroyers;
+  uint16_t PlSolarDestroyersLost;
+  uint16_t EnSolarDestroyers;
+  uint16_t EnSolarDestroyersLost;
+  uint16_t Winner;
 };
 
 BattleResult BtResult={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false};

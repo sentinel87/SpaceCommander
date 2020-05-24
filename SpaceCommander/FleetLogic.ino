@@ -259,7 +259,120 @@ int playerFleetSelection()
       return 2; 
     }
   }
-  drawFleetSelection(flMarker2PosY,flSelectedShip,flQuantity);
+  drawFleetSelection(flMarker2PosY,flSelectedShip,flQuantity,1);
+  return 1;
+}
+
+int playerFleetSelectionRaid()
+{
+  if(gb.buttons.pressed(BUTTON_B))
+  {
+    return 0;
+  }
+  else if(gb.buttons.pressed(BUTTON_UP))
+  {
+    if(flSelectedShip==true)
+    {
+      increaseShips();
+    }
+    else
+    {
+      if(flShipSelection==1)
+      {
+        flShipSelection=6;
+        flMarker2PosY=47;
+      }
+      else
+      {
+        flShipSelection-=1;
+        flMarker2PosY-=8;
+      }
+    }
+  }
+  else if(gb.buttons.pressed(BUTTON_DOWN))
+  {
+    if(flSelectedShip==true)
+    {
+      decreaseShips();
+    }
+    else
+    {
+      if(flShipSelection==6)
+      {
+        flShipSelection=1;
+        flMarker2PosY=7;
+      }
+      else
+      {
+        flShipSelection+=1;
+        flMarker2PosY+=8;
+      }
+    }
+  }
+  else if(gb.buttons.pressed(BUTTON_RIGHT))
+  {
+    if(flSelectedShip==true)
+    {
+      if(flQuantity==1)
+      {
+        flQuantity=10;
+      }
+      else if(flQuantity==10)
+      {
+        flQuantity=100;
+      }
+      else if(flQuantity==100)
+      {
+        flQuantity=1000;
+      }
+      else
+      {
+        flQuantity=1;
+      }
+    }
+  }
+  else if(gb.buttons.pressed(BUTTON_LEFT))
+  {
+    if(flSelectedShip==true)
+    {
+      if(flQuantity==1)
+      {
+        flQuantity=1000;
+      }
+      else if(flQuantity==10)
+      {
+        flQuantity=1;
+      }
+      else if(flQuantity==100)
+      {
+        flQuantity=10;
+      }
+      else
+      {
+        flQuantity=100;
+      }
+    }
+  }
+  else if(gb.buttons.pressed(BUTTON_MENU))
+  {
+    if(flSelectedShip==true)
+    {
+      checkQuantity();
+      flSelectedShip=false;
+    }
+    else if(flSelectedShip==false && flShipSelection!=7)
+    {
+      flSelectedShip=true;
+    }
+  }
+  else if(gb.buttons.pressed(BUTTON_A))
+  {
+    if(flSelectedShip!=true && (CustomFleet.Fighters!=0 || CustomFleet.Interceptors!=0 || CustomFleet.Frigates!=0 || CustomFleet.WarCruisers!=0 || CustomFleet.StarDreadnoughts!=0 || CustomFleet.SolarDestroyers!=0))
+    {
+      return 2; 
+    }
+  }
+  drawFleetSelection(flMarker2PosY,flSelectedShip,flQuantity,2);
   return 1;
 }
 
