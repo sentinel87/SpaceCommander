@@ -6,6 +6,7 @@ int flMarker2PosY=7;
 
 //Fleet Selection Markers
 int flShipSelection=1;
+int flShipSelection2=7;
 bool flSelectedShip=false;
 int flQuantity=10;
 
@@ -154,13 +155,15 @@ int playerFleetSelection()
 {
   if(gb.buttons.pressed(BUTTON_B))
   {
+    flShipSelection=1;
+    flMarker2PosY=7; 
     return 0;
   }
   else if(gb.buttons.pressed(BUTTON_UP))
   {
     if(flSelectedShip==true)
     {
-      increaseShips();
+      increaseShips(flShipSelection);
     }
     else
     {
@@ -180,7 +183,7 @@ int playerFleetSelection()
   {
     if(flSelectedShip==true)
     {
-      decreaseShips();
+      decreaseShips(flShipSelection);
     }
     else
     {
@@ -244,7 +247,7 @@ int playerFleetSelection()
   {
     if(flSelectedShip==true)
     {
-      checkQuantity();
+      checkQuantity(flShipSelection);
       flSelectedShip=false;
     }
     else if(flSelectedShip==false && flShipSelection!=7)
@@ -256,6 +259,8 @@ int playerFleetSelection()
   {
     if(flSelectedShip!=true && (CustomFleet.Fighters!=0 || CustomFleet.Interceptors!=0 || CustomFleet.Frigates!=0 || CustomFleet.WarCruisers!=0 || CustomFleet.StarDreadnoughts!=0 || CustomFleet.SolarDestroyers!=0))
     {
+      flShipSelection=1;
+      flMarker2PosY=7; 
       return 2; 
     }
   }
@@ -267,24 +272,26 @@ int playerFleetSelectionRaid()
 {
   if(gb.buttons.pressed(BUTTON_B))
   {
+    flShipSelection2=7;
+    flMarker2PosY=7;
     return 0;
   }
   else if(gb.buttons.pressed(BUTTON_UP))
   {
     if(flSelectedShip==true)
     {
-      increaseShips();
+      increaseShips(flShipSelection2);
     }
     else
     {
-      if(flShipSelection==1)
+      if(flShipSelection2==7)
       {
-        flShipSelection=6;
-        flMarker2PosY=47;
+        flShipSelection2=8;
+        flMarker2PosY=15;
       }
       else
       {
-        flShipSelection-=1;
+        flShipSelection2-=1;
         flMarker2PosY-=8;
       }
     }
@@ -293,18 +300,18 @@ int playerFleetSelectionRaid()
   {
     if(flSelectedShip==true)
     {
-      decreaseShips();
+      decreaseShips(flShipSelection2);
     }
     else
     {
-      if(flShipSelection==6)
+      if(flShipSelection2==8)
       {
-        flShipSelection=1;
+        flShipSelection2=7;
         flMarker2PosY=7;
       }
       else
       {
-        flShipSelection+=1;
+        flShipSelection2+=1;
         flMarker2PosY+=8;
       }
     }
@@ -357,18 +364,20 @@ int playerFleetSelectionRaid()
   {
     if(flSelectedShip==true)
     {
-      checkQuantity();
+      checkQuantity(flShipSelection2);
       flSelectedShip=false;
     }
-    else if(flSelectedShip==false && flShipSelection!=7)
+    else if(flSelectedShip==false)
     {
       flSelectedShip=true;
     }
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
-    if(flSelectedShip!=true && (CustomFleet.Fighters!=0 || CustomFleet.Interceptors!=0 || CustomFleet.Frigates!=0 || CustomFleet.WarCruisers!=0 || CustomFleet.StarDreadnoughts!=0 || CustomFleet.SolarDestroyers!=0))
+    if(flSelectedShip!=true && (CustomFleet.Stalkers!=0 || CustomFleet.Leviatans!=0))
     {
+      flShipSelection2=7;
+      flMarker2PosY=7;
       return 2; 
     }
   }
@@ -376,16 +385,16 @@ int playerFleetSelectionRaid()
   return 1;
 }
 
-void increaseShips()
+void increaseShips(int ShipSelection)
 {
-  switch(flShipSelection)
+  switch(ShipSelection)
   {
     case 1:
     {
       CustomFleet.Fighters+=flQuantity;
       if(CustomFleet.Fighters>9999)
       {
-        CustomFleet.Fighters=0;
+        CustomFleet.Fighters=9999;
       }
     }
     break;
@@ -394,7 +403,7 @@ void increaseShips()
       CustomFleet.Interceptors+=flQuantity;
       if(CustomFleet.Interceptors>9999)
       {
-        CustomFleet.Interceptors=0;
+        CustomFleet.Interceptors=9999;
       }
     }
     break;
@@ -403,7 +412,7 @@ void increaseShips()
       CustomFleet.Frigates+=flQuantity;
       if(CustomFleet.Frigates>9999)
       {
-        CustomFleet.Frigates=0;
+        CustomFleet.Frigates=9999;
       }
     }
     break;
@@ -412,7 +421,7 @@ void increaseShips()
       CustomFleet.WarCruisers+=flQuantity;
       if(CustomFleet.WarCruisers>9999)
       {
-        CustomFleet.WarCruisers=0;
+        CustomFleet.WarCruisers=9999;
       }
     }
     break;
@@ -421,7 +430,7 @@ void increaseShips()
       CustomFleet.StarDreadnoughts+=flQuantity;
       if(CustomFleet.StarDreadnoughts>9999)
       {
-        CustomFleet.StarDreadnoughts=0;
+        CustomFleet.StarDreadnoughts=9999;
       }
     }
     break;
@@ -430,23 +439,41 @@ void increaseShips()
       CustomFleet.SolarDestroyers+=flQuantity;
       if(CustomFleet.SolarDestroyers>9999)
       {
-        CustomFleet.SolarDestroyers=0;
+        CustomFleet.SolarDestroyers=9999;
+      }
+    }
+    break;
+    case 7:
+    {
+      CustomFleet.Stalkers+=flQuantity;
+      if(CustomFleet.Stalkers>9999)
+      {
+        CustomFleet.Stalkers=9999;
+      }
+    }
+    break;
+    case 8:
+    {
+      CustomFleet.Leviatans+=flQuantity;
+      if(CustomFleet.Leviatans>9999)
+      {
+        CustomFleet.Leviatans=9999;
       }
     }
     break;
   }
 }
 
-void decreaseShips()
+void decreaseShips(int ShipSelection)
 {
-  switch(flShipSelection)
+  switch(ShipSelection)
   {
     case 1:
     {
       CustomFleet.Fighters-=flQuantity;
       if(CustomFleet.Fighters<0)
       {
-        CustomFleet.Fighters=9999;
+        CustomFleet.Fighters=0;
       }
     }
     break;
@@ -455,7 +482,7 @@ void decreaseShips()
       CustomFleet.Interceptors-=flQuantity;
       if(CustomFleet.Interceptors<0)
       {
-        CustomFleet.Interceptors=9999;
+        CustomFleet.Interceptors=0;
       }
     }
     break;
@@ -464,7 +491,7 @@ void decreaseShips()
       CustomFleet.Frigates-=flQuantity;
       if(CustomFleet.Frigates<0)
       {
-        CustomFleet.Frigates=9999;
+        CustomFleet.Frigates=0;
       }
     }
     break;
@@ -473,7 +500,7 @@ void decreaseShips()
       CustomFleet.WarCruisers-=flQuantity;
       if(CustomFleet.WarCruisers<0)
       {
-        CustomFleet.WarCruisers=9999;
+        CustomFleet.WarCruisers=0;
       }
     }
     break;
@@ -482,7 +509,7 @@ void decreaseShips()
       CustomFleet.StarDreadnoughts-=flQuantity;
       if(CustomFleet.StarDreadnoughts<0)
       {
-        CustomFleet.StarDreadnoughts=9999;
+        CustomFleet.StarDreadnoughts=0;
       }
     }
     break;
@@ -491,16 +518,34 @@ void decreaseShips()
       CustomFleet.SolarDestroyers-=flQuantity;
       if(CustomFleet.SolarDestroyers<0)
       {
-        CustomFleet.SolarDestroyers=9999;
+        CustomFleet.SolarDestroyers=0;
+      }
+    }
+    break;
+    case 7:
+    {
+      CustomFleet.Stalkers-=flQuantity;
+      if(CustomFleet.Stalkers<0)
+      {
+        CustomFleet.Stalkers=0;
+      }
+    }
+    break;
+    case 8:
+    {
+      CustomFleet.Leviatans-=flQuantity;
+      if(CustomFleet.Leviatans<0)
+      {
+        CustomFleet.Leviatans=0;
       }
     }
     break;
   }
 }
 
-void checkQuantity()
+void checkQuantity(int ShipSelection)
 {
-  switch(flShipSelection)
+  switch(ShipSelection)
   {
     case 1:
     {
@@ -547,6 +592,22 @@ void checkQuantity()
       if(CustomFleet.SolarDestroyers>PlayerShips[5])
       {
         CustomFleet.SolarDestroyers=PlayerShips[5];
+      }
+    }
+    break;
+    case 7:
+    {
+      if(CustomFleet.Stalkers>PlayerShips[11])
+      {
+        CustomFleet.Stalkers=PlayerShips[11];
+      }
+    }
+    break;
+    case 8:
+    {
+      if(CustomFleet.Leviatans>PlayerShips[12])
+      {
+        CustomFleet.Leviatans=PlayerShips[12];
       }
     }
     break;
@@ -642,6 +703,36 @@ int8_t sendAttack()
     }
   }
   drawSendFleetConfirmation(1,canSend);
+  return 0;
+}
+
+int8_t sendRaid()
+{
+  bool canSend=fleetPreStartCheck();
+  if(gb.buttons.pressed(BUTTON_B))
+  {
+    return 2;
+  }
+  else if(gb.buttons.pressed(BUTTON_A))
+  {
+    if(canSend==true)
+    {
+      PlayerResources[2]-=FleetFuelCost;
+      for(int i=0;i<4;i++)
+      {
+        if(PlayerFleets[i].Active==false)
+        {
+          PlayerShips[11]-=CustomFleet.Stalkers;
+          PlayerShips[12]-=CustomFleet.Leviatans;
+          PlayerFleets[i]=CustomFleet;
+          gb.gui.popup("FLEET SEND!",50);
+          break;
+        }
+      }
+      return 1;
+    }
+  }
+  drawSendFleetConfirmation(4,canSend);
   return 0;
 }
 

@@ -2838,6 +2838,10 @@ void drawPlayerFleets(int posX,int posY)
       {
         gb.display.drawImage(1,posFlY,IMAGE_FLEET_ROW_RETURN);
       }
+      else if(PlayerFleets[i].Type==6)
+      {
+        gb.display.drawImage(1,posFlY,IMAGE_FLEET_ROW_RAID);
+      }
       gb.display.setColor(WHITE);
       gb.display.setCursor(12,posFlY+2);
       String strTime=setTimeString(PlayerFleets[i].Seconds,PlayerFleets[i].Minutes);
@@ -3347,6 +3351,11 @@ void drawSendFleetConfirmation(int mission,bool canSend)
     gb.display.setColor(ORANGE);
     gb.display.println("SCOUT");
   }
+  else if(mission==4)
+  {
+    gb.display.setColor(GREEN);
+    gb.display.println("RAID");
+  }
   gb.display.setCursor(42,22);
   gb.display.println(FleetFuelCost);
   gb.display.setCursor(50,29);
@@ -3540,6 +3549,24 @@ void drawSpyReport(Report IntelligenceReport)
     gb.display.println("FUEL");
     gb.display.setCursor(30,33);
     gb.display.println("+"+(String)IntelligenceReport.Resource3);
+  }
+  else if(IntelligenceReport.Type==3)
+  {
+    gb.display.setCursor(40,9);
+    gb.display.setColor(GREEN);
+    gb.display.println("RAID - SHIPS ACQUIRED");
+    gb.display.setColor(BLUE);
+    gb.display.setCursor(2,17);
+    gb.display.println("FIG");
+    gb.display.setCursor(2,25);
+    gb.display.println("INT");
+    gb.display.setCursor(2,33);
+    gb.display.println("FRI");
+    gb.display.println(IntelligenceReport.Fighters);
+    gb.display.setCursor(25,25);
+    gb.display.println(IntelligenceReport.Interceptors);
+    gb.display.setCursor(25,33);
+    gb.display.println(IntelligenceReport.Frigates);
   }
 }
 

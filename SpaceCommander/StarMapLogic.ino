@@ -78,7 +78,7 @@ int8_t starMap(int Astronomy)
         Fleet raidFleet={6,true,0,0,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
         CustomFleet=raidFleet;
         setFleetParameters();
-        return 25; //RAID SELECTION SCREEN
+        return 26; //RAID SELECTION SCREEN
       }
       else if(stSelection==5)
       {

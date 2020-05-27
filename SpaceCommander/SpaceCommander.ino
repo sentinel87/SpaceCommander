@@ -316,6 +316,7 @@ BattleResult BtResult={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false};
 
 //Fleet Selection
 bool flSelection=false;
+bool flRaidSelection=false;
 bool spyMission=false;
 bool spyMissionFleet=false;
 bool attackMission=false;
@@ -479,6 +480,20 @@ void loop() {
         flSelection=false;
       }
     }
+    else if(flRaidSelection==true)
+    {
+      int selected=playerFleetSelectionRaid();
+      if(selected==2)
+      {
+        setFleetParameters();
+        raidMission=true;
+        flRaidSelection=false;
+      }
+      else if(selected==0)
+      {
+        flRaidSelection=false;
+      }
+    }
     else if(attackMission==true)
     {
       int8_t selected=sendAttack();
@@ -490,6 +505,19 @@ void loop() {
       else if(selected==2)
       {
         attackMission=false;
+      }
+    }
+    else if(raidMission==true)
+    {
+      int8_t selected=sendRaid();
+      if(selected==1)
+      {
+        lockPlanet();
+        raidMission=false;
+      }
+      else if(selected==2)
+      {
+        raidMission=false; 
       }
     }
     else if(spyMission==true)// set spy to scout
@@ -623,6 +651,11 @@ void loop() {
       {
         ScreenSelection=3; //RETURN TO ENEMY FLEETS AFTER FLEET SELECTION
         spyMissionFleet=true;
+      }
+      else if(ScreenSelection==26)
+      {
+        ScreenSelection=6; //RETURN TO STAR MAP AFTER FLEET SELECTION;
+        flRaidSelection=true;
       }
     }
   }
