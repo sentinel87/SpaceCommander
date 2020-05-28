@@ -76,11 +76,11 @@ Technology TechTree[]={
   {5,"Radiolocation",0,80,110,50,"Unlock Radar and    increases visibilityrange.","Espionage",2,2,15},
   {6,"Logistics",0,120,120,50,"+ 1 to Star Routes  and Colonies. UnlockTransports.","Astronomy",1,5,12},
   {7,"Aerodynamics",0,150,120,150,"Unlocks Interceptorsand increases their speed.","Jet Proplusion",3,4,15},
-  {8,"Cloaking",0,150,140,100,"Unlocks Stalkers.   Stalker steal 1/lvl enemy fighter and   interceptor.","Radiolocation",5,1,11},
+  {8,"Cloaking",0,250,190,150,"Unlocks Stalkers.   Stalker steal 1/lvl enemy fighter and   interceptor.","Radiolocation",5,1,11},
   {9,"Statics",0,200,350,50,"Unlock Warehouse andincreases it's      capacity.","Logistics",6,2,11},
   {10,"Impulse Engine",0,50,250,200,"Unlocks Frigates andincreases their     speed.","Aerodynamics",7,4,11},
   {11,"Shielding",0,350,400,100,"Unlock Planetary    Defence System and  increases firepower.","Fleet Tactics",4,1,14},
-  {12,"Mind Control",0,200,300,300,"Unlocks Leviatans.  Leviatan steal 1/lvlenemy Frigate.","Cloaking",8,4,5},
+  {12,"Mind Control",0,350,500,350,"Unlocks Leviatans.  Leviatan steal 1/lvlenemy Frigate.","Cloaking",8,4,5},
   {13,"Hyperdrive",0,100,500,400,"Unlocks War Cruisersand increases their speed.","Impulse Engine",10,2,10},
   {14,"Fusion Reaction",0,450,350,250,"Unlocks Transformer and its upgrades.","Fleet Tactics",4,5,10},
   {15,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Shielding",11,2,10},
@@ -772,6 +772,8 @@ void updateEnemyFleetTime(int index)
       PlayerShips[8]=0;
       PlayerShips[9]=0;
       PlayerShips[10]=0;
+      PlayerShips[11]=0;
+      PlayerShips[12]=0;
       
       bool richBounty=resourcePillage();
       resetTransformerAfterAttack();
@@ -892,6 +894,11 @@ void updatePlayerFleetTime(int index)
       fleetReturns(PlayerFleets[index]);
       PlayerFleets[index]=Cleanup;
     }
+    else if(PlayerFleets[index].Type==6)
+    {
+      gb.lights.fill(LIGHTGREEN);
+      raidPlanet(index);
+    }
   }
   else
   {
@@ -952,6 +959,41 @@ void colonizePlanet(Fleet fleet)
     }
   }
   gb.gui.popup("PLANET COLONIZED!",50);
+}
+
+void raidPlanet(int index)
+{
+  if(PlayerFleets[index].Stalkers>0)
+  {
+    int ModFighters = TechTree[7].level;
+    int ModInterceptors = 0;
+    if(TechTree[7].level>5)
+    {
+      ModInterceptors = TechTree[7].level - 5;
+    }
+    PlayerFleets[index].Fighters=ModFighters*PlayerFleets[index].Stalkers;
+    PlayerFleets[index].Interceptors=ModInterceptors*PlayerFleets[index].Stalkers;
+  }
+  if(PlayerFleets[index].Leviatans>0)
+  {
+    int ModFrigates = TechTree[11].level;
+    PlayerFleets[index].Frigates=ModFrigates*PlayerFleets[index].Leviatans;
+  }
+  
+  Report Raid={PlayerFleets[index].DestinationName,3,PlayerFleets[index].Fighters,PlayerFleets[index].Interceptors,PlayerFleets[index].Frigates,0,0,0,0,0,0};
+  generateScoutReport(Raid);
+
+  for(int i=0;i<30;i++)
+  {
+    if(System[i].Name==PlayerFleets[index].DestinationName)
+    {
+      System[i].ActiveMission=false;
+      break;
+    }
+  }
+  
+  setFleetReturnParameters(index);
+  PlayerFleets[index].Active=true;
 }
 
 void attackPlanet(int index)
@@ -1032,11 +1074,45 @@ void attackPlanet(int index)
 void fleetReturns(Fleet fleet)
 {
   PlayerShips[0]+=fleet.Fighters;
+  if(PlayerShips[0]>9999)
+  {
+    PlayerShips[0]=9999;
+  }
   PlayerShips[1]+=fleet.Interceptors;
+  if(PlayerShips[1]>9999)
+  {
+    PlayerShips[1]=9999;
+  }
   PlayerShips[2]+=fleet.Frigates;
+  if(PlayerShips[2]>9999)
+  {
+    PlayerShips[2]=9999;
+  }
   PlayerShips[3]+=fleet.WarCruisers;
+  if(PlayerShips[3]>9999)
+  {
+    PlayerShips[3]=9999;
+  }
   PlayerShips[4]+=fleet.StarDreadnoughts;
+  if(PlayerShips[4]>9999)
+  {
+    PlayerShips[4]=9999;
+  }
   PlayerShips[5]+=fleet.SolarDestroyers;
+  if(PlayerShips[5]>9999)
+  {
+    PlayerShips[5]=9999;
+  }
+  PlayerShips[11]+=fleet.Stalkers;
+  if(PlayerShips[11]>9999)
+  {
+    PlayerShips[11]=9999;
+  }
+  PlayerShips[12]+=fleet.Leviatans;
+  if(PlayerShips[12]>9999)
+  {
+    PlayerShips[12]=9999;
+  }
   gb.gui.popup("FLEET HAS RETURNED!",50);
 }
 //--------Resources----------------------------

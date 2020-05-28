@@ -456,11 +456,11 @@ void setFleetParameters()
   if(CustomFleet.Stalkers>0)
   {
     FleetFuelCost+=CustomFleet.Stalkers*10;
-    Speed=2;
+    Speed=6;
   }
   if(CustomFleet.Leviatans>0)
   {
-    FleetFuelCost+=CustomFleet.Leviatans*10;
+    FleetFuelCost+=CustomFleet.Leviatans*25;
     Speed=4;
   }
   //Calculate minutes and seconds (1 unit - speed)
@@ -553,7 +553,7 @@ void setFleetReturnParameters(int index)
   }
   if(PlayerFleets[index].Stalkers>0)
   {
-    Speed=2;
+    Speed=6;
   }
   if(PlayerFleets[index].Leviatans>0)
   {

@@ -3552,9 +3552,9 @@ void drawSpyReport(Report IntelligenceReport)
   }
   else if(IntelligenceReport.Type==3)
   {
-    gb.display.setCursor(40,9);
+    gb.display.setCursor(20,9);
     gb.display.setColor(GREEN);
-    gb.display.println("RAID - SHIPS ACQUIRED");
+    gb.display.println("RAID - ACQUIRED");
     gb.display.setColor(BLUE);
     gb.display.setCursor(2,17);
     gb.display.println("FIG");
@@ -3562,6 +3562,8 @@ void drawSpyReport(Report IntelligenceReport)
     gb.display.println("INT");
     gb.display.setCursor(2,33);
     gb.display.println("FRI");
+    gb.display.setColor(BLACK);
+    gb.display.setCursor(25,17);
     gb.display.println(IntelligenceReport.Fighters);
     gb.display.setCursor(25,25);
     gb.display.println(IntelligenceReport.Interceptors);
