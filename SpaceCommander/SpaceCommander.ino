@@ -86,7 +86,6 @@ Technology TechTree[]={
   {15,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Shielding",11,2,10},
   {16,"Flight Control",0,350,200,250,"Unlocks Logistic    Centre and its      upgrades.","Statics",9,2,10},
   {17,"Gravity Weapon",0,800,800,800,"Final level of this technology unlocks  Solar Destroyer.","Hyperdrive",13,1,9}
-
 };
 
 struct Building
@@ -158,6 +157,15 @@ struct EnemyGarrison
 };
 
 EnemyGarrison Enemy1Garrison[]={
+  {-1,0,0,0,0,0,0}, //Capital
+  {-1,0,0,0,0,0,0},
+  {-1,0,0,0,0,0,0},
+  {-1,0,0,0,0,0,0},
+  {-1,0,0,0,0,0,0},
+  {-1,0,0,0,0,0,0}
+};
+
+EnemyGarrison Enemy2Garrison[]={
   {-1,0,0,0,0,0,0}, //Capital
   {-1,0,0,0,0,0,0},
   {-1,0,0,0,0,0,0},
@@ -868,7 +876,7 @@ void updatePlayerFleetTime(int index)
   }
   else if(PlayerFleets[index].Seconds==0 && PlayerFleets[index].Minutes==0)
   {
-    Fleet Cleanup={0,false,0,20,0,0,0,0,0,0,0,0,0,0,""};
+    Fleet Cleanup={0,false,0,0,0,0,0,0,0,0,0,0,0,0,""};
     PlayerFleets[index].Seconds=0;
     PlayerFleets[index].Active=false;
     if(PlayerFleets[index].Type==1)

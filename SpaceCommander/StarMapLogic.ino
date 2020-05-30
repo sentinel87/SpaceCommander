@@ -61,7 +61,7 @@ int8_t starMap(int Astronomy)
           {
             Fleet attackFleet={1,true,0,0,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
             CustomFleet=attackFleet;
-            setFleetParameters();
+            //setFleetParameters();
             return 20; //FLEET SELECTION SCREEN
           }
         }
@@ -69,7 +69,7 @@ int8_t starMap(int Astronomy)
         {
           Fleet attackFleet={1,true,0,0,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
           CustomFleet=attackFleet;
-          setFleetParameters();
+          //setFleetParameters();
           return 20; //FLEET SELECTION SCREEN
         }
       }
@@ -77,7 +77,7 @@ int8_t starMap(int Astronomy)
       {
         Fleet raidFleet={6,true,0,0,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
         CustomFleet=raidFleet;
-        setFleetParameters();
+        //setFleetParameters();
         return 26; //RAID SELECTION SCREEN
       }
       else if(stSelection==5)
