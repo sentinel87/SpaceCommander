@@ -8,11 +8,15 @@ int8_t mainMenu()
   {
     if(mmSelection==0)
     {
-      mmSelection=3;
+      mmSelection=4;
     }
     else if(mmSelection==3)
     {
       mmSelection=2;
+    }
+    else if(mmSelection==4)
+    {
+      mmSelection=3;
     }
     else
     {
@@ -28,13 +32,17 @@ int8_t mainMenu()
   }
   else if(gb.buttons.pressed(BUTTON_DOWN))
   {
-    if(mmSelection==3)
+    if(mmSelection==4)
     {
       mmSelection=0;
     }
     else if(mmSelection==2)
     {
       mmSelection=3;
+    }
+    else if(mmSelection==3)
+    {
+      mmSelection=4;
     }
     else
     {
@@ -57,7 +65,7 @@ int8_t mainMenu()
     return mmSelection;
   }
   drawMainMenu(mmSelection);
-  return 4;
+  return 5;
 }
 
 bool optionsMenu()

@@ -1064,6 +1064,38 @@ const uint16_t IMAGE_STATS_BTN[] = {
   0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248
 };
 
+const uint16_t IMAGE_SHIPS_STATS_BTN[] = {
+  7,      // frame width
+  6,      // frame height
+  1,      // number of frames
+  1,      // animation speed
+  0xf81f, // transparent color
+  0,      // RGB565 color mode
+  // frame 1/1
+  0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 
+  0x4248, 0xffff, 0xffff, 0x1292, 0x4248, 0x4248, 0x4248, 
+  0x4248, 0xf800, 0xffff, 0xffff, 0xffff, 0xffff, 0x4248, 
+  0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 
+  0x4248, 0x25a2, 0x25a2, 0x4248, 0x25a2, 0x4248, 0x4248, 
+  0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248
+};
+
+const uint16_t IMAGE_PAUSE_BTN[] = {
+  7,      // frame width
+  6,      // frame height
+  1,      // number of frames
+  1,      // animation speed
+  0xf81f, // transparent color
+  0,      // RGB565 color mode
+  // frame 1/1
+  0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 
+  0x4248, 0x4248, 0xf800, 0x4248, 0xf800, 0x4248, 0x4248, 
+  0x4248, 0x4248, 0xf800, 0x4248, 0xf800, 0x4248, 0x4248, 
+  0x4248, 0x4248, 0xf800, 0x4248, 0xf800, 0x4248, 0x4248, 
+  0x4248, 0x4248, 0xf800, 0x4248, 0xf800, 0x4248, 0x4248, 
+  0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248, 0x4248
+};
+
 const uint16_t IMAGE_REPORT_BTN[] = {
   7,      // frame width
   6,      // frame height
@@ -2200,7 +2232,7 @@ void drawMainMenu(int selection)
   gb.display.setFontSize(1);
   gb.display.setCursor(22,18);
   gb.display.println("COMMANDER");
-  gb.display.setCursor(23,34);
+  gb.display.setCursor(23,32);
   if(selectionFrame==1 && selection==0)
   {
     gb.display.setColor(BLUE);  
@@ -2210,7 +2242,7 @@ void drawMainMenu(int selection)
     gb.display.setColor(WHITE); 
   } 
   gb.display.println("NEW GAME");
-  gb.display.setCursor(14,40);
+  gb.display.setCursor(14,38);
   if(GameStarted==true)
   {
     if(selectionFrame==1 && selection==1)
@@ -2227,7 +2259,7 @@ void drawMainMenu(int selection)
      gb.display.setColor(GRAY);
   }
   gb.display.println("CONTINUE GAME");
-  gb.display.setCursor(16,46);
+  gb.display.setCursor(21,44);
   if(selectionFrame==1 && selection==2)
   {
     gb.display.setColor(BLUE);  
@@ -2236,9 +2268,19 @@ void drawMainMenu(int selection)
   {
     gb.display.setColor(WHITE); 
   } 
-  gb.display.println("GAME OPTIONS");
-  gb.display.setCursor(16,52);
+  gb.display.println("LOAD GAME");
+  gb.display.setCursor(16,50);
   if(selectionFrame==1 && selection==3)
+  {
+    gb.display.setColor(BLUE);  
+  }
+  else
+  {
+    gb.display.setColor(WHITE); 
+  } 
+  gb.display.println("GAME OPTIONS");
+  gb.display.setCursor(16,56);
+  if(selectionFrame==1 && selection==4)
   {
     gb.display.setColor(BLUE);  
   }
@@ -2555,13 +2597,15 @@ void drawWarRoom(int posX,int posY,String choice,bool alert)
     gb.display.drawImage(71,37,IMAGE_INTEL_BTN);
   }
   gb.display.drawImage(62,44,IMAGE_TRANSPORT_BTN);
-  gb.display.drawImage(71,44,IMAGE_SAVE_BTN);
+  gb.display.drawImage(71,44,IMAGE_STATS_BTN);
+  gb.display.drawImage(62,51,IMAGE_PAUSE_BTN);
+  gb.display.drawImage(71,51,IMAGE_SAVE_BTN);
   gb.display.drawImage(62,9,IMAGE_FLEET_BTN);
   if(Colony[5].level>0)
   {
     gb.display.drawImage(62,16,IMAGE_RADIOLOCATION_BTN); 
   }
-  gb.display.drawImage(62,23,IMAGE_STATS_BTN);
+  gb.display.drawImage(62,23,IMAGE_SHIPS_STATS_BTN);
   gb.display.drawImage(62,30,IMAGE_REPORT_BTN);
   if(Colony[11].level>0)
   {

@@ -6,13 +6,14 @@ int8_t Choice=2;
 int8_t Column=1;
 int8_t Row=0;
 
-int8_t SelectionArray[6][2]={
+int8_t SelectionArray[7][2]={
   {1,2},
   {3,4},
   {5,6},
   {7,8},
   {9,10},
-  {11,12}
+  {11,12},
+  {13,14}
 };
 
 int8_t warRoom(int playerResources[3])
@@ -22,7 +23,7 @@ int8_t warRoom(int playerResources[3])
   {
     if(Row==0)
     {
-      Row=5;
+      Row=6;
     }
     else
     {
@@ -35,7 +36,7 @@ int8_t warRoom(int playerResources[3])
   }
   else if(gb.buttons.pressed(BUTTON_DOWN))
   {
-    if(Row==5)
+    if(Row==6)
     {
       Row=0;
     }
@@ -94,30 +95,34 @@ String selectedChoice()
   String result="";
   switch(Choice)
   {
+    case 1:
+      result="ACTIVE FLEETS";break;
     case 2:
       result="BUILDINGS";break;
+    case 3:
+      result="ENEMY FLEETS";break;
     case 4:
       result="TECHNOLOGIES";break;
+    case 5:
+      result="FLEET STATS";break;
     case 6:
       result="STAR MAP";break;
+    case 7:
+      result="REPORTS";break;
     case 8:
       result="SHIPYARD";break;
+    case 9:
+      result="TRANSFORM RESOURCES";break;
     case 10:
       result="INTELLIGENCE";break;
     case 11:
       result="STAR ROUTES";break;
     case 12:
+      result="GAME STATS";break;
+    case 13:
       result="PAUSE";break;
-    case 1:
-      result="ACTIVE FLEETS";break;
-    case 3:
-      result="ENEMY FLEETS";break;
-    case 5:
-      result="FLEET STATS";break;
-    case 7:
-      result="REPORTS";break;
-    case 9:
-      result="TRANSFORM RESOURCES";break;
+    case 14:
+      result="SAVE GAME";break;
   }
   return result;
 }

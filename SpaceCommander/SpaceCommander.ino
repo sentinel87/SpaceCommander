@@ -360,21 +360,32 @@ int timeToAttack=0;//4 minutes interval
 bool attackUnderway=false;
 
 const SaveDefault savefileDefaults[] = {
-  { 0,SAVETYPE_INT,0,0 },
-  { 1,SAVETYPE_INT,0,0 },
-  { 2,SAVETYPE_INT,0,0 },
-  { 3,SAVETYPE_INT,0,0 },
-  { 4,SAVETYPE_INT,0,0 }
+  { 0, SAVETYPE_BLOB,{.ptr="1123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-111 "} ,309},
+  { 1, SAVETYPE_BLOB,{.ptr="0101021001010101010101010101011101010125 "},81},
+  { 2, SAVETYPE_BLOB,{.ptr="020313000000000000000000000000000000000000000000000000000000000000000000000000000000121120 "},91},
+  { 3, SAVETYPE_BLOB,{.ptr="-10100200043510025000103330000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 "},157}, //Enemy1 Garrison
+  { 4, SAVETYPE_BLOB,{.ptr="000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 "},157}, //Enemy2 Garrison
+  { 5, SAVETYPE_BLOB,{.ptr="0000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********0 "},245},
+  { 6, SAVETYPE_BLOB,{.ptr="0000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********0 "},245},
+  { 7, SAVETYPE_BLOB,{.ptr="0000000000000000000000000000000000000000000000000000 "},53},
+  { 8, SAVETYPE_BLOB,{.ptr="0NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********000 "},217},
+  { 9, SAVETYPE_BLOB,{.ptr="NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000 "},211},
+  { 10, SAVETYPE_BLOB,{.ptr="00000000000000000NORMAL********0000000000000000000 "},51},
+  { 11,SAVETYPE_INT,0,0 },
+  { 12,SAVETYPE_INT,0,0 },
+  { 13,SAVETYPE_INT,0,0 },
+  { 14,SAVETYPE_INT,0,0 },
+  { 15,SAVETYPE_INT,0,0 }
 };
 
 void setup() {
   gb.begin();
   gb.save.config(savefileDefaults);
-  ScoreBoard[0]=gb.save.get(0);
-  ScoreBoard[1]=gb.save.get(1);
-  ScoreBoard[2]=gb.save.get(2);
-  ScoreBoard[3]=gb.save.get(3);
-  ScoreBoard[4]=gb.save.get(4);
+  ScoreBoard[0]=gb.save.get(11);
+  ScoreBoard[1]=gb.save.get(12);
+  ScoreBoard[2]=gb.save.get(13);
+  ScoreBoard[3]=gb.save.get(14);
+  ScoreBoard[4]=gb.save.get(15);
 }
 
 void loop() {
@@ -395,12 +406,16 @@ void loop() {
     {
       IsMainMenu=false;
     }
-    else if(choice==2)
+    else if(choice==2) //loadGame
+    {
+      
+    }
+    else if(choice==3)
     {
       IsMainMenu=false;
       IsOptionMenu=true;
     }
-    else if(choice==3)
+    else if(choice==4)
     {
       IsMainMenu=false;
       IsFameHall=true;
@@ -446,11 +461,11 @@ void loop() {
         bool HighScore=compareAndUpdateScore();
         if(HighScore)
         {
-          gb.save.set(0,ScoreBoard[0]);
-          gb.save.set(1,ScoreBoard[1]);
-          gb.save.set(2,ScoreBoard[2]);
-          gb.save.set(3,ScoreBoard[3]);
-          gb.save.set(4,ScoreBoard[4]);
+          gb.save.set(0,ScoreBoard[11]);
+          gb.save.set(1,ScoreBoard[12]);
+          gb.save.set(2,ScoreBoard[13]);
+          gb.save.set(3,ScoreBoard[14]);
+          gb.save.set(4,ScoreBoard[15]);
         }
       }
     }
@@ -466,11 +481,11 @@ void loop() {
         bool HighScore=compareAndUpdateScore();
         if(HighScore)
         {
-          gb.save.set(0,ScoreBoard[0]);
-          gb.save.set(1,ScoreBoard[1]);
-          gb.save.set(2,ScoreBoard[2]);
-          gb.save.set(3,ScoreBoard[3]);
-          gb.save.set(4,ScoreBoard[4]);
+          gb.save.set(0,ScoreBoard[11]);
+          gb.save.set(1,ScoreBoard[12]);
+          gb.save.set(2,ScoreBoard[13]);
+          gb.save.set(3,ScoreBoard[14]);
+          gb.save.set(4,ScoreBoard[15]);
         }
       }
     }
@@ -609,11 +624,19 @@ void loop() {
       {
         ScreenSelection=starRoutes(TechTree[5].level);
       }
-      else if(ScreenSelection==12) //SAVE GAME (PAUSE)
+      else if(ScreenSelection==12) //GAME STATS
+      {
+        ScreenSelection=0;
+      }
+      else if(ScreenSelection==13) //PAUSE
       {
         ScreenSelection=0;
         TempDiff=Difficulty;
         IsMainMenu=true;
+      }
+      else if(ScreenSelection==14) //SAVE GAME
+      {
+        ScreenSelection=0;
       }
       else if(ScreenSelection==1)
       {
