@@ -1,5 +1,6 @@
 #include<Gamebuino-Meta.h>
 
+String DebugData=""; 
 struct Planet
 {
   bool Discovered;
@@ -85,7 +86,10 @@ Technology TechTree[]={
   {14,"Fusion Reaction",0,450,350,250,"Unlocks Transformer and its upgrades.","Fleet Tactics",4,5,10},
   {15,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Shielding",11,2,10},
   {16,"Flight Control",0,350,200,250,"Unlocks Logistic    Centre and its      upgrades.","Statics",9,2,10},
-  {17,"Gravity Weapon",0,800,800,800,"Final level of this technology unlocks  Solar Destroyer.","Hyperdrive",13,1,9}
+  {17,"Gravity Weapon",0,800,800,800,"Final level of this technology unlocks  Solar Destroyer.","Hyperdrive",13,1,9},
+  {18,"Empty",0,0,0,0,"","",0,0,0},
+  {19,"Empty",0,0,0,0,"","",0,0,0},
+  {20,"Empty",0,0,0,0,"","",0,2,0}
 };
 
 struct Building
@@ -117,7 +121,9 @@ Building Colony[]={
   {10,"Factory",0,"Reduces metal and   crystal cost of     buildings.",300,220,60,0,0,0,0,10},
   {11,"Warehouse",0,"Stores resources    when losing battle. +200 for each       resource / lvl.",300,300,50,9,1,0,0,10},
   {12,"Transformer",0,"Converts one        resource to another.",350,300,550,14,1,0,0,10},
-  {13,"Logistic Centre",0,"Increases resource  transport from traderoutes.",400,200,300,16,1,0,0,10}
+  {13,"Logistic Centre",0,"Increases resource  transport from traderoutes.",400,200,300,16,1,0,0,10},
+  {14,"",0,"",0,0,0,0,0,0,0,0},
+  {15,"",0,"",0,0,0,0,0,0,0,0}
 };
 
 struct Ship
@@ -348,6 +354,7 @@ bool GameStarted=false;
 int EnemyCount=1;
 String Difficulty="NORMAL";
 String TempDiff="NORMAL";
+bool SaveExist=false;
 int ProgressPoints=0;
 int ProgressPointsLimit=120;
 int EnemyColonies=5;
@@ -375,7 +382,8 @@ const SaveDefault savefileDefaults[] = {
   { 12,SAVETYPE_INT,0,0 },
   { 13,SAVETYPE_INT,0,0 },
   { 14,SAVETYPE_INT,0,0 },
-  { 15,SAVETYPE_INT,0,0 }
+  { 15,SAVETYPE_INT,0,0 },
+  { 16,SAVETYPE_INT,0,0 } //Check if save exist
 };
 
 void setup() {
@@ -386,6 +394,11 @@ void setup() {
   ScoreBoard[2]=gb.save.get(13);
   ScoreBoard[3]=gb.save.get(14);
   ScoreBoard[4]=gb.save.get(15);
+  int check=gb.save.get(16);
+  if(check==1)
+  {
+    SaveExist=true;
+  }
 }
 
 void loop() {
@@ -408,7 +421,11 @@ void loop() {
     }
     else if(choice==2) //loadGame
     {
-      
+      prepareNewGame();
+      resetWarRoomMarkers();
+      resetMapMarkers();
+      loadGame();
+      IsMainMenu=false;
     }
     else if(choice==3)
     {
@@ -624,9 +641,9 @@ void loop() {
       {
         ScreenSelection=starRoutes(TechTree[5].level);
       }
-      else if(ScreenSelection==12) //GAME STATS
+      else if(ScreenSelection==12) //ECONOMY STATS
       {
-        ScreenSelection=0;
+        ScreenSelection=economyStats();
       }
       else if(ScreenSelection==13) //PAUSE
       {
@@ -636,7 +653,14 @@ void loop() {
       }
       else if(ScreenSelection==14) //SAVE GAME
       {
-        ScreenSelection=0;
+        String debugStr=saveGame();
+        if(debugStr!="")
+          DebugData=debugStr;
+        ScreenSelection=15;
+      }
+      else if(ScreenSelection==15) //DEBUG
+      {
+        ScreenSelection=debug();
       }
       else if(ScreenSelection==1)
       {
@@ -690,6 +714,14 @@ void loop() {
       }
     }
   }
+  gb.display.setCursor(10, 5);
+  gb.display.setFontSize(1);
+  gb.display.setColor(RED);
+  gb.display.println(gb.getCpuLoad());
+  gb.display.setCursor(10, 12);
+  gb.display.println(gb.getFreeRam());
+  //gb.display.setCursor(10, 19);
+  //gb.display.println(Astronomy);
 }
 
 bool compareAndUpdateScore()

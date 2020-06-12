@@ -112,3 +112,24 @@ int8_t infrastructure()
   
   return 2;
 }
+
+int8_t economyStats()
+{
+  int metal = 3 + Colony[1].level*3; //Metal Mine
+  int crystal = 3 + Colony[2].level*2; //Crystal Mine
+  int fuel = 2 + Colony[3].level*2; //Fuel Refinery
+
+  for(int i=0;i<12;i++)
+  {
+    metal+=PlayerRoutes[i].Metal + Colony[12].level;
+    crystal+=PlayerRoutes[i].Crystal + Colony[12].level;
+    fuel+=PlayerRoutes[i].Fuel + Colony[12].level;
+  }
+  drawEconomyStats(metal,crystal,fuel);
+  if(gb.buttons.pressed(BUTTON_B))
+  {
+    return 0;
+  }
+  return 12;
+}
+

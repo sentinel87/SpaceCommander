@@ -201,3 +201,13 @@ bool checkVisibleFleets()
   return result;
 }
 
+int8_t debug()
+{
+  drawDebug();
+  if(gb.buttons.pressed(BUTTON_B))
+  {
+    return 0;    
+  }
+  return 15;
+}
+

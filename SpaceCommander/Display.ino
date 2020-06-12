@@ -2260,13 +2260,20 @@ void drawMainMenu(int selection)
   }
   gb.display.println("CONTINUE GAME");
   gb.display.setCursor(21,44);
-  if(selectionFrame==1 && selection==2)
+  if(SaveExist==true)
   {
-    gb.display.setColor(BLUE);  
+    if(selectionFrame==1 && selection==2)
+    {
+      gb.display.setColor(BLUE);  
+    }
+    else
+    {
+      gb.display.setColor(WHITE); 
+    }
   }
   else
   {
-    gb.display.setColor(WHITE); 
+     gb.display.setColor(GRAY);
   } 
   gb.display.println("LOAD GAME");
   gb.display.setCursor(16,50);
@@ -2386,7 +2393,63 @@ String scoreStrMod(int score)
   }
   return result;
 }
+//---------------Stats Logic------------
+void drawEconomyStats(int metal,int crystal,int fuel)
+{
+  gb.display.fill(WHITE);
+  gb.display.drawImage(4,8,IMAGE_MAIN_THEME);
+  gb.display.drawImage(0,0,IMAGE_INFO_FRAME);
+  gb.display.setCursor(13,0);
+  gb.display.setColor(WHITE);
+  gb.display.setCursor(17,0);
+  gb.display.println("ECONOMY STATS");
+  gb.display.setColor(BLACK);
+  gb.display.setCursor(2,8);
+  gb.display.println("PRODUCTIVITY");
+  gb.display.setCursor(2,14);
+  gb.display.setColor(BLUE);
+  gb.display.println("METAL");
+  gb.display.setCursor(2,20);
+  gb.display.setColor(PURPLE);
+  gb.display.println("CRYSTAL");
+  gb.display.setCursor(2,26);
+  gb.display.setColor(YELLOW);
+  gb.display.println("FUEL");
+  gb.display.setCursor(2,34);
+  gb.display.setColor(BLACK);
+  gb.display.println("STORAGE CAPACITY");
+  gb.display.setCursor(2,40);
+  gb.display.setColor(BLUE);
+  gb.display.println("METAL");
+  gb.display.setCursor(2,46);
+  gb.display.setColor(PURPLE);
+  gb.display.println("CRYSTAL");
+  gb.display.setCursor(2,52);
+  gb.display.setColor(YELLOW);
+  gb.display.println("FUEL");
 
+  gb.display.setCursor(40,14);
+  gb.display.setColor(GREEN);
+  gb.display.println("+"+(String)metal);
+  gb.display.setCursor(40,20);
+  gb.display.println("+"+(String)crystal);
+  gb.display.setCursor(40,26);
+  gb.display.println("+"+(String)fuel);
+  gb.display.setCursor(40,40);
+  gb.display.println((String)(Colony[10].level*200));
+  gb.display.setCursor(40,46);
+  gb.display.println((String)(Colony[10].level*200));
+  gb.display.setCursor(40,52);
+  gb.display.println((String)(Colony[10].level*200));
+}
+//---------------Debug Screen-----------
+void drawDebug()
+{
+  gb.display.setColor(WHITE);
+  gb.display.setCursor(0,0);
+  gb.display.setFontSize(1);
+  gb.display.println(DebugData);
+}
 //---------------Star Map Logic---------
 
 void drawMap(int astronomy,int posX,int posY)

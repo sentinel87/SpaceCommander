@@ -10,24 +10,31 @@ int8_t mainMenu()
     {
       mmSelection=4;
     }
+    else if(mmSelection==1)
+    {
+      mmSelection=0;
+    }
     else if(mmSelection==3)
     {
-      mmSelection=2;
+      if(SaveExist==true)
+      {
+        mmSelection=2;
+      }
+      else
+      {
+        if(GameStarted!=true)
+        {
+          mmSelection=0;
+        }
+        else
+        {
+          mmSelection=1; 
+        }
+      }
     }
     else if(mmSelection==4)
     {
       mmSelection=3;
-    }
-    else
-    {
-      if(GameStarted!=true)
-      {
-        mmSelection=0;
-      }
-      else
-      {
-        mmSelection--; 
-      }
     }
   }
   else if(gb.buttons.pressed(BUTTON_DOWN))
@@ -36,6 +43,35 @@ int8_t mainMenu()
     {
       mmSelection=0;
     }
+    else if(mmSelection==0)
+    {
+      if(GameStarted!=true)
+      {
+        if(SaveExist==true)
+        {
+          mmSelection=2;
+        }
+        else
+        {
+          mmSelection=3; 
+        }
+      }
+      else 
+      {
+        mmSelection=1; 
+      }
+    }
+    else if(mmSelection==1)
+    {
+      if(SaveExist==true)
+      {
+        mmSelection=2;
+      }
+      else
+      {
+        mmSelection=3; 
+      }
+    }
     else if(mmSelection==2)
     {
       mmSelection=3;
@@ -43,17 +79,6 @@ int8_t mainMenu()
     else if(mmSelection==3)
     {
       mmSelection=4;
-    }
-    else
-    {
-      if(GameStarted!=true)
-      {
-        mmSelection=2;
-      }
-      else 
-      {
-        mmSelection++; 
-      }
     }
   }
   else if(gb.buttons.pressed(BUTTON_A))
