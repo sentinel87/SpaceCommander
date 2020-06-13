@@ -651,13 +651,6 @@ void loop() {
         TempDiff=Difficulty;
         IsMainMenu=true;
       }
-      else if(ScreenSelection==14) //SAVE GAME
-      {
-        String debugStr=saveGame();
-        if(debugStr!="")
-          DebugData=debugStr;
-        ScreenSelection=15;
-      }
       else if(ScreenSelection==15) //DEBUG
       {
         ScreenSelection=debug();
@@ -714,14 +707,6 @@ void loop() {
       }
     }
   }
-  gb.display.setCursor(10, 5);
-  gb.display.setFontSize(1);
-  gb.display.setColor(RED);
-  gb.display.println(gb.getCpuLoad());
-  gb.display.setCursor(10, 12);
-  gb.display.println(gb.getFreeRam());
-  //gb.display.setCursor(10, 19);
-  //gb.display.println(Astronomy);
 }
 
 bool compareAndUpdateScore()
@@ -763,11 +748,11 @@ void timeCalculations()
   {
     frames=0;
     updateResources();
-    PlayerResources[0]=9999;
-    PlayerResources[1]=9999;
-    PlayerResources[2]=9999;
-    updateVisibilityDistance();
-    updateFleets();
+    //PlayerResources[0]=9999;
+    //PlayerResources[1]=9999;
+    //PlayerResources[2]=9999;
+    //updateVisibilityDistance();
+    //updateFleets();
     enemyAttackTimer();
   }
   else

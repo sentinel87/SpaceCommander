@@ -1,60 +1,26 @@
 //---------------------------LOAD------------------------------
 void loadGame()
 {
-  char RawPlanetData[309];
-  char RawTechData[81];
-  char RawBuildData[91];
-  char RawGar1Data[157];
-  char RawGar2Data[157];
-  char RawPlFleetData[245];
-  char RawEnFleetData[245];
-  char RawPlShipsData[53];
-  char RawPlRoutesData[217];
-  char RawReportsData[211];
-  char RawGameData[51];
-
-  gb.save.get(0, RawPlanetData);
-  gb.save.get(1, RawTechData);
-  gb.save.get(2, RawBuildData);
-  gb.save.get(3, RawGar1Data);
-  gb.save.get(4, RawGar2Data);
-  gb.save.get(5, RawPlFleetData);
-  gb.save.get(6, RawEnFleetData);
-  gb.save.get(7, RawPlShipsData);
-  gb.save.get(8, RawPlRoutesData);
-  gb.save.get(9, RawReportsData);
-  gb.save.get(10, RawGameData);
-
-  String strPlanetData(RawPlanetData);
-  String strTechData(RawTechData);
-  String strBuildData(RawBuildData);
-  String strGar1Data(RawGar1Data);
-  String strGar2Data(RawGar2Data);
-  String strPlFleetData(RawPlFleetData);
-  String strEnFleetData(RawEnFleetData);
-  String strPlShipsData(RawPlShipsData);
-  String strPlRoutesData(RawPlRoutesData);
-  String strReports(RawReportsData);
-  String strGameData(RawGameData);
-
-  loadSystem(strPlanetData);
-  loadTechs(strTechData);
-  loadBuildings(strBuildData);
-  loadGarrisons(strGar1Data,Enemy1Garrison);
-  loadGarrisons(strGar2Data,Enemy2Garrison);
-  loadFleets(strPlFleetData,PlayerFleets);
-  loadFleets(strEnFleetData,EnemyFleets);
-  loadPlayerShips(strPlShipsData);
-  loadTradeRoutes(strPlRoutesData);
-  loadReports(strReports);
-  loadGameVariables(strGameData);
-
-  
+  loadSystem();
+  loadTechs();
+  loadBuildings();
+  loadGarrisons(Enemy1Garrison,3);
+  loadGarrisons(Enemy2Garrison,4);
+  loadFleets(PlayerFleets,5);
+  loadFleets(EnemyFleets,6);
+  loadPlayerShips();
+  loadTradeRoutes();
+  loadReports();
+  loadGameVariables();
 }
 
-void loadSystem(String PlanetsData)
+void loadSystem()
 {
-  for(int i=2;i<30;i++)
+  char RawPlanetData[309];
+  gb.save.get(0, RawPlanetData);
+  String PlanetsData(RawPlanetData);
+  
+  for(int i=2;i<29;i++)
   {
     String Part=PlanetsData.substring((i-2)*11,((i-2)*11)+11);
     if(Part.substring(0,1)=="1")
@@ -88,8 +54,12 @@ void loadSystem(String PlanetsData)
   }
 }
 
-void loadTechs(String TechsData)
+void loadTechs()
 {
+  char RawTechData[81];
+  gb.save.get(1, RawTechData);
+  String TechsData(RawTechData);
+  
   for(int i=0;i<20;i++)
   {
     String Part=TechsData.substring(i*4,(i*4)+4);
@@ -98,8 +68,12 @@ void loadTechs(String TechsData)
   }
 }
 
-void loadBuildings(String BuildingsData)
+void loadBuildings()
 {
+  char RawBuildData[91];
+  gb.save.get(2, RawBuildData);
+  String BuildingsData(RawBuildData);
+  
   for(int i=0;i<15;i++)
   {
     String Part=BuildingsData.substring(i*6,(i*6)+6);
@@ -109,8 +83,12 @@ void loadBuildings(String BuildingsData)
   }
 }
 
-void loadGarrisons(String GarrisonData,EnemyGarrison GarrisonArray[6])
+void loadGarrisons(EnemyGarrison GarrisonArray[6],uint16_t block)
 {
+  char RawGarData[157];
+  gb.save.get(block, RawGarData);
+  String GarrisonData(RawGarData);
+  
   for(int i=0;i<6;i++)
   {
     String Part=GarrisonData.substring(i*26,(i*26)+26);
@@ -124,8 +102,12 @@ void loadGarrisons(String GarrisonData,EnemyGarrison GarrisonArray[6])
   }
 }
 
-void loadFleets(String FleetData,Fleet Fleets[4])
+void loadFleets(Fleet Fleets[4],uint16_t block)
 {
+  char RawFleetData[245];
+  gb.save.get(block, RawFleetData);
+  String FleetData(RawFleetData);
+  
   for(int i=0;i<4;i++)
   {
     String Part=FleetData.substring(i*61,(i*61)+61);
@@ -155,8 +137,12 @@ void loadFleets(String FleetData,Fleet Fleets[4])
   }
 }
 
-void loadPlayerShips(String ShipsData)
+void loadPlayerShips()
 {
+  char RawPlShipsData[53];
+  gb.save.get(7, RawPlShipsData);
+  String ShipsData(RawPlShipsData);
+  
   String Part=ShipsData.substring(0,52);
   PlayerShips[0]=Part.substring(0,4).toInt();
   PlayerShips[1]=Part.substring(4,8).toInt();
@@ -173,8 +159,12 @@ void loadPlayerShips(String ShipsData)
   PlayerShips[12]=Part.substring(48,52).toInt();
 }
 
-void loadTradeRoutes(String RoutesData)
+void loadTradeRoutes()
 {
+  char RawPlRoutesData[217];
+  gb.save.get(8, RawPlRoutesData);
+  String RoutesData(RawPlRoutesData);
+
   for(int i=0;i<12;i++)
   {
     String Part=RoutesData.substring(i*18,(i*18)+18);
@@ -190,8 +180,12 @@ void loadTradeRoutes(String RoutesData)
   }
 }
 
-void loadReports(String ReportData)
+void loadReports()
 {
+  char RawReportsData[211];
+  gb.save.get(9, RawReportsData);
+  String ReportData(RawReportsData);
+  
   for(int i=0;i<5;i++)
   {
     String Part=ReportData.substring(i*42,(i*42)+42);
@@ -210,8 +204,12 @@ void loadReports(String ReportData)
   }
 }
 
-void loadGameVariables(String GameData)
+void loadGameVariables()
 {
+  char RawGameData[51];
+  gb.save.get(10, RawGameData);
+  String GameData(RawGameData);
+  
   String Part=GameData.substring(0,50);
   PlayerResources[0]=Part.substring(0,4).toInt();
   PlayerResources[1]=Part.substring(4,8).toInt();
@@ -232,158 +230,75 @@ void loadGameVariables(String GameData)
 }
 
 //---------------------------SAVE------------------------------
-String saveGame()
+void saveGame()
 {
-  String StrSystemData=saveDataSystem();
-  if(StrSystemData.length()==309)
+  if(saveDataSystem()==false)
   {
-    char Buffer[309];
-    StrSystemData.toCharArray(Buffer, 309);
-    gb.save.set(0,Buffer);
+    gb.gui.popup("ERROR: SAVE SYS",50);
+    return;
   }
-  else
+  if(saveDataTechs()==false)
   {
-    gb.gui.popup("ERROR: SAVE SYSTEM.",50);
-    return StrSystemData;
-    //return;
+    gb.gui.popup("ERROR: SAVE TECH",50);
+    return;
   }
-  
-  //String StrTechsData=saveDataTechs();
-  //if(StrTechsData.length()==81)
-  //{
-  //  char Buffer2[81];
-  //  StrTechsData.toCharArray(Buffer2, 81);
-  //  gb.save.set(1,Buffer2);
-  //}
-  //else
-  //{
-  //  gb.gui.popup("ERROR: SAVE TECHS.",50);
-  //  return StrTechsData;
-  //  //return;
-  //}
-  
-  //String StrBuildingsData=saveDataBuildings();
-  //if(StrBuildingsData.length()==91)
-  //{
-  //  char Buffer3[91];
-  //  StrBuildingsData.toCharArray(Buffer3,91);
-  //  gb.save.set(2,Buffer3);
-  //}
-  //else
-  //{
-  //  gb.gui.popup("ERROR: SAVE BUILD.",50);
-  //  return StrBuildingsData;
-  //}
-
-  //String StrGar1Data=saveDataGarrison(Enemy1Garrison);
-  //if(StrGar1Data.length()==157)
-  //{
-  //  char Buffer4[157];
-  //  StrGar1Data.toCharArray(Buffer4,157);
-  //  gb.save.set(3,Buffer4);
-  //}
-  //else
-  //{
-  //  gb.gui.popup("ERROR: SAVE GAR1.",50);
-  //  return StrGar1Data;
-  //}
-
-  //String StrGar2Data=saveDataGarrison(Enemy2Garrison);
-  //if(StrGar2Data.length()==157)
-  //{
-  //  char Buffer5[157];
-  //  StrGar2Data.toCharArray(Buffer5,157);
-  //  gb.save.set(4,Buffer5);
-  //}
-  //else
-  //{
-  //  gb.gui.popup("ERROR: SAVE GAR2.",50);
-  //  return StrGar2Data;
-  //}
-
-  String StrPlFleet=saveDataFleets(PlayerFleets);
-  if(StrPlFleet.length()==245)
+  if(saveDataBuildings()==false)
   {
-    char Buffer6[245];
-    StrPlFleet.toCharArray(Buffer6,245);
-    gb.save.set(5,Buffer6);
+    gb.gui.popup("ERROR: SAVE BUIL",50);
+    return;
   }
-  else
+  if(saveDataGarrison(Enemy1Garrison,3)==false)
   {
-    gb.gui.popup("ERROR: SAVE PLFLE.",50);
-    return StrPlFleet;
+    gb.gui.popup("ERROR: SAVE EN1GAR",50);
+    return;
   }
-
-  String StrEnFleet=saveDataFleets(EnemyFleets);
-  if(StrEnFleet.length()==245)
+  if(saveDataGarrison(Enemy2Garrison,4)==false)
   {
-    char Buffer7[245];
-    StrEnFleet.toCharArray(Buffer7,245);
-    gb.save.set(6,Buffer7);
+    gb.gui.popup("ERROR: SAVE EN2GAR",50);
+    return;
   }
-  else
+  if(saveDataFleets(PlayerFleets,5)==false)
   {
-    gb.gui.popup("ERROR: SAVE ENFLE.",50);
-    return "";
+    gb.gui.popup("ERROR: SAVE PLFLE",50);
+    return;
   }
-  
-  String StrPlayerShips=saveDataPlayerShips();
-  if(StrPlayerShips.length()==53)
+  if(saveDataFleets(EnemyFleets,6)==false)
   {
-    char Buffer8[53];
-    StrPlayerShips.toCharArray(Buffer8,53);
-    gb.save.set(7,Buffer8);
+    gb.gui.popup("ERROR: SAVE ENFLE",50);
+    return;
+  }  
+  if(saveDataPlayerShips()==false)
+  {
+    gb.gui.popup("ERROR: SAVE SHIPS",50);
+    return;
   }
-  else
+  if(saveDataRoutes()==false)
   {
-    gb.gui.popup("ERROR: SAVE PLSHIPS.",50);
-    return StrPlayerShips;
+    gb.gui.popup("ERROR: SAVE ROUT",50);
+    return;
   }
-
-  String StrPlayerRoutes=saveDataRoutes();
-  if(StrPlayerRoutes.length()==217)
+  if(saveDataReports()==false)
   {
-    char Buffer9[217];
-    StrPlayerRoutes.toCharArray(Buffer9,217);
-    gb.save.set(8,Buffer9);
+    gb.gui.popup("ERROR: SAVE REP",50);
+    return;
   }
-  else
+  if(saveDataGameVariables()==false)
   {
-    gb.gui.popup("ERROR: SAVE ROUTES.",50);
-    return StrPlayerRoutes;
-  }
-
-  String StrReports=saveDataReports();
-  if(StrReports.length()==211)
-  {
-    char Buffer10[211];
-    StrReports.toCharArray(Buffer10,211);
-    gb.save.set(9,Buffer10);
-  }
-  else
-  {
-    gb.gui.popup("ERROR: SAVE REPORTS.",50);
-    return StrReports;
-  }
-
-  String StrVariables=saveDataGameVariables();
-  if(StrVariables.length()==51)
-  {
-    char Buffer11[51];
-    StrVariables.toCharArray(Buffer11,51);
-    gb.save.set(10,Buffer11);
-  }
-  else
-  {
-    gb.gui.popup("ERROR: SAVE VARIABLES.",50);
-    return StrVariables;
+    gb.gui.popup("ERROR: SAVE VAR",50);
+    return;
   }
   gb.save.set(16,1);
   gb.gui.popup("GAME SAVED!",50);
-  return "";
 }
 
-String saveDataSystem()
+void saveDataToBlock(uint16_t block,String data,int bufferSize)
+{
+  char Buffer[bufferSize];
+  data.toCharArray(Buffer,bufferSize);
+  gb.save.set(block,Buffer);
+}
+
+bool saveDataSystem()
 {
   String strData="";
   for(int i=2;i<30;i++)
@@ -410,10 +325,20 @@ String saveDataSystem()
     else strPlanet+="0";
     strData+=strPlanet;
   }
-  return strData+" ";
+  strData+=" ";
+  if(strData.length()==309)
+  {
+    saveDataToBlock(0,strData,309);
+    return true;
+  }
+  else
+  {
+    DebugData=strData;
+    return false;
+  }
 }
 
-String saveDataTechs()
+bool saveDataTechs()
 {
   String strData="";
   for(int i=0;i<20;i++)
@@ -427,10 +352,20 @@ String saveDataTechs()
     else
       strData+="0"+(String)TechTree[i].depTechLevel;
   }
-  return strData+" ";
+  strData+=" ";
+  if(strData.length()==81)
+  {
+    saveDataToBlock(1,strData,81);
+    return true;
+  }
+  else
+  {
+    DebugData=strData;
+    return false;
+  }
 }
 
-String saveDataBuildings()
+bool saveDataBuildings()
 {
   String strData="";
   for(int i=0;i<15;i++)
@@ -448,10 +383,20 @@ String saveDataBuildings()
     else
       strData+="0"+(String)Colony[i].depBuildingLevel;
   }
-  return strData + " ";
+  strData+=" ";
+  if(strData.length()==91)
+  {
+    saveDataToBlock(2,strData,91);
+    return true;
+  }
+  else
+  {
+    DebugData=strData;
+    return false;
+  }
 }
 
-String saveDataGarrison(EnemyGarrison GarrisonArray[6])
+bool saveDataGarrison(EnemyGarrison GarrisonArray[6],uint16_t block)
 {
   String strData="";
   for(int i=0;i<6;i++)
@@ -467,24 +412,27 @@ String saveDataGarrison(EnemyGarrison GarrisonArray[6])
     strData+=returnDecimalString(GarrisonArray[i].StarDreadnoughts);
     strData+=returnDecimalString(GarrisonArray[i].SolarDestroyers);
   }
-  return strData + " ";
+  strData+=" ";
+  if(strData.length()==157)
+  {
+    saveDataToBlock(block,strData,157);
+    return true;
+  }
+  else
+  {
+    DebugData=strData;
+    return false;
+  }
 }
 
-String saveDataFleets(Fleet Fleets[4])
+bool saveDataFleets(Fleet Fleets[4],uint16_t block)
 {
-  String strDataTotal="";
+  String strData="";
   for(int i=0;i<4;i++)
   {
-    String strData="";
     strData+=(String)Fleets[i].Type;
-    if(Fleets[i].Active==true)
-    {
-      strData+="1";
-    }
-    else
-    {
-       strData+="0";
-    }
+    if(Fleets[i].Active==true) strData+="1";
+    else strData+="0";
     if(Fleets[i].Minutes>9)
       strData+=(String)Fleets[i].Minutes;
     else
@@ -512,14 +460,21 @@ String saveDataFleets(Fleet Fleets[4])
     {
       strData+="0";
     }
-    //DebugData=strData;
-    strDataTotal+=strData;
   }
-  //DebugData=(String)strDataTotal.length();
-  return strDataTotal + " ";
+  strData+=" ";
+  if(strData.length()==245)
+  {
+    saveDataToBlock(block,strData,245);
+    return true;
+  }
+  else
+  {
+    DebugData=strData;
+    return false;
+  }
 }
 
-String saveDataPlayerShips()
+bool saveDataPlayerShips()
 {
   String strData="";
   strData+=returnDecimalString(PlayerShips[0]);
@@ -535,33 +490,45 @@ String saveDataPlayerShips()
   strData+=returnDecimalString(PlayerShips[10]);
   strData+=returnDecimalString(PlayerShips[11]);
   strData+=returnDecimalString(PlayerShips[12]);
-  
-  return strData + " ";
+  strData+=" ";
+  if(strData.length()==53)
+  {
+    saveDataToBlock(7,strData,53);
+    return true;
+  }
+  else
+  {
+    DebugData=strData;
+    return false;
+  }
 }
 
-String saveDataRoutes()
+bool saveDataRoutes()
 {
   String strData="";
   for(int i=0;i<12;i++)
   {
-    if(PlayerRoutes[i].Active==true)
-    {
-      strData+="1";
-    }
-    else
-    {
-       strData+="0";
-    }
+    if(PlayerRoutes[i].Active==true) strData+="1";
+    else strData+="0";
     strData+=addSpaces(PlayerRoutes[i].Name);
-    strData+=(String)PlayerRoutes[i].Metal;
-    strData+=(String)PlayerRoutes[i].Crystal;
-    strData+=(String)PlayerRoutes[i].Fuel;
+    strData+=PlayerRoutes[i].Metal;
+    strData+=PlayerRoutes[i].Crystal;
+    strData+=PlayerRoutes[i].Fuel;
   }
-  
-  return strData + " ";
+  strData+=" ";
+  if(strData.length()==217)
+  {
+    saveDataToBlock(8,strData,217);
+    return true;
+  }
+  else
+  {
+    DebugData=strData;
+    return false;
+  }
 }
 
-String saveDataReports()
+bool saveDataReports()
 {
   String strData="";
   for(int i=0;i<5;i++)
@@ -578,11 +545,20 @@ String saveDataReports()
     strData+=(String)IntelligenceReports[i].Resource2;
     strData+=(String)IntelligenceReports[i].Resource3;
   }
-  
-  return strData + " ";
+  strData+=" ";
+  if(strData.length()==211)
+  {
+    saveDataToBlock(9,strData,211);
+    return true;
+  }
+  else
+  {
+    DebugData=strData;
+    return false;
+  }
 }
 
-String saveDataGameVariables()
+bool saveDataGameVariables()
 {
   String strData="";
   strData+=returnDecimalString(PlayerResources[0]);
@@ -608,8 +584,17 @@ String saveDataGameVariables()
   {
     strData+="0";
   }
-  
-  return strData + " ";
+  strData+=" ";
+  if(strData.length()==51)
+  {
+    saveDataToBlock(10,strData,51);
+    return true;
+  }
+  else
+  {
+    DebugData=strData;
+    return false;
+  }
 }
 //---------------HELPERS---------------------------------
 String returnDecimalStringPoint(int number)

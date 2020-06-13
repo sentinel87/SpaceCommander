@@ -83,6 +83,11 @@ int8_t warRoom(int playerResources[3])
     bool access=checkRestrictions();
     if(access==true)
     {
+      if(Choice==14) //SAVE
+      {
+        saveGame();
+        return 0;
+      }
       return Choice; 
     }   
   }
