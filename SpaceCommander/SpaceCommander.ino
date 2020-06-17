@@ -751,8 +751,8 @@ void timeCalculations()
     //PlayerResources[0]=9999;
     //PlayerResources[1]=9999;
     //PlayerResources[2]=9999;
-    //updateVisibilityDistance();
-    //updateFleets();
+    updateVisibilityDistance();
+    updateFleets();
     enemyAttackTimer();
   }
   else
@@ -864,6 +864,12 @@ void updateEnemyFleetTime(int index)
         Score+=15; 
       }
     }
+    EnemyFleets[index].Fighters=0;
+    EnemyFleets[index].Interceptors=0;
+    EnemyFleets[index].Frigates=0;
+    EnemyFleets[index].WarCruisers=0;
+    EnemyFleets[index].StarDreadnoughts=0;
+    EnemyFleets[index].SolarDestroyers=0;
     fight=true;
     enemyFleetsCheck(); 
   }
@@ -1335,24 +1341,84 @@ Fleet setEnemyFleet()
   {
     modifier=2;
   }
+
+  if(PlayerShips[0]<modifier)
+  {
+    EnemyArmada.Fighters = 10 + PlayerShips[0] + random(0,20);
+  }
+  else
+  {
+    EnemyArmada.Fighters = 10 + PlayerShips[0]+(PlayerShips[0]/modifier) + random(0,20);
+  }
+  if(EnemyArmada.Fighters>9999)
+  {
+    EnemyArmada.Fighters=10+PlayerShips[0];
+  }
   
-  EnemyArmada.Fighters = 10 + PlayerShips[0]+(PlayerShips[0]/modifier) + random(0,20);
   if(TechTree[2].level>=4)//Jet Proplusion
   {
-    EnemyArmada.Interceptors = 5 + PlayerShips[1]+(PlayerShips[1]/modifier) + random(0,15);
+    if(PlayerShips[1]<modifier)
+    {
+      EnemyArmada.Interceptors = 5 + PlayerShips[1] + random(0,15);
+    }
+    else
+    {
+      EnemyArmada.Interceptors = 5 + PlayerShips[1]+(PlayerShips[1]/modifier) + random(0,15);
+    }
+    if(EnemyArmada.Interceptors>9999)
+    {
+      EnemyArmada.Interceptors = 5 + PlayerShips[1];
+    }
   }
+  
   if(TechTree[6].level>=4)//Aerodynamics
   {
-    EnemyArmada.Frigates = 3 + PlayerShips[2]+(PlayerShips[2]/modifier) + random(0,5);
+    if(PlayerShips[2]<modifier)
+    {
+      EnemyArmada.Frigates = 3 + PlayerShips[2] + random(0,5);
+    }
+    else
+    {
+      EnemyArmada.Frigates = 3 + PlayerShips[2]+(PlayerShips[2]/modifier) + random(0,5);
+    }
+    if(EnemyArmada.Frigates>9999)
+    {
+      EnemyArmada.Frigates = 3 + PlayerShips[2];
+    }
   }
+  
   if(TechTree[8].level>=2)//Impulse Engine
   {
-    EnemyArmada.WarCruisers = 2 + PlayerShips[3]+(PlayerShips[3]/modifier) + random(0,2);
+    if(PlayerShips[3]<modifier)
+    {
+      EnemyArmada.WarCruisers = 2 + PlayerShips[3] + random(0,2);
+    }
+    else
+    {
+      EnemyArmada.WarCruisers = 2 + PlayerShips[3]+(PlayerShips[3]/modifier) + random(0,2);
+    }
+    if(EnemyArmada.WarCruisers>9999)
+    {
+      EnemyArmada.WarCruisers = 2 + PlayerShips[3];
+    }
   }
+  
   if(TechTree[12].level==10)//Ship Weapons
   {
-    EnemyArmada.StarDreadnoughts = 1 + PlayerShips[4]+(PlayerShips[4]/modifier) + random(0,2);
+    if(PlayerShips[4]<modifier)
+    {
+      EnemyArmada.StarDreadnoughts = 1 + PlayerShips[4] + random(0,2);
+    }
+    else
+    {
+      EnemyArmada.StarDreadnoughts = 1 + PlayerShips[4]+(PlayerShips[4]/modifier) + random(0,2);
+    }
+    if(EnemyArmada.StarDreadnoughts>9999)
+    {
+      EnemyArmada.StarDreadnoughts = 1 + PlayerShips[4];
+    }
   }
+  
   if(ProgressPoints==ProgressPointsLimit) //ultimate weapon discovered
   {
     EnemyArmada.SolarDestroyers=1; //solar destroyers 

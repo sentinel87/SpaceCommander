@@ -14,6 +14,17 @@ int8_t mainMenu()
     {
       mmSelection=0;
     }
+    else if(mmSelection==2)
+    {
+      if(GameStarted!=true)
+      {
+        mmSelection=0;
+      }
+      else
+      {
+        mmSelection=1;
+      }
+    }
     else if(mmSelection==3)
     {
       if(SaveExist==true)
@@ -231,7 +242,7 @@ void prepareNewGame()
     ProgressPointsLimit=120;
     PlayerResources[0]=5000;
     PlayerResources[1]=5000;
-    PlayerResources[2]=3000;
+    PlayerResources[2]=3600;
     PlayerShips[0]=25;
     PlayerShips[1]=70;
     PlayerShips[2]=2;
@@ -239,18 +250,18 @@ void prepareNewGame()
   else if(Difficulty=="NORMAL")
   {
     ProgressPointsLimit=120;
-    PlayerResources[0]=3000;
-    PlayerResources[1]=3000;
-    PlayerResources[2]=2500;
+    PlayerResources[0]=4500;
+    PlayerResources[1]=4500;
+    PlayerResources[2]=3500;
     PlayerShips[0]=25;
     PlayerShips[1]=50;
   }
   else //HARD
   {
     ProgressPointsLimit=60;
-    PlayerResources[0]=3000;
-    PlayerResources[1]=3000;
-    PlayerResources[2]=2500;
+    PlayerResources[0]=4000;
+    PlayerResources[1]=4000;
+    PlayerResources[2]=3500;
     PlayerShips[0]=15;
     PlayerShips[1]=50;
   }
