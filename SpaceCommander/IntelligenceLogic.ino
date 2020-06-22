@@ -47,7 +47,7 @@ void generateScoutReport(Report report)
 {
   Report Temp[5]=IntelligenceReports;
   IntelligenceReports[0]=report;
-  for(int i=1;i<4;i++)
+  for(int i=1;i<5;i++)
   {
     IntelligenceReports[i]=Temp[i-1];
   }

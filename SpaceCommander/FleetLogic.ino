@@ -1,6 +1,6 @@
 int flMarkerPosX=1;
 int flMarkerPosY=11;
-int flSelectionIdx=-1;
+int flSelectionIdx=0;
 
 int flMarker2PosY=7;
 
@@ -22,59 +22,53 @@ int playerFleets()
 
 int enemyFleets()
 {
-  int fleetCount=enemyFleetsCount();
-  checkFleetMarker(fleetCount);
+  //int fleetCount=enemyFleetsCount();
+  //checkFleetMarker(fleetCount);
   if(gb.buttons.pressed(BUTTON_B))
   {
     return 0;
   }
   else if(gb.buttons.pressed(BUTTON_DOWN))
   {
-    if(fleetCount==2 && flSelectionIdx==0)
+    if(flSelectionIdx==3)
     {
-      flSelectionIdx=1;
+      flSelectionIdx=0;
+      flMarkerPosY=11;
+    }
+    else
+    {
+      flSelectionIdx++;
+      flMarkerPosY+=11;
     }
   }
   else if(gb.buttons.pressed(BUTTON_UP))
   {
-    if(fleetCount>1 && flSelectionIdx>0)
+    if(flSelectionIdx==0)
     {
-      flSelectionIdx=0;
+      flSelectionIdx=3;
+      flMarkerPosY=44;
+    }
+    else
+    {
+      flSelectionIdx--;
+      flMarkerPosY-=11;
     }
   }
   else if(gb.buttons.pressed(BUTTON_A))
   {
     if(PlayerShips[6]>0 && flSelectionIdx!=-1) //Generate fleet report
     {
-      int fixedIdx=0;
-      for(int i=0;i<4;i++)
+      if(EnemyFleets[flSelectionIdx].Active==true && EnemyFleets[flSelectionIdx].Visible==true)
       {
-        if(EnemyFleets[flSelectionIdx].Active==true)
-        {
-          if(flSelectionIdx==0)
-            break;
-          else
-          {
-            fixedIdx++;
-            break;    
-          }
-        }
-        else
-        {
-          fixedIdx=1;
-        }
-      }
-      if(fixedIdx<4)
-      {
-        String header="ENEMY FLEET "+(String)(fixedIdx+1);
-        Report Hostile={header,1,EnemyFleets[fixedIdx].Fighters,EnemyFleets[fixedIdx].Interceptors,EnemyFleets[fixedIdx].Frigates,EnemyFleets[fixedIdx].WarCruisers,EnemyFleets[fixedIdx].StarDreadnoughts,EnemyFleets[fixedIdx].SolarDestroyers,0,0,0};
+        String header="ENEMY FLEET "+(String)(flSelectionIdx+1);
+        Report Hostile={header,1,EnemyFleets[flSelectionIdx].Fighters,EnemyFleets[flSelectionIdx].Interceptors,EnemyFleets[flSelectionIdx].Frigates,EnemyFleets[flSelectionIdx].WarCruisers,EnemyFleets[flSelectionIdx].StarDreadnoughts,EnemyFleets[flSelectionIdx].SolarDestroyers,0,0,0};
         generateScoutReport(Hostile);
         gb.gui.popup("NEW FLEET REPORT!",50);
         PlayerShips[6]--;
       }
     }
   }
-  drawEnemyFleets(flMarkerPosX,flMarkerPosY,fleetCount,flSelectionIdx);
+  drawEnemyFleets(flMarkerPosX,flMarkerPosY,flSelectionIdx);
   return 3;
 }
 

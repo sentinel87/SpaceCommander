@@ -72,9 +72,9 @@ struct Technology
 Technology TechTree[]={
   {1,"Astronomy",2,25,30,20,"Increases visibilityon the Star Map.","None",0,0,39},
   {2,"Espionage",0,200,75,75,"Unlocks Intelligencebuilding and        Spy Bots.","Astronomy",1,2,16},
-  {3,"Jet Proplusion",0,100,100,100,"Unlocks Fighters andincreases their     speed.","Astronomy",1,2,19},
+  {3,"Jet Proplusion",4,100,100,100,"Unlocks Fighters andincreases their     speed.","Astronomy",1,2,19},
   {4,"Fleet Tactics",0,100,25,10,"Needed to upgrade   shipyard and build  high level ships.","Astronomy",1,5,16},
-  {5,"Radiolocation",0,80,110,50,"Unlock Radar and    increases visibilityrange.","Espionage",2,2,15},
+  {5,"Radiolocation",15,80,110,50,"Unlock Radar and    increases visibilityrange.","Espionage",2,2,15},
   {6,"Logistics",0,120,120,50,"+ 1 to Star Routes  and Colonies. UnlockTransports.","Astronomy",1,5,12},
   {7,"Aerodynamics",0,150,120,150,"Unlocks Interceptorsand increases their speed.","Jet Proplusion",3,4,15},
   {8,"Cloaking",0,250,190,150,"Unlocks Stalkers.   Stalker steal 1/lvl enemy fighter and   interceptor.","Radiolocation",5,1,11},
@@ -113,9 +113,9 @@ Building Colony[]={
   {2,"Metal Mine",1,"Extract metal       resource.",210,195,25,0,0,1,2,15},
   {3,"Crystal Mine",1,"Extract crystal     resource.",200,230,50,0,0,1,2,15},
   {4,"Fuel Refinery",0,"Deliver fuel        resource.",200,185,65,0,0,1,2,15},
-  {5,"Intelligence",0,"Reveals more intel  in hostile reports.",210,185,10,2,1,0,0,12},
-  {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",185,185,25,5,1,0,0,15},
-  {7,"Shipyard",0,"Required to build   colony ships.",350,350,275,4,1,0,0,10},
+  {5,"Intelligence",10,"Reveals more intel  in hostile reports.",210,185,10,2,1,0,0,12},
+  {6,"Radar",14,"Detects enemy fleets+1 visibility / lvl.",185,185,25,5,1,0,0,15},
+  {7,"Shipyard",5,"Required to build   colony ships.",350,350,275,4,1,0,0,10},
   {8,"Research Lab",0,"Unlocks additional  technology / lvl.",100,100,75,0,0,0,0,17},
   {9,"Defence System",0,"Provides additional firepower for colonydefence / lvl.",210,250,75,11,1,0,0,14},
   {10,"Factory",0,"Reduces metal and   crystal cost of     buildings.",300,220,60,0,0,0,0,10},
@@ -219,14 +219,14 @@ Fleet CustomEnemyFleet={4,false,0,0,0,0,0,0,0,0,0,0,0,0,"",false};
 
 int FleetFuelCost=0;
 
-uint16_t PlayerShips[]={
-  0, //Fighter
+int PlayerShips[]={
+  100, //Fighter
   0, //Interceptor
   0, //Frigate
   0, //War Cruiser
   0, //Star Dreadnought
   0, //Solar Destroyer
-  0, //Spy Bot
+  10, //Spy Bot
   0, //Colonizer
   0, //Metal Transport
   0, //Crystal Transport
@@ -338,7 +338,7 @@ bool colonizeMission=false;
 bool routesMission=false;
 bool raidMission=false;
 
-int BattleExperience=0;
+int BattleExperience=18;
 
 //Menu variables
 
@@ -363,7 +363,7 @@ int ScoreBoard[]={0,0,0,0,0};
 int Score=0;
 
 //Enemy Timer
-int timeToAttack=0;//4 minutes interval
+int timeToAttack=10;//4 minutes interval
 bool attackUnderway=false;
 
 const SaveDefault savefileDefaults[] = {
@@ -410,7 +410,7 @@ void loop() {
     int8_t choice=mainMenu();
     if(choice==0)
     {
-      prepareNewGame();
+      //prepareNewGame();
       resetWarRoomMarkers();
       resetMapMarkers();
       IsMainMenu=false;
@@ -748,9 +748,9 @@ void timeCalculations()
   {
     frames=0;
     updateResources();
-    //PlayerResources[0]=9999;
-    //PlayerResources[1]=9999;
-    //PlayerResources[2]=9999;
+    PlayerResources[0]=9999;
+    PlayerResources[1]=9999;
+    PlayerResources[2]=9999;
     updateVisibilityDistance();
     updateFleets();
     enemyAttackTimer();
@@ -1242,7 +1242,7 @@ void enemyAttackTimer()
         {
           EnemyFleets[idx]=CustomEnemyFleet;
           attackUnderway=true;
-          timeToAttack=90;
+          timeToAttack=10;//95;
         }
       }
     }

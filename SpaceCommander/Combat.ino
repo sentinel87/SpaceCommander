@@ -223,7 +223,7 @@ void resolveFightersBattle(int enIndex,int plIndex,bool attacker)
       {
          AttackerBonus=EnemyFleets[enIndex].Fighters/10;
       }
-      int EnemyStrenght=EnemyFleets[enIndex].Fighters+AttackerBonus;
+      int EnemyStrenght=EnemyFleets[enIndex].Fighters + AttackerBonus; //110
       int Result=EnemyStrenght-PlayerStrenght;
       if(Result>0) //Player lose
       {

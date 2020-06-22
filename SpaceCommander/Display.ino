@@ -2965,7 +2965,7 @@ void drawPlayerFleets(int posX,int posY)
   //}
 }
 
-void drawEnemyFleets(int posX,int posY,int count,int selection)
+void drawEnemyFleets(int posX,int posY,int selection)
 {
   gb.display.fill(WHITE);
   gb.display.drawImage(4,8,IMAGE_MAIN_THEME);
@@ -2974,31 +2974,19 @@ void drawEnemyFleets(int posX,int posY,int count,int selection)
   gb.display.setColor(WHITE);
   gb.display.println("ENEMY FLEETS");
   int posFlY=11;
-  int ActiveFleets=0;
   for(int i=0;i<4;i++)
   {
     if(EnemyFleets[i].Active==true && EnemyFleets[i].Visible==true)
     {
       gb.display.drawImage(1,posFlY,IMAGE_FLEET_ROW_ENEMY);
       gb.display.setColor(WHITE);
-      gb.display.setCursor(15,posFlY+2);
+      gb.display.setCursor(13,posFlY+3);
       String strTime=setTimeString(EnemyFleets[i].Seconds,EnemyFleets[i].Minutes);
       gb.display.println(strTime);
       posFlY+=11;
-      ActiveFleets++;
     }
   }
-  if(count>0)
-  {
-    if(selection==0)
-    {
-      gb.display.drawImage(1,11,FleetSelector);
-    }
-    else if(selection==1)
-    {
-      gb.display.drawImage(1,22,FleetSelector); 
-    } 
-  }
+  gb.display.drawImage(posX,posY,FleetSelector);
   if(PlayerShips[6]>0)
   {
     gb.display.drawImage(2,56,IMAGE_INTEL_BTN_OK);
