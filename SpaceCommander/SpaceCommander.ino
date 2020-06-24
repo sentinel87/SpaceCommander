@@ -87,7 +87,7 @@ Technology TechTree[]={
   {15,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Shielding",11,2,10},
   {16,"Flight Control",0,350,200,250,"Unlocks Logistic    Centre and its      upgrades.","Statics",9,2,10},
   {17,"Gravity Weapon",0,800,800,800,"Final level of this technology unlocks  Solar Destroyer.","Hyperdrive",13,1,9},
-  {18,"Empty",0,0,0,0,"","",0,0,0},
+  {18,"Economy",0,200,200,200,"Unlock Market and its upgrades.","Astronomy",1,5,9},
   {19,"Empty",0,0,0,0,"","",0,0,0},
   {20,"Empty",0,0,0,0,"","",0,2,0}
 };
@@ -116,13 +116,13 @@ Building Colony[]={
   {5,"Intelligence",10,"Reveals more intel  in hostile reports.",210,185,10,2,1,0,0,12},
   {6,"Radar",14,"Detects enemy fleets+1 visibility / lvl.",185,185,25,5,1,0,0,15},
   {7,"Shipyard",5,"Required to build   colony ships.",350,350,275,4,1,0,0,10},
-  {8,"Research Lab",0,"Unlocks additional  technology / lvl.",100,100,75,0,0,0,0,17},
+  {8,"Research Lab",0,"Unlocks additional  technology / lvl.",100,100,75,0,0,0,0,18},
   {9,"Defence System",0,"Provides additional firepower for colonydefence / lvl.",210,250,75,11,1,0,0,14},
   {10,"Factory",0,"Reduces metal and   crystal cost of     buildings.",300,220,60,0,0,0,0,10},
   {11,"Warehouse",0,"Stores resources    when losing battle. +200 for each       resource / lvl.",300,300,50,9,1,0,0,10},
   {12,"Transformer",0,"Converts one        resource to another.",350,300,550,14,1,0,0,10},
   {13,"Logistic Centre",0,"Increases resource  transport from traderoutes.",400,200,300,16,1,0,0,10},
-  {14,"",0,"",0,0,0,0,0,0,0,0},
+  {14,"Market",0,"Exachange fuel for resources and ships.",180,180,100,18,1,0,0,8},
   {15,"",0,"",0,0,0,0,0,0,0,0}
 };
 
