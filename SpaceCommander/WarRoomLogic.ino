@@ -123,7 +123,7 @@ String selectedChoice()
     case 11:
       result="STAR ROUTES";break;
     case 12:
-      result="GAME STATS";break;
+      result="MARKET";break;
     case 13:
       result="PAUSE";break;
     case 14:
@@ -181,6 +181,14 @@ bool checkRestrictions()
     case 10:
     {
       if(Colony[4].level>0)
+      {
+        result=true;
+      }
+    }
+    break;
+    case 12:
+    {
+      if(Colony[13].level>0)
       {
         result=true;
       }
