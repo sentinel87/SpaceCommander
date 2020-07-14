@@ -269,12 +269,12 @@ void buySelectedShipQuantity()
   PlayerShips[shCurrentShip]+=fixedQuantity;
   if(shCurrentShip<=4 || shCurrentShip>10)
   {
-    fillGarrisons();
+    fillGarrisons(shCurrentShip,fixedQuantity);
   }
   gb.gui.popup("ACQUIRED!",50); 
 }
 
-void fillGarrisons()
+void fillGarrisons(int8_t CurrentShip, int QuantityToBuy)
 {
   int modifier=0;
   if(Difficulty=="EASY")
@@ -289,10 +289,10 @@ void fillGarrisons()
   {
     modifier=2 + (5-EnemyColonies);
   }
-  int toDistribute=shQuantityToBuy/modifier;
+  int toDistribute=QuantityToBuy/modifier;
   for(int i=0;i<6;i++)
   {
-    switch(shCurrentShip)
+    switch(CurrentShip)
     {
       case 0:
       {

@@ -2540,7 +2540,7 @@ String scoreStrMod(int score)
   return result;
 }
 //---------------Market Logic------------
-void drawEconomyStats(int metal,int crystal,int fuel)
+void drawMarket(int metal,int crystal,int fuel, String choice, int8_t currentGood)
 {
   gb.display.fill(WHITE);
   gb.display.drawImage(4,8,IMAGE_MAIN_THEME);
@@ -2552,34 +2552,28 @@ void drawEconomyStats(int metal,int crystal,int fuel)
   gb.display.setCursor(27,0);
   gb.display.println("MARKET");
   gb.display.setColor(BLACK);
-  gb.display.setCursor(13,8);
-  gb.display.println("PRODUCTIVITY");
-  gb.display.setCursor(14,14);
-  gb.display.setColor(BLUE);
-  gb.display.println("METAL");
-  gb.display.setCursor(14,20);
-  gb.display.setColor(PURPLE);
-  gb.display.println("CRYSTAL");
-  gb.display.setCursor(14,26);
-  gb.display.setColor(ORANGE);
-  gb.display.println("FUEL");
+  gb.display.setCursor(15,15);
+  gb.display.println("BUY FOR FUEL:");
   gb.display.setCursor(2,34);
   gb.display.setColor(BLACK);
-  gb.display.drawImage(12,33,IMAGE_MARKET_GOODS);
-  gb.display.drawImage(53,33,IMAGE_MARKET_SHIPS);
-  gb.display.setCursor(51,14);
-  gb.display.setColor(GREEN);
-  gb.display.println("+"+(String)metal);
-  gb.display.setCursor(51,20);
-  gb.display.println("+"+(String)crystal);
-  gb.display.setCursor(51,26);
-  gb.display.println("+"+(String)fuel);
-  gb.display.drawImage(11,32,MarketSelector);
-  gb.display.setCursor(12,50);
+  gb.display.drawImage(12,23,IMAGE_MARKET_GOODS);
+  gb.display.drawImage(53,23,IMAGE_MARKET_SHIPS);
+  if(currentGood==0)
+  {
+    gb.display.drawImage(11,22,MarketSelector);
+  }
+  else
+  {
+    gb.display.drawImage(52,22,MarketSelector);
+  }
+  gb.display.setCursor(12,40);
   gb.display.setColor(ORANGE);
   gb.display.println("5000");
-  gb.display.setCursor(53,50);
+  gb.display.setCursor(53,40);
   gb.display.println("7500");
+  gb.display.setColor(WHITE);
+  gb.display.setCursor(2,58);
+  gb.display.println(choice);
 }
 //---------------Debug Screen-----------
 void drawDebug()

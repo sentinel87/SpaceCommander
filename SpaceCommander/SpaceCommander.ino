@@ -79,7 +79,7 @@ Technology TechTree[]={
   {7,"Aerodynamics",0,150,120,150,"Unlocks Interceptorsand increases their speed.","Jet Proplusion",3,4,15},
   {8,"Cloaking",0,250,190,150,"Unlocks Stalkers.   Stalker steal 1/lvl enemy fighter and   interceptor.","Radiolocation",5,1,11},
   {9,"Statics",0,200,350,50,"Unlock Warehouse andincreases it's      capacity.","Logistics",6,2,11},
-  {10,"Economy",0,400,400,200,"Unlock Market and   improve it.","Logistics",6,2,9},
+  {10,"Economy",0,400,400,200,"Unlock Market and   improve it.","Logistics",6,2,8},
   {11,"Impulse Engine",0,50,250,200,"Unlocks Frigates andincreases their     speed.","Aerodynamics",7,4,11},
   {12,"Shielding",0,350,400,100,"Unlock Planetary    Defence System and  increases firepower.","Fleet Tactics",4,1,14},
   {13,"Mind Control",0,350,500,350,"Unlocks Leviatans.  Leviatan steal 1/lvlenemy Frigate.","Cloaking",8,4,5},
@@ -122,7 +122,7 @@ Building Colony[]={
   {11,"Warehouse",0,"Stores resources    when losing battle. +200 for each       resource / lvl.",300,300,50,9,1,0,0,10},
   {12,"Transformer",0,"Converts one        resource to another.",350,300,550,15,1,0,0,10},
   {13,"Logistic Centre",0,"Increases resource  transport from traderoutes.",400,200,300,17,1,0,0,10},
-  {14,"Market",1,"Exachange fuel for  resources and ships.",180,180,100,10,1,0,0,8},
+  {14,"Market",0,"Exachange fuel for  resources and ships.",180,180,100,10,1,0,0,8},
   {15,"",0,"",0,0,0,0,0,0,0,0}
 };
 
@@ -643,7 +643,7 @@ void loop() {
       }
       else if(ScreenSelection==12) //ECONOMY STATS
       {
-        ScreenSelection=economyStats();
+        ScreenSelection=market();
       }
       else if(ScreenSelection==13) //PAUSE
       {
