@@ -1,6 +1,6 @@
 int flMarkerPosX=1;
 int flMarkerPosY=11;
-int flSelectionIdx=0;
+int flSelectionIdx=1;
 
 int flMarker2PosY=7;
 
@@ -22,17 +22,15 @@ int playerFleets()
 
 int enemyFleets()
 {
-  //int fleetCount=enemyFleetsCount();
-  //checkFleetMarker(fleetCount);
   if(gb.buttons.pressed(BUTTON_B))
   {
     return 0;
   }
   else if(gb.buttons.pressed(BUTTON_DOWN))
   {
-    if(flSelectionIdx==3)
+    if(flSelectionIdx==4)
     {
-      flSelectionIdx=0;
+      flSelectionIdx=1;
       flMarkerPosY=11;
     }
     else
@@ -43,9 +41,9 @@ int enemyFleets()
   }
   else if(gb.buttons.pressed(BUTTON_UP))
   {
-    if(flSelectionIdx==0)
+    if(flSelectionIdx==1)
     {
-      flSelectionIdx=3;
+      flSelectionIdx=4;
       flMarkerPosY=44;
     }
     else
@@ -58,81 +56,26 @@ int enemyFleets()
   {
     if(PlayerShips[6]>0 && flSelectionIdx!=-1) //Generate fleet report
     {
-      if(EnemyFleets[flSelectionIdx].Active==true && EnemyFleets[flSelectionIdx].Visible==true)
+      int count=0;
+      for(int i=0;i<4;i++)
       {
-        String header="ENEMY FLEET "+(String)(flSelectionIdx+1);
-        Report Hostile={header,1,EnemyFleets[flSelectionIdx].Fighters,EnemyFleets[flSelectionIdx].Interceptors,EnemyFleets[flSelectionIdx].Frigates,EnemyFleets[flSelectionIdx].WarCruisers,EnemyFleets[flSelectionIdx].StarDreadnoughts,EnemyFleets[flSelectionIdx].SolarDestroyers,0,0,0};
-        generateScoutReport(Hostile);
-        gb.gui.popup("NEW FLEET REPORT!",50);
-        PlayerShips[6]--;
+        if(EnemyFleets[i].Active==true && EnemyFleets[i].Visible==true)
+        {
+          count++;
+          if(count==flSelectionIdx)
+          {
+            String header="ENEMY FLEET "+(String)(flSelectionIdx+1);
+            Report Hostile={header,1,EnemyFleets[i].Fighters,EnemyFleets[i].Interceptors,EnemyFleets[i].Frigates,EnemyFleets[i].WarCruisers,EnemyFleets[i].StarDreadnoughts,EnemyFleets[i].SolarDestroyers,0,0,0};
+            generateScoutReport(Hostile);
+            gb.gui.popup("NEW FLEET REPORT!",50);
+            PlayerShips[6]--;
+          }
+        }
       }
     }
   }
   drawEnemyFleets(flMarkerPosX,flMarkerPosY,flSelectionIdx);
   return 3;
-}
-
-int enemyFleetsCount()
-{
-  int result=0;
-  for(int i=0;i<4;i++)
-  {
-    if(EnemyFleets[i].Active==true && EnemyFleets[i].Visible==true)
-    {
-      result++;
-    }
-  }
-  return result;
-}
-
-void checkFleetMarker(int count)
-{
-  int result=-1;
-  switch(flSelectionIdx)
-  {
-    case 0:
-    {
-      if(count>=1)
-      {
-        result=flSelectionIdx;
-      }
-      else
-      {
-        result=-1;
-      }
-    }
-    break;
-    case 1:
-    {
-      if(count==2)
-      {
-        result=flSelectionIdx;
-      }
-      else if(count==1)
-      {
-        result=0;
-      }
-      else
-      {
-        result=-1;
-      }
-    }
-    break;
-    case -1:
-    {
-      if(count>0)
-      {
-        result=0;
-      }
-      else
-      {
-        result=-1;
-      }
-    }
-    break;
-  }
-
-  flSelectionIdx=result;
 }
 
 int playerFleetStats()

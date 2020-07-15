@@ -2869,7 +2869,7 @@ void drawTechScreen(Technology technology,String depTechName, int depLevel,bool 
     gb.display.setColor(PURPLE);
     gb.display.setCursor(20,21);
     gb.display.println(technology.resource2Cost*(technology.level+1));
-    gb.display.setColor(YELLOW);
+    gb.display.setColor(ORANGE);
     gb.display.setCursor(20,27);
     gb.display.println(technology.resource3Cost*(technology.level+1));
     if((technology.depTechLevel>depLevel)&&depTechName!="")
