@@ -397,12 +397,12 @@ void setFleetParameters()
   //Calculate fuel cost
   if(CustomFleet.SpyBots>0)
   {
-    FleetFuelCost+=CustomFleet.SpyBots*(30-TechTree[2].level); //Jet Proplusion decrease cost
+    FleetFuelCost+=CustomFleet.SpyBots*(40-TechTree[2].level); //Jet Proplusion decrease cost
     Speed=2;
   }
   if(CustomFleet.Colonizers>0)
   {
-    FleetFuelCost+=CustomFleet.Colonizers*(300-(TechTree[2].level*2)); //Jet Proplusion decrease cost
+    FleetFuelCost+=CustomFleet.Colonizers*(400-(TechTree[2].level*2)); //Jet Proplusion decrease cost
     Speed=5;
   }
   if(CustomFleet.Fighters>0)
@@ -455,12 +455,12 @@ void setFleetParameters()
   }
   if(CustomFleet.Stalkers>0)
   {
-    FleetFuelCost+=CustomFleet.Stalkers*10;
+    FleetFuelCost+=CustomFleet.Stalkers*20;
     Speed=6;
   }
   if(CustomFleet.Leviatans>0)
   {
-    FleetFuelCost+=CustomFleet.Leviatans*25;
+    FleetFuelCost+=CustomFleet.Leviatans*50;
     Speed=4;
   }
   //Calculate minutes and seconds (1 unit - speed)

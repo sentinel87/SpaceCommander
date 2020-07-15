@@ -2772,7 +2772,7 @@ void drawWarRoom(int posX,int posY,String choice,bool alert)
   gb.display.drawRect(27,1,3,3);
   gb.display.setCursor(33,0);
   gb.display.println(PlayerResources[1]);
-  gb.display.setColor(YELLOW);
+  gb.display.setColor(ORANGE);
   gb.display.drawRect(54,1,3,3);
   gb.display.setCursor(60,0);
   gb.display.println(PlayerResources[2]);
@@ -2838,7 +2838,7 @@ void drawTechScreen(Technology technology,String depTechName, int depLevel,bool 
   gb.display.drawRect(27,1,3,3);
   gb.display.setCursor(33,0);
   gb.display.println(PlayerResources[1]);
-  gb.display.setColor(YELLOW);
+  gb.display.setColor(ORANGE);
   gb.display.drawRect(54,1,3,3);
   gb.display.setCursor(60,0);
   gb.display.println(PlayerResources[2]);
@@ -2847,7 +2847,7 @@ void drawTechScreen(Technology technology,String depTechName, int depLevel,bool 
   gb.display.setColor(WHITE);
   gb.display.setCursor(20,9);
   gb.display.println(technology.techName);
-  gb.display.setColor(ORANGE);
+  gb.display.setColor(GREEN);
   gb.display.setCursor(45,15);
   gb.display.println("LEVEL");
   gb.display.setCursor(70,15);
@@ -2954,7 +2954,7 @@ void drawInfrastructureScreen(Building building, String depTechName, int depLeve
   gb.display.drawRect(27,1,3,3);
   gb.display.setCursor(33,0);
   gb.display.println(PlayerResources[1]);
-  gb.display.setColor(YELLOW);
+  gb.display.setColor(ORANGE);
   gb.display.drawRect(54,1,3,3);
   gb.display.setCursor(60,0);
   gb.display.println(PlayerResources[2]);
@@ -2963,7 +2963,7 @@ void drawInfrastructureScreen(Building building, String depTechName, int depLeve
   gb.display.setColor(WHITE);
   gb.display.setCursor(20,9);
   gb.display.println(building.bName);
-  gb.display.setColor(ORANGE);
+  gb.display.setColor(GREEN);
   gb.display.setCursor(45,15);
   gb.display.println("LEVEL");
   gb.display.setCursor(70,15);
@@ -2985,7 +2985,7 @@ void drawInfrastructureScreen(Building building, String depTechName, int depLeve
     gb.display.setColor(PURPLE);
     gb.display.setCursor(20,21);
     gb.display.println((building.resource2Cost - 15*(Colony[9].level))*(building.level+1));
-    gb.display.setColor(YELLOW);
+    gb.display.setColor(ORANGE);
     gb.display.setCursor(20,27);
     gb.display.println(building.resource3Cost*(building.level+1));
     
@@ -3181,7 +3181,7 @@ void drawStarRoutes(int page)
       gb.display.setColor(PURPLE);
       gb.display.setCursor(60,posFlY+2);
       gb.display.println("+"+(String)PlayerRoutes[i].Crystal);
-      gb.display.setColor(YELLOW);
+      gb.display.setColor(ORANGE);
       gb.display.setCursor(70,posFlY+2);
       gb.display.println("+"+(String)PlayerRoutes[i].Fuel);
       posFlY+=11;
@@ -3555,7 +3555,7 @@ void drawSendFleetConfirmation(int mission,bool canSend)
   gb.display.drawRect(27,1,3,3);
   gb.display.setCursor(33,0);
   gb.display.println(PlayerResources[1]);
-  gb.display.setColor(YELLOW);
+  gb.display.setColor(ORANGE);
   gb.display.drawRect(54,1,3,3);
   gb.display.setCursor(60,0);
   gb.display.println(PlayerResources[2]);
@@ -3825,7 +3825,7 @@ void drawShipyardScreen(Ship ship,bool canBuild, bool selection, int quantity, i
   gb.display.drawRect(27,1,3,3);
   gb.display.setCursor(33,0);
   gb.display.println(PlayerResources[1]);
-  gb.display.setColor(YELLOW);
+  gb.display.setColor(ORANGE);
   gb.display.drawRect(54,1,3,3);
   gb.display.setCursor(60,0);
   gb.display.println(PlayerResources[2]);
@@ -3923,26 +3923,26 @@ void drawTransformerScreen(int mode,int multipler,int convert,int created)
   {
     gb.display.setColor(BLUE);
     gb.display.println("METAL");
-    gb.display.setColor(YELLOW);
+    gb.display.setColor(ORANGE);
     gb.display.fillRect(5,37,3,3); 
   }
   else if(mode==2)
   {
     gb.display.setColor(PURPLE);
     gb.display.println("CRYSTAL");
-    gb.display.setColor(YELLOW);
+    gb.display.setColor(ORANGE);
     gb.display.fillRect(5,37,3,3); 
   }
   else if(mode==3)
   {
-    gb.display.setColor(YELLOW);
+    gb.display.setColor(ORANGE);
     gb.display.println("FUEL");
     gb.display.setColor(BLUE);
     gb.display.fillRect(5,37,3,3);
   }
   else
   {
-    gb.display.setColor(YELLOW);
+    gb.display.setColor(ORANGE);
     gb.display.println("FUEL");
     gb.display.setColor(PURPLE);
     gb.display.fillRect(5,37,3,3);
@@ -3960,7 +3960,7 @@ void drawTransformerScreen(int mode,int multipler,int convert,int created)
   }
   else
   {
-    gb.display.setColor(YELLOW);
+    gb.display.setColor(ORANGE);
   }
   gb.display.fillRect(54,37,3,3);
   gb.display.setCursor(60,36);

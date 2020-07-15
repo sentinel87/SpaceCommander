@@ -220,13 +220,13 @@ Fleet CustomEnemyFleet={4,false,0,0,0,0,0,0,0,0,0,0,0,0,"",false};
 int FleetFuelCost=0;
 
 int PlayerShips[]={
-  100, //Fighter
+  0, //Fighter
   0, //Interceptor
   0, //Frigate
   0, //War Cruiser
   0, //Star Dreadnought
   0, //Solar Destroyer
-  10, //Spy Bot
+  0, //Spy Bot
   0, //Colonizer
   0, //Metal Transport
   0, //Crystal Transport
@@ -410,7 +410,7 @@ void loop() {
     int8_t choice=mainMenu();
     if(choice==0)
     {
-      //prepareNewGame();
+      prepareNewGame();
       resetWarRoomMarkers();
       resetMapMarkers();
       IsMainMenu=false;
@@ -748,9 +748,9 @@ void timeCalculations()
   {
     frames=0;
     updateResources();
-    PlayerResources[0]=9999;
-    PlayerResources[1]=9999;
-    PlayerResources[2]=9999;
+    //PlayerResources[0]=9999;
+    //PlayerResources[1]=9999;
+    //PlayerResources[2]=9999;
     updateVisibilityDistance();
     updateFleets();
     enemyAttackTimer();
@@ -825,15 +825,21 @@ void updateEnemyFleetTime(int index)
       
       bool richBounty=resourcePillage();
       resetTransformerAfterAttack();
+      int EnemyProgressPoints=3;
+      if(Difficulty=="NORMAL" || Difficulty=="HARD")
+      {
+        EnemyProgressPoints=4;
+      }
+      
       if(ProgressPoints<ProgressPointsLimit)
       {
         if(richBounty==true)
         {
-          ProgressPoints+=6; //ultimate weapon progress
+          ProgressPoints+=(2*EnemyProgressPoints); //ultimate weapon progress
         }
         else
         {
-          ProgressPoints+=3; //ultimate weapon progress
+          ProgressPoints+=EnemyProgressPoints; //ultimate weapon progress
         }
         if(ProgressPoints>ProgressPointsLimit)
         {
@@ -909,7 +915,15 @@ void enemyFleetsCheck() //check if all attacks are completed and reset prepare t
   if(allClear==true)
   {
     attackUnderway=false;
-    timeToAttack=110;
+    timeToAttack=130;
+    if(Difficulty=="NORMAL")
+    {
+      timeToAttack=110;
+    }
+    else if(Difficulty=="HARD")
+    {
+      timeToAttack=100;
+    }
   }
 }
 
@@ -1242,7 +1256,15 @@ void enemyAttackTimer()
         {
           EnemyFleets[idx]=CustomEnemyFleet;
           attackUnderway=true;
-          timeToAttack=10;//95;
+          timeToAttack=125;
+          if(Difficulty=="NORMAL")
+          {
+            timeToAttack=95;
+          }
+          else if(Difficulty=="HARD")
+          {
+            timeToAttack=75;
+          }
         }
       }
     }
