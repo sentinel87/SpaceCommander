@@ -71,23 +71,23 @@ struct Technology
 
 Technology TechTree[]={
   {1,"Astronomy",2,25,30,20,"Increases visibilityon the Star Map.","None",0,0,39},
-  {2,"Espionage",0,200,75,75,"Unlocks Intelligencebuilding and        Spy Bots.","Astronomy",1,2,16},
-  {3,"Jet Proplusion",0,100,100,100,"Unlocks Fighters andincreases their     speed.","Astronomy",1,2,19},
+  {2,"Espionage",0,200,75,75,"Unlock  Intelligenceand Spy Bots.","Astronomy",1,2,16},
+  {3,"Jet Proplusion",0,100,100,100,"Unlock Fighters and increases their     speed.","Astronomy",1,2,19},
   {4,"Fleet Tactics",0,100,25,10,"Needed to upgrade   shipyard and build  high level ships.","Astronomy",1,5,16},
   {5,"Radiolocation",0,80,110,50,"Unlock Radar and    increases visibilityrange.","Espionage",2,2,15},
   {6,"Logistics",0,120,120,50,"+ 1 to Star Routes  and Colonies. UnlockTransports.","Astronomy",1,5,12},
-  {7,"Aerodynamics",0,150,120,150,"Unlocks Interceptorsand increases their speed.","Jet Proplusion",3,4,15},
-  {8,"Cloaking",0,250,190,150,"Unlocks Stalkers.   Stalker steal 1/lvl enemy fighter and   interceptor.","Radiolocation",5,1,11},
+  {7,"Aerodynamics",0,150,120,150,"Unlock Interceptors and increases their speed.","Jet Proplusion",3,4,15},
+  {8,"Cloaking",0,250,190,150,"Unlock  Stalkers.   Stalker steal 1/lvl enemy fighter and   interceptor.","Radiolocation",5,1,11},
   {9,"Statics",0,200,350,50,"Unlock Warehouse andincreases it's      capacity.","Logistics",6,2,11},
-  {10,"Economy",0,400,400,200,"Unlock Market and   improve it.","Logistics",6,2,8},
-  {11,"Impulse Engine",0,50,250,200,"Unlocks Frigates andincreases their     speed.","Aerodynamics",7,4,11},
+  {10,"Economy",0,400,400,200,"Unlock and improve  Market.","Logistics",6,2,8},
+  {11,"Impulse Engine",0,50,250,200,"Unlock Frigates and increases their     speed.","Aerodynamics",7,4,11},
   {12,"Shielding",0,350,400,100,"Unlock Planetary    Defence System and  increases firepower.","Fleet Tactics",4,1,14},
-  {13,"Mind Control",0,350,500,350,"Unlocks Leviatans.  Leviatan steal 1/lvlenemy Frigate.","Cloaking",8,4,5},
-  {14,"Hyperdrive",0,100,500,400,"Unlocks War Cruisersand increases their speed.","Impulse Engine",11,2,10},
-  {15,"Fusion Reaction",0,450,350,250,"Unlocks Transformer and its upgrades.","Fleet Tactics",4,5,10},
-  {16,"Ship Weapons",0,125,300,75,"Final level unlocks Star Dreadnoughts.","Shielding",12,2,10},
-  {17,"Flight Control",0,350,200,250,"Unlocks Logistic    Centre and its      upgrades.","Statics",9,2,10},
-  {18,"Gravity Weapon",0,800,800,800,"Final level of this technology unlocks  Solar Destroyer.","Hyperdrive",14,1,9},
+  {13,"Mind Control",0,350,500,350,"Unlock  Leviatans.  Leviatan steal 1/lvlenemy Frigate.","Cloaking",8,4,5},
+  {14,"Hyperdrive",0,100,500,400,"Unlock War Cruisers and increases their speed.","Impulse Engine",11,2,10},
+  {15,"Fusion Reaction",0,450,350,250,"Unlock and improve  Transformer.","Fleet Tactics",4,5,10},
+  {16,"Ship Weapons",0,125,300,75,"Final level unlock  Star Dreadnoughts.","Shielding",12,2,10},
+  {17,"Flight Control",0,350,200,250,"Unlock and improve  Logistic Centre.","Statics",9,2,10},
+  {18,"Gravity Weapon",0,800,800,800,"Final level of this technology unlock   Solar Destroyer.","Hyperdrive",14,1,9},
   {19,"Empty",0,0,0,0,"","",0,0,0},
   {20,"Empty",0,0,0,0,"","",0,2,0}
 };
@@ -116,7 +116,7 @@ Building Colony[]={
   {5,"Intelligence",0,"Reveals more intel  in hostile reports.",210,185,10,2,1,0,0,12},
   {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",185,185,25,5,1,0,0,15},
   {7,"Shipyard",0,"Required to build   colony ships.",350,350,275,4,1,0,0,10},
-  {8,"Research Lab",0,"Unlocks additional  technology / lvl.",175,175,75,0,0,0,0,18},
+  {8,"Research Lab",0,"Unlock additional   technology / lvl.",175,175,75,0,0,0,0,18},
   {9,"Defence System",0,"Provides additional firepower for colonydefence / lvl.",210,250,75,12,1,0,0,14},
   {10,"Factory",0,"Reduces metal and   crystal cost of     buildings.",300,220,60,0,0,0,0,10},
   {11,"Warehouse",0,"Stores resources    when losing battle. +200 for each       resource / lvl.",300,300,50,9,1,0,0,10},
@@ -136,19 +136,19 @@ struct Ship
 };
 
 Ship Shipyard[]={
-  {"Fighter",1,"Swarm of fighters isthe basic fleet     defence.",50,15},
-  {"Interceptor",2,"Ship designed to    hunt fighters.",100,40},
+  {"Fighter",1,"Swarm of Fighters isbasic fleet defence.",50,15},
+  {"Interceptor",2,"Ship designed to    hunt down Fighters.",100,40},
   {"Frigate",3,"Light armored ship. Bonus against       Fighters.",270,150},
-  {"War Cruiser",4,"First line attack ship. Bonus against   Interceptors.",400,230},
+  {"War Cruiser",4,"First line attack   ship. Bonus against Interceptors.",400,230},
   {"Star Dreadnought",5,"Heavy armored ship  used to transport   entire fleet.",550,300},
   {"Solar Destroyer",6,"Ship designed to    destroy entire      planet.",4000,4000},
   {"Spy Bot",7,"Fragile probe used  to scan planets and enemy fleets.",15,10},
-  {"Colonizer",8,"Set colony on the   planet.",900,900},
+  {"Colonizer",8,"Sets colony on the  planet.",900,900},
   {"Metal Transport",9,"Transport metal fromcolonies.",350,35},
   {"Crystal Transport",10,"Transport crystals  from colonies.",400,150},
   {"Fuel Transport",11,"Transport fuel from colonies.",300,200},
-  {"Stalker",12,"Steal enemy fightersand interceptors.",300,300},
-  {"Leviatan",13,"Steal enemy         frigates.",700,700}
+  {"Stalker",12,"Steal enemy Fightersand Interceptors.",300,300},
+  {"Leviatan",13,"Steal enemy         Frigates.",700,700}
 };
 
 struct EnemyGarrison
@@ -752,8 +752,8 @@ void timeCalculations()
     //PlayerResources[1]=9999;
     //PlayerResources[2]=9999;
     updateVisibilityDistance();
-    updateFleets();
     enemyAttackTimer();
+    updateFleets();
   }
   else
   {
@@ -1256,7 +1256,7 @@ void enemyAttackTimer()
         {
           EnemyFleets[idx]=CustomEnemyFleet;
           attackUnderway=true;
-          timeToAttack=125;
+          timeToAttack=115;
           if(Difficulty=="NORMAL")
           {
             timeToAttack=95;
@@ -1353,11 +1353,11 @@ Fleet setEnemyFleet()
   int modifier=0;
   if(Difficulty=="EASY")
   {
-    modifier=6;
+    modifier=5;
   }
   else if(Difficulty=="NORMAL")
   {
-    modifier=4;
+    modifier=3;
   }
   else
   {
@@ -1409,7 +1409,7 @@ Fleet setEnemyFleet()
     }
   }
   
-  if(TechTree[8].level>=2)//Impulse Engine
+  if(TechTree[10].level>=2)//Impulse Engine
   {
     if(PlayerShips[3]<modifier)
     {
@@ -1425,7 +1425,7 @@ Fleet setEnemyFleet()
     }
   }
   
-  if(TechTree[12].level==10)//Ship Weapons
+  if(TechTree[15].level>=8)//Ship Weapons
   {
     if(PlayerShips[4]<modifier)
     {

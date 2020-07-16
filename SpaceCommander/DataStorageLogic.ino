@@ -8,7 +8,6 @@ void loadGame()
   loadGarrisons(Enemy2Garrison,4);
   loadFleets(PlayerFleets,5);
   loadFleets(EnemyFleets,6);
-  setEnemyAttackTimer();
   loadPlayerShips();
   loadTradeRoutes();
   loadReports();
@@ -595,49 +594,6 @@ bool saveDataGameVariables()
   {
     DebugData=strData;
     return false;
-  }
-}
-
-void setEnemyAttackTimer()
-{
-  int activeFleets=0;
-  for(int i=0;i<4;i++)
-  {
-    if(EnemyFleets[i].Active==true)
-    {
-      activeFleets++;
-    }
-  }
-  if(activeFleets==0)
-  {
-    attackUnderway=false;
-    timeToAttack=130;
-    if(Difficulty=="NORMAL")
-    {
-      timeToAttack=110;
-    }
-    else if(Difficulty=="HARD")
-    {
-      timeToAttack=100;
-    }
-  }
-  else if(activeFleets==1)
-  {
-    attackUnderway=true;
-    timeToAttack=125;
-    if(Difficulty=="NORMAL")
-    {
-      timeToAttack=95;
-    }
-    else if(Difficulty=="HARD")
-    {
-      timeToAttack=75;
-    }
-  }
-  else
-  {
-    attackUnderway=true;
-    timeToAttack=-1;
   }
 }
 //---------------HELPERS---------------------------------
