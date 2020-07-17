@@ -122,7 +122,7 @@ Building Colony[]={
   {11,"Warehouse",0,"Stores resources    when losing battle. +200 for each       resource / lvl.",300,300,50,9,1,0,0,10},
   {12,"Transformer",0,"Converts one        resource to another.",350,300,550,15,1,0,0,10},
   {13,"Logistic Centre",0,"Increases resource  transport from traderoutes.",400,200,300,17,1,0,0,10},
-  {14,"Market",0,"Exachange fuel for  resources and ships.",180,180,100,10,1,0,0,8},
+  {14,"Market",0,"Exachange fuel for  resources and ships.",220,220,150,10,1,0,0,8},
   {15,"",0,"",0,0,0,0,0,0,0,0}
 };
 
@@ -478,11 +478,11 @@ void loop() {
         bool HighScore=compareAndUpdateScore();
         if(HighScore)
         {
-          gb.save.set(0,ScoreBoard[11]);
-          gb.save.set(1,ScoreBoard[12]);
-          gb.save.set(2,ScoreBoard[13]);
-          gb.save.set(3,ScoreBoard[14]);
-          gb.save.set(4,ScoreBoard[15]);
+          gb.save.set(11,ScoreBoard[0]);
+          gb.save.set(12,ScoreBoard[1]);
+          gb.save.set(13,ScoreBoard[2]);
+          gb.save.set(14,ScoreBoard[3]);
+          gb.save.set(15,ScoreBoard[4]);
         }
       }
     }
@@ -498,11 +498,11 @@ void loop() {
         bool HighScore=compareAndUpdateScore();
         if(HighScore)
         {
-          gb.save.set(0,ScoreBoard[11]);
-          gb.save.set(1,ScoreBoard[12]);
-          gb.save.set(2,ScoreBoard[13]);
-          gb.save.set(3,ScoreBoard[14]);
-          gb.save.set(4,ScoreBoard[15]);
+          gb.save.set(11,ScoreBoard[0]);
+          gb.save.set(12,ScoreBoard[1]);
+          gb.save.set(13,ScoreBoard[2]);
+          gb.save.set(14,ScoreBoard[3]);
+          gb.save.set(15,ScoreBoard[4]);
         }
       }
     }
@@ -1443,7 +1443,7 @@ Fleet setEnemyFleet()
   
   if(ProgressPoints==ProgressPointsLimit) //ultimate weapon discovered
   {
-    EnemyArmada.SolarDestroyers=1; //solar destroyers 
+    EnemyArmada.SolarDestroyers = 2 + random(0,4); //solar destroyers 
   }
   
   return EnemyArmada;

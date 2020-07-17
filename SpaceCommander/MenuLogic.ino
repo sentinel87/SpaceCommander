@@ -435,23 +435,29 @@ void prepareTechs()
   TechTree[5].level=0;
   TechTree[5].depTechLevel=5;
   TechTree[6].level=0;
-  TechTree[6].depTechLevel=5;
+  TechTree[6].depTechLevel=4;
   TechTree[7].level=0;
-  TechTree[7].depTechLevel=2;
+  TechTree[7].depTechLevel=1;
   TechTree[8].level=0;
-  TechTree[8].depTechLevel=5;
+  TechTree[8].depTechLevel=2;
   TechTree[9].level=0;
-  TechTree[9].depTechLevel=1;
+  TechTree[9].depTechLevel=2;
   TechTree[10].level=0;
-  TechTree[10].depTechLevel=2;
+  TechTree[10].depTechLevel=4;
   TechTree[11].level=0;
-  TechTree[11].depTechLevel=5;
+  TechTree[11].depTechLevel=1;
   TechTree[12].level=0;
-  TechTree[12].depTechLevel=3;
+  TechTree[12].depTechLevel=4;
   TechTree[13].level=0;
   TechTree[13].depTechLevel=2;
   TechTree[14].level=0;
-  TechTree[14].depTechLevel=1;
+  TechTree[14].depTechLevel=5;
+  TechTree[15].level=0;
+  TechTree[15].depTechLevel=2;
+  TechTree[16].level=0;
+  TechTree[16].depTechLevel=2;
+  TechTree[17].level=0;
+  TechTree[17].depTechLevel=1;
 }
 
 void prepareBuildings()
@@ -480,6 +486,8 @@ void prepareBuildings()
   Colony[11].depTechLevel=1;
   Colony[12].level=0;
   Colony[12].depTechLevel=1;
+  Colony[13].level=0;
+  Colony[13].depTechLevel=1;
 }
 
 void prepareFleets()

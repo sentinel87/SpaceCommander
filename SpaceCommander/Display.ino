@@ -2589,7 +2589,7 @@ void drawMap(int astronomy,int posX,int posY)
 {
   gb.display.fill(GRAY);
   gb.display.setColor(BLACK);
-  gb.display.fillRect(0,58,80,5);
+  gb.display.fillRect(0,58,80,6);
   int mapSize=1+astronomy*2;
   gb.display.drawImage((79-mapSize)/2,(59-mapSize)/2,IMAGE_MAP,(79-mapSize)/2,(59-mapSize)/2,mapSize,mapSize);
   gb.display.drawImage(posX,posY,Cursor);
