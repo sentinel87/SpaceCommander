@@ -12,6 +12,7 @@ void loadGame()
   loadTradeRoutes();
   loadReports();
   loadGameVariables();
+  setEnemyAttackTimer();
 }
 
 void loadSystem()
@@ -224,9 +225,57 @@ void loadGameVariables()
   Score=Part.substring(40,46).toInt();
   timeToAttack=Part.substring(46,49).toInt();
   if(Part.substring(49,50)=="1")
+  {
     attackUnderway=true;
+  }
   else
-    attackUnderway=false;
+  {
+    attackUnderway=false; 
+  }
+}
+
+void setEnemyAttackTimer()
+{
+  int FleetsCount=0;
+  for(int i=0;i<4;i++)
+  {
+    if(EnemyFleets[i].Active==true)
+    {
+      FleetsCount++;
+    }
+  }
+  
+  if(FleetsCount>0)
+  {
+    if(FleetsCount==1)
+    {
+      timeToAttack=115;
+      if(Difficulty=="NORMAL")
+      {
+        timeToAttack=95;
+      }
+      else if(Difficulty=="HARD")
+      {
+        timeToAttack=75;
+      } 
+    }
+    else
+    {
+      timeToAttack=-1;
+    }
+  }
+  else
+  {
+    timeToAttack=115;
+    if(Difficulty=="NORMAL")
+    {
+      timeToAttack=95;
+    }
+    else if(Difficulty=="HARD")
+    {
+      timeToAttack=75;
+    } 
+  }
 }
 
 //---------------------------SAVE------------------------------

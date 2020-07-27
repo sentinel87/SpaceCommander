@@ -363,7 +363,7 @@ int ScoreBoard[]={0,0,0,0,0};
 int Score=0;
 
 //Enemy Timer
-int timeToAttack=10;//4 minutes interval
+int timeToAttack=160;//4 minutes interval
 bool attackUnderway=false;
 
 const SaveDefault savefileDefaults[] = {
