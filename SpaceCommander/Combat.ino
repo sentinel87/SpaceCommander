@@ -1,7 +1,7 @@
 //Report
 int flReportPage=1;
 
-int8_t spaceBattle(int enIndex,int plIndex,bool attacker) //attacker - true (Player attacks), false (Player is defender)
+int8_t spaceBattle(int enIndex,int plIndex,bool attacker,int affilation) //attacker - true (Player attacks), false (Player is defender)
 {
   BattleResult Reset={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false};
   BtResult=Reset;

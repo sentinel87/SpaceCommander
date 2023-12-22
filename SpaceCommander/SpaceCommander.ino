@@ -811,7 +811,7 @@ void updateEnemyFleetTime(int index)
     EnemyFleets[index].Seconds=0;
     EnemyFleets[index].Active=false;
     EnemyFleets[index].Visible=false;
-    int8_t winner=spaceBattle(index,-1,false);
+    int8_t winner=spaceBattle(index,-1,false,0);
     if(winner==2)//battle lost
     {
       gb.lights.fill(RED);
@@ -845,7 +845,11 @@ void updateEnemyFleetTime(int index)
         {
           ProgressPoints=ProgressPointsLimit;
         }
-        garrisonUpgrade();
+        garrisonUpgrade(Enemy1Garrison);
+        if(EnemyCount = 2)
+        {
+          garrisonUpgrade(Enemy2Garrison);
+        }
       }
       if(EnemyFleets[index].SolarDestroyers>0)  //If Attack was successfull and ultimate weapon survived, the game is over;
       {
@@ -885,17 +889,17 @@ void updateEnemyFleetTime(int index)
   }
 }
 
-void garrisonUpgrade()
+void garrisonUpgrade(EnemyGarrison garrison[6])
 {
   for(int i=0;i<6;i++)
   {
-    if(Enemy1Garrison[i].planetIndex!=-1)
+    if(garrison[i].planetIndex!=-1)
     {
-      Enemy1Garrison[i].Fighters+=10;
-      Enemy1Garrison[i].Interceptors+=5;
+      garrison[i].Fighters+=10;
+      garrison[i].Interceptors+=5;
       if(Difficulty=="NORMAL" || Difficulty=="HARD")
       {
-          Enemy1Garrison[i].Frigates+=1;
+          garrison[i].Frigates+=1;
       }
     }
   }
@@ -1074,7 +1078,7 @@ void attackPlanet(int index)
       int idx=System[i].GarrisonIndex;
       if(idx!=-1)
       {
-        int8_t winner=spaceBattle(idx,index,true);
+        int8_t winner=spaceBattle(idx,index,true,System[i].Affilation);
         fight=true;
         if(winner==1) //if player wins move fleet back
         {
@@ -1086,47 +1090,47 @@ void attackPlanet(int index)
             if(PlayerFleets[index].SolarDestroyers>0)//At least one Solar Destroyer survived 
             {
               Score+=100;
-              Victory=true;
-              countFinalScore(true);
+              if(EnemyCount == 1) //Victory with 1 enemy
+              {
+                Victory=true;
+                countFinalScore(true);
+              }
+              else
+              {
+                if(System[i].Affilation == 1)
+                {
+                  colonyDefeated(Enemy1Garrison[idx],i);
+                }
+                else
+                {
+                  colonyDefeated(Enemy2Garrison[idx],i);
+                }
+
+                if(Enemy1Garrison[0].planetIndex == -1 && Enemy2Garrison[0].planetIndex == -1) //Victory with 2 enemies
+                {
+                  Victory=true;
+                  countFinalScore(true);
+                }
+                else
+                {
+                  rewardForPlayer();
+                }
+              }
             }
             else
             {
-              PlayerResources[0]+=1000; //reward
-              if(PlayerResources[0]>9999)
-              {
-                PlayerResources[0]=9999;
-              }
-              PlayerResources[1]+=1000;
-              if(PlayerResources[1]>9999)
-              {
-                PlayerResources[1]=9999;
-              }
-              PlayerResources[2]+=1000;
-              if(PlayerResources[2]>9999)
-              {
-                PlayerResources[2]=9999;
-              }
+              rewardForPlayer();
             }
           }
           else //Colony defeated
           {
-            Enemy1Garrison[idx].planetIndex=-1;
-            System[i].Hostile=false;
-            System[i].GarrisonIndex=-1;
-            PlayerResources[0]+=1000; //reward
-            if(PlayerResources[0]>9999)
+            if(System[i].Affilation == 1)
             {
-              PlayerResources[0]=9999;
+              colonyDefeated(Enemy1Garrison[idx],i);
             }
-            PlayerResources[1]+=1000;
-            if(PlayerResources[1]>9999)
+            else
             {
-              PlayerResources[1]=9999;
-            }
-            PlayerResources[2]+=1000;
-            if(PlayerResources[2]>9999)
-            {
-              PlayerResources[2]=9999;
+              colonyDefeated(Enemy2Garrison[idx],i);
             }
             EnemyColonies--;
             Score+=50;
@@ -1136,6 +1140,33 @@ void attackPlanet(int index)
       }
       break;
     }
+  }
+}
+
+void colonyDefeated(EnemyGarrison garrison, int systemIdx)
+{
+  garrison.planetIndex=-1;
+  System[systemIdx].Hostile=false;
+  System[systemIdx].GarrisonIndex=-1;
+  rewardForPlayer();
+}
+
+void rewardForPlayer()
+{
+  PlayerResources[0]+=1000; //reward
+  if(PlayerResources[0]>9999)
+  {
+    PlayerResources[0]=9999;
+  }
+  PlayerResources[1]+=1000;
+  if(PlayerResources[1]>9999)
+  {
+    PlayerResources[1]=9999;
+  }
+  PlayerResources[2]+=1000;
+  if(PlayerResources[2]>9999)
+  {
+    PlayerResources[2]=9999;
   }
 }
 
