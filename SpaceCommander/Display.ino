@@ -2467,7 +2467,7 @@ void drawOptionsMenu(int selection)
   {
     gb.display.setColor(WHITE); 
   } 
-  gb.display.println("ENEMIES: 1");
+  gb.display.println("ENEMIES: "+(String)EnemyCount);
   gb.display.setCursor(4,26);
   if(selectionFrame==1 && selection==1)
   {

@@ -8,7 +8,7 @@ struct Planet
   int posX;
   int posY;
   bool Hostile;
-  String Enemy;
+  int Affilation; //0 - None, 1 - First Enemy, 2 - Second Enemy
   int Resource1;
   int Resource2;
   int Resource3;
@@ -19,39 +19,39 @@ struct Planet
   bool ActiveMission; //If planet is currently targeted by player fleet mission 
 };
 
-Planet SelectedPlanet={true,"UEF Colony",38,28,false,"Player",0,0,0,true,false,-1,true,false};
+Planet SelectedPlanet={true,"UEF Colony",38,28,false,0,0,0,0,true,false,-1,true,false};
 
 Planet System[]={
-  {true,"UEF Colony",38,28,false,"Player",0,0,0,true,false,-1,true,false},
-  {false,"Sheez Prime",76,28,false,"Shezz",3,2,2,false,false,-1,false,false},
-  {false,"Cligg Prime",0,28,true,"Cligg",0,0,0,false,false,0,false,false},
-  {false,"Ganimedes",33,35,false,"None",1,2,0,false,false,0,false,false},//Poor resources (3)
-  {false,"Raven",33,24,false,"None",1,1,1,true,false,-1,false,false},
-  {false,"Novaria",36,26,false,"None",1,0,2,false,false,-1,false,false},
-  {false,"Kanton",27,9,false,"None",2,0,3,false,false,-1,false,false},//Medium resources(6)
-  {false,"Armag",14,22,false,"None",1,4,0,false,false,-1,false,false},
-  {false,"Syrius",55,11,false,"None",3,2,0,false,false,-1,false,false},
-  {false,"Tibann",26,19,false,"None",1,3,1,false,false,-1,false,false},
-  {false,"San Da",48,17,false,"None",0,5,0,false,false,-1,false,false},
-  {false,"Tolka",63,23,false,"None",1,1,3,false,false,-1,false,false},
-  {false,"Eden",15,30,false,"None",0,5,0,false,false,-1,false,false},
-  {false,"Brantal V",24,32,false,"None",5,0,0,false,false,-1,false,false},
-  {false,"Dan 11",54,32,false,"None",0,0,5,false,false,-1,false,false},
-  {false,"Arti Ka",15,41,false,"None",0,2,3,false,false,-1,false,false},
-  {false,"Tyra",27,45,false,"None",4,1,0,false,false,-1,false,false},
-  {false,"Galant",51,48,false,"None",2,1,2,false,false,-1,false,false},
-  {false,"Saxa",60,40,false,"None",0,5,0,false,false,-1,false,false},
-  {false,"Tau 14",8,3,false,"None",5,1,1,false,false,-1,false,false},//Rich resources (19)
-  {false,"Cassia",14,3,false,"None",2,2,3,false,false,-1,false,false},
-  {false,"Nova 5",34,2,false,"None",1,5,1,false,false,-1,false,false},
-  {false,"Andromeda",44,6,false,"None",1,1,5,false,false,-1,false,false},
-  {false,"Arnval",71,7,false,"None",1,2,4,false,false,-1,false,false},
-  {false,"Duna",5,15,false,"None",4,2,1,false,false,-1,false,false},
-  {false,"Janya",7,43,false,"None",5,1,1,false,false,-1,false,false},
-  {false,"Rea 8",73,37,false,"None",3,2,2,false,false,-1,false,false},
-  {false,"IO",66,54,false,"None",2,3,2,false,false,-1,false,false},
-  {false,"Taka Van",33,55,false,"None",3,4,0,false,false,-1,false,false},
-  {false,"Europa",3,55,false,"None",4,3,0,false,false,-1,false,false}
+  {true,"UEF Colony",38,28,false,0,0,0,0,true,false,-1,true,false},
+  {false,"Sheez Prime",76,28,false,2,3,2,2,false,false,-1,false,false},
+  {false,"Cligg Prime",0,28,true,1,0,0,0,false,false,0,false,false},
+  {false,"Ganimedes",33,35,false,0,1,2,0,false,false,-1,false,false},//Poor resources (3)
+  {false,"Raven",33,24,false,0,1,1,1,true,false,-1,false,false},
+  {false,"Novaria",36,26,false,0,1,0,2,false,false,-1,false,false},
+  {false,"Kanton",27,9,false,0,2,0,3,false,false,-1,false,false},//Medium resources(6)
+  {false,"Armag",14,22,false,0,1,4,0,false,false,-1,false,false},
+  {false,"Syrius",55,11,false,0,3,2,0,false,false,-1,false,false},
+  {false,"Tibann",26,19,false,0,1,3,1,false,false,-1,false,false},
+  {false,"San Da",48,17,false,0,0,5,0,false,false,-1,false,false},
+  {false,"Tolka",63,23,false,0,1,1,3,false,false,-1,false,false},
+  {false,"Eden",15,30,false,0,0,5,0,false,false,-1,false,false},
+  {false,"Brantal V",24,32,false,0,5,0,0,false,false,-1,false,false},
+  {false,"Dan 11",54,32,false,0,0,0,5,false,false,-1,false,false},
+  {false,"Arti Ka",15,41,false,0,0,2,3,false,false,-1,false,false},
+  {false,"Tyra",27,45,false,0,4,1,0,false,false,-1,false,false},
+  {false,"Galant",51,48,false,0,2,1,2,false,false,-1,false,false},
+  {false,"Saxa",60,40,false,0,0,5,0,false,false,-1,false,false},
+  {false,"Tau 14",8,3,false,0,5,1,1,false,false,-1,false,false},//Rich resources (19)
+  {false,"Cassia",14,3,false,0,2,2,3,false,false,-1,false,false},
+  {false,"Nova 5",34,2,false,0,1,5,1,false,false,-1,false,false},
+  {false,"Andromeda",44,6,false,0,1,1,5,false,false,-1,false,false},
+  {false,"Arnval",71,7,false,0,1,2,4,false,false,-1,false,false},
+  {false,"Duna",5,15,false,0,4,2,1,false,false,-1,false,false},
+  {false,"Janya",7,43,false,0,5,1,1,false,false,-1,false,false},
+  {false,"Rea 8",73,37,false,0,3,2,2,false,false,-1,false,false},
+  {false,"IO",66,54,false,0,2,3,2,false,false,-1,false,false},
+  {false,"Taka Van",33,55,false,0,3,4,0,false,false,-1,false,false},
+  {false,"Europa",3,55,false,0,4,3,0,false,false,-1,false,false}
 };
 
 struct Technology

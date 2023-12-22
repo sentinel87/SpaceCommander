@@ -53,7 +53,7 @@ int8_t starMap(int Astronomy)
       {
         if(SelectedPlanet.Name=="Cligg Prime") //Check Capital condition
         {
-          if(EnemyColonies>0)
+          if(allColoniesDestroyed(Enemy1Garrison) == false)
           {
             gb.gui.popup("NOT ALL COLONIES DESTROYED!",50);
           }
@@ -61,7 +61,19 @@ int8_t starMap(int Astronomy)
           {
             Fleet attackFleet={1,true,0,0,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
             CustomFleet=attackFleet;
-            //setFleetParameters();
+            return 20; //FLEET SELECTION SCREEN
+          }
+        }
+        else if(SelectedPlanet.Name=="Sheez Prime" && EnemyCount == 2) //Check 2 Capital condition
+        {
+          if(allColoniesDestroyed(Enemy2Garrison) == false)
+          {
+            gb.gui.popup("NOT ALL COLONIES DESTROYED!",50);
+          }
+          else
+          {
+            Fleet attackFleet={1,true,0,0,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
+            CustomFleet=attackFleet;
             return 20; //FLEET SELECTION SCREEN
           }
         }
@@ -69,7 +81,6 @@ int8_t starMap(int Astronomy)
         {
           Fleet attackFleet={1,true,0,0,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
           CustomFleet=attackFleet;
-          //setFleetParameters();
           return 20; //FLEET SELECTION SCREEN
         }
       }
@@ -77,7 +88,6 @@ int8_t starMap(int Astronomy)
       {
         Fleet raidFleet={6,true,0,0,0,0,0,0,0,0,0,0,0,0,SelectedPlanet.Name,true};
         CustomFleet=raidFleet;
-        //setFleetParameters();
         return 26; //RAID SELECTION SCREEN
       }
       else if(stSelection==5)
@@ -170,6 +180,20 @@ int8_t starMap(int Astronomy)
   //gb.display.setCursor(10, 19);
   //gb.display.println(Astronomy);
   return 6;
+}
+
+bool allColoniesDestroyed(EnemyGarrison garrisons[6])
+{
+  bool result = true;
+  for(int i=1;i<6;i++)
+  {
+    if(garrisons[i].planetIndex!=-1)
+    {
+      result = false;
+      break;
+    }
+  }
+  return result;
 }
 
 void resetMapMarkers()
@@ -369,7 +393,7 @@ void selectedPlanet()
       return;
     }
   }
-  SelectedPlanet={false,"",0,0,false,"None",0,0,0,false,false,-1,false};
+  SelectedPlanet={false,"",0,0,false,0,0,0,0,false,false,-1,false};
 }
 
 void setFleetParameters()
@@ -480,7 +504,7 @@ void setFleetParameters()
 
 void setFleetReturnParameters(int index)
 {
-  Planet StartPlanet={false,"none",0,0,false,"Player",0,0,0,false,false,-1,false};
+  Planet StartPlanet={false,"none",0,0,false,0,0,0,0,false,false,-1,false};
   for(int i=0;i<30;i++)
   {
     if(System[i].Name==PlayerFleets[index].DestinationName)

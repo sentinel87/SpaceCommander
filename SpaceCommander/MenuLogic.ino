@@ -1,6 +1,7 @@
 int mmSelection=0;
 int omSelection=0;
 int omDiffSel=1;
+int omEnemiesSel=0;
 
 int8_t mainMenu()
 {
@@ -142,13 +143,25 @@ bool optionsMenu()
     {
       if(omDiffSel==0)
       {
-        omDiffSel=2;
+        omDiffSel=1;
       }
       else
       {
         omDiffSel--;
       }
       setDifficulty(); 
+    }
+    else if(omSelection==0)
+    {
+      if(omEnemiesSel==0)
+      {
+        omEnemiesSel=1;
+      }
+      else
+      {
+        omEnemiesSel=0;
+      }
+      setNumberOfEnemies();
     }
   }
   else if(gb.buttons.pressed(BUTTON_RIGHT))
@@ -164,6 +177,18 @@ bool optionsMenu()
         omDiffSel++;
       }
       setDifficulty(); 
+    }
+    else if(omSelection==0)
+    {
+      if(omEnemiesSel==0)
+      {
+        omEnemiesSel=1;
+      }
+      else
+      {
+        omEnemiesSel=0;
+      }
+      setNumberOfEnemies();
     }
   }
   drawOptionsMenu(omSelection);
@@ -183,6 +208,18 @@ void setDifficulty()
   else
   {
     Difficulty="HARD";
+  }
+}
+
+void setNumberOfEnemies()
+{
+  if(omEnemiesSel==0)
+  {
+    EnemyCount=1;
+  }
+  else
+  {
+    EnemyCount=2;
   }
 }
 
@@ -228,8 +265,17 @@ void prepareNewGame()
   BtResult=BattleResultReset;
 
   BattleExperience=0;
-  EnemyColonies=5;
-  EnemyCapitals=1;
+
+  if(EnemyCount == 1)
+  {
+    EnemyColonies=5;
+    EnemyCapitals=1;
+  }
+  else
+  {
+    EnemyColonies=10;
+    EnemyCapitals=2;
+  }
   
   //Reset player ships
   for(int i=0;i<11;i++)
@@ -397,21 +443,40 @@ void prepareGarrisons()
   for(int i=0;i<6;i++)
   {
     Enemy1Garrison[i]=ResetGarrison;
+    if(EnemyCount == 2)
+    {
+      Enemy2Garrison[i]=ResetGarrison;
+    }
   }
 
   Enemy1Garrison[0].planetIndex=2; //Set Capital Garrison
   System[2].Hostile=true;
   System[2].GarrisonIndex=0;
+  System[2].Affilation=1;
+  seedGarrison(Enemy1Garrison, 1);
 
+  if(EnemyCount == 2)
+  {
+    Enemy2Garrison[0].planetIndex=1; //Set Capital Garrison
+    System[1].Hostile=true;
+    System[1].GarrisonIndex=0;
+    System[1].Affilation=2;
+    seedGarrison(Enemy2Garrison, 2);
+  }
+}
+
+void seedGarrison(EnemyGarrison garrisons[6], int affilation)
+{
   int gIdx=1;
   while(gIdx!=6) //Set random planets for garrisons
   {
     int pIdx=random(3, 28);
     if(System[pIdx].Hostile==false)
     {
-      Enemy1Garrison[gIdx].planetIndex=pIdx;
+      garrisons[gIdx].planetIndex=pIdx;
       System[pIdx].Hostile=true;
       System[pIdx].GarrisonIndex=gIdx;
+      System[pIdx].Affilation=affilation;
       gIdx++;
     }
     else
