@@ -17,13 +17,13 @@ void loadGame()
 
 void loadSystem()
 {
-  char RawPlanetData[309];
+  char RawPlanetData[349];
   gb.save.get(0, RawPlanetData);
   String PlanetsData(RawPlanetData);
   
-  for(int i=2;i<29;i++)
+  for(int i=1;i<30;i++)
   {
-    String Part=PlanetsData.substring((i-2)*11,((i-2)*11)+11);
+    String Part=PlanetsData.substring((i-1)*12,((i-1)*12)+12);
     if(Part.substring(0,1)=="1")
       System[i].Discovered=true;
     else
@@ -51,7 +51,8 @@ void loadSystem()
     if(Part.substring(10,11)=="1")
       System[i].ActiveMission=true;
     else
-      System[i].ActiveMission=false;  
+      System[i].ActiveMission=false;
+    System[i].Affilation = Part.substring(11,12).toInt();  
   }
 }
 
@@ -207,11 +208,11 @@ void loadReports()
 
 void loadGameVariables()
 {
-  char RawGameData[51];
+  char RawGameData[50];
   gb.save.get(10, RawGameData);
   String GameData(RawGameData);
   
-  String Part=GameData.substring(0,50);
+  String Part=GameData.substring(0,49);
   PlayerResources[0]=Part.substring(0,4).toInt();
   PlayerResources[1]=Part.substring(4,8).toInt();
   PlayerResources[2]=Part.substring(8,12).toInt();
@@ -221,10 +222,9 @@ void loadGameVariables()
   ProgressPoints=Part.substring(31,34).toInt();
   ProgressPointsLimit=Part.substring(34,37).toInt();
   EnemyColonies=Part.substring(37,39).toInt();
-  EnemyCapitals=Part.substring(39,40).toInt();
-  Score=Part.substring(40,46).toInt();
-  timeToAttack=Part.substring(46,49).toInt();
-  if(Part.substring(49,50)=="1")
+  Score=Part.substring(39,45).toInt();
+  timeToAttack=Part.substring(45,48).toInt();
+  if(Part.substring(48,49)=="1")
   {
     attackUnderway=true;
   }
@@ -350,7 +350,7 @@ void saveDataToBlock(uint16_t block,String data,int bufferSize)
 bool saveDataSystem()
 {
   String strData="";
-  for(int i=2;i<30;i++)
+  for(int i=1;i<30;i++)
   {
     String strPlanet="";
     if(System[i].Discovered==true) strPlanet+="1";
@@ -373,11 +373,12 @@ bool saveDataSystem()
     if(System[i].ActiveMission==true) strPlanet+="1";
     else strPlanet+="0";
     strData+=strPlanet;
+    strPlanet+=(String)System[i].Affilation;
   }
   strData+=" ";
-  if(strData.length()==309)
+  if(strData.length()==349)
   {
-    saveDataToBlock(0,strData,309);
+    saveDataToBlock(0,strData,349);
     return true;
   }
   else
@@ -619,10 +620,9 @@ bool saveDataGameVariables()
   strData+=returnDecimalStringPoint(ProgressPoints);
   strData+=returnDecimalStringPoint(ProgressPointsLimit);
   if(EnemyColonies>9)
-      strData+=(String)EnemyColonies;
-    else
-      strData+="0"+(String)EnemyColonies;
-  strData+=(String)EnemyCapitals;   
+    strData+=(String)EnemyColonies;
+  else
+    strData+="0"+(String)EnemyColonies;   
   strData+=returnDecimalStringScore(Score);
   strData+=returnDecimalStringPoint(timeToAttack);
   if(attackUnderway==true)
@@ -634,9 +634,9 @@ bool saveDataGameVariables()
     strData+="0";
   }
   strData+=" ";
-  if(strData.length()==51)
+  if(strData.length()==50)
   {
-    saveDataToBlock(10,strData,51);
+    saveDataToBlock(10,strData,50);
     return true;
   }
   else

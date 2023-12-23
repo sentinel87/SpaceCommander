@@ -265,17 +265,6 @@ void prepareNewGame()
   BtResult=BattleResultReset;
 
   BattleExperience=0;
-
-  if(EnemyCount == 1)
-  {
-    EnemyColonies=5;
-    EnemyCapitals=1;
-  }
-  else
-  {
-    EnemyColonies=10;
-    EnemyCapitals=2;
-  }
   
   //Reset player ships
   for(int i=0;i<11;i++)
@@ -314,6 +303,7 @@ void prepareNewGame()
   
   preparePlanets();
   prepareGarrisons();
+  EnemyColonies = checkTotalColoniesCount();
   prepareTechs();
   prepareBuildings();
   prepareFleets();

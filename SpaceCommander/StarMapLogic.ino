@@ -53,7 +53,7 @@ int8_t starMap(int Astronomy)
       {
         if(SelectedPlanet.Name=="Cligg Prime") //Check Capital condition
         {
-          if(allColoniesDestroyed(Enemy1Garrison) == false)
+          if(countColonies(Enemy1Garrison) > 0)
           {
             gb.gui.popup("NOT ALL COLONIES DESTROYED!",50);
           }
@@ -66,7 +66,7 @@ int8_t starMap(int Astronomy)
         }
         else if(SelectedPlanet.Name=="Sheez Prime" && EnemyCount == 2) //Check 2 Capital condition
         {
-          if(allColoniesDestroyed(Enemy2Garrison) == false)
+          if(countColonies(Enemy2Garrison) == false)
           {
             gb.gui.popup("NOT ALL COLONIES DESTROYED!",50);
           }
@@ -171,29 +171,7 @@ int8_t starMap(int Astronomy)
   {
     drawDropdownMenu(stPosX,stPosY,stSelection,stEnabled);
   }
-  //gb.display.setCursor(10, 5);
-  //gb.display.setFontSize(1);
-  //gb.display.setColor(RED);
-  //gb.display.println(gb.getCpuLoad());
-  //gb.display.setCursor(10, 12);
-  //gb.display.println(gb.getFreeRam());
-  //gb.display.setCursor(10, 19);
-  //gb.display.println(Astronomy);
   return 6;
-}
-
-bool allColoniesDestroyed(EnemyGarrison garrisons[6])
-{
-  bool result = true;
-  for(int i=1;i<6;i++)
-  {
-    if(garrisons[i].planetIndex!=-1)
-    {
-      result = false;
-      break;
-    }
-  }
-  return result;
 }
 
 void resetMapMarkers()

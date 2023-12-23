@@ -357,8 +357,7 @@ String TempDiff="NORMAL";
 bool SaveExist=false;
 int ProgressPoints=0;
 int ProgressPointsLimit=120;
-int EnemyColonies=5;
-int EnemyCapitals=1;
+int EnemyColonies=0;
 int ScoreBoard[]={0,0,0,0,0};
 int Score=0;
 
@@ -367,7 +366,7 @@ int timeToAttack=160;//4 minutes interval
 bool attackUnderway=false;
 
 const SaveDefault savefileDefaults[] = {
-  { 0, SAVETYPE_BLOB,{.ptr="1123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-1111123411-111 "} ,309},
+  { 0, SAVETYPE_BLOB,{.ptr="1123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-1110 "} ,349},
   { 1, SAVETYPE_BLOB,{.ptr="0101021001010101010101010101011101010125 "},81},
   { 2, SAVETYPE_BLOB,{.ptr="020313000000000000000000000000000000000000000000000000000000000000000000000000000000121120 "},91},
   { 3, SAVETYPE_BLOB,{.ptr="-10100200043510025000103330000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 "},157}, //Enemy1 Garrison
@@ -377,7 +376,7 @@ const SaveDefault savefileDefaults[] = {
   { 7, SAVETYPE_BLOB,{.ptr="0000000000000000000000000000000000000000000000000000 "},53},
   { 8, SAVETYPE_BLOB,{.ptr="0NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********000 "},217},
   { 9, SAVETYPE_BLOB,{.ptr="NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000 "},211},
-  { 10, SAVETYPE_BLOB,{.ptr="00000000000000000NORMAL********0000000000000000000 "},51},
+  { 10, SAVETYPE_BLOB,{.ptr="00000000000000000NORMAL********000000000000000000 "},50},
   { 11,SAVETYPE_INT,0,0 },
   { 12,SAVETYPE_INT,0,0 },
   { 13,SAVETYPE_INT,0,0 },
@@ -905,32 +904,6 @@ void garrisonUpgrade(EnemyGarrison garrison[6])
   }
 }
 
-void enemyFleetsCheck() //check if all attacks are completed and reset prepare timer
-{
-  bool allClear=true;
-  for(int i=0;i<4;i++)
-  {
-    if(EnemyFleets[i].Active!=false)
-    {
-      allClear=false;
-      break;
-    }
-  }
-  if(allClear==true)
-  {
-    attackUnderway=false;
-    timeToAttack=130;
-    if(Difficulty=="NORMAL")
-    {
-      timeToAttack=110;
-    }
-    else if(Difficulty=="HARD")
-    {
-      timeToAttack=100;
-    }
-  }
-}
-
 void updatePlayerFleetTime(int index)
 {
   if(PlayerFleets[index].Seconds==0 && PlayerFleets[index].Minutes>0)
@@ -1101,7 +1074,7 @@ void attackPlanet(int index)
                 {
                   colonyDefeated(Enemy1Garrison[idx],i);
                 }
-                else
+                else if(System[i].Affilation == 2)
                 {
                   colonyDefeated(Enemy2Garrison[idx],i);
                 }
@@ -1132,7 +1105,7 @@ void attackPlanet(int index)
             {
               colonyDefeated(Enemy2Garrison[idx],i);
             }
-            EnemyColonies--;
+            EnemyColonies = checkTotalColoniesCount();
             Score+=50;
           }
         }
@@ -1264,9 +1237,35 @@ bool resourcePillage()
 }
 
 //--------Enemy Attacks------------------------
+void enemyFleetsCheck() //check if all attacks are completed and reset prepare timer
+{
+  bool allClear=true;
+  for(int i=0;i<4;i++)
+  {
+    if(EnemyFleets[i].Active!=false)
+    {
+      allClear=false;
+      break;
+    }
+  }
+  if(allClear==true)
+  {
+    attackUnderway=false;
+    timeToAttack=150;
+    if(Difficulty=="NORMAL")
+    {
+      timeToAttack=130;
+    }
+    else if(Difficulty=="HARD")
+    {
+      timeToAttack=100;
+    }
+  }
+}
+
 void enemyAttackTimer()
 {
-  if(timeToAttack==-1) //at least two fleets are attacking
+  if(timeToAttack==-1) //at least two (four) fleets are attacking
   {
     return;
   }
@@ -1287,15 +1286,11 @@ void enemyAttackTimer()
         {
           EnemyFleets[idx]=CustomEnemyFleet;
           attackUnderway=true;
-          timeToAttack=115;
-          if(Difficulty=="NORMAL")
-          {
-            timeToAttack=95;
-          }
-          else if(Difficulty=="HARD")
-          {
-            timeToAttack=75;
-          }
+          setTimeToAnotherAttack();
+        }
+        else
+        {
+          timeToAttack = -1; //stop attacks
         }
       }
     }
@@ -1309,10 +1304,42 @@ void enemyAttackTimer()
         if(idx!=-1)
         {
           EnemyFleets[idx]=CustomEnemyFleet;
-          timeToAttack=-1; //stop attacks
+          if(EnemyCount == 2)
+          {
+            int coloniesTotal = checkTotalColoniesCount();
+            if(coloniesTotal > 5)
+            {
+              setTimeToAnotherAttack();
+            }
+            else
+            {
+              timeToAttack = -1; //stop attacks
+            }
+          }
+          else
+          {
+            timeToAttack = -1; //stop attacks
+          }
+        }
+        else
+        {
+          timeToAttack = -1; //stop attacks
         }
       }
     }
+  }
+}
+
+void setTimeToAnotherAttack()
+{
+  timeToAttack=115;
+  if(Difficulty=="NORMAL")
+  {
+    timeToAttack=95;
+  }
+  else if(Difficulty=="HARD")
+  {
+    timeToAttack=75;
   }
 }
 
@@ -1518,6 +1545,24 @@ void countFinalScore(bool victory)
     Score+=Colony[i].level;
   }
   Score+=((ProgressPointsLimit-ProgressPoints)*3);
-  
 }
 
+int checkTotalColoniesCount()
+{
+  int enemy1ColoniesTotal = countColonies(Enemy1Garrison);
+  int enemy2ColoniesTotal = countColonies(Enemy2Garrison);
+  return enemy1ColoniesTotal + enemy2ColoniesTotal;
+}
+
+int countColonies(EnemyGarrison garrison[6])
+{
+  int total = 0;
+  for(int i = 1; i < 6; i++)
+  {
+    if(garrison[i].planetIndex != -1)
+    {
+      total++;
+    }
+  }
+  return total;
+}
