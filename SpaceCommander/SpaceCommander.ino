@@ -23,7 +23,7 @@ Planet SelectedPlanet={true,"UEF Colony",38,28,false,0,0,0,0,true,false,-1,true,
 
 Planet System[]={
   {true,"UEF Colony",38,28,false,0,0,0,0,true,false,-1,true,false},
-  {false,"Sheez Prime",76,28,false,2,3,2,2,false,false,-1,false,false},
+  {false,"Sheez Prime",76,28,false,0,3,2,2,false,false,-1,false,false},
   {false,"Cligg Prime",0,28,true,1,0,0,0,false,false,0,false,false},
   {false,"Ganimedes",33,35,false,0,1,2,0,false,false,-1,false,false},//Poor resources (3)
   {false,"Raven",33,24,false,0,1,1,1,true,false,-1,false,false},
@@ -358,12 +358,15 @@ bool SaveExist=false;
 int ProgressPoints=0;
 int ProgressPointsLimit=120;
 int EnemyColonies=0;
+int CliggColonies=0;
+int SheezColonies=0;
 int ScoreBoard[]={0,0,0,0,0};
 int Score=0;
 
 //Enemy Timer
 int timeToAttack=160;//4 minutes interval
 bool attackUnderway=false;
+int8_t attackCounter=0;
 
 const SaveDefault savefileDefaults[] = {
   { 0, SAVETYPE_BLOB,{.ptr="1123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-1110 "} ,349},
@@ -376,7 +379,7 @@ const SaveDefault savefileDefaults[] = {
   { 7, SAVETYPE_BLOB,{.ptr="0000000000000000000000000000000000000000000000000000 "},53},
   { 8, SAVETYPE_BLOB,{.ptr="0NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********000 "},217},
   { 9, SAVETYPE_BLOB,{.ptr="NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000 "},211},
-  { 10, SAVETYPE_BLOB,{.ptr="00000000000000000NORMAL********000000000000000000 "},50},
+  { 10, SAVETYPE_BLOB,{.ptr="00000000000000000NORMAL********0000000000000000000 "},51},
   { 11,SAVETYPE_INT,0,0 },
   { 12,SAVETYPE_INT,0,0 },
   { 13,SAVETYPE_INT,0,0 },
@@ -1116,7 +1119,7 @@ void attackPlanet(int index)
   }
 }
 
-void colonyDefeated(EnemyGarrison garrison, int systemIdx)
+void colonyDefeated(EnemyGarrison& garrison, int systemIdx)
 {
   garrison.planetIndex=-1;
   System[systemIdx].Hostile=false;
@@ -1250,6 +1253,7 @@ void enemyFleetsCheck() //check if all attacks are completed and reset prepare t
   }
   if(allClear==true)
   {
+    attackCounter=0;
     attackUnderway=false;
     timeToAttack=150;
     if(Difficulty=="NORMAL")
@@ -1284,6 +1288,7 @@ void enemyAttackTimer()
         int idx=getEnemyFleetSlot();
         if(idx!=-1)
         {
+          attackCounter++;
           EnemyFleets[idx]=CustomEnemyFleet;
           attackUnderway=true;
           setTimeToAnotherAttack();
@@ -1304,10 +1309,11 @@ void enemyAttackTimer()
         if(idx!=-1)
         {
           EnemyFleets[idx]=CustomEnemyFleet;
+          attackCounter++;
           if(EnemyCount == 2)
           {
             int coloniesTotal = checkTotalColoniesCount();
-            if(coloniesTotal > 5)
+            if(coloniesTotal > 5 && attackCounter < 4)
             {
               setTimeToAnotherAttack();
             }
@@ -1549,9 +1555,9 @@ void countFinalScore(bool victory)
 
 int checkTotalColoniesCount()
 {
-  int enemy1ColoniesTotal = countColonies(Enemy1Garrison);
-  int enemy2ColoniesTotal = countColonies(Enemy2Garrison);
-  return enemy1ColoniesTotal + enemy2ColoniesTotal;
+  CliggColonies = countColonies(Enemy1Garrison);
+  SheezColonies = countColonies(Enemy2Garrison);
+  return CliggColonies + SheezColonies;
 }
 
 int countColonies(EnemyGarrison garrison[6])

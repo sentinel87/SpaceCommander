@@ -66,7 +66,7 @@ int8_t starMap(int Astronomy)
         }
         else if(SelectedPlanet.Name=="Sheez Prime" && EnemyCount == 2) //Check 2 Capital condition
         {
-          if(countColonies(Enemy2Garrison) == false)
+          if(countColonies(Enemy2Garrison) > 0)
           {
             gb.gui.popup("NOT ALL COLONIES DESTROYED!",50);
           }
@@ -195,6 +195,16 @@ bool buildDropdownMenu()
       stEnabled[4]=0;
       stEnabled[5]=0;
       return false;
+    }
+    if(SelectedPlanet.Status==false) //If planned was not scanned
+    {
+      stEnabled[0]=1;
+      stEnabled[1]=0;
+      stEnabled[2]=0;
+      stEnabled[3]=0;
+      stEnabled[4]=0;
+      stEnabled[5]=0;
+      return true;
     }
     if(SelectedPlanet.Hostile==true)
     {

@@ -2602,7 +2602,7 @@ void drawPlanetsColors()
 {
   for(int i=0;i<30;i++)
   {
-    if(System[i].Hostile==true && System[i].Status==true)
+    if(System[i].Hostile == true && System[i].Status == true)
     {
       gb.display.setColor(RED);
       gb.display.fillRect(System[i].posX+1,System[i].posY+1,1,1);
@@ -3097,10 +3097,6 @@ void drawPlayerFleets(int posX,int posY)
       ActiveFleets++;
     }
   }
-  //if(ActiveFleets>0)
-  //{
-  //  gb.display.drawImage(posX,posY,FleetSelector); 
-  //}
 }
 
 void drawEnemyFleets(int posX,int posY,int selection)
@@ -3624,13 +3620,13 @@ void drawIntelligence()
   gb.display.setCursor(15,0);
   gb.display.println("INTELLIGENCE");
   gb.display.setColor(GREEN);
-  gb.display.fillRect(10,25,60,2);
+  gb.display.fillRect(10,24,60,2);
   if(Difficulty=="EASY"||Difficulty=="NORMAL")
   {
-    gb.display.fillRect(10,36,60,2); 
+    gb.display.fillRect(10,35,60,2); 
   }
   gb.display.setColor(RED);
-  gb.display.setCursor(12,18);
+  gb.display.setCursor(12,17);
   gb.display.println("ENEMY ULTIMATE");
   if(selectionFrame==0)
   {
@@ -3649,7 +3645,7 @@ void drawIntelligence()
   {
     fixed1=ProgressPoints;
   }
-  gb.display.fillRect(10,25,fixed1,2);
+  gb.display.fillRect(10,24,fixed1,2);
   if(Difficulty=="EASY"||Difficulty=="NORMAL")
   {
     int fixed2=0;  
@@ -3657,13 +3653,13 @@ void drawIntelligence()
     {
       fixed2=ProgressPoints-60;
     }
-    gb.display.fillRect(10,36,fixed2,2); 
+    gb.display.fillRect(10,35,fixed2,2); 
   }
   gb.display.setColor(RED);
-  gb.display.setCursor(10,40);
+  gb.display.setCursor(10,39);
   gb.display.println("WEAPON PROGRESS");
   gb.display.setColor(ORANGE);
-  gb.display.setCursor(25,29);
+  gb.display.setCursor(25,28);
   if(Difficulty=="EASY"||Difficulty=="NORMAL")
   {
     gb.display.println((String)ProgressPoints+"/"+(String)ProgressPointsLimit); 
@@ -3672,9 +3668,15 @@ void drawIntelligence()
   {
     gb.display.println((String)ProgressPoints+" / "+(String)ProgressPointsLimit);
   }
-  gb.display.setCursor(8,51);
+  gb.display.setCursor(8,46);
   gb.display.setColor(RED);
-  gb.display.println("ENEMY COLONIES:"+(String)EnemyColonies);
+  gb.display.println("CLIGG COLONIES:"+(String)CliggColonies);
+  if(EnemyCount == 2)
+  {
+    gb.display.setCursor(8,52);
+    gb.display.setColor(RED);
+    gb.display.println("SHEEZ COLONIES:"+(String)SheezColonies);
+  }
 }
 
 void drawSpyReport(Report IntelligenceReport)

@@ -280,15 +280,15 @@ void fillGarrisons(int8_t CurrentShip, int QuantityToBuy)
   int baseModifier=EnemyCount * 5;
   if(Difficulty=="EASY")
   {
-    modifier = 4 + (baseModifier - EnemyColonies);
+    modifier = 6 + (baseModifier - EnemyColonies);
   }
   else if(Difficulty=="NORMAL")
   {
-    modifier = 2 + (baseModifier - EnemyColonies);
+    modifier = 4 + (baseModifier - EnemyColonies);
   }
   else
   {
-    modifier = 1 + (baseModifier - EnemyColonies);
+    modifier = 2 + (baseModifier - EnemyColonies);
   }
   int toDistribute=QuantityToBuy/modifier;
   for(int i=0;i<6;i++)

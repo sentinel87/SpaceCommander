@@ -260,6 +260,7 @@ void prepareNewGame()
   visibilityMinutes=0;
   timeToAttack=160;
   attackUnderway=false;
+  attackCounter=0;
 
   BattleResult BattleResultReset={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false};
   BtResult=BattleResultReset;
@@ -327,6 +328,7 @@ void preparePlanets()
     System[i].Resource1=0;
     System[i].Resource2=0;
     System[i].Resource3=0;
+    System[i].Affilation=0;
   }
   //Populate resources on Planets
   for(int i=3;i<30;i++)

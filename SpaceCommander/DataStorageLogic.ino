@@ -13,6 +13,7 @@ void loadGame()
   loadReports();
   loadGameVariables();
   setEnemyAttackTimer();
+  checkTotalColoniesCount();
 }
 
 void loadSystem()
@@ -208,11 +209,11 @@ void loadReports()
 
 void loadGameVariables()
 {
-  char RawGameData[50];
+  char RawGameData[51];
   gb.save.get(10, RawGameData);
   String GameData(RawGameData);
   
-  String Part=GameData.substring(0,49);
+  String Part=GameData.substring(0,50);
   PlayerResources[0]=Part.substring(0,4).toInt();
   PlayerResources[1]=Part.substring(4,8).toInt();
   PlayerResources[2]=Part.substring(8,12).toInt();
@@ -232,6 +233,7 @@ void loadGameVariables()
   {
     attackUnderway=false; 
   }
+  attackCounter=Part.substring(49,50).toInt();
 }
 
 void setEnemyAttackTimer()
@@ -633,10 +635,11 @@ bool saveDataGameVariables()
   {
     strData+="0";
   }
+  strData+=(String)attackCounter;
   strData+=" ";
-  if(strData.length()==50)
+  if(strData.length()==51)
   {
-    saveDataToBlock(10,strData,50);
+    saveDataToBlock(10,strData,51);
     return true;
   }
   else

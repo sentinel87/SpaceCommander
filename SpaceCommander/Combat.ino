@@ -6,36 +6,64 @@ int8_t spaceBattle(int enIndex,int plIndex,bool attacker,int affilation) //attac
   BattleResult Reset={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false};
   BtResult=Reset;
   
-  EnemyGarrison garrison = {-1,0,0,0,0,0,0};
-  if(affilation == 1)//Determine, which enemy garrison is attacked
+  if(attacker == false)
   {
-    garrison = Enemy1Garrison[enIndex];
+    EnemyGarrison garrison = {-1,0,0,0,0,0,0};
+    reportShipsBeforeBattle(enIndex,plIndex,attacker,garrison);
+    //BATTLE
+    defenceSystemActivation(enIndex); 
+
+    resolveBonuses(enIndex,plIndex,attacker,garrison);
+    resolveFightersBattle(enIndex,plIndex,attacker,garrison);
+    resolveInterceptorsBattle(enIndex,plIndex,attacker,garrison);
+    resolveFrigatesBattle(enIndex,plIndex,attacker,garrison);
+    resolveWarCruisersBattle(enIndex,plIndex,attacker,garrison);
+    resolveStarDreadnoughtsBattle(enIndex,plIndex,attacker,garrison);
+    resolveSolarDestroyersBattle(enIndex,plIndex,attacker,garrison);
+    resolveSecondRound(enIndex,plIndex,attacker,garrison);
+  
+    int8_t winner=determineWinner(enIndex,plIndex,attacker,garrison);
+    reportLosses(enIndex,plIndex,attacker,winner,garrison);
+
+    return winner;
+  }
+  else if(affilation == 1)//Determine, which enemy garrison is attacked
+  {
+    reportShipsBeforeBattle(enIndex,plIndex,attacker,Enemy1Garrison[enIndex]);
+    //BATTLE
+    resolveBonuses(enIndex,plIndex,attacker,Enemy1Garrison[enIndex]);
+    resolveFightersBattle(enIndex,plIndex,attacker,Enemy1Garrison[enIndex]);
+    resolveInterceptorsBattle(enIndex,plIndex,attacker,Enemy1Garrison[enIndex]);
+    resolveFrigatesBattle(enIndex,plIndex,attacker,Enemy1Garrison[enIndex]);
+    resolveWarCruisersBattle(enIndex,plIndex,attacker,Enemy1Garrison[enIndex]);
+    resolveStarDreadnoughtsBattle(enIndex,plIndex,attacker,Enemy1Garrison[enIndex]);
+    resolveSolarDestroyersBattle(enIndex,plIndex,attacker,Enemy1Garrison[enIndex]);
+    resolveSecondRound(enIndex,plIndex,attacker,Enemy1Garrison[enIndex]);
+  
+    int8_t winner=determineWinner(enIndex,plIndex,attacker,Enemy1Garrison[enIndex]);
+    reportLosses(enIndex,plIndex,attacker,winner,Enemy1Garrison[enIndex]);
+
+    return winner;
   }
   else if(affilation == 2)
   {
-    garrison = Enemy2Garrison[enIndex];
-  }
+    reportShipsBeforeBattle(enIndex,plIndex,attacker,Enemy2Garrison[enIndex]);
+    //BATTLE
+    resolveBonuses(enIndex,plIndex,attacker,Enemy2Garrison[enIndex]);
+    resolveFightersBattle(enIndex,plIndex,attacker,Enemy2Garrison[enIndex]);
+    resolveInterceptorsBattle(enIndex,plIndex,attacker,Enemy2Garrison[enIndex]);
+    resolveFrigatesBattle(enIndex,plIndex,attacker,Enemy2Garrison[enIndex]);
+    resolveWarCruisersBattle(enIndex,plIndex,attacker,Enemy2Garrison[enIndex]);
+    resolveStarDreadnoughtsBattle(enIndex,plIndex,attacker,Enemy2Garrison[enIndex]);
+    resolveSolarDestroyersBattle(enIndex,plIndex,attacker,Enemy2Garrison[enIndex]);
+    resolveSecondRound(enIndex,plIndex,attacker,Enemy2Garrison[enIndex]);
   
-  reportShipsBeforeBattle(enIndex,plIndex,attacker,garrison);
-  //BATTLE
-  if(attacker==false)
-  {
-    defenceSystemActivation(enIndex); 
+    int8_t winner=determineWinner(enIndex,plIndex,attacker,Enemy2Garrison[enIndex]);
+    reportLosses(enIndex,plIndex,attacker,winner,Enemy2Garrison[enIndex]);
+
+    return winner;
   }
-
-  resolveBonuses(enIndex,plIndex,attacker,garrison);
-  resolveFightersBattle(enIndex,plIndex,attacker,garrison);
-  resolveInterceptorsBattle(enIndex,plIndex,attacker,garrison);
-  resolveFrigatesBattle(enIndex,plIndex,attacker,garrison);
-  resolveWarCruisersBattle(enIndex,plIndex,attacker,garrison);
-  resolveStarDreadnoughtsBattle(enIndex,plIndex,attacker,garrison);
-  resolveSolarDestroyersBattle(enIndex,plIndex,attacker,garrison);
-  resolveSecondRound(enIndex,plIndex,attacker,garrison);
-
-  int8_t winner=determineWinner(enIndex,plIndex,attacker,garrison);
-  reportLosses(enIndex,plIndex,attacker,winner,garrison);
-  
-  return winner;
+  return 0;
 }
 
 void defenceSystemActivation(int enIndex)
@@ -99,7 +127,7 @@ void defenceSystemActivation(int enIndex)
   }
 }
 
-void resolveBonuses(int enIndex,int plIndex,bool attacker,EnemyGarrison garrison)
+void resolveBonuses(int enIndex,int plIndex,bool attacker,EnemyGarrison& garrison)
 {
   if(attacker==true)
   {
@@ -151,7 +179,7 @@ void resolveBonuses(int enIndex,int plIndex,bool attacker,EnemyGarrison garrison
   }
 }
 
-void reportShipsBeforeBattle(int enIndex,int plIndex,bool attacker,EnemyGarrison garrison)
+void reportShipsBeforeBattle(int enIndex,int plIndex,bool attacker,EnemyGarrison& garrison)
 {
   if(attacker==true)
   {
@@ -185,7 +213,7 @@ void reportShipsBeforeBattle(int enIndex,int plIndex,bool attacker,EnemyGarrison
   }
 }
 
-void resolveFightersBattle(int enIndex,int plIndex,bool attacker,EnemyGarrison garrison)
+void resolveFightersBattle(int enIndex,int plIndex,bool attacker,EnemyGarrison& garrison)
 {
   if(attacker==true)
   {
@@ -263,7 +291,7 @@ void resolveFightersBattle(int enIndex,int plIndex,bool attacker,EnemyGarrison g
   }
 }
 
-void resolveInterceptorsBattle(int enIndex,int plIndex,bool attacker,EnemyGarrison garrison)
+void resolveInterceptorsBattle(int enIndex,int plIndex,bool attacker,EnemyGarrison& garrison)
 {
   if(attacker==true)
   {
@@ -341,7 +369,7 @@ void resolveInterceptorsBattle(int enIndex,int plIndex,bool attacker,EnemyGarris
   }
 }
 
-void resolveFrigatesBattle(int enIndex,int plIndex,bool attacker,EnemyGarrison garrison)
+void resolveFrigatesBattle(int enIndex,int plIndex,bool attacker,EnemyGarrison& garrison)
 {
   if(attacker==true)
   {
@@ -419,7 +447,7 @@ void resolveFrigatesBattle(int enIndex,int plIndex,bool attacker,EnemyGarrison g
   }
 }
 
-void resolveWarCruisersBattle(int enIndex,int plIndex,bool attacker,EnemyGarrison garrison)
+void resolveWarCruisersBattle(int enIndex,int plIndex,bool attacker,EnemyGarrison& garrison)
 {
   if(attacker==true)
   {
@@ -497,7 +525,7 @@ void resolveWarCruisersBattle(int enIndex,int plIndex,bool attacker,EnemyGarriso
   }
 }
 
-void resolveStarDreadnoughtsBattle(int enIndex,int plIndex,bool attacker,EnemyGarrison garrison)
+void resolveStarDreadnoughtsBattle(int enIndex,int plIndex,bool attacker,EnemyGarrison& garrison)
 {
   if(attacker==true)
   {
@@ -575,7 +603,7 @@ void resolveStarDreadnoughtsBattle(int enIndex,int plIndex,bool attacker,EnemyGa
   }
 }
 
-void resolveSolarDestroyersBattle(int enIndex,int plIndex,bool attacker,EnemyGarrison garrison)
+void resolveSolarDestroyersBattle(int enIndex,int plIndex,bool attacker,EnemyGarrison& garrison)
 {
   if(attacker==true)
   {
@@ -653,7 +681,7 @@ void resolveSolarDestroyersBattle(int enIndex,int plIndex,bool attacker,EnemyGar
   }
 }
 
-void resolveSecondRound(int enIndex,int plIndex,bool attacker,EnemyGarrison garrison)
+void resolveSecondRound(int enIndex,int plIndex,bool attacker,EnemyGarrison& garrison)
 {
   int EnemyStrength=0;
   int PlayerStrength=0;
@@ -1101,7 +1129,7 @@ void resolveSecondRound(int enIndex,int plIndex,bool attacker,EnemyGarrison garr
   }
 }
 
-int8_t determineWinner(int enIndex,int plIndex,bool attacker,EnemyGarrison garrison)
+int8_t determineWinner(int enIndex,int plIndex,bool attacker,EnemyGarrison& garrison)
 {
   int EnemyPoints=0;
   int PlayerPoints=0;
@@ -1134,8 +1162,11 @@ int8_t determineWinner(int enIndex,int plIndex,bool attacker,EnemyGarrison garri
     PlayerPoints+=(PlayerShips[3]*5);
     PlayerPoints+=(PlayerShips[4]*8);
     PlayerPoints+=(PlayerShips[5]*10);
-    int DefenceStrength=Colony[8].level*5;
-    PlayerPoints+=DefenceStrength;
+    if(PlayerPoints>0)//At least one ship survived
+    {
+      int DefenceStrength=Colony[8].level*5;
+      PlayerPoints+=DefenceStrength;
+    }
   }
   
   if(PlayerPoints>EnemyPoints) //PLAYER WINS
@@ -1152,7 +1183,7 @@ int8_t determineWinner(int enIndex,int plIndex,bool attacker,EnemyGarrison garri
   }
 }
 
-void reportLosses(int enIndex,int plIndex,bool attacker,int8_t winner,EnemyGarrison garrison)
+void reportLosses(int enIndex,int plIndex,bool attacker,int8_t winner,EnemyGarrison& garrison)
 {
   if(attacker==true)
   {
