@@ -55,7 +55,7 @@ int8_t starMap(int Astronomy)
         {
           if(countColonies(Enemy1Garrison) > 0)
           {
-            gb.gui.popup("NOT ALL COLONIES DESTROYED!",50);
+            gb.gui.popup("DESTROY COLONIES!",50);
           }
           else
           {
@@ -68,7 +68,7 @@ int8_t starMap(int Astronomy)
         {
           if(countColonies(Enemy2Garrison) > 0)
           {
-            gb.gui.popup("NOT ALL COLONIES DESTROYED!",50);
+            gb.gui.popup("DESTROY COLONIES!",50);
           }
           else
           {

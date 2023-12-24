@@ -291,63 +291,78 @@ void fillGarrisons(int8_t CurrentShip, int QuantityToBuy)
     modifier = 2 + (baseModifier - EnemyColonies);
   }
   int toDistribute=QuantityToBuy/modifier;
+
+  fillSpecifiedGarrisons(Enemy1Garrison,CurrentShip,toDistribute);
+  if(EnemyCount == 2)
+  {
+    fillSpecifiedGarrisons(Enemy2Garrison,CurrentShip,toDistribute);
+  }
+}
+
+void fillSpecifiedGarrisons(EnemyGarrison garrisons[6],int8_t currentShip,int toDistribute)
+{
   for(int i=0;i<6;i++)
   {
-    switch(CurrentShip)
+    if(garrisons[i].planetIndex == -1)
+    {
+      continue;
+    }
+    
+    switch(currentShip)
     {
       case 0:
       {
-        if((Enemy1Garrison[i].Fighters+toDistribute)!=9999)
+        if((garrisons[i].Fighters+toDistribute)!=9999)
         {
-          Enemy1Garrison[i].Fighters+=toDistribute; 
+          garrisons[i].Fighters+=toDistribute; 
         }
         break;
       }
       case 1:
       {
-        if((Enemy1Garrison[i].Interceptors+toDistribute)!=9999)
+        if((garrisons[i].Interceptors+toDistribute)!=9999)
         {
-          Enemy1Garrison[i].Interceptors+=toDistribute; 
+          garrisons[i].Interceptors+=toDistribute; 
         }
         break;
       }
       case 2:
       {
-        if((Enemy1Garrison[i].Frigates+toDistribute)!=9999)
+        if((garrisons[i].Frigates+toDistribute)!=9999)
         {
-          Enemy1Garrison[i].Frigates+=toDistribute; 
+          garrisons[i].Frigates+=toDistribute; 
         }
         break;
       }
       case 3:
       {
-        if((Enemy1Garrison[i].WarCruisers+toDistribute)!=9999)
+        if((garrisons[i].WarCruisers+toDistribute)!=9999)
         {
-          Enemy1Garrison[i].WarCruisers+=toDistribute; 
+          garrisons[i].WarCruisers+=toDistribute; 
         }
         break;
       }
       case 4:
       {
-        if((Enemy1Garrison[i].StarDreadnoughts+toDistribute)!=9999)
+        if((garrisons[i].StarDreadnoughts+toDistribute)!=9999)
         {
-          Enemy1Garrison[i].StarDreadnoughts+=toDistribute; 
+          garrisons[i].StarDreadnoughts+=toDistribute; 
         }
         break;
       }
       case 11:
       {
-        if((Enemy1Garrison[i].Fighters+(toDistribute+5))!=9999)
+        if((garrisons[i].Fighters+(toDistribute+5))!=9999)
         {
-          Enemy1Garrison[i].Fighters+=(toDistribute+5); 
+          garrisons[i].Fighters+=(toDistribute+5); 
         }
         break;
       }
       case 12:
       {
-        if((Enemy1Garrison[i].Frigates+toDistribute)!=9999)
+        if((garrisons[i].Frigates+toDistribute)!=9999)
         {
-          Enemy1Garrison[i].Frigates+=toDistribute; 
+          garrisons[i].Frigates+=toDistribute; 
         }
         break;
       }
