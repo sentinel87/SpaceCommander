@@ -277,14 +277,14 @@ void buySelectedShipQuantity()
 void fillGarrisons(int8_t CurrentShip, int QuantityToBuy)
 {
   int modifier=0;
-  int baseModifier=EnemyCount * 5;
+  int baseModifier=EnemyCount * 5; 
   if(Difficulty=="EASY")
   {
-    modifier = 6 + (baseModifier - EnemyColonies);
+    modifier = 4 + (baseModifier - EnemyColonies);
   }
   else if(Difficulty=="NORMAL")
   {
-    modifier = 4 + (baseModifier - EnemyColonies);
+    modifier = 3 + (baseModifier - EnemyColonies);
   }
   else
   {

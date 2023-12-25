@@ -250,6 +250,9 @@ void prepareNewGame()
   GameOver=false;
   Victory=false;
 
+  CliggColonies=0;
+  SheezColonies=0;
+  EnemyColonies=0;
   ScreenSelection=0;
   fight=false;
 
@@ -304,7 +307,7 @@ void prepareNewGame()
   
   preparePlanets();
   prepareGarrisons();
-  EnemyColonies = checkTotalColoniesCount();
+  checkAndSetTotalColoniesCount();
   prepareTechs();
   prepareBuildings();
   prepareFleets();

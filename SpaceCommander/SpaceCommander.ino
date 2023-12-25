@@ -379,7 +379,7 @@ const SaveDefault savefileDefaults[] = {
   { 7, SAVETYPE_BLOB,{.ptr="0000000000000000000000000000000000000000000000000000 "},53},
   { 8, SAVETYPE_BLOB,{.ptr="0NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********000 "},217},
   { 9, SAVETYPE_BLOB,{.ptr="NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000 "},211},
-  { 10, SAVETYPE_BLOB,{.ptr="00000000000000000NORMAL********0000000000000000000 "},51},
+  { 10, SAVETYPE_BLOB,{.ptr="00000000000000000NORMAL********00000000000000000 "},49},
   { 11,SAVETYPE_INT,0,0 },
   { 12,SAVETYPE_INT,0,0 },
   { 13,SAVETYPE_INT,0,0 },
@@ -709,6 +709,21 @@ void loop() {
       }
     }
   }
+
+  //gb.display.setColor(WHITE);
+  //gb.display.setFontSize(1);
+  //String fleet0 =(String)EnemyFleets[0].Minutes + ":" + (String)EnemyFleets[0].Seconds;
+  //String fleet1 =(String)EnemyFleets[1].Minutes + ":" + (String)EnemyFleets[1].Seconds;
+  //String fleet2 =(String)EnemyFleets[2].Minutes + ":" + (String)EnemyFleets[2].Seconds;
+  //String fleet3 =(String)EnemyFleets[3].Minutes + ":" + (String)EnemyFleets[3].Seconds;
+  //gb.display.setCursor(0,0);
+  //gb.display.println(fleet0);
+  //gb.display.setCursor(0,6);
+  //gb.display.println(fleet1);
+  //gb.display.setCursor(0,12);
+  //gb.display.println(fleet2);
+  //gb.display.setCursor(0,18);
+  //gb.display.println(fleet3);
 }
 
 bool compareAndUpdateScore()
@@ -1108,7 +1123,7 @@ void attackPlanet(int index)
             {
               colonyDefeated(Enemy2Garrison[idx],i);
             }
-            EnemyColonies = checkTotalColoniesCount();
+            checkAndSetTotalColoniesCount();
             Score+=50;
           }
         }
@@ -1255,15 +1270,7 @@ void enemyFleetsCheck() //check if all attacks are completed and reset prepare t
   {
     attackCounter=0;
     attackUnderway=false;
-    timeToAttack=150;
-    if(Difficulty=="NORMAL")
-    {
-      timeToAttack=130;
-    }
-    else if(Difficulty=="HARD")
-    {
-      timeToAttack=100;
-    }
+    setBaseTimeToAttack();
   }
 }
 
@@ -1312,8 +1319,8 @@ void enemyAttackTimer()
           attackCounter++;
           if(EnemyCount == 2)
           {
-            int coloniesTotal = checkTotalColoniesCount();
-            if(coloniesTotal > 5 && attackCounter < 4)
+            checkAndSetTotalColoniesCount();
+            if(EnemyColonies > 5 && attackCounter < 4)
             {
               setTimeToAnotherAttack();
             }
@@ -1333,6 +1340,19 @@ void enemyAttackTimer()
         }
       }
     }
+  }
+}
+
+void setBaseTimeToAttack()
+{
+  timeToAttack=150;
+  if(Difficulty=="NORMAL")
+  {
+    timeToAttack=130;
+  }
+  else if(Difficulty=="HARD")
+  {
+    timeToAttack=100;
   }
 }
 
@@ -1553,11 +1573,11 @@ void countFinalScore(bool victory)
   Score+=((ProgressPointsLimit-ProgressPoints)*3);
 }
 
-int checkTotalColoniesCount()
+void checkAndSetTotalColoniesCount()
 {
   CliggColonies = countColonies(Enemy1Garrison);
   SheezColonies = countColonies(Enemy2Garrison);
-  return CliggColonies + SheezColonies;
+  EnemyColonies = CliggColonies + SheezColonies;
 }
 
 int countColonies(EnemyGarrison garrison[6])

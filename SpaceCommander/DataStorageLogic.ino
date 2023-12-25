@@ -12,8 +12,7 @@ void loadGame()
   loadTradeRoutes();
   loadReports();
   loadGameVariables();
-  setEnemyAttackTimer();
-  checkTotalColoniesCount();
+  checkAndSetTotalColoniesCount();
 }
 
 void loadSystem()
@@ -209,11 +208,11 @@ void loadReports()
 
 void loadGameVariables()
 {
-  char RawGameData[51];
+  char RawGameData[49];
   gb.save.get(10, RawGameData);
   String GameData(RawGameData);
   
-  String Part=GameData.substring(0,50);
+  String Part=GameData.substring(0,48);
   PlayerResources[0]=Part.substring(0,4).toInt();
   PlayerResources[1]=Part.substring(4,8).toInt();
   PlayerResources[2]=Part.substring(8,12).toInt();
@@ -222,10 +221,19 @@ void loadGameVariables()
   Difficulty=removeSpaces(Part.substring(17,31));
   ProgressPoints=Part.substring(31,34).toInt();
   ProgressPointsLimit=Part.substring(34,37).toInt();
-  EnemyColonies=Part.substring(37,39).toInt();
-  Score=Part.substring(39,45).toInt();
-  timeToAttack=Part.substring(45,48).toInt();
-  if(Part.substring(48,49)=="1")
+  Score=Part.substring(37,43).toInt();
+  int loadedTimeToAttack = Part.substring(43,46).toInt();
+  if(loadedTimeToAttack==999)
+  {
+    DebugData=(String)loadedTimeToAttack;
+    timeToAttack = -1;
+  }
+  else
+  {
+    timeToAttack = loadedTimeToAttack;
+    DebugData=(String)loadedTimeToAttack;
+  }
+  if(Part.substring(46,47)=="1")
   {
     attackUnderway=true;
   }
@@ -233,51 +241,7 @@ void loadGameVariables()
   {
     attackUnderway=false; 
   }
-  attackCounter=Part.substring(49,50).toInt();
-}
-
-void setEnemyAttackTimer()
-{
-  int FleetsCount=0;
-  for(int i=0;i<4;i++)
-  {
-    if(EnemyFleets[i].Active==true)
-    {
-      FleetsCount++;
-    }
-  }
-  
-  if(FleetsCount>0)
-  {
-    if(FleetsCount==1)
-    {
-      timeToAttack=115;
-      if(Difficulty=="NORMAL")
-      {
-        timeToAttack=95;
-      }
-      else if(Difficulty=="HARD")
-      {
-        timeToAttack=75;
-      } 
-    }
-    else
-    {
-      timeToAttack=-1;
-    }
-  }
-  else
-  {
-    timeToAttack=115;
-    if(Difficulty=="NORMAL")
-    {
-      timeToAttack=95;
-    }
-    else if(Difficulty=="HARD")
-    {
-      timeToAttack=75;
-    } 
-  }
+  attackCounter=Part.substring(47,48).toInt();
 }
 
 //---------------------------SAVE------------------------------
@@ -374,8 +338,8 @@ bool saveDataSystem()
     else strPlanet+="0";
     if(System[i].ActiveMission==true) strPlanet+="1";
     else strPlanet+="0";
-    strData+=strPlanet;
     strPlanet+=(String)System[i].Affilation;
+    strData+=strPlanet;
   }
   strData+=" ";
   if(strData.length()==349)
@@ -385,7 +349,7 @@ bool saveDataSystem()
   }
   else
   {
-    DebugData=strData;
+    DebugData=(String)strData.length();
     return false;
   }
 }
@@ -619,14 +583,10 @@ bool saveDataGameVariables()
   strData+=returnDecimalString(BattleExperience);
   strData+=(String)EnemyCount;
   strData+=addSpaces(Difficulty);
-  strData+=returnDecimalStringPoint(ProgressPoints);
-  strData+=returnDecimalStringPoint(ProgressPointsLimit);
-  if(EnemyColonies>9)
-    strData+=(String)EnemyColonies;
-  else
-    strData+="0"+(String)EnemyColonies;   
+  strData+=returnDecimalStringPoint(ProgressPoints,false);
+  strData+=returnDecimalStringPoint(ProgressPointsLimit,false);   
   strData+=returnDecimalStringScore(Score);
-  strData+=returnDecimalStringPoint(timeToAttack);
+  strData+=returnDecimalStringPoint(timeToAttack,true);
   if(attackUnderway==true)
   {
     strData+="1";
@@ -637,9 +597,9 @@ bool saveDataGameVariables()
   }
   strData+=(String)attackCounter;
   strData+=" ";
-  if(strData.length()==51)
+  if(strData.length()==49)
   {
-    saveDataToBlock(10,strData,51);
+    saveDataToBlock(10,strData,49);
     return true;
   }
   else
@@ -649,14 +609,16 @@ bool saveDataGameVariables()
   }
 }
 //---------------HELPERS---------------------------------
-String returnDecimalStringPoint(int number)
+String returnDecimalStringPoint(int number,bool allowBelowZero)
 {
-  if(number>99)
+  if(number > 99)
     return (String)number;
-  else if(number<100 && number>9)
+  else if(number < 100 && number > 9)
     return "0"+(String)number;
-  else if(number>=0)
+  else if(number >= 0)
     return "00" + (String)number;
+  else if(number < 0 && allowBelowZero == true)
+    return "999";
   else
     return "000";  
 }
