@@ -66,7 +66,7 @@ int8_t infrastructure()
   drawInfrastructureScreen(Colony[inCurrentBuilding],dependencyTechName,dependencyTechLevel,dependencyBuildingName,dependencyBuildingLevel,CanBuild,MaxLevelReached);
   if(gb.buttons.pressed(BUTTON_RIGHT))
   {
-    if(inCurrentBuilding==13)
+    if(inCurrentBuilding==14)
     {
       inCurrentBuilding=0;
     }
@@ -79,7 +79,7 @@ int8_t infrastructure()
   {
     if(inCurrentBuilding==0)
     {
-      inCurrentBuilding=13;
+      inCurrentBuilding=14;
     }
     else
     {

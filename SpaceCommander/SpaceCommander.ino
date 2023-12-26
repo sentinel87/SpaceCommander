@@ -88,7 +88,7 @@ Technology TechTree[]={
   {16,"Ship Weapons",0,125,300,75,"Final level unlock  Star Dreadnoughts.","Shielding",12,2,10},
   {17,"Flight Control",0,350,200,250,"Unlock and improve  Logistic Centre.","Statics",9,2,10},
   {18,"Gravity Weapon",0,800,800,800,"Final level of this technology unlock   Solar Destroyer.","Hyperdrive",14,1,9},
-  {19,"Empty",0,0,0,0,"","",0,0,0},
+  {19,"EMP Weapon",0,300,400,300,"Unlock EMP Launcher and EMP missles.    Increases missle    power.","Radiolocation",5,6,10},
   {20,"Composite Armor",0,1000,1000,1000,"Reduce War Cruiser, Star Dreadnought andSolar Destructor    costs.","Ship Weapons",16,5,5}
 };
 
@@ -123,7 +123,7 @@ Building Colony[]={
   {12,"Transformer",0,"Converts one        resource to another.",350,300,550,15,1,0,0,10},
   {13,"Logistic Centre",0,"Increases resource  transport from traderoutes.",400,200,300,17,1,0,0,10},
   {14,"Market",0,"Exachange fuel for  resources and ships.",220,220,150,10,1,0,0,8},
-  {15,"",0,"",0,0,0,0,0,0,0,0}
+  {15,"EMP Launcher",0,"Fires EMP Missles +1 / lvl into enemy   fleets.",300,300,200,19,1,0,0,10}
 };
 
 struct Ship
@@ -765,9 +765,9 @@ void timeCalculations()
   {
     frames=0;
     updateResources();
-    //PlayerResources[0]=9999;
-    //PlayerResources[1]=9999;
-    //PlayerResources[2]=9999;
+    PlayerResources[0]=9999;
+    PlayerResources[1]=9999;
+    PlayerResources[2]=9999;
     updateVisibilityDistance();
     enemyAttackTimer();
     updateFleets();
@@ -780,16 +780,16 @@ void timeCalculations()
 
 void updateVisibilityDistance()
 {
-  int base=10+(Colony[5].level*10);
-  if(base>59)
+  int base = 10 + (Colony[5].level * 15);
+  if (base > 59)
   {
-    visibilityMinutes=base/60;
-    visibilitySeconds=base-(visibilityMinutes*60);
+    visibilityMinutes = base / 60;
+    visibilitySeconds = base - (visibilityMinutes * 60);
   }
   else
   {
-    visibilityMinutes=0;
-    visibilitySeconds=base;
+    visibilityMinutes = 0;
+    visibilitySeconds = base;
   }
 }
 
