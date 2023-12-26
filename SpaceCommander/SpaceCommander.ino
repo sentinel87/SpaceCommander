@@ -89,7 +89,7 @@ Technology TechTree[]={
   {17,"Flight Control",0,350,200,250,"Unlock and improve  Logistic Centre.","Statics",9,2,10},
   {18,"Gravity Weapon",0,800,800,800,"Final level of this technology unlock   Solar Destroyer.","Hyperdrive",14,1,9},
   {19,"Empty",0,0,0,0,"","",0,0,0},
-  {20,"Empty",0,0,0,0,"","",0,2,0}
+  {20,"Composite Armor",0,1000,1000,1000,"Reduce War Cruiser, Star Dreadnought andSolar Destructor    costs.","Ship Weapons",16,5,5}
 };
 
 struct Building
@@ -116,7 +116,7 @@ Building Colony[]={
   {5,"Intelligence",0,"Reveals more intel  in hostile reports.",210,185,10,2,1,0,0,12},
   {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",185,185,25,5,1,0,0,15},
   {7,"Shipyard",0,"Required to build   colony ships.",350,350,275,4,1,0,0,10},
-  {8,"Research Lab",0,"Unlock additional   technology / lvl.",175,175,75,0,0,0,0,18},
+  {8,"Research Lab",0,"Unlock additional   technology / lvl.",175,175,75,0,0,0,0,20},
   {9,"Defence System",0,"Provides additional firepower for colonydefence / lvl.",210,250,75,12,1,0,0,14},
   {10,"Factory",0,"Reduces metal and   crystal cost of     buildings.",300,220,60,0,0,0,0,10},
   {11,"Warehouse",0,"Stores resources    when losing battle. +200 for each       resource / lvl.",300,300,50,9,1,0,0,10},
