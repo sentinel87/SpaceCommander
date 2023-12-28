@@ -88,7 +88,7 @@ Technology TechTree[]={
   {16,"Ship Weapons",0,125,300,75,"Final level unlock  Star Dreadnoughts.","Shielding",12,2,10},
   {17,"Flight Control",0,350,200,250,"Unlock and improve  Logistic Centre.","Statics",9,2,10},
   {18,"Gravity Weapon",0,800,800,800,"Final level of this technology unlock   Solar Destroyer.","Hyperdrive",14,1,9},
-  {19,"Empty",0,0,0,0,"","",0,0,0},
+  {19,"EMP Weapon",0,300,400,300,"Unlock EMP Launcher and EMP missles.    Increases missle    power.","Radiolocation",5,6,10},
   {20,"Composite Armor",0,1000,1000,1000,"Reduce War Cruiser, Star Dreadnought andSolar Destructor    costs.","Ship Weapons",16,5,5}
 };
 
@@ -123,7 +123,7 @@ Building Colony[]={
   {12,"Transformer",0,"Converts one        resource to another.",350,300,550,15,1,0,0,10},
   {13,"Logistic Centre",0,"Increases resource  transport from traderoutes.",400,200,300,17,1,0,0,10},
   {14,"Market",0,"Exachange fuel for  resources and ships.",220,220,150,10,1,0,0,8},
-  {15,"",0,"",0,0,0,0,0,0,0,0}
+  {15,"EMP Launcher",0,"Fires EMP Missles +1 / lvl into enemy   fleets.",300,300,200,19,1,0,0,10}
 };
 
 struct Ship
@@ -780,16 +780,16 @@ void timeCalculations()
 
 void updateVisibilityDistance()
 {
-  int base=10+(Colony[5].level*10);
-  if(base>59)
+  int base = 10 + (Colony[5].level * 15);
+  if (base > 59)
   {
-    visibilityMinutes=base/60;
-    visibilitySeconds=base-(visibilityMinutes*60);
+    visibilityMinutes = base / 60;
+    visibilitySeconds = base - (visibilityMinutes * 60);
   }
   else
   {
-    visibilityMinutes=0;
-    visibilitySeconds=base;
+    visibilityMinutes = 0;
+    visibilitySeconds = base;
   }
 }
 
@@ -878,17 +878,21 @@ void updateEnemyFleetTime(int index)
     {
       gb.lights.fill(GREEN);
       BattleExperience++;
-      if(Difficulty=="EASY")
+      if (BattleExperience > 9999)
       {
-        Score+=8;
+        BattleExperience = 9999;
       }
-      else if(Difficulty=="HARD")
+      if (Difficulty == "EASY")
       {
-        Score+=30;
+        Score += 8;
+      }
+      else if (Difficulty == "HARD")
+      {
+        Score += 30;
       }
       else
       {
-        Score+=15; 
+        Score += 15; 
       }
     }
     EnemyFleets[index].Fighters=0;
@@ -1210,7 +1214,7 @@ void fleetReturns(Fleet fleet)
 void updateResources()
 {
   PlayerResources[0] += 3 + Colony[1].level*3; //Metal Mine
-  PlayerResources[1] += 3 + Colony[2].level*2; //Crystal Mine
+  PlayerResources[1] += 3 + Colony[2].level*3; //Crystal Mine
   PlayerResources[2] += 2 + Colony[3].level*2; //Fuel Refinery
 
   for(int i=0;i<12;i++)
@@ -1345,27 +1349,27 @@ void enemyAttackTimer()
 
 void setBaseTimeToAttack()
 {
-  timeToAttack=150;
+  timeToAttack=160;
   if(Difficulty=="NORMAL")
   {
-    timeToAttack=130;
+    timeToAttack=140;
   }
   else if(Difficulty=="HARD")
   {
-    timeToAttack=100;
+    timeToAttack=110;
   }
 }
 
 void setTimeToAnotherAttack()
 {
-  timeToAttack=115;
+  timeToAttack=125;
   if(Difficulty=="NORMAL")
   {
-    timeToAttack=95;
+    timeToAttack=105;
   }
   else if(Difficulty=="HARD")
   {
-    timeToAttack=75;
+    timeToAttack=85;
   }
 }
 
@@ -1434,100 +1438,98 @@ int getEnemyFleetSlot()
 Fleet setEnemyFleet()
 {
   Fleet EnemyArmada={4,true,0,0,0,0,0,0,0,0,0,0,0,0,"",false};
-  int modifier=0;
-  if(Difficulty=="EASY")
+  int modifier=2;
+  int base = 4;
+
+  if (Difficulty == "NORMAL")
   {
-    modifier=5;
+    modifier = 3;
   }
-  else if(Difficulty=="NORMAL")
+  else if (Difficulty == "HARD")
   {
-    modifier=3;
-  }
-  else
-  {
-    modifier=2;
+    modifier = 4;
   }
 
-  if(PlayerShips[0]<modifier)
+  if (PlayerShips[0] == 0)
   {
-    EnemyArmada.Fighters = 10 + PlayerShips[0] + random(0,20);
+    EnemyArmada.Fighters = 10 + random(0, 20);
   }
   else
   {
-    EnemyArmada.Fighters = 10 + PlayerShips[0]+(PlayerShips[0]/modifier) + random(0,20);
+    EnemyArmada.Fighters = 10 + ((PlayerShips[0] * modifier) / base) + random(0, 20);
   }
-  if(EnemyArmada.Fighters>9999)
+  if (EnemyArmada.Fighters > 9999)
   {
-    EnemyArmada.Fighters=10+PlayerShips[0];
+    EnemyArmada.Fighters = 9999;
   }
   
-  if(TechTree[2].level>=4)//Jet Proplusion
+  if (TechTree[2].level >= 4)//Jet Proplusion
   {
-    if(PlayerShips[1]<modifier)
+    if (PlayerShips[1] == 0)
     {
-      EnemyArmada.Interceptors = 5 + PlayerShips[1] + random(0,15);
+      EnemyArmada.Interceptors = 5 + random(0, 15);
     }
     else
     {
-      EnemyArmada.Interceptors = 5 + PlayerShips[1]+(PlayerShips[1]/modifier) + random(0,15);
+      EnemyArmada.Interceptors = 5 + ((PlayerShips[1] * modifier) / base) + random(0, 15);
     }
-    if(EnemyArmada.Interceptors>9999)
+    if (EnemyArmada.Interceptors > 9999)
     {
-      EnemyArmada.Interceptors = 5 + PlayerShips[1];
+      EnemyArmada.Interceptors = 9999;
     }
   }
   
-  if(TechTree[6].level>=4)//Aerodynamics
+  if (TechTree[6].level >= 4)//Aerodynamics
   {
-    if(PlayerShips[2]<modifier)
+    if (PlayerShips[2] == 0)
     {
-      EnemyArmada.Frigates = 3 + PlayerShips[2] + random(0,5);
+      EnemyArmada.Frigates = 3 + random(0, 5);
     }
     else
     {
-      EnemyArmada.Frigates = 3 + PlayerShips[2]+(PlayerShips[2]/modifier) + random(0,5);
+      EnemyArmada.Frigates = 3 + ((PlayerShips[2] * modifier) / base) + random(0, 5);
     }
-    if(EnemyArmada.Frigates>9999)
+    if (EnemyArmada.Frigates > 9999)
     {
       EnemyArmada.Frigates = 3 + PlayerShips[2];
     }
   }
   
-  if(TechTree[10].level>=2)//Impulse Engine
+  if (TechTree[10].level >= 2)//Impulse Engine
   {
-    if(PlayerShips[3]<modifier)
+    if (PlayerShips[3] == 0)
     {
-      EnemyArmada.WarCruisers = 2 + PlayerShips[3] + random(0,2);
+      EnemyArmada.WarCruisers = 2 + random(0, 2);
     }
     else
     {
-      EnemyArmada.WarCruisers = 2 + PlayerShips[3]+(PlayerShips[3]/modifier) + random(0,2);
+      EnemyArmada.WarCruisers = 2 + ((PlayerShips[3] * modifier) / base) + random(0, 2);
     }
-    if(EnemyArmada.WarCruisers>9999)
+    if (EnemyArmada.WarCruisers > 9999)
     {
-      EnemyArmada.WarCruisers = 2 + PlayerShips[3];
+      EnemyArmada.WarCruisers = 9999;
     }
   }
   
-  if(TechTree[15].level>=8)//Ship Weapons
+  if (TechTree[15].level >= 8)//Ship Weapons
   {
-    if(PlayerShips[4]<modifier)
+    if (PlayerShips[4] == 0)
     {
-      EnemyArmada.StarDreadnoughts = 1 + PlayerShips[4] + random(0,2);
+      EnemyArmada.StarDreadnoughts = 1 + random(0, 2);
     }
     else
     {
-      EnemyArmada.StarDreadnoughts = 1 + PlayerShips[4]+(PlayerShips[4]/modifier) + random(0,2);
+      EnemyArmada.StarDreadnoughts = 1 + ((PlayerShips[4] * modifier) / base) + random(0, 2);
     }
-    if(EnemyArmada.StarDreadnoughts>9999)
+    if (EnemyArmada.StarDreadnoughts > 9999)
     {
-      EnemyArmada.StarDreadnoughts = 1 + PlayerShips[4];
+      EnemyArmada.StarDreadnoughts = 9999;
     }
   }
   
   if(ProgressPoints==ProgressPointsLimit) //ultimate weapon discovered
   {
-    EnemyArmada.SolarDestroyers = 2 + random(0,4); //solar destroyers 
+    EnemyArmada.SolarDestroyers = 2 + random(0, 4); //solar destroyers 
   }
   
   return EnemyArmada;
