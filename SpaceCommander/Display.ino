@@ -2471,20 +2471,20 @@ void drawMainMenu(int selection)
 
 void drawOptionsMenu(int selection)
 {
-  if(selectionFrame==0)
+  if (selectionFrame == 0)
   {
-    selectionFrame=1;
+    selectionFrame = 1;
   }
   else
   {
-    selectionFrame=0;
+    selectionFrame = 0;
   }
-  gb.display.setCursor(15,2);
+  gb.display.setCursor(15, 2);
   gb.display.setColor(BLUE);
   gb.display.println("GAME OPTIONS");
   gb.display.setFontSize(1);
-  gb.display.setCursor(4,20);
-  if(selectionFrame==1 && selection==0)
+  gb.display.setCursor(4, 20);
+  if(selectionFrame == 1 && selection == 0)
   {
     gb.display.setColor(BLUE);  
   }
@@ -2492,9 +2492,9 @@ void drawOptionsMenu(int selection)
   {
     gb.display.setColor(WHITE); 
   } 
-  gb.display.println("ENEMIES: "+(String)EnemyCount);
-  gb.display.setCursor(4,26);
-  if(selectionFrame==1 && selection==1)
+  gb.display.println("ENEMIES: " + (String)EnemyCount);
+  gb.display.setCursor(4, 26);
+  if(selectionFrame == 1 && selection == 1)
   {
     gb.display.setColor(BLUE);  
   }
@@ -2502,9 +2502,19 @@ void drawOptionsMenu(int selection)
   {
     gb.display.setColor(WHITE); 
   } 
-  gb.display.println("DIFFICULTY: "+Difficulty);
+  gb.display.println("DIFFICULTY: " + Difficulty);
   gb.display.setCursor(4,32);
-  if(selectionFrame==1 && selection==2)
+  if(selectionFrame == 1 && selection == 2)
+  {
+    gb.display.setColor(BLUE);  
+  }
+  else
+  {
+    gb.display.setColor(WHITE); 
+  } 
+  gb.display.println("WEAPON POINTS: " + (String)ProgressPointsLimit);
+  gb.display.setCursor(4,38);
+  if(selectionFrame == 1 && selection == 3)
   {
     gb.display.setColor(BLUE);  
   }

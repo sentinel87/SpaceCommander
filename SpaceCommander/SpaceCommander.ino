@@ -78,18 +78,18 @@ Technology TechTree[]={
   {6,"Logistics",0,120,120,50,"+ 1 to Star Routes  and Colonies. UnlockTransports.","Astronomy",1,5,12},
   {7,"Aerodynamics",0,150,120,150,"Unlock Interceptors and increases their speed.","Jet Proplusion",3,4,15},
   {8,"Cloaking",0,250,190,150,"Unlock  Stalkers.   Stalker steal 1/lvl enemy fighter and   interceptor.","Radiolocation",5,1,11},
-  {9,"Statics",0,200,350,50,"Unlock Warehouse andincreases it's      capacity.","Logistics",6,2,11},
-  {10,"Economy",0,400,400,200,"Unlock and improve  Market.","Logistics",6,2,8},
-  {11,"Impulse Engine",0,50,250,200,"Unlock Frigates and increases their     speed.","Aerodynamics",7,4,11},
-  {12,"Shielding",0,350,400,100,"Unlock Planetary    Defence System and  increases firepower.","Fleet Tactics",4,1,14},
-  {13,"Mind Control",0,350,500,350,"Unlock  Leviatans.  Leviatan steal 1/lvlenemy Frigate.","Cloaking",8,4,5},
-  {14,"Hyperdrive",0,100,500,400,"Unlock War Cruisers and increases their speed.","Impulse Engine",11,2,10},
-  {15,"Fusion Reaction",0,450,350,250,"Unlock and improve  Transformer.","Fleet Tactics",4,5,10},
-  {16,"Ship Weapons",0,125,300,75,"Final level unlock  Star Dreadnoughts.","Shielding",12,2,10},
-  {17,"Flight Control",0,350,200,250,"Unlock and improve  Logistic Centre.","Statics",9,2,10},
-  {18,"Gravity Weapon",0,800,800,800,"Final level of this technology unlock   Solar Destroyer.","Hyperdrive",14,1,9},
-  {19,"EMP Weapon",0,300,400,300,"Unlock EMP Launcher and EMP missles.    Increases missle    power.","Radiolocation",5,6,10},
-  {20,"Composite Armor",0,1000,1000,1000,"Reduce War Cruiser, Star Dreadnought andSolar Destructor    costs.","Ship Weapons",16,5,5}
+  {9,"EMP Weapon",0,300,400,300,"Unlock EMP Launcher and EMP missles.    Increases missle    power.","Radiolocation",5,6,10},
+  {10,"Statics",0,200,350,50,"Unlock Warehouse andincreases it's      capacity.","Logistics",6,2,11},
+  {11,"Economy",0,400,400,200,"Unlock and improve  Market.","Logistics",6,2,8},
+  {12,"Impulse Engine",0,50,250,200,"Unlock Frigates and increases their     speed.","Aerodynamics",7,4,11},
+  {13,"Shielding",0,350,400,100,"Unlock Planetary    Defence System and  increases firepower.","Fleet Tactics",4,1,14},
+  {14,"Mind Control",0,350,500,350,"Unlock  Leviatans.  Leviatan steal 1/lvlenemy Frigate.","Cloaking",8,4,5},
+  {15,"Hyperdrive",0,100,500,400,"Unlock War Cruisers and increases their speed.","Impulse Engine",12,2,10},
+  {16,"Fusion Reaction",0,450,350,250,"Unlock and improve  Transformer.","Fleet Tactics",4,5,10},
+  {17,"Ship Weapons",0,125,300,75,"Final level unlock  Star Dreadnought.","Shielding",13,2,10},
+  {18,"Flight Control",0,350,200,250,"Unlock and improve  Logistic Centre.","Statics",10,2,10},
+  {19,"Gravity Weapon",0,800,800,800,"Final level of this technology unlock   Solar Destructor.","Hyperdrive",15,1,9},
+  {20,"Composite Armor",0,1000,1000,1000,"Reduce War Cruiser, Star Dreadnought andSolar Destructor    costs.","Ship Weapons",17,5,5}
 };
 
 struct Building
@@ -117,12 +117,12 @@ Building Colony[]={
   {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",185,185,25,5,1,0,0,15},
   {7,"Shipyard",0,"Required to build   colony ships.",350,350,275,4,1,0,0,10},
   {8,"Research Lab",0,"Unlock additional   technology / lvl.",175,175,75,0,0,0,0,20},
-  {9,"Defence System",0,"Provides additional firepower for colonydefence / lvl.",210,250,75,12,1,0,0,14},
+  {9,"Defence System",0,"Provides additional firepower for colonydefence / lvl.",210,250,75,13,1,0,0,14},
   {10,"Factory",0,"Reduces metal and   crystal cost of     buildings.",300,220,60,0,0,0,0,10},
-  {11,"Warehouse",0,"Stores resources    when losing battle. +200 for each       resource / lvl.",300,300,50,9,1,0,0,10},
-  {12,"Transformer",0,"Converts one        resource to another.",350,300,550,15,1,0,0,10},
-  {13,"Logistic Centre",0,"Increases resource  transport from traderoutes.",400,200,300,17,1,0,0,10},
-  {14,"Market",0,"Exachange fuel for  resources and ships.",220,220,150,10,1,0,0,8},
+  {11,"Warehouse",0,"Stores resources    when losing battle. +200 for each       resource / lvl.",300,300,50,10,1,0,0,10},
+  {12,"Transformer",0,"Converts one        resource to another.",350,300,550,16,1,0,0,10},
+  {13,"Logistic Centre",0,"Increases resource  transport from traderoutes.",400,200,300,18,1,0,0,10},
+  {14,"Market",0,"Exachange fuel for  resources and ships.",220,220,150,11,1,0,0,8},
   {15,"EMP Launcher",0,"Fires EMP Missles +1 / lvl into enemy   fleets.",300,300,200,19,1,0,0,10}
 };
 
@@ -141,7 +141,7 @@ Ship Shipyard[]={
   {"Frigate",3,"Light armored ship. Bonus against       Fighters.",270,150},
   {"War Cruiser",4,"First line attack   ship. Bonus against Interceptors.",400,230},
   {"Star Dreadnought",5,"Heavy armored ship  used to transport   entire fleet.",550,300},
-  {"Solar Destroyer",6,"Ship designed to    destroy entire      planet.",4000,4000},
+  {"Solar Destructor",6,"Ship designed to    destroy entire      planet.",4000,4000},
   {"Spy Bot",7,"Fragile probe used  to scan planets and enemy fleets.",15,10},
   {"Colonizer",8,"Sets colony on the  planet.",900,900},
   {"Metal Transport",9,"Transport metal fromcolonies.",350,35},
@@ -351,17 +351,19 @@ bool GameStarted=false;
 
 //Game options
 
-int EnemyCount=1;
-String Difficulty="NORMAL";
-String TempDiff="NORMAL";
-bool SaveExist=false;
-int ProgressPoints=0;
-int ProgressPointsLimit=120;
-int EnemyColonies=0;
-int CliggColonies=0;
-int SheezColonies=0;
-int ScoreBoard[]={0,0,0,0,0};
-int Score=0;
+int EnemyCount = 1;
+int TempEnemyCount = 1;
+String Difficulty = "NORMAL";
+String TempDiff = "NORMAL";
+bool SaveExist = false;
+int ProgressPoints = 0;
+int ProgressPointsLimit = 120;
+int TempProgressPointsLimit = 120;
+int EnemyColonies = 0;
+int CliggColonies = 0;
+int SheezColonies = 0;
+int ScoreBoard[] = {0,0,0,0,0};
+int Score = 0;
 
 //Enemy Timer
 int timeToAttack=160;//4 minutes interval
@@ -647,11 +649,13 @@ void loop() {
       {
         ScreenSelection=market();
       }
-      else if(ScreenSelection==13) //PAUSE
+      else if (ScreenSelection == 13) //PAUSE
       {
-        ScreenSelection=0;
-        TempDiff=Difficulty;
-        IsMainMenu=true;
+        ScreenSelection = 0;
+        TempDiff = Difficulty;
+        TempEnemyCount = EnemyCount;
+        TempProgressPointsLimit = ProgressPointsLimit;
+        IsMainMenu = true;
       }
       else if(ScreenSelection==15) //DEBUG
       {
@@ -709,21 +713,6 @@ void loop() {
       }
     }
   }
-
-  //gb.display.setColor(WHITE);
-  //gb.display.setFontSize(1);
-  //String fleet0 =(String)EnemyFleets[0].Minutes + ":" + (String)EnemyFleets[0].Seconds;
-  //String fleet1 =(String)EnemyFleets[1].Minutes + ":" + (String)EnemyFleets[1].Seconds;
-  //String fleet2 =(String)EnemyFleets[2].Minutes + ":" + (String)EnemyFleets[2].Seconds;
-  //String fleet3 =(String)EnemyFleets[3].Minutes + ":" + (String)EnemyFleets[3].Seconds;
-  //gb.display.setCursor(0,0);
-  //gb.display.println(fleet0);
-  //gb.display.setCursor(0,6);
-  //gb.display.println(fleet1);
-  //gb.display.setCursor(0,12);
-  //gb.display.println(fleet2);
-  //gb.display.setCursor(0,18);
-  //gb.display.println(fleet3);
 }
 
 bool compareAndUpdateScore()
@@ -765,9 +754,9 @@ void timeCalculations()
   {
     frames=0;
     updateResources();
-    PlayerResources[0]=9999;
-    PlayerResources[1]=9999;
-    PlayerResources[2]=9999;
+    //PlayerResources[0]=9999;
+    //PlayerResources[1]=9999;
+    //PlayerResources[2]=9999;
     updateVisibilityDistance();
     enemyAttackTimer();
     updateFleets();
@@ -1043,7 +1032,7 @@ void raidPlanet(int index)
   }
   if(PlayerFleets[index].Leviatans>0)
   {
-    int ModFrigates = TechTree[12].level;
+    int ModFrigates = TechTree[13].level;
     PlayerFleets[index].Frigates=ModFrigates*PlayerFleets[index].Leviatans;
   }
   
@@ -1495,7 +1484,7 @@ Fleet setEnemyFleet()
     }
   }
   
-  if (TechTree[10].level >= 2)//Impulse Engine
+  if (TechTree[11].level >= 2)//Impulse Engine
   {
     if (PlayerShips[3] == 0)
     {
@@ -1511,7 +1500,7 @@ Fleet setEnemyFleet()
     }
   }
   
-  if (TechTree[15].level >= 8)//Ship Weapons
+  if (TechTree[16].level >= 8)//Ship Weapons
   {
     if (PlayerShips[4] == 0)
     {

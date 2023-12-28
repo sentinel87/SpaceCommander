@@ -192,19 +192,19 @@ String restrictionValidation()
       break;
     case 2: //Frigates
       requiredLvl = 1; 
-      techIdx = 10; //Impulse Engine
+      techIdx = 11; //Impulse Engine
       break;
     case 3: //War Cruisers
       requiredLvl = 1;
-      techIdx = 13; //Hyperdrive 
+      techIdx = 14; //Hyperdrive 
       break;
     case 4: //Star Dreadnoughts
       requiredLvl = 10; 
-      techIdx = 15; //Ship Weapons 
+      techIdx = 16; //Ship Weapons 
       break;
     case 5: //Solar Destroyers
       requiredLvl = 9;
-      techIdx = 17; //Gravity Weapon 
+      techIdx = 18; //Gravity Weapon 
       break;
     case 6: //Spy bot
       requiredLvl = 1; //Espionage
@@ -232,7 +232,7 @@ String restrictionValidation()
       break;
     case 12: //Leviatans
       requiredLvl = 1; 
-      techIdx = 12; //Mind Control
+      techIdx = 13; //Mind Control
       break;
   }
   if (TechTree[techIdx].level < requiredLvl)
