@@ -131,14 +131,14 @@ void buyGoods()
   }
 }
 
-void addMarketShips(int idx,int quantity)
+void addMarketShips(int idx, int quantity)
 {
-  PlayerShips[idx]+=quantity;
-  if(PlayerShips[idx]>9999)
+  PlayerShips[idx] += quantity;
+  if (PlayerShips[idx] > 9999)
   {
-    PlayerShips[idx]=9999;
+    PlayerShips[idx] = 9999;
   }
-  fillGarrisons(idx,quantity);
-  gb.gui.popup("SHIPS ACQUIRED!",50);
+  fillGarrisons(idx, quantity);
+  gb.gui.popup("SHIPS ACQUIRED!", 50);
 }
 

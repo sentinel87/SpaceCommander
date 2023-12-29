@@ -37,7 +37,7 @@ int8_t shipyard(int MilitaryScience)
   {
     if (shSelectedShip != true)
     {
-      if (shCurrentShip == 12)
+      if (shCurrentShip == 13)
       {
         shCurrentShip = 0;
       }
@@ -70,7 +70,7 @@ int8_t shipyard(int MilitaryScience)
     {
       if(shCurrentShip == 0)
       {
-        shCurrentShip = 12;
+        shCurrentShip = 13;
       }
       else
       {
@@ -157,7 +157,7 @@ String restrictionValidation()
     case 4:
       requiredLvl = 8; break;
     case 5:
-      requiredLvl = 10; break;
+      requiredLvl = 11; break;
     case 6:
       requiredLvl = 1; break;
     case 7:
@@ -172,6 +172,8 @@ String restrictionValidation()
       requiredLvl = 3; break;
     case 12:
       requiredLvl = 5; break;
+    case 13:
+      requiredLvl = 3; break;
   }
   if (Colony[6].level < requiredLvl)
   {
@@ -234,6 +236,10 @@ String restrictionValidation()
       requiredLvl = 1; 
       techIdx = 13; //Mind Control
       break;
+    case 13: //EMP Missles
+      requiredLvl = 1;
+      techIdx = 8; //EMP Weapon
+      break;
   }
   if (TechTree[techIdx].level < requiredLvl)
   {
@@ -292,6 +298,13 @@ int getResourceCostWithDiscount(int baseCost, int8_t currentShip)
   else if (currentShip == 5)
   {
     result = baseCost - TechTree[19].level * 200;
+  }
+  else if (currentShip == 13)
+  {
+    if (TechTree[8].level > 0)
+    {
+      result = baseCost + ((TechTree[8].level -1) * baseCost);
+    }
   }
   return result;
 }

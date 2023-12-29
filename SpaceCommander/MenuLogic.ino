@@ -320,7 +320,7 @@ void prepareNewGame()
     PlayerResources[1] = 5000;
     PlayerResources[2] = 3600;
     PlayerShips[0] = 25;
-    PlayerShips[1] = 70;
+    PlayerShips[1] = 50;
     PlayerShips[2] = 2;
   }
   else if (Difficulty == "NORMAL")
@@ -329,7 +329,7 @@ void prepareNewGame()
     PlayerResources[1] = 4500;
     PlayerResources[2] = 3500;
     PlayerShips[0] = 25;
-    PlayerShips[1] = 50;
+    PlayerShips[1] = 25;
   }
   else //HARD
   {
@@ -337,7 +337,7 @@ void prepareNewGame()
     PlayerResources[1] = 4000;
     PlayerResources[2] = 3500;
     PlayerShips[0] = 15;
-    PlayerShips[1] = 50;
+    PlayerShips[1] = 30;
   }
   
   preparePlanets();

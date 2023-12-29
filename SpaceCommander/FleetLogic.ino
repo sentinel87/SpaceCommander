@@ -52,29 +52,29 @@ int enemyFleets()
       flMarkerPosY-=11;
     }
   }
-  else if(gb.buttons.pressed(BUTTON_A))
+  else if (gb.buttons.pressed(BUTTON_A))
   {
-    if(PlayerShips[6]>0 && flSelectionIdx!=-1) //Generate fleet report
+    if (PlayerShips[6] > 0 && flSelectionIdx != -1) //Generate fleet report
     {
-      int count=0;
-      for(int i=0;i<4;i++)
+      int count = 0;
+      for (int i=0; i<4; i++)
       {
-        if(EnemyFleets[i].Active==true && EnemyFleets[i].Visible==true)
+        if (EnemyFleets[i].Active == true && EnemyFleets[i].Visible == true)
         {
           count++;
-          if(count==flSelectionIdx)
+          if(count == flSelectionIdx)
           {
-            String header="ENEMY FLEET "+(String)(flSelectionIdx+1);
-            Report Hostile={header,1,EnemyFleets[i].Fighters,EnemyFleets[i].Interceptors,EnemyFleets[i].Frigates,EnemyFleets[i].WarCruisers,EnemyFleets[i].StarDreadnoughts,EnemyFleets[i].SolarDestroyers,0,0,0};
+            String header = "ENEMY FLEET " + (String)(flSelectionIdx + 1);
+            Report Hostile = {header, 1, EnemyFleets[i].Fighters, EnemyFleets[i].Interceptors, EnemyFleets[i].Frigates, EnemyFleets[i].WarCruisers, EnemyFleets[i].StarDreadnoughts, EnemyFleets[i].SolarDestroyers, 0, 0, 0};
             generateScoutReport(Hostile);
-            gb.gui.popup("NEW FLEET REPORT!",50);
+            gb.gui.popup("NEW FLEET REPORT!", 50);
             PlayerShips[6]--;
           }
         }
       }
     }
   }
-  drawEnemyFleets(flMarkerPosX,flMarkerPosY,flSelectionIdx);
+  drawEnemyFleets(flMarkerPosX, flMarkerPosY, flSelectionIdx);
   return 3;
 }
 
@@ -482,69 +482,69 @@ void decreaseShips(int ShipSelection)
 
 void checkQuantity(int ShipSelection)
 {
-  switch(ShipSelection)
+  switch (ShipSelection)
   {
     case 1:
     {
-      if(CustomFleet.Fighters>PlayerShips[0])
+      if (CustomFleet.Fighters > PlayerShips[0])
       {
-        CustomFleet.Fighters=PlayerShips[0];
+        CustomFleet.Fighters = PlayerShips[0];
       }
     }
     break;
     case 2:
     {
-      if(CustomFleet.Interceptors>PlayerShips[1])
+      if (CustomFleet.Interceptors > PlayerShips[1])
       {
-        CustomFleet.Interceptors=PlayerShips[1];
+        CustomFleet.Interceptors = PlayerShips[1];
       }
     }
     break;
     case 3:
     {
-      if(CustomFleet.Frigates>PlayerShips[2])
+      if (CustomFleet.Frigates > PlayerShips[2])
       {
-        CustomFleet.Frigates=PlayerShips[2];
+        CustomFleet.Frigates = PlayerShips[2];
       }
     }
     break;
     case 4:
     {
-      if(CustomFleet.WarCruisers>PlayerShips[3])
+      if (CustomFleet.WarCruisers > PlayerShips[3])
       {
-        CustomFleet.WarCruisers=PlayerShips[3];
+        CustomFleet.WarCruisers = PlayerShips[3];
       }
     }
     break;
     case 5:
     {
-      if(CustomFleet.StarDreadnoughts>PlayerShips[4])
+      if (CustomFleet.StarDreadnoughts > PlayerShips[4])
       {
-        CustomFleet.StarDreadnoughts=PlayerShips[4];
+        CustomFleet.StarDreadnoughts = PlayerShips[4];
       }
     }
     break;
     case 6:
     {
-      if(CustomFleet.SolarDestroyers>PlayerShips[5])
+      if (CustomFleet.SolarDestroyers > PlayerShips[5])
       {
-        CustomFleet.SolarDestroyers=PlayerShips[5];
+        CustomFleet.SolarDestroyers = PlayerShips[5];
       }
     }
     break;
     case 7:
     {
-      if(CustomFleet.Stalkers>PlayerShips[11])
+      if (CustomFleet.Stalkers > PlayerShips[11])
       {
-        CustomFleet.Stalkers=PlayerShips[11];
+        CustomFleet.Stalkers = PlayerShips[11];
       }
     }
     break;
     case 8:
     {
-      if(CustomFleet.Leviatans>PlayerShips[12])
+      if (CustomFleet.Leviatans > PlayerShips[12])
       {
-        CustomFleet.Leviatans=PlayerShips[12];
+        CustomFleet.Leviatans = PlayerShips[12];
       }
     }
     break;
@@ -553,141 +553,141 @@ void checkQuantity(int ShipSelection)
 
 int8_t sendSpy()
 {
-  bool canSend=fleetPreStartCheck();
-  if(gb.buttons.pressed(BUTTON_B))
+  bool canSend = fleetPreStartCheck();
+  if (gb.buttons.pressed(BUTTON_B))
   {
     return 2;
   }
-  else if(gb.buttons.pressed(BUTTON_A))
+  else if (gb.buttons.pressed(BUTTON_A))
   {
-    if(canSend==true)
+    if (canSend == true)
     {
-      PlayerResources[2]-=FleetFuelCost;
-      for(int i=0;i<4;i++)
+      PlayerResources[2] -= FleetFuelCost;
+      for (int i = 0; i < 4; i++)
       {
-        if(PlayerFleets[i].Active==false)
+        if (PlayerFleets[i].Active == false)
         {
           PlayerShips[6]--;
-          PlayerFleets[i]=CustomFleet;
-          gb.gui.popup("FLEET SEND!",50);
+          PlayerFleets[i] = CustomFleet;
+          gb.gui.popup("FLEET SEND!", 50);
           break;
         }
       }
       return 1;
     }
   }
-  drawSendFleetConfirmation(3,canSend);
+  drawSendFleetConfirmation(3, canSend);
   return 0;
 }
 
 int8_t sendColonizer()
 {
-  bool canSend=fleetPreStartCheck();
-  if(gb.buttons.pressed(BUTTON_B))
+  bool canSend = fleetPreStartCheck();
+  if (gb.buttons.pressed(BUTTON_B))
   {
     return 2;
   }
-  else if(gb.buttons.pressed(BUTTON_A))
+  else if (gb.buttons.pressed(BUTTON_A))
   {
-    if(canSend==true)
+    if (canSend == true)
     {
-      PlayerResources[2]-=FleetFuelCost;
-      for(int i=0;i<4;i++)
+      PlayerResources[2] -= FleetFuelCost;
+      for (int i = 0; i < 4; i++)
       {
-        if(PlayerFleets[i].Active==false)
+        if (PlayerFleets[i].Active == false)
         {
           PlayerShips[7]--;
-          PlayerFleets[i]=CustomFleet;
-          gb.gui.popup("FLEET SEND!",50);
+          PlayerFleets[i] = CustomFleet;
+          gb.gui.popup("FLEET SEND!", 50);
           break;
         }
       }
       return 1;
     }
   }
-  drawSendFleetConfirmation(2,canSend);
+  drawSendFleetConfirmation(2, canSend);
   return 0;
 }
 
 int8_t sendAttack()
 {
-  bool canSend=fleetPreStartCheck();
-  if(gb.buttons.pressed(BUTTON_B))
+  bool canSend = fleetPreStartCheck();
+  if (gb.buttons.pressed(BUTTON_B))
   {
     return 2;
   }
-  else if(gb.buttons.pressed(BUTTON_A))
+  else if (gb.buttons.pressed(BUTTON_A))
   {
-    if(canSend==true)
+    if (canSend == true)
     {
-      PlayerResources[2]-=FleetFuelCost;
-      for(int i=0;i<4;i++)
+      PlayerResources[2] -= FleetFuelCost;
+      for (int i = 0; i < 4; i++)
       {
-        if(PlayerFleets[i].Active==false)
+        if (PlayerFleets[i].Active == false)
         {
-          PlayerShips[0]-=CustomFleet.Fighters;
-          PlayerShips[1]-=CustomFleet.Interceptors;
-          PlayerShips[2]-=CustomFleet.Frigates;
-          PlayerShips[3]-=CustomFleet.WarCruisers;
-          PlayerShips[4]-=CustomFleet.StarDreadnoughts;
-          PlayerShips[5]-=CustomFleet.SolarDestroyers;
-          PlayerFleets[i]=CustomFleet;
-          gb.gui.popup("FLEET SEND!",50);
+          PlayerShips[0] -= CustomFleet.Fighters;
+          PlayerShips[1] -= CustomFleet.Interceptors;
+          PlayerShips[2] -= CustomFleet.Frigates;
+          PlayerShips[3] -= CustomFleet.WarCruisers;
+          PlayerShips[4] -= CustomFleet.StarDreadnoughts;
+          PlayerShips[5] -= CustomFleet.SolarDestroyers;
+          PlayerFleets[i] = CustomFleet;
+          gb.gui.popup("FLEET SEND!", 50);
           break;
         }
       }
       return 1;
     }
   }
-  drawSendFleetConfirmation(1,canSend);
+  drawSendFleetConfirmation(1, canSend);
   return 0;
 }
 
 int8_t sendRaid()
 {
-  bool canSend=fleetPreStartCheck();
-  if(gb.buttons.pressed(BUTTON_B))
+  bool canSend = fleetPreStartCheck();
+  if (gb.buttons.pressed(BUTTON_B))
   {
     return 2;
   }
-  else if(gb.buttons.pressed(BUTTON_A))
+  else if (gb.buttons.pressed(BUTTON_A))
   {
-    if(canSend==true)
+    if (canSend == true)
     {
-      PlayerResources[2]-=FleetFuelCost;
-      for(int i=0;i<4;i++)
+      PlayerResources[2] -= FleetFuelCost;
+      for (int i = 0; i < 4; i++)
       {
-        if(PlayerFleets[i].Active==false)
+        if (PlayerFleets[i].Active == false)
         {
-          PlayerShips[11]-=CustomFleet.Stalkers;
-          PlayerShips[12]-=CustomFleet.Leviatans;
-          PlayerFleets[i]=CustomFleet;
-          gb.gui.popup("FLEET SEND!",50);
+          PlayerShips[11] -= CustomFleet.Stalkers;
+          PlayerShips[12] -= CustomFleet.Leviatans;
+          PlayerFleets[i] = CustomFleet;
+          gb.gui.popup("FLEET SEND!", 50);
           break;
         }
       }
       return 1;
     }
   }
-  drawSendFleetConfirmation(4,canSend);
+  drawSendFleetConfirmation(4, canSend);
   return 0;
 }
 
 bool fleetPreStartCheck()
 {
-  bool fleetSlot=false;
-  for(int i=0;i<4;i++)
+  bool fleetSlot = false;
+  for (int i = 0; i < 4; i++)
   {
-    if(PlayerFleets[i].Active==false)
+    if (PlayerFleets[i].Active == false)
     {
-      fleetSlot=true;
+      fleetSlot = true;
       break;
     }
   }
-  bool fuelCost=false;
-  if(PlayerResources[2]>FleetFuelCost)
+  bool fuelCost = false;
+  if (PlayerResources[2] > FleetFuelCost)
   {
-    fuelCost=true;
+    fuelCost = true;
   }
   return fleetSlot && fuelCost;
 }

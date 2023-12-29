@@ -2944,25 +2944,25 @@ void drawTechImage(int id)
       gb.display.drawImage(2,9,IMAGE_TECH_AERODYNAMICS); break;
     case 8:
       gb.display.drawImage(2,9,IMAGE_TECH_CLOAKING); break;
-    case 9:
-      gb.display.drawImage(2,9,IMAGE_TECH_STATICS); break;
     case 10:
-      gb.display.drawImage(2,9,IMAGE_TECH_ECONOMY); break;
+      gb.display.drawImage(2,9,IMAGE_TECH_STATICS); break;
     case 11:
-      gb.display.drawImage(2,9,IMAGE_TECH_IMPULSE_ENGINE); break;
+      gb.display.drawImage(2,9,IMAGE_TECH_ECONOMY); break;
     case 12:
-      gb.display.drawImage(2,9,IMAGE_TECH_SHIELDING); break;
+      gb.display.drawImage(2,9,IMAGE_TECH_IMPULSE_ENGINE); break;
     case 13:
-      gb.display.drawImage(2,9,IMAGE_TECH_MIND_CONTROL); break;
+      gb.display.drawImage(2,9,IMAGE_TECH_SHIELDING); break;
     case 14:
-      gb.display.drawImage(2,9,IMAGE_TECH_HYPERDRIVE); break;
+      gb.display.drawImage(2,9,IMAGE_TECH_MIND_CONTROL); break;
     case 15:
-      gb.display.drawImage(2,9,IMAGE_TECH_FUSION_REACTION); break;
+      gb.display.drawImage(2,9,IMAGE_TECH_HYPERDRIVE); break;
     case 16:
-      gb.display.drawImage(2,9,IMAGE_TECH_SHIP_WEAPONS); break;
+      gb.display.drawImage(2,9,IMAGE_TECH_FUSION_REACTION); break;
     case 17:
-      gb.display.drawImage(2,9,IMAGE_TECH_FLIGHT_CONTROL); break;
+      gb.display.drawImage(2,9,IMAGE_TECH_SHIP_WEAPONS); break;
     case 18:
+      gb.display.drawImage(2,9,IMAGE_TECH_FLIGHT_CONTROL); break;
+    case 19:
       gb.display.drawImage(2,9,IMAGE_TECH_GRAVITY_WEAPON); break;
     case 20:
       gb.display.drawImage(2,9,IMAGE_TECH_COMPOSITE_ARMOR); break;
@@ -3139,30 +3139,30 @@ void drawPlayerFleets(int posX,int posY)
 void drawEnemyFleets(int posX,int posY,int selection)
 {
   gb.display.fill(WHITE);
-  gb.display.drawImage(4,8,IMAGE_MAIN_THEME);
-  gb.display.drawImage(0,0,IMAGE_INFO_FRAME);
-  gb.display.setCursor(15,0);
+  gb.display.drawImage(4, 8, IMAGE_MAIN_THEME);
+  gb.display.drawImage(0, 0, IMAGE_INFO_FRAME);
+  gb.display.setCursor(15, 0);
   gb.display.setColor(WHITE);
   gb.display.println("ENEMY FLEETS");
-  int posFlY=11;
-  for(int i=0;i<4;i++)
+  int posFlY = 11;
+  for (int i = 0; i < 4; i++)
   {
-    if(EnemyFleets[i].Active==true && EnemyFleets[i].Visible==true)
+    if (EnemyFleets[i].Active == true && EnemyFleets[i].Visible == true)
     {
-      gb.display.drawImage(1,posFlY,IMAGE_FLEET_ROW_ENEMY);
+      gb.display.drawImage(1, posFlY, IMAGE_FLEET_ROW_ENEMY);
       gb.display.setColor(WHITE);
-      gb.display.setCursor(13,posFlY+3);
-      String strTime=setTimeString(EnemyFleets[i].Seconds,EnemyFleets[i].Minutes);
+      gb.display.setCursor(13, posFlY + 3);
+      String strTime = setTimeString(EnemyFleets[i].Seconds, EnemyFleets[i].Minutes);
       gb.display.println(strTime);
-      posFlY+=11;
+      posFlY += 11;
     }
   }
-  gb.display.drawImage(posX,posY,FleetSelector);
-  if(PlayerShips[6]>0)
+  gb.display.drawImage(posX, posY, FleetSelector);
+  if(PlayerShips[6] > 0)
   {
-    gb.display.drawImage(2,56,IMAGE_INTEL_BTN_OK);
+    gb.display.drawImage(2, 56, IMAGE_INTEL_BTN_OK);
     gb.display.setColor(WHITE);
-    gb.display.setCursor(4,57);
+    gb.display.setCursor(4, 57);
     gb.display.println("A");
   }
 }
@@ -3222,22 +3222,22 @@ void drawStarRoutes(int page)
   }
 }
 
-void drawRouteConfirmation(TradeRoute route,bool canSend,bool metal,bool crystal,bool fuel)
+void drawRouteConfirmation(TradeRoute route, bool canSend, bool metal, bool crystal, bool fuel)
 {
   gb.display.fill(WHITE);
-  gb.display.drawImage(4,8,IMAGE_MAIN_THEME);
-  gb.display.drawImage(0,0,IMAGE_INFO_FRAME);
-  gb.display.setCursor(5,0);
+  gb.display.drawImage(4, 8, IMAGE_MAIN_THEME);
+  gb.display.drawImage(0, 0, IMAGE_INFO_FRAME);
+  gb.display.setCursor(5, 0);
   gb.display.setColor(WHITE);
   gb.display.println("SET " + route.Name + " ROUTE");
   gb.display.setColor(BLACK);
-  gb.display.setCursor(0,9);
+  gb.display.setCursor(0, 9);
   gb.display.println(" METAL CARGO: ");
-  gb.display.setCursor(52,9);
+  gb.display.setCursor(52, 9);
   gb.display.println(route.Metal);
-  gb.display.setCursor(0,17);
+  gb.display.setCursor(0, 17);
   gb.display.println(" OWNED: ");
-  if(metal==false)
+  if (metal == false)
   {
     gb.display.setColor(RED);
   }
@@ -3245,16 +3245,16 @@ void drawRouteConfirmation(TradeRoute route,bool canSend,bool metal,bool crystal
   {
     gb.display.setColor(GREEN);
   }
-  gb.display.setCursor(30,17);
+  gb.display.setCursor(30, 17);
   gb.display.println(PlayerShips[8]);
   gb.display.setColor(BLACK);
-  gb.display.setCursor(0,25);
+  gb.display.setCursor(0, 25);
   gb.display.println(" CRYSTAL CARGO: ");
-  gb.display.setCursor(62,25);
+  gb.display.setCursor(62, 25);
   gb.display.println(route.Crystal);
-  gb.display.setCursor(0,33);
+  gb.display.setCursor(0, 33);
   gb.display.println(" OWNED: ");
-  if(crystal==false)
+  if (crystal == false)
   {
     gb.display.setColor(RED);
   }
@@ -3262,16 +3262,16 @@ void drawRouteConfirmation(TradeRoute route,bool canSend,bool metal,bool crystal
   {
     gb.display.setColor(GREEN);
   }
-  gb.display.setCursor(30,33);
+  gb.display.setCursor(30, 33);
   gb.display.println(PlayerShips[9]);
   gb.display.setColor(BLACK);
-  gb.display.setCursor(0,41);
+  gb.display.setCursor(0, 41);
   gb.display.println(" FUEL CARGO: ");
-  gb.display.setCursor(51,41);
+  gb.display.setCursor(51, 41);
   gb.display.println(route.Fuel);
-  gb.display.setCursor(0,49);
+  gb.display.setCursor(0, 49);
   gb.display.println(" OWNED: ");
-  if(fuel==false)
+  if (fuel == false)
   {
     gb.display.setColor(RED);
   }
@@ -3279,83 +3279,87 @@ void drawRouteConfirmation(TradeRoute route,bool canSend,bool metal,bool crystal
   {
     gb.display.setColor(GREEN);
   }
-  gb.display.setCursor(30,49);
+  gb.display.setCursor(30, 49);
   gb.display.println(PlayerShips[10]);
-  if(canSend==true)
+  if (canSend == true)
   {
-    gb.display.drawImage(2,56,IMAGE_OK_BTN); 
+    gb.display.drawImage(2, 56, IMAGE_OK_BTN); 
   }
-  gb.display.drawImage(64,56,IMAGE_CANCEL_BTN);
+  gb.display.drawImage(64, 56, IMAGE_CANCEL_BTN);
 }
 
 void drawFleetStats()
 {
   gb.display.fill(WHITE);
-  gb.display.drawImage(4,8,IMAGE_MAIN_THEME);
-  gb.display.drawImage(0,0,IMAGE_INFO_FRAME);
-  gb.display.setCursor(13,0);
+  gb.display.drawImage(4, 8, IMAGE_MAIN_THEME);
+  gb.display.drawImage(0, 0, IMAGE_INFO_FRAME);
+  gb.display.setCursor(13, 0);
   gb.display.setColor(WHITE);
-  gb.display.setCursor(17,0);
+  gb.display.setCursor(17, 0);
   gb.display.println("FLEET STATS");
   gb.display.setColor(BLUE);
-  gb.display.setCursor(1,8);
+  gb.display.setCursor(1, 8);
   gb.display.println("FIG");
-  gb.display.setCursor(1,14);
+  gb.display.setCursor(1, 14);
   gb.display.println("INT");
-  gb.display.setCursor(1,20);
+  gb.display.setCursor(1, 20);
   gb.display.println("FRI");
-  gb.display.setCursor(1,26);
+  gb.display.setCursor(1, 26);
   gb.display.println("W CR");
-  gb.display.setCursor(1,32);
+  gb.display.setCursor(1, 32);
   gb.display.println("S DR");
-  gb.display.setCursor(1,38);
+  gb.display.setCursor(1, 38);
   gb.display.println("S DS");
-  gb.display.setCursor(1,44);
+  gb.display.setCursor(1, 44);
   gb.display.println("STL");
-  gb.display.setCursor(40,8);
+  gb.display.setCursor(1, 50);
   gb.display.println("LEV");
+  gb.display.setCursor(40, 8);
+  gb.display.println("MIS");
   gb.display.setColor(GREEN);
-  gb.display.setCursor(40,20);
+  gb.display.setCursor(40, 20);
   gb.display.println("SPY");
-  gb.display.setCursor(40,26);
+  gb.display.setCursor(40, 26);
   gb.display.println("COL");
-  gb.display.setCursor(40,32);
+  gb.display.setCursor(40, 32);
   gb.display.println("M TR");
-  gb.display.setCursor(40,38);
+  gb.display.setCursor(40, 38);
   gb.display.println("C TR");
-  gb.display.setCursor(40,44);
+  gb.display.setCursor(40, 44);
   gb.display.println("F TR");
   gb.display.setColor(BLACK);
-  gb.display.setCursor(19,8);
+  gb.display.setCursor(19, 8);
   gb.display.println(PlayerShips[0]);
-  gb.display.setCursor(19,14);
+  gb.display.setCursor(19, 14);
   gb.display.println(PlayerShips[1]);
-  gb.display.setCursor(19,20);
+  gb.display.setCursor(19, 20);
   gb.display.println(PlayerShips[2]);
-  gb.display.setCursor(19,26);
+  gb.display.setCursor(19, 26);
   gb.display.println(PlayerShips[3]);
-  gb.display.setCursor(19,32);
+  gb.display.setCursor(19, 32);
   gb.display.println(PlayerShips[4]);
-  gb.display.setCursor(19,38);
+  gb.display.setCursor(19, 38);
   gb.display.println(PlayerShips[5]);
-  gb.display.setCursor(19,44);
+  gb.display.setCursor(19, 44);
   gb.display.println(PlayerShips[11]);
-  gb.display.setCursor(59,8);
+  gb.display.setCursor(19, 50);
   gb.display.println(PlayerShips[12]);
-  gb.display.setCursor(59,20);
+  gb.display.setCursor(59, 8);
+  gb.display.println(PlayerShips[13]);
+  gb.display.setCursor(59, 20);
   gb.display.println(PlayerShips[6]);
-  gb.display.setCursor(59,26);
+  gb.display.setCursor(59, 26);
   gb.display.println(PlayerShips[7]);
-  gb.display.setCursor(59,32);
+  gb.display.setCursor(59, 32);
   gb.display.println(PlayerShips[8]);
-  gb.display.setCursor(59,38);
+  gb.display.setCursor(59, 38);
   gb.display.println(PlayerShips[9]);
-  gb.display.setCursor(59,44);
+  gb.display.setCursor(59, 44);
   gb.display.println(PlayerShips[10]);
-  gb.display.setCursor(1,53);
+  gb.display.setCursor(1, 57);
   gb.display.println("BATTLE EXP: ");
   gb.display.setColor(ORANGE);
-  gb.display.setCursor(45,53);
+  gb.display.setCursor(45, 57);
   gb.display.println(BattleExperience);
 }
 
@@ -3643,27 +3647,27 @@ void drawSendFleetConfirmation(int mission,bool canSend)
 
 void drawIntelligence()
 {
-  if(selectionFrame==0)
+  if (selectionFrame == 0)
   {
-    selectionFrame=1;
+    selectionFrame = 1;
   }
   else
   {
-    selectionFrame=0;
+    selectionFrame = 0;
   }
-  gb.display.drawImage(0,0,IMAGE_INFO_FRAME);
-  gb.display.drawImage(0,11,IMAGE_INTELLIGENCE_BCG);
+  gb.display.drawImage(0, 0, IMAGE_INFO_FRAME);
+  gb.display.drawImage(0, 11, IMAGE_INTELLIGENCE_BCG);
   gb.display.setColor(WHITE);
-  gb.display.setCursor(15,0);
+  gb.display.setCursor(15, 0);
   gb.display.println("INTELLIGENCE");
   gb.display.setColor(GREEN);
-  gb.display.fillRect(10,24,60,2);
-  if(Difficulty=="EASY"||Difficulty=="NORMAL")
+  gb.display.fillRect(10, 24, 60, 2);
+  if (ProgressPointsLimit == 120)
   {
-    gb.display.fillRect(10,35,60,2); 
+    gb.display.fillRect(10, 35, 60, 2); 
   }
   gb.display.setColor(RED);
-  gb.display.setCursor(12,17);
+  gb.display.setCursor(12, 17);
   gb.display.println("ENEMY ULTIMATE");
   if(selectionFrame==0)
   {
@@ -3673,30 +3677,30 @@ void drawIntelligence()
   {
     gb.display.setColor(ORANGE);
   }
-  int fixed1=0;
-  if(ProgressPoints>=60)
+  int fixed1 = 0;
+  if (ProgressPoints >= 60)
   {
-    fixed1=60;
+    fixed1 = 60;
   }
   else
   {
-    fixed1=ProgressPoints;
+    fixed1 = ProgressPoints;
   }
-  gb.display.fillRect(10,24,fixed1,2);
-  if(Difficulty=="EASY"||Difficulty=="NORMAL")
+  gb.display.fillRect(10, 24, fixed1, 2);
+  if(ProgressPointsLimit == 120)
   {
-    int fixed2=0;  
-    if(ProgressPoints>=60)
+    int fixed2 = 0;  
+    if (ProgressPoints >= 60)
     {
-      fixed2=ProgressPoints-60;
+      fixed2 = ProgressPoints - 60;
     }
-    gb.display.fillRect(10,35,fixed2,2); 
+    gb.display.fillRect(10, 35, fixed2, 2); 
   }
   gb.display.setColor(RED);
-  gb.display.setCursor(10,39);
+  gb.display.setCursor(10, 39);
   gb.display.println("WEAPON PROGRESS");
   gb.display.setColor(ORANGE);
-  gb.display.setCursor(25,28);
+  gb.display.setCursor(25, 28);
   if(Difficulty=="EASY"||Difficulty=="NORMAL")
   {
     gb.display.println((String)ProgressPoints+"/"+(String)ProgressPointsLimit); 
@@ -3705,14 +3709,14 @@ void drawIntelligence()
   {
     gb.display.println((String)ProgressPoints+" / "+(String)ProgressPointsLimit);
   }
-  gb.display.setCursor(8,46);
+  gb.display.setCursor(8, 46);
   gb.display.setColor(RED);
-  gb.display.println("CLIGG COLONIES:"+(String)CliggColonies);
-  if(EnemyCount == 2)
+  gb.display.println("CLIGG COLONIES:" + (String)CliggColonies);
+  if (EnemyCount == 2)
   {
-    gb.display.setCursor(8,52);
+    gb.display.setCursor(8, 52);
     gb.display.setColor(RED);
-    gb.display.println("SHEEZ COLONIES:"+(String)SheezColonies);
+    gb.display.println("SHEEZ COLONIES:" + (String)SheezColonies);
   }
 }
 

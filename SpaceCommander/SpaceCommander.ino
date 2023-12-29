@@ -115,7 +115,7 @@ Building Colony[]={
   {4,"Fuel Refinery",0,"Deliver fuel        resource.",200,185,65,0,0,1,2,14},
   {5,"Intelligence",0,"Reveals more intel  in hostile reports.",210,185,10,2,1,0,0,12},
   {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",185,185,25,5,1,0,0,15},
-  {7,"Shipyard",0,"Required to build   colony ships.",350,350,275,4,1,0,0,10},
+  {7,"Shipyard",0,"Required to build   colony ships.",350,350,275,4,1,0,0,11},
   {8,"Research Lab",0,"Unlock additional   technology / lvl.",175,175,75,0,0,0,0,20},
   {9,"Defence System",0,"Provides additional firepower for colonydefence / lvl.",210,250,75,13,1,0,0,14},
   {10,"Factory",0,"Reduces metal and   crystal cost of     buildings.",300,220,60,0,0,0,0,10},
@@ -123,7 +123,7 @@ Building Colony[]={
   {12,"Transformer",0,"Converts one        resource to another.",350,300,550,16,1,0,0,10},
   {13,"Logistic Centre",0,"Increases resource  transport from traderoutes.",400,200,300,18,1,0,0,10},
   {14,"Market",0,"Exachange fuel for  resources and ships.",220,220,150,11,1,0,0,8},
-  {15,"EMP Launcher",0,"Fires EMP Missles +1 / lvl into enemy   fleets.",300,300,200,19,1,0,0,10}
+  {15,"EMP Launcher",0,"Fires EMP Missles +1 / lvl into enemy   fleets.",300,300,200,9,1,0,0,10}
 };
 
 struct Ship
@@ -148,7 +148,8 @@ Ship Shipyard[]={
   {"Crystal Transport",10,"Transport crystals  from colonies.",400,150},
   {"Fuel Transport",11,"Transport fuel from colonies.",300,200},
   {"Stalker",12,"Steal enemy Fightersand Interceptors.",300,300},
-  {"Leviatan",13,"Steal enemy         Frigates.",700,700}
+  {"Leviatan",13,"Steal enemy         Frigates.",700,700},
+  {"EMP Missle",14,"Reduce enemy fleet  ships during        intercept missions.",150,200}
 };
 
 struct EnemyGarrison
@@ -232,7 +233,8 @@ int PlayerShips[]={
   0, //Crystal Transport
   0, //Fuel Transport
   0, //Stalkers
-  0 //Leviatans
+  0, //Leviatans
+  0 //EMP Missles
 };
 
 struct TradeRoute
@@ -378,7 +380,7 @@ const SaveDefault savefileDefaults[] = {
   { 4, SAVETYPE_BLOB,{.ptr="000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 "},157}, //Enemy2 Garrison
   { 5, SAVETYPE_BLOB,{.ptr="0000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********0 "},245},
   { 6, SAVETYPE_BLOB,{.ptr="0000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********0 "},245},
-  { 7, SAVETYPE_BLOB,{.ptr="0000000000000000000000000000000000000000000000000000 "},53},
+  { 7, SAVETYPE_BLOB,{.ptr="00000000000000000000000000000000000000000000000000000000 "},57},
   { 8, SAVETYPE_BLOB,{.ptr="0NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********000 "},217},
   { 9, SAVETYPE_BLOB,{.ptr="NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000 "},211},
   { 10, SAVETYPE_BLOB,{.ptr="00000000000000000NORMAL********00000000000000000 "},49},
@@ -754,9 +756,9 @@ void timeCalculations()
   {
     frames=0;
     updateResources();
-    //PlayerResources[0]=9999;
-    //PlayerResources[1]=9999;
-    //PlayerResources[2]=9999;
+    PlayerResources[0]=9999;
+    PlayerResources[1]=9999;
+    PlayerResources[2]=9999;
     updateVisibilityDistance();
     enemyAttackTimer();
     updateFleets();
@@ -769,7 +771,7 @@ void timeCalculations()
 
 void updateVisibilityDistance()
 {
-  int base = 10 + (Colony[5].level * 15);
+  int base = 10 + (Colony[5].level * 13);
   if (base > 59)
   {
     visibilityMinutes = base / 60;
@@ -786,80 +788,98 @@ void updateVisibilityDistance()
 
 void updateFleets()
 {
-  for(int i=0;i<4;i++)
+  for (int i=0; i<4; i++)
   {
-    if(EnemyFleets[i].Active==true)
+    if (EnemyFleets[i].Active == true)
     {
       updateEnemyFleetTime(i);
-      if(EnemyFleets[i].Minutes==visibilityMinutes && EnemyFleets[i].Seconds==visibilitySeconds)
+      bool isFleetInRange = checkTimeWithVisibilityRange(EnemyFleets[i].Minutes, EnemyFleets[i].Seconds);
+      if (isFleetInRange == true && EnemyFleets[i].Visible == false)
       {
-        EnemyFleets[i].Visible=true;
+        EnemyFleets[i].Visible = true;
         gb.lights.fill(RED);
-        gb.gui.popup("INCOMING ATTACK!",50);
+        gb.gui.popup("INCOMING ATTACK!", 50);
       }
     }
-    if(PlayerFleets[i].Active==true)
+    if (PlayerFleets[i].Active == true)
     {
       updatePlayerFleetTime(i);
     }
   }
 }
 
+bool checkTimeWithVisibilityRange(int minutes, int seconds)
+{
+  if (minutes < visibilityMinutes)
+  {
+    return true;
+  }
+  if (minutes == visibilityMinutes)
+  {
+    if (seconds <= visibilitySeconds)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
 void updateEnemyFleetTime(int index)
 {
-  if(EnemyFleets[index].Seconds==0 && EnemyFleets[index].Minutes>0)
+  if (EnemyFleets[index].Seconds == 0 && EnemyFleets[index].Minutes > 0)
   {
-    EnemyFleets[index].Seconds=59;
+    EnemyFleets[index].Seconds = 59;
     EnemyFleets[index].Minutes--;
   }
-  else if(EnemyFleets[index].Seconds==0 && EnemyFleets[index].Minutes==0)
+  else if (EnemyFleets[index].Seconds == 0 && EnemyFleets[index].Minutes == 0)
   {
-    EnemyFleets[index].Seconds=0;
-    EnemyFleets[index].Active=false;
-    EnemyFleets[index].Visible=false;
-    int8_t winner=spaceBattle(index,-1,false,0);
-    if(winner==2)//battle lost
+    EnemyFleets[index].Seconds = 0;
+    EnemyFleets[index].Active = false;
+    EnemyFleets[index].Visible = false;
+    int8_t winner=spaceBattle(index, -1, false, 0);
+    if(winner == 2)//battle lost
     {
       gb.lights.fill(RED);
-      PlayerShips[6]=0;
-      PlayerShips[7]=0;
-      PlayerShips[8]=0;
-      PlayerShips[9]=0;
-      PlayerShips[10]=0;
-      PlayerShips[11]=0;
-      PlayerShips[12]=0;
+      PlayerShips[6] = 0;
+      PlayerShips[7] = 0;
+      PlayerShips[8] = 0;
+      PlayerShips[9] = 0;
+      PlayerShips[10] = 0;
+      PlayerShips[11] = 0;
+      PlayerShips[12] = 0;
+      PlayerShips[13] = 0;
       
-      bool richBounty=resourcePillage();
+      bool richBounty = resourcePillage();
       resetTransformerAfterAttack();
-      int EnemyProgressPoints=3;
-      if(Difficulty=="NORMAL" || Difficulty=="HARD")
+      int EnemyProgressPoints = 3;
+      if (Difficulty == "NORMAL" || Difficulty == "HARD")
       {
         EnemyProgressPoints=4;
       }
       
-      if(ProgressPoints<ProgressPointsLimit)
+      if (ProgressPoints < ProgressPointsLimit)
       {
-        if(richBounty==true)
+        if (richBounty == true)
         {
-          ProgressPoints+=(2*EnemyProgressPoints); //ultimate weapon progress
+          ProgressPoints += (2 * EnemyProgressPoints); //ultimate weapon progress
         }
         else
         {
-          ProgressPoints+=EnemyProgressPoints; //ultimate weapon progress
+          ProgressPoints += EnemyProgressPoints; //ultimate weapon progress
         }
-        if(ProgressPoints>ProgressPointsLimit)
+        if (ProgressPoints > ProgressPointsLimit)
         {
-          ProgressPoints=ProgressPointsLimit;
+          ProgressPoints = ProgressPointsLimit;
         }
         garrisonUpgrade(Enemy1Garrison);
-        if(EnemyCount = 2)
+        if (EnemyCount = 2)
         {
           garrisonUpgrade(Enemy2Garrison);
         }
       }
-      if(EnemyFleets[index].SolarDestroyers>0)  //If Attack was successfull and ultimate weapon survived, the game is over;
+      if (EnemyFleets[index].SolarDestroyers > 0)  //If Attack was successfull and ultimate weapon survived, the game is over;
       {
-        GameOver=true;
+        GameOver = true;
         countFinalScore(false);
       }
     }
@@ -884,13 +904,13 @@ void updateEnemyFleetTime(int index)
         Score += 15; 
       }
     }
-    EnemyFleets[index].Fighters=0;
-    EnemyFleets[index].Interceptors=0;
-    EnemyFleets[index].Frigates=0;
-    EnemyFleets[index].WarCruisers=0;
-    EnemyFleets[index].StarDreadnoughts=0;
-    EnemyFleets[index].SolarDestroyers=0;
-    fight=true;
+    EnemyFleets[index].Fighters = 0;
+    EnemyFleets[index].Interceptors = 0;
+    EnemyFleets[index].Frigates = 0;
+    EnemyFleets[index].WarCruisers = 0;
+    EnemyFleets[index].StarDreadnoughts = 0;
+    EnemyFleets[index].SolarDestroyers = 0;
+    fight = true;
     enemyFleetsCheck(); 
   }
   else
@@ -901,15 +921,15 @@ void updateEnemyFleetTime(int index)
 
 void garrisonUpgrade(EnemyGarrison garrison[6])
 {
-  for(int i=0;i<6;i++)
+  for (int i=0; i<6; i++)
   {
-    if(garrison[i].planetIndex!=-1)
+    if (garrison[i].planetIndex != -1)
     {
-      garrison[i].Fighters+=10;
-      garrison[i].Interceptors+=5;
-      if(Difficulty=="NORMAL" || Difficulty=="HARD")
+      garrison[i].Fighters += 10;
+      garrison[i].Interceptors += 5;
+      if (Difficulty == "NORMAL" || Difficulty == "HARD")
       {
-          garrison[i].Frigates+=1;
+          garrison[i].Frigates += 1;
       }
     }
   }
@@ -1156,47 +1176,47 @@ void rewardForPlayer()
 
 void fleetReturns(Fleet fleet)
 {
-  PlayerShips[0]+=fleet.Fighters;
-  if(PlayerShips[0]>9999)
+  PlayerShips[0] += fleet.Fighters;
+  if (PlayerShips[0] > 9999)
   {
-    PlayerShips[0]=9999;
+    PlayerShips[0] = 9999;
   }
-  PlayerShips[1]+=fleet.Interceptors;
-  if(PlayerShips[1]>9999)
+  PlayerShips[1] += fleet.Interceptors;
+  if (PlayerShips[1] > 9999)
   {
-    PlayerShips[1]=9999;
+    PlayerShips[1] = 9999;
   }
-  PlayerShips[2]+=fleet.Frigates;
-  if(PlayerShips[2]>9999)
+  PlayerShips[2] += fleet.Frigates;
+  if (PlayerShips[2] > 9999)
   {
-    PlayerShips[2]=9999;
+    PlayerShips[2] = 9999;
   }
-  PlayerShips[3]+=fleet.WarCruisers;
-  if(PlayerShips[3]>9999)
+  PlayerShips[3] += fleet.WarCruisers;
+  if (PlayerShips[3] > 9999)
   {
-    PlayerShips[3]=9999;
+    PlayerShips[3] = 9999;
   }
-  PlayerShips[4]+=fleet.StarDreadnoughts;
-  if(PlayerShips[4]>9999)
+  PlayerShips[4] += fleet.StarDreadnoughts;
+  if (PlayerShips[4] > 9999)
   {
-    PlayerShips[4]=9999;
+    PlayerShips[4] = 9999;
   }
-  PlayerShips[5]+=fleet.SolarDestroyers;
-  if(PlayerShips[5]>9999)
+  PlayerShips[5] += fleet.SolarDestroyers;
+  if (PlayerShips[5] > 9999)
   {
-    PlayerShips[5]=9999;
+    PlayerShips[5] = 9999;
   }
-  PlayerShips[11]+=fleet.Stalkers;
-  if(PlayerShips[11]>9999)
+  PlayerShips[11] += fleet.Stalkers;
+  if (PlayerShips[11] > 9999)
   {
-    PlayerShips[11]=9999;
+    PlayerShips[11] = 9999;
   }
-  PlayerShips[12]+=fleet.Leviatans;
-  if(PlayerShips[12]>9999)
+  PlayerShips[12] += fleet.Leviatans;
+  if(PlayerShips[12] > 9999)
   {
-    PlayerShips[12]=9999;
+    PlayerShips[12] = 9999;
   }
-  gb.gui.popup("FLEET HAS RETURNED!",50);
+  gb.gui.popup("FLEET HAS RETURNED!", 50);
 }
 //--------Resources----------------------------
 

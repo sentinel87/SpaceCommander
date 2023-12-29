@@ -141,24 +141,25 @@ void loadFleets(Fleet Fleets[4],uint16_t block)
 
 void loadPlayerShips()
 {
-  char RawPlShipsData[53];
+  char RawPlShipsData[57];
   gb.save.get(7, RawPlShipsData);
   String ShipsData(RawPlShipsData);
   
-  String Part=ShipsData.substring(0,52);
-  PlayerShips[0]=Part.substring(0,4).toInt();
-  PlayerShips[1]=Part.substring(4,8).toInt();
-  PlayerShips[2]=Part.substring(8,12).toInt();
-  PlayerShips[3]=Part.substring(12,16).toInt();
-  PlayerShips[4]=Part.substring(16,20).toInt();
-  PlayerShips[5]=Part.substring(20,24).toInt();
-  PlayerShips[6]=Part.substring(24,28).toInt();
-  PlayerShips[7]=Part.substring(28,32).toInt();
-  PlayerShips[8]=Part.substring(32,36).toInt();
-  PlayerShips[9]=Part.substring(36,40).toInt();
-  PlayerShips[10]=Part.substring(40,44).toInt();
-  PlayerShips[11]=Part.substring(44,48).toInt();
-  PlayerShips[12]=Part.substring(48,52).toInt();
+  String Part = ShipsData.substring(0, 56);
+  PlayerShips[0] = Part.substring(0, 4).toInt();
+  PlayerShips[1] = Part.substring(4, 8).toInt();
+  PlayerShips[2] = Part.substring(8, 12).toInt();
+  PlayerShips[3] = Part.substring(12, 16).toInt();
+  PlayerShips[4] = Part.substring(16, 20).toInt();
+  PlayerShips[5] = Part.substring(20, 24).toInt();
+  PlayerShips[6] = Part.substring(24, 28).toInt();
+  PlayerShips[7] = Part.substring(28, 32).toInt();
+  PlayerShips[8] = Part.substring(32, 36).toInt();
+  PlayerShips[9] = Part.substring(36, 40).toInt();
+  PlayerShips[10] = Part.substring(40, 44).toInt();
+  PlayerShips[11] = Part.substring(44, 48).toInt();
+  PlayerShips[12] = Part.substring(48, 52).toInt();
+  PlayerShips[13] = Part.substring(52, 56).toInt();
 }
 
 void loadTradeRoutes()
@@ -492,29 +493,29 @@ bool saveDataFleets(Fleet Fleets[4],uint16_t block)
 
 bool saveDataPlayerShips()
 {
-  String strData="";
-  strData+=returnDecimalString(PlayerShips[0]);
-  strData+=returnDecimalString(PlayerShips[1]);
-  strData+=returnDecimalString(PlayerShips[2]);
-  strData+=returnDecimalString(PlayerShips[3]);
-  strData+=returnDecimalString(PlayerShips[4]);
-  strData+=returnDecimalString(PlayerShips[5]);
-  strData+=returnDecimalString(PlayerShips[6]);
-  strData+=returnDecimalString(PlayerShips[7]);
-  strData+=returnDecimalString(PlayerShips[8]);
-  strData+=returnDecimalString(PlayerShips[9]);
-  strData+=returnDecimalString(PlayerShips[10]);
-  strData+=returnDecimalString(PlayerShips[11]);
-  strData+=returnDecimalString(PlayerShips[12]);
-  strData+=" ";
-  if(strData.length()==53)
+  String strData = "";
+  strData += returnDecimalString(PlayerShips[0]);
+  strData += returnDecimalString(PlayerShips[1]);
+  strData += returnDecimalString(PlayerShips[2]);
+  strData += returnDecimalString(PlayerShips[3]);
+  strData += returnDecimalString(PlayerShips[4]);
+  strData += returnDecimalString(PlayerShips[5]);
+  strData += returnDecimalString(PlayerShips[6]);
+  strData += returnDecimalString(PlayerShips[7]);
+  strData += returnDecimalString(PlayerShips[8]);
+  strData += returnDecimalString(PlayerShips[9]);
+  strData += returnDecimalString(PlayerShips[10]);
+  strData += returnDecimalString(PlayerShips[11]);
+  strData += returnDecimalString(PlayerShips[12]);
+  strData += " ";
+  if (strData.length() == 57)
   {
-    saveDataToBlock(7,strData,53);
+    saveDataToBlock(7, strData, 57);
     return true;
   }
   else
   {
-    DebugData=strData;
+    DebugData = strData;
     return false;
   }
 }
