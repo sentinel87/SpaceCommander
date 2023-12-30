@@ -64,7 +64,7 @@ int enemyFleets()
           count++;
           if(count == flSelectionIdx)
           {
-            String header = "ENEMY FLEET " + (String)(flSelectionIdx + 1);
+            String header = "ENEMY " + EnemyFleets[i].DestinationName;
             Report Hostile = {header, 1, EnemyFleets[i].Fighters, EnemyFleets[i].Interceptors, EnemyFleets[i].Frigates, EnemyFleets[i].WarCruisers, EnemyFleets[i].StarDreadnoughts, EnemyFleets[i].SolarDestroyers, 0, 0, 0};
             generateScoutReport(Hostile);
             gb.gui.popup("NEW FLEET REPORT!", 50);

@@ -507,6 +507,7 @@ bool saveDataPlayerShips()
   strData += returnDecimalString(PlayerShips[10]);
   strData += returnDecimalString(PlayerShips[11]);
   strData += returnDecimalString(PlayerShips[12]);
+  strData += returnDecimalString(PlayerShips[13]);
   strData += " ";
   if (strData.length() == 57)
   {

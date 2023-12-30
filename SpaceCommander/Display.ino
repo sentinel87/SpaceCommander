@@ -3151,9 +3151,11 @@ void drawEnemyFleets(int posX,int posY,int selection)
     {
       gb.display.drawImage(1, posFlY, IMAGE_FLEET_ROW_ENEMY);
       gb.display.setColor(WHITE);
-      gb.display.setCursor(13, posFlY + 3);
+      gb.display.setCursor(12, posFlY + 3);
       String strTime = setTimeString(EnemyFleets[i].Seconds, EnemyFleets[i].Minutes);
       gb.display.println(strTime);
+      gb.display.setCursor(34, posFlY + 3);
+      gb.display.println(EnemyFleets[i].DestinationName);
       posFlY += 11;
     }
   }
@@ -3487,94 +3489,102 @@ void drawBattleResult2()
   }
 }
 
-void drawFleetSelection(int posY, bool selectedShip,int quantity,int type)
+void drawFleetSelection(int posY, bool selectedShip, int quantity, int type)
 {
   gb.display.fill(WHITE);
-  gb.display.drawImage(4,8,IMAGE_MAIN_THEME);
-  gb.display.drawImage(0,0,IMAGE_INFO_FRAME);
-  gb.display.setCursor(12,0);
+  gb.display.drawImage(4, 8, IMAGE_MAIN_THEME);
+  gb.display.drawImage(0, 0, IMAGE_INFO_FRAME);
+  gb.display.setCursor(12, 0);
   gb.display.setColor(WHITE);
   gb.display.println("SET FLEET SHIPS");
   gb.display.setColor(BLUE);
-  if(type==1) //Select Fleet to attack
+  if (type == 1) //Select Fleet to attack
   {
-    gb.display.setCursor(2,9);
+    gb.display.setCursor(2, 9);
     gb.display.println("FIG");
-    gb.display.setCursor(2,17);
+    gb.display.setCursor(2, 17);
     gb.display.println("INT");
-    gb.display.setCursor(2,25);
+    gb.display.setCursor(2, 25);
     gb.display.println("FRI");
-    gb.display.setCursor(2,33);
+    gb.display.setCursor(2, 33);
     gb.display.println("W CR");
-    gb.display.setCursor(2,41);
+    gb.display.setCursor(2, 41);
     gb.display.println("S DR");
-    gb.display.setCursor(2,49);
+    gb.display.setCursor(2, 49);
     gb.display.println("S DS");
     gb.display.setColor(GREEN);
-    gb.display.setCursor(19,9);
+    gb.display.setCursor(19, 9);
     gb.display.println(PlayerShips[0]);
-    gb.display.setCursor(19,17);
+    gb.display.setCursor(19, 17);
     gb.display.println(PlayerShips[1]);
-    gb.display.setCursor(19,25);
+    gb.display.setCursor(19, 25);
     gb.display.println(PlayerShips[2]);
-    gb.display.setCursor(19,33);
+    gb.display.setCursor(19, 33);
     gb.display.println(PlayerShips[3]);
-    gb.display.setCursor(19,41);
+    gb.display.setCursor(19, 41);
     gb.display.println(PlayerShips[4]);
-    gb.display.setCursor(19,49);
+    gb.display.setCursor(19, 49);
     gb.display.println(PlayerShips[5]);
     gb.display.setColor(BLACK);
-    gb.display.setCursor(40,9);
+    gb.display.setCursor(40, 9);
     gb.display.println(CustomFleet.Fighters);
-    gb.display.setCursor(40,17);
+    gb.display.setCursor(40, 17);
     gb.display.println(CustomFleet.Interceptors);
-    gb.display.setCursor(40,25);
+    gb.display.setCursor(40, 25);
     gb.display.println(CustomFleet.Frigates);
-    gb.display.setCursor(40,33);
+    gb.display.setCursor(40, 33);
     gb.display.println(CustomFleet.WarCruisers);
-    gb.display.setCursor(40,41);
+    gb.display.setCursor(40, 41);
     gb.display.println(CustomFleet.StarDreadnoughts);
-    gb.display.setCursor(40,49);
+    gb.display.setCursor(40, 49);
     gb.display.println(CustomFleet.SolarDestroyers); 
   }
-  else //Select Fleet to raid
+  else if (type == 2) //Select Fleet to raid
   {
-    gb.display.setCursor(2,9);
+    gb.display.setCursor(2, 9);
     gb.display.println("STL");
-    gb.display.setCursor(2,17);
+    gb.display.setCursor(2, 17);
     gb.display.println("LEV");
     gb.display.setColor(GREEN);
-    gb.display.setCursor(19,9);
+    gb.display.setCursor(19, 9);
     gb.display.println(PlayerShips[11]);
-    gb.display.setCursor(19,17);
+    gb.display.setCursor(19, 17);
     gb.display.println(PlayerShips[12]);
     gb.display.setColor(BLACK);
-    gb.display.setCursor(40,9);
+    gb.display.setCursor(40, 9);
     gb.display.println(CustomFleet.Stalkers);
-    gb.display.setCursor(40,17);
+    gb.display.setCursor(40, 17);
     gb.display.println(CustomFleet.Leviatans);
   }
-  gb.display.drawImage(2,56,IMAGE_OK_BTN);
-  gb.display.drawImage(26,56,IMAGE_SELECTION_BTN);
-  gb.display.drawImage(64,56,IMAGE_CANCEL_BTN);
+  else //Select Fleet to intercept
+  {
+    gb.display.setCursor(2, 9);
+    gb.display.println("MIS");
+    gb.display.setColor(GREEN);
+    gb.display.setCursor(19, 9);
+    gb.display.println(PlayerShips[13]);
+  }
+  gb.display.drawImage(2, 56, IMAGE_OK_BTN);
+  gb.display.drawImage(26, 56, IMAGE_SELECTION_BTN);
+  gb.display.drawImage(64, 56, IMAGE_CANCEL_BTN);
   gb.display.setColor(WHITE);
-  gb.display.setCursor(4,57);
+  gb.display.setCursor(4, 57);
   gb.display.println("A");
-  gb.display.setCursor(28,57);
+  gb.display.setCursor(28, 57);
   gb.display.println("MENU");
-  gb.display.setCursor(66,57);
+  gb.display.setCursor(66, 57);
   gb.display.println("B");
-  if(selectedShip==true)
+  if (selectedShip == true)
   {
     gb.display.setColor(RED);
-    gb.display.drawRect(0,posY,80,9);
-    gb.display.setCursor(56,posY+2);
-    gb.display.println("+-"+(String)quantity);
+    gb.display.drawRect(0, posY, 80, 9);
+    gb.display.setCursor(56, posY + 2);
+    gb.display.println("+-" + (String)quantity);
   }
   else
   {
     gb.display.setColor(DARKGRAY);
-    gb.display.drawRect(0,posY,80,9);
+    gb.display.drawRect(0, posY, 80, 9);
   }
 }
 

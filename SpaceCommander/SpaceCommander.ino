@@ -788,13 +788,13 @@ void updateVisibilityDistance()
 
 void updateFleets()
 {
-  for (int i=0; i<4; i++)
+  for (int i = 0; i < 4; i++)
   {
     if (EnemyFleets[i].Active == true)
     {
       updateEnemyFleetTime(i);
       bool isFleetInRange = checkTimeWithVisibilityRange(EnemyFleets[i].Minutes, EnemyFleets[i].Seconds);
-      if (isFleetInRange == true && EnemyFleets[i].Visible == false)
+      if (isFleetInRange == true && EnemyFleets[i].Active == true && EnemyFleets[i].Visible == false)
       {
         EnemyFleets[i].Visible = true;
         gb.lights.fill(RED);
@@ -1025,16 +1025,16 @@ void scoutMission(Fleet fleet)
 
 void colonizePlanet(Fleet fleet)
 {
-  for(int i=0;i<30;i++)
+  for (int i = 0; i < 30; i++)
   {
-    if(System[i].Name==fleet.DestinationName)
+    if (System[i].Name == fleet.DestinationName)
     {
-      System[i].ActiveMission=false;
-      System[i].Owned=true;
+      System[i].ActiveMission = false;
+      System[i].Owned = true;
       break;
     }
   }
-  gb.gui.popup("PLANET COLONIZED!",50);
+  gb.gui.popup("PLANET COLONIZED!", 50);
 }
 
 void raidPlanet(int index)
@@ -1304,11 +1304,11 @@ void enemyAttackTimer()
       int chance=random(0, 5);
       if(chance==0 || chance==2 || chance==4)
       {
-        prepareEnemyFleet();
         int idx=getEnemyFleetSlot();
         if(idx!=-1)
         {
           attackCounter++;
+          prepareEnemyFleet(idx);
           EnemyFleets[idx]=CustomEnemyFleet;
           attackUnderway=true;
           setTimeToAnotherAttack();
@@ -1324,10 +1324,10 @@ void enemyAttackTimer()
       int chance=random(0, 6);
       if(chance==1 || chance==3)
       {
-        prepareEnemyFleet();
         int idx=getEnemyFleetSlot();
         if(idx!=-1)
         {
+          prepareEnemyFleet(idx);
           EnemyFleets[idx]=CustomEnemyFleet;
           attackCounter++;
           if(EnemyCount == 2)
@@ -1358,96 +1358,97 @@ void enemyAttackTimer()
 
 void setBaseTimeToAttack()
 {
-  timeToAttack=160;
-  if(Difficulty=="NORMAL")
+  timeToAttack = 160;
+  if (Difficulty == "NORMAL")
   {
-    timeToAttack=140;
+    timeToAttack = 140;
   }
-  else if(Difficulty=="HARD")
+  else if (Difficulty == "HARD")
   {
-    timeToAttack=110;
+    timeToAttack = 110;
   }
 }
 
 void setTimeToAnotherAttack()
 {
-  timeToAttack=125;
-  if(Difficulty=="NORMAL")
+  timeToAttack = 125;
+  if (Difficulty == "NORMAL")
   {
-    timeToAttack=105;
+    timeToAttack = 105;
   }
-  else if(Difficulty=="HARD")
+  else if (Difficulty == "HARD")
   {
-    timeToAttack=85;
+    timeToAttack = 85;
   }
 }
 
-void prepareEnemyFleet()
+void prepareEnemyFleet(int fleetIdx)
 {
-  CustomEnemyFleet=setEnemyFleet();
-  int Speed=0; //in seconds per 1 unit 
-  int distance=37;
+  CustomEnemyFleet = setEnemyFleet(fleetIdx);
+  int Speed = 0; //in seconds per 1 unit 
+  int distance = 37;
   
   //Calculate speed
-  if(CustomEnemyFleet.Fighters>0)
+  if (CustomEnemyFleet.Fighters > 0)
   {
-    Speed=9;
+    Speed = 9;
   }
-  if(CustomEnemyFleet.Interceptors>0)
+  if (CustomEnemyFleet.Interceptors > 0)
   {
-    Speed=11;
+    Speed = 11;
   }
-  if(CustomEnemyFleet.Frigates>0)
+  if (CustomEnemyFleet.Frigates > 0)
   {
-    Speed=13;
+    Speed = 13;
   }
-  if(CustomEnemyFleet.WarCruisers>0)
+  if (CustomEnemyFleet.WarCruisers > 0)
   {
-    if(Speed>7 || Speed==0)
+    if (Speed > 7 || Speed == 0)
     {
-      Speed=7; 
+      Speed = 7; 
     }
   }
-  if(CustomEnemyFleet.StarDreadnoughts>0)
+  if (CustomEnemyFleet.StarDreadnoughts > 0)
   {
-    if(Speed>6 || Speed==0)
+    if (Speed > 6 || Speed == 0)
     {
-      Speed=6; 
+      Speed = 6; 
     }
   }
   //Calculate minutes and seconds (1 unit - speed)
-  int totalSeconds=distance*Speed;
-  if(totalSeconds>59) //at least 1 minute
+  int totalSeconds = distance * Speed;
+  if (totalSeconds > 59) //at least 1 minute
   {
-    int minutes=totalSeconds/60;
-    int seconds=totalSeconds-(minutes*60);
-    CustomEnemyFleet.Seconds=seconds;
-    CustomEnemyFleet.Minutes=minutes;
+    int minutes = totalSeconds / 60;
+    int seconds = totalSeconds - (minutes * 60);
+    CustomEnemyFleet.Seconds = seconds;
+    CustomEnemyFleet.Minutes = minutes;
   }
   else
   {
-    CustomEnemyFleet.Seconds=totalSeconds;
+    CustomEnemyFleet.Seconds = totalSeconds;
   }
 }
 
 int getEnemyFleetSlot()
 {
-  int result=-1;
-  for(int i=0;i<4;i++)
+  int result = -1;
+  for (int i = 0; i < 4; i++)
   {
-    if(EnemyFleets[i].Active==false)
+    if (EnemyFleets[i].Active == false)
     {
-      result=i;
+      result = i;
       break;
     }
   }
   return result;
 }
 
-Fleet setEnemyFleet()
+Fleet setEnemyFleet(int fleetIdx)
 {
-  Fleet EnemyArmada={4,true,0,0,0,0,0,0,0,0,0,0,0,0,"",false};
-  int modifier=2;
+  String fleetName = "FLEET " + (String)(fleetIdx + 1);
+  Fleet EnemyArmada = {4,true,0,0,0,0,0,0,0,0,0,0,0,0,fleetName,false};
+  int modifier = 2;
   int base = 4;
 
   if (Difficulty == "NORMAL")
