@@ -68,7 +68,7 @@ int8_t shipyard(int MilitaryScience)
   {
     if (shSelectedShip != true)
     {
-      if(shCurrentShip == 0)
+      if (shCurrentShip == 0)
       {
         shCurrentShip = 13;
       }
@@ -81,11 +81,11 @@ int8_t shipyard(int MilitaryScience)
     }
     else
     {
-      if(shQuantity == 1)
+      if (shQuantity == 1)
       {
         shQuantity = 100;
       }
-      else if(shQuantity == 100)
+      else if (shQuantity == 100)
       {
         shQuantity = 10;
       }
@@ -97,21 +97,21 @@ int8_t shipyard(int MilitaryScience)
   }
   else if (gb.buttons.pressed(BUTTON_UP))
   {
-    if(shSelectedShip == true)
+    if (shSelectedShip == true)
     {
       increaseQuantity();
     }
   }
   else if (gb.buttons.pressed(BUTTON_DOWN))
   {
-    if(shSelectedShip == true)
+    if (shSelectedShip == true)
     {
       decreaseQuantity();
     }
   }
   else if (gb.buttons.pressed(BUTTON_MENU))
   {
-    if(restriction == "")
+    if (restriction == "")
     {
       if(shSelectedShip == true)
       {
@@ -343,7 +343,7 @@ void fillSpecifiedGarrisons(EnemyGarrison garrisons[6], int8_t currentShip, int 
       continue;
     }
     
-    switch(currentShip)
+    switch (currentShip)
     {
       case 0:
       {
