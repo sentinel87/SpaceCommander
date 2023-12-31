@@ -1,7 +1,7 @@
-int8_t shCurrentShip=0;
-int shQuantity=1;
-bool shSelectedShip=false;
-int shQuantityToBuy=1;
+int8_t shCurrentShip = 0;
+int shQuantity = 1;
+bool shSelectedShip = false;
+int shQuantityToBuy = 1;
 
 
 int8_t shipyard(int MilitaryScience)

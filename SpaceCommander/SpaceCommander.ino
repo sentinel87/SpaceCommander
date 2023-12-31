@@ -183,7 +183,7 @@ EnemyGarrison Enemy2Garrison[]={
 
 struct Fleet
 {
-  int Type; //1 - player armada 2 - Colonize 3 - Spy 4 - Enemy 5 - Return
+  int Type; //1 - player armada 2 - Colonize 3 - Spy 4 - Enemy 5 - Return 6 - Intercept
   bool Active;
   int8_t Minutes;
   int8_t Seconds;
@@ -197,26 +197,28 @@ struct Fleet
   int SolarDestroyers;
   int Stalkers;
   int Leviatans;
+  int Missles;
   String DestinationName;
   bool Visible;
+  int InterceptionId;
 };
 
 Fleet PlayerFleets[]={
-  {0,false,0,0,0,0,0,0,0,0,0,0,0,0,"",true},
-  {0,false,0,0,0,0,0,0,0,0,0,0,0,0,"",true},
-  {0,false,0,0,0,0,0,0,0,0,0,0,0,0,"",true},
-  {0,false,0,0,0,0,0,0,0,0,0,0,0,0,"",true}
+  {0,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",true,0},
+  {0,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",true,0},
+  {0,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",true,0},
+  {0,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",true,0}
 };
 
 Fleet EnemyFleets[]={
-  {4,false,0,0,0,0,0,0,0,0,0,0,0,0,"",false},
-  {4,false,0,0,0,0,0,0,0,0,0,0,0,0,"",false},
-  {4,false,0,0,0,0,0,0,0,0,0,0,0,0,"",false},
-  {4,false,0,0,0,0,0,0,0,0,0,0,0,0,"",false}
+  {4,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",false,0},
+  {4,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",false,0},
+  {4,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",false,0},
+  {4,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",false,0}
 };
 
-Fleet CustomFleet={0,false,0,0,0,0,0,0,0,0,0,0,0,0,"",false};
-Fleet CustomEnemyFleet={4,false,0,0,0,0,0,0,0,0,0,0,0,0,"",false};
+Fleet CustomFleet={0,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",false,0};
+Fleet CustomEnemyFleet={4,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",false,0};
 
 int FleetFuelCost=0;
 
@@ -378,18 +380,18 @@ const SaveDefault savefileDefaults[] = {
   { 2, SAVETYPE_BLOB,{.ptr="020313000000000000000000000000000000000000000000000000000000000000000000000000000000121120 "},91},
   { 3, SAVETYPE_BLOB,{.ptr="-10100200043510025000103330000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 "},157}, //Enemy1 Garrison
   { 4, SAVETYPE_BLOB,{.ptr="000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 "},157}, //Enemy2 Garrison
-  { 5, SAVETYPE_BLOB,{.ptr="0000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********0 "},245},
-  { 6, SAVETYPE_BLOB,{.ptr="0000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000NAME**********0 "},245},
+  { 5, SAVETYPE_BLOB,{.ptr="000000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000000NAME**********00 "},257}, //Player Fleets
+  { 6, SAVETYPE_BLOB,{.ptr="000000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000000NAME**********00 "},257}, //Enemy Fleets
   { 7, SAVETYPE_BLOB,{.ptr="00000000000000000000000000000000000000000000000000000000 "},57},
   { 8, SAVETYPE_BLOB,{.ptr="0NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********000 "},217},
   { 9, SAVETYPE_BLOB,{.ptr="NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000 "},211},
   { 10, SAVETYPE_BLOB,{.ptr="00000000000000000NORMAL********00000000000000000 "},49},
-  { 11,SAVETYPE_INT,0,0 },
-  { 12,SAVETYPE_INT,0,0 },
-  { 13,SAVETYPE_INT,0,0 },
-  { 14,SAVETYPE_INT,0,0 },
-  { 15,SAVETYPE_INT,0,0 },
-  { 16,SAVETYPE_INT,0,0 } //Check if save exist
+  { 11, SAVETYPE_INT,0,0 },
+  { 12, SAVETYPE_INT,0,0 },
+  { 13, SAVETYPE_INT,0,0 },
+  { 14, SAVETYPE_INT,0,0 },
+  { 15, SAVETYPE_INT,0,0 },
+  { 16, SAVETYPE_INT,0,0 } //Check if save exist
 };
 
 void setup() {
@@ -944,7 +946,7 @@ void updatePlayerFleetTime(int index)
   }
   else if(PlayerFleets[index].Seconds==0 && PlayerFleets[index].Minutes==0)
   {
-    Fleet Cleanup={0,false,0,0,0,0,0,0,0,0,0,0,0,0,""};
+    Fleet Cleanup={0,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",0};
     PlayerFleets[index].Seconds=0;
     PlayerFleets[index].Active=false;
     if(PlayerFleets[index].Type==1)
@@ -1447,7 +1449,7 @@ int getEnemyFleetSlot()
 Fleet setEnemyFleet(int fleetIdx)
 {
   String fleetName = "FLEET " + (String)(fleetIdx + 1);
-  Fleet EnemyArmada = {4,true,0,0,0,0,0,0,0,0,0,0,0,0,fleetName,false};
+  Fleet EnemyArmada = {4,true,0,0,0,0,0,0,0,0,0,0,0,0,0,fleetName,false,0};
   int modifier = 2;
   int base = 4;
 
