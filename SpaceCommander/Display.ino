@@ -3248,11 +3248,16 @@ void drawRouteConfirmation(TradeRoute route, bool canSend, bool metal, bool crys
   }
   gb.display.setCursor(30, 49);
   gb.display.println(PlayerShips[10]);
+  gb.display.setColor(WHITE);
   if (canSend == true)
   {
-    gb.display.drawImage(2, 56, IMAGE_OK_BTN); 
+    gb.display.drawImage(2, 56, IMAGE_OK_BTN);
+    gb.display.setCursor(4, 57);
+    gb.display.println("A"); 
   }
   gb.display.drawImage(64, 56, IMAGE_CANCEL_BTN);
+  gb.display.setCursor(66, 57);
+  gb.display.println("B");
 }
 
 void drawFleetStats()

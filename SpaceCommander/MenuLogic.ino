@@ -526,7 +526,7 @@ void prepareTechs()
   TechTree[3].level = 0;
   TechTree[3].depTechLevel = 5;
   TechTree[4].level = 0;
-  TechTree[4].depTechLevel = 2;
+  TechTree[4].depTechLevel = 1;
   TechTree[5].level = 0;
   TechTree[5].depTechLevel = 5;
   TechTree[6].level = 0;

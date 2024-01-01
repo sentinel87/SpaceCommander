@@ -71,10 +71,10 @@ struct Technology
 
 Technology TechTree[] = {
   {1,"Astronomy",2,25,30,20,"Increases visibilityon the Star Map.","None",0,0,39},
-  {2,"Espionage",0,200,75,75,"Unlock  Intelligenceand Spy Bots.","Astronomy",1,2,16},
+  {2,"Espionage",0,150,75,75,"Unlock  Intelligenceand Spy Bots.","Astronomy",1,2,16},
   {3,"Jet Proplusion",0,100,100,100,"Unlock Fighters and increases their     speed.","Astronomy",1,2,19},
   {4,"Fleet Tactics",0,100,25,10,"Needed to upgrade   shipyard and build  high level ships.","Astronomy",1,5,16},
-  {5,"Radiolocation",0,80,110,50,"Unlock Radar and    increases visibilityrange.","Espionage",2,2,15},
+  {5,"Radiolocation",0,70,90,60,"Unlock Radar and    increases visibilityrange.","Espionage",2,1,16},
   {6,"Logistics",0,120,120,50,"+ 1 to Star Routes  and Colonies. UnlockTransports.","Astronomy",1,5,12},
   {7,"Aerodynamics",0,150,120,150,"Unlock Interceptors and increases their speed.","Jet Proplusion",3,4,15},
   {8,"Cloaking",0,250,190,150,"Unlock  Stalkers.   Stalker steal 1/lvl enemy fighter and   interceptor.","Radiolocation",5,1,11},
@@ -114,7 +114,7 @@ Building Colony[] = {
   {3,"Crystal Mine",1,"Extract crystal     resource.",200,230,50,0,0,1,2,15},
   {4,"Fuel Refinery",0,"Deliver fuel        resource.",200,185,65,0,0,1,2,14},
   {5,"Intelligence",0,"Reveals more intel  in hostile reports.",210,185,10,2,1,0,0,12},
-  {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",185,185,25,5,1,0,0,15},
+  {6,"Radar",0,"Detects enemy fleets+1 visibility / lvl.",165,165,35,5,1,0,0,16},
   {7,"Shipyard",0,"Required to build   colony ships.",350,350,275,4,1,0,0,11},
   {8,"Research Lab",0,"Unlock additional   technology / lvl.",175,175,75,0,0,0,0,20},
   {9,"Defence System",0,"Provides additional firepower for colonydefence / lvl.",210,250,75,13,1,0,0,14},
@@ -748,9 +748,9 @@ void timeCalculations()
   {
     frames = 0;
     updateResources();
-    //PlayerResources[0] = 9999;
-    //PlayerResources[1] = 9999;
-    //PlayerResources[2] = 9999;
+    PlayerResources[0] = 9999;
+    PlayerResources[1] = 9999;
+    PlayerResources[2] = 9999;
     updateVisibilityDistance();
     enemyAttackTimer();
     updateFleets();
@@ -1281,28 +1281,28 @@ void enemyFleetsCheck() //check if all attacks are completed and reset prepare t
 
 void enemyAttackTimer()
 {
-  if(timeToAttack==-1) //at least two (four) fleets are attacking
+  if (timeToAttack == -1) //at least two (four) fleets are attacking
   {
     return;
   }
-  if(timeToAttack>0)  //"Peace" time
+  if (timeToAttack > 0)  //"Peace" time
   {
     timeToAttack--;  
   }
   else
   {
-    if(!attackUnderway)
+    if (!attackUnderway)
     {
-      int chance=random(0, 5);
-      if(chance==0 || chance==2 || chance==4)
+      int chance = random(0, 5);
+      if (chance == 0 || chance == 2 || chance == 4)
       {
-        int idx=getEnemyFleetSlot();
-        if(idx!=-1)
+        int idx = getEnemyFleetSlot();
+        if (idx != -1)
         {
           attackCounter++;
           prepareEnemyFleet(idx);
-          EnemyFleets[idx]=CustomEnemyFleet;
-          attackUnderway=true;
+          EnemyFleets[idx] = CustomEnemyFleet;
+          attackUnderway = true;
           setTimeToAnotherAttack();
         }
         else
@@ -1313,19 +1313,19 @@ void enemyAttackTimer()
     }
     else
     {
-      int chance=random(0, 6);
-      if(chance==1 || chance==3)
+      int chance = random(0, 6);
+      if (chance == 1 || chance == 3)
       {
-        int idx=getEnemyFleetSlot();
-        if(idx!=-1)
+        int idx = getEnemyFleetSlot();
+        if (idx != -1)
         {
           prepareEnemyFleet(idx);
-          EnemyFleets[idx]=CustomEnemyFleet;
+          EnemyFleets[idx] = CustomEnemyFleet;
           attackCounter++;
-          if(EnemyCount == 2)
+          if (EnemyCount == 2)
           {
             checkAndSetTotalColoniesCount();
-            if(EnemyColonies > 5 && attackCounter < 4)
+            if (EnemyColonies > 5 && attackCounter < 4)
             {
               setTimeToAnotherAttack();
             }
@@ -1529,9 +1529,9 @@ Fleet setEnemyFleet(int fleetIdx)
     }
   }
   
-  if(ProgressPoints==ProgressPointsLimit) //ultimate weapon discovered
+  if (ProgressPoints == ProgressPointsLimit) //ultimate weapon discovered
   {
-    EnemyArmada.SolarDestroyers = 2 + random(0, 4); //solar destroyers 
+    EnemyArmada.SolarDestroyers = 2 + random(0, 4); //solar destructors
   }
   
   return EnemyArmada;
@@ -1541,40 +1541,40 @@ Fleet setEnemyFleet(int fleetIdx)
 
 void countFinalScore(bool victory)
 {
-  if(victory==true)
+  if (victory == true)
   {
-    if(Difficulty=="EASY")
+    if (Difficulty == "EASY")
     {
-      Score+=250;
+      Score += 250;
     }
-    else if(Difficulty=="NORMAL")
+    else if (Difficulty == "NORMAL")
     {
-      Score+=500;
+      Score += 500;
     }
     else
     {
-      Score+=750;
+      Score += 750;
     }
   }
-  for(int i=0;i<12;i++)
+  for (int i = 0; i < 12; i++)
   {
-    if(PlayerRoutes[i].Active==true)
+    if (PlayerRoutes[i].Active == true)
     {
-      Score+=2;
-      Score+=PlayerRoutes[i].Metal;
-      Score+=PlayerRoutes[i].Crystal;
-      Score+=PlayerRoutes[i].Fuel;
+      Score += 2;
+      Score += PlayerRoutes[i].Metal;
+      Score += PlayerRoutes[i].Crystal;
+      Score += PlayerRoutes[i].Fuel;
     }
   }
-  for(int i=0;i<15;i++)
+  for (int i = 0; i < 20; i++)
   {
-    Score+=TechTree[i].level;
+    Score += TechTree[i].level;
   }
-  for(int i=0;i<13;i++)
+  for (int i = 0; i < 15; i++)
   {
-    Score+=Colony[i].level;
+    Score += Colony[i].level;
   }
-  Score+=((ProgressPointsLimit-ProgressPoints)*3);
+  Score += ((ProgressPointsLimit - ProgressPoints) * 3);
 }
 
 void checkAndSetTotalColoniesCount()
