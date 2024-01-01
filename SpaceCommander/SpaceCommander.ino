@@ -1,6 +1,6 @@
 #include<Gamebuino-Meta.h>
 
-String DebugData=""; 
+String DebugData = ""; 
 struct Planet
 {
   bool Discovered;
@@ -19,9 +19,9 @@ struct Planet
   bool ActiveMission; //If planet is currently targeted by player fleet mission 
 };
 
-Planet SelectedPlanet={true,"UEF Colony",38,28,false,0,0,0,0,true,false,-1,true,false};
+Planet SelectedPlanet = {true,"UEF Colony",38,28,false,0,0,0,0,true,false,-1,true,false};
 
-Planet System[]={
+Planet System[] = {
   {true,"UEF Colony",38,28,false,0,0,0,0,true,false,-1,true,false},
   {false,"Sheez Prime",76,28,false,0,3,2,2,false,false,-1,false,false},
   {false,"Cligg Prime",0,28,true,1,0,0,0,false,false,0,false,false},
@@ -69,7 +69,7 @@ struct Technology
   int maxLevel;
 };
 
-Technology TechTree[]={
+Technology TechTree[] = {
   {1,"Astronomy",2,25,30,20,"Increases visibilityon the Star Map.","None",0,0,39},
   {2,"Espionage",0,200,75,75,"Unlock  Intelligenceand Spy Bots.","Astronomy",1,2,16},
   {3,"Jet Proplusion",0,100,100,100,"Unlock Fighters and increases their     speed.","Astronomy",1,2,19},
@@ -108,7 +108,7 @@ struct Building
   int maxLevel;
 };
 
-Building Colony[]={
+Building Colony[] = {
   {1,"Power Plant",1,"Required to build   higher level        mines.",200,190,150,0,0,0,0,15},
   {2,"Metal Mine",1,"Extract metal       resource.",210,195,25,0,0,1,2,15},
   {3,"Crystal Mine",1,"Extract crystal     resource.",200,230,50,0,0,1,2,15},
@@ -135,7 +135,7 @@ struct Ship
   int resource2Cost;
 };
 
-Ship Shipyard[]={
+Ship Shipyard[] = {
   {"Fighter",1,"Swarm of Fighters isbasic fleet defence.",50,15},
   {"Interceptor",2,"Ship designed to    hunt down Fighters.",100,40},
   {"Frigate",3,"Light armored ship. Bonus against       Fighters.",270,150},
@@ -163,7 +163,7 @@ struct EnemyGarrison
   int SolarDestroyers;
 };
 
-EnemyGarrison Enemy1Garrison[]={
+EnemyGarrison Enemy1Garrison[] = {
   {-1,0,0,0,0,0,0}, //Capital
   {-1,0,0,0,0,0,0},
   {-1,0,0,0,0,0,0},
@@ -172,7 +172,7 @@ EnemyGarrison Enemy1Garrison[]={
   {-1,0,0,0,0,0,0}
 };
 
-EnemyGarrison Enemy2Garrison[]={
+EnemyGarrison Enemy2Garrison[] = {
   {-1,0,0,0,0,0,0}, //Capital
   {-1,0,0,0,0,0,0},
   {-1,0,0,0,0,0,0},
@@ -203,26 +203,26 @@ struct Fleet
   int InterceptionId;
 };
 
-Fleet PlayerFleets[]={
+Fleet PlayerFleets[] = {
   {0,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",true,0},
   {0,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",true,0},
   {0,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",true,0},
   {0,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",true,0}
 };
 
-Fleet EnemyFleets[]={
+Fleet EnemyFleets[] = {
   {4,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",false,0},
   {4,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",false,0},
   {4,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",false,0},
   {4,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",false,0}
 };
 
-Fleet CustomFleet={0,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",false,0};
-Fleet CustomEnemyFleet={4,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",false,0};
+Fleet CustomFleet = {0,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",false,0};
+Fleet CustomEnemyFleet = {4,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",false,0};
 
-int FleetFuelCost=0;
+int FleetFuelCost = 0;
 
-int PlayerShips[]={
+int PlayerShips[] = {
   0, //Fighter
   0, //Interceptor
   0, //Frigate
@@ -248,7 +248,7 @@ struct TradeRoute
   int8_t Fuel;
 };
 
-TradeRoute PlayerRoutes[]={
+TradeRoute PlayerRoutes[] = {
   {false,"",0,0,0},
   {false,"",0,0,0},
   {false,"",0,0,0},
@@ -263,7 +263,7 @@ TradeRoute PlayerRoutes[]={
   {false,"",0,0,0}
 };
 
-TradeRoute SelectedRoute={false,"None",0,0,0};
+TradeRoute SelectedRoute = {false,"None",0,0,0};
 
 struct Report
 {
@@ -280,7 +280,7 @@ struct Report
   uint16_t Resource3;
 };
 
-Report IntelligenceReports[]={
+Report IntelligenceReports[] = {
   {"Empty",0,0,0,0,0,0,0,0,0,0},
   {"Empty",0,0,0,0,0,0,0,0,0,0},
   {"Empty",0,0,0,0,0,0,0,0,0,0},
@@ -288,18 +288,18 @@ Report IntelligenceReports[]={
   {"Empty",0,0,0,0,0,0,0,0,0,0}
 };
 
-int8_t ScreenSelection=0;
+int8_t ScreenSelection = 0;
 
-int PlayerResources[]={0,0,0};
+int PlayerResources[] = {0,0,0};
 
 //Timer
-int8_t frames=0;
-bool timeUpdate=false;
-int8_t visibilitySeconds=0;
-int8_t visibilityMinutes=0;
+int8_t frames = 0;
+bool timeUpdate = false;
+int8_t visibilitySeconds = 0;
+int8_t visibilityMinutes = 0;
 
 //Attack
-bool fight=false;
+bool fight = false;
 
 struct BattleResult
 {
@@ -330,28 +330,28 @@ struct BattleResult
   uint16_t Winner;
 };
 
-BattleResult BtResult={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false};
+BattleResult BtResult = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false};
 
 //Fleet Selection
-bool flSelection=false;
-bool flRaidSelection=false;
-bool spyMission=false;
-bool spyMissionFleet=false;
-bool attackMission=false;
-bool colonizeMission=false;
-bool routesMission=false;
-bool raidMission=false;
+bool flSelection = false;
+bool flRaidSelection = false;
+bool spyMission = false;
+bool spyMissionFleet = false;
+bool attackMission = false;
+bool colonizeMission = false;
+bool routesMission = false;
+bool raidMission = false;
 
-int BattleExperience=18;
+int BattleExperience = 0;
 
 //Menu variables
 
-bool IsMainMenu=true;
-bool IsOptionMenu=false;
-bool IsFameHall=false;
-bool GameOver=false;
-bool Victory=false;
-bool GameStarted=false;
+bool IsMainMenu = true;
+bool IsOptionMenu = false;
+bool IsFameHall = false;
+bool GameOver = false;
+bool Victory = false;
+bool GameStarted = false;
 
 //Game options
 
@@ -370,9 +370,9 @@ int ScoreBoard[] = {0,0,0,0,0};
 int Score = 0;
 
 //Enemy Timer
-int timeToAttack=160;//4 minutes interval
-bool attackUnderway=false;
-int8_t attackCounter=0;
+int timeToAttack = 160;
+bool attackUnderway = false;
+int8_t attackCounter = 0;
 
 const SaveDefault savefileDefaults[] = {
   { 0, SAVETYPE_BLOB,{.ptr="1123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-11101123411-1110 "} ,349},
@@ -397,261 +397,231 @@ const SaveDefault savefileDefaults[] = {
 void setup() {
   gb.begin();
   gb.save.config(savefileDefaults);
-  ScoreBoard[0]=gb.save.get(11);
-  ScoreBoard[1]=gb.save.get(12);
-  ScoreBoard[2]=gb.save.get(13);
-  ScoreBoard[3]=gb.save.get(14);
-  ScoreBoard[4]=gb.save.get(15);
-  int check=gb.save.get(16);
-  if(check==1)
+  ScoreBoard[0] = gb.save.get(11);
+  ScoreBoard[1] = gb.save.get(12);
+  ScoreBoard[2] = gb.save.get(13);
+  ScoreBoard[3] = gb.save.get(14);
+  ScoreBoard[4] = gb.save.get(15);
+  int check = gb.save.get(16);
+  if (check == 1)
   {
-    SaveExist=true;
+    SaveExist = true;
   }
 }
 
 void loop() {
-  while(!gb.update())
+  while (!gb.update())
   gb.display.clear();
   gb.lights.clear();
-  if(IsMainMenu==true)  //MAIN MENU
+  if (IsMainMenu == true)  //MAIN MENU
   {
-    int8_t choice=mainMenu();
-    if(choice==0)
+    int8_t choice = mainMenu();
+    if (choice == 0)
     {
       prepareNewGame();
       resetWarRoomMarkers();
       resetMapMarkers();
-      IsMainMenu=false;
+      IsMainMenu = false;
     }
-    else if(choice==1)
+    else if (choice == 1)
     {
-      IsMainMenu=false;
+      IsMainMenu = false;
     }
-    else if(choice==2) //loadGame
+    else if (choice == 2) //loadGame
     {
       prepareNewGame();
       resetWarRoomMarkers();
       resetMapMarkers();
       loadGame();
-      IsMainMenu=false;
+      IsMainMenu = false;
     }
-    else if(choice==3)
+    else if (choice == 3)
     {
-      IsMainMenu=false;
-      IsOptionMenu=true;
+      IsMainMenu = false;
+      IsOptionMenu = true;
     }
-    else if(choice==4)
+    else if (choice == 4)
     {
-      IsMainMenu=false;
-      IsFameHall=true;
-    }
-  }
-  else if(IsOptionMenu) //OPTIONS MENU
-  {
-    bool accepted=optionsMenu();
-    if(accepted==true)
-    {
-      IsOptionMenu=false;
-      IsMainMenu=true;
+      IsMainMenu = false;
+      IsFameHall = true;
     }
   }
-  else if(IsFameHall) //HALL OF FAME
+  else if (IsOptionMenu) //OPTIONS MENU
   {
-    bool accepted=hallOfFame();
-    if(accepted==true)
+    bool accepted = optionsMenu();
+    if (accepted == true)
     {
-      IsFameHall=false;
-      IsMainMenu=true;
+      IsOptionMenu = false;
+      IsMainMenu = true;
+    }
+  }
+  else if (IsFameHall) //HALL OF FAME
+  {
+    bool accepted = hallOfFame();
+    if (accepted == true)
+    {
+      IsFameHall = false;
+      IsMainMenu = true;
     }
   }
   else //GAME
   {
-    if(fight==true) //stop game to see fight results
+    if (fight == true) //stop game to see fight results
     {
-      bool resolved=battleResults();
-      if(resolved==true)
+      bool resolved = battleResults();
+      if (resolved == true)
       {
-        fight=false;
+        fight = false;
       }
     }
-    else if(GameOver==true)
+    else if (GameOver == true)
     {
-      bool resolved=gameOverInfo(false);
-      if(resolved==true)  //return to main menu
-      {
-        IsMainMenu=true;
-        GameStarted=false;
-        GameOver=false;
-        setMenuSelection(0);
-        bool HighScore=compareAndUpdateScore();
-        if(HighScore)
-        {
-          gb.save.set(11,ScoreBoard[0]);
-          gb.save.set(12,ScoreBoard[1]);
-          gb.save.set(13,ScoreBoard[2]);
-          gb.save.set(14,ScoreBoard[3]);
-          gb.save.set(15,ScoreBoard[4]);
-        }
-      }
+      bool resolved = gameOverInfo(false);
+      resolveEndGame(resolved);
     }
-    else if(Victory==true)
+    else if (Victory == true)
     {
-      bool resolved=gameOverInfo(true);
-      if(resolved==true)  //return to main menu
-      {
-        IsMainMenu=true;
-        GameStarted=false;
-        GameOver=false;
-        setMenuSelection(0);
-        bool HighScore=compareAndUpdateScore();
-        if(HighScore)
-        {
-          gb.save.set(11,ScoreBoard[0]);
-          gb.save.set(12,ScoreBoard[1]);
-          gb.save.set(13,ScoreBoard[2]);
-          gb.save.set(14,ScoreBoard[3]);
-          gb.save.set(15,ScoreBoard[4]);
-        }
-      }
+      bool resolved = gameOverInfo(true);
+      resolveEndGame(resolved);
     }
-    else if(flSelection==true)// set fleet to attack
+    else if (flSelection == true)// set fleet to attack
     {
-      int selected=playerFleetSelection();
-      if(selected==2)
+      int selected = playerFleetSelection();
+      if (selected == 2)
       {
         setFleetParameters();
-        attackMission=true;
-        flSelection=false;
+        attackMission = true;
+        flSelection = false;
       }
-      else if(selected==0)
+      else if (selected == 0)
       {
-        flSelection=false;
+        flSelection = false;
       }
     }
-    else if(flRaidSelection==true)
+    else if (flRaidSelection == true)
     {
-      int selected=playerFleetSelectionRaid();
-      if(selected==2)
+      int selected = playerFleetSelectionRaid();
+      if (selected == 2)
       {
         setFleetParameters();
-        raidMission=true;
-        flRaidSelection=false;
+        raidMission = true;
+        flRaidSelection = false;
       }
-      else if(selected==0)
+      else if (selected == 0)
       {
-        flRaidSelection=false;
+        flRaidSelection = false;
       }
     }
-    else if(attackMission==true)
+    else if (attackMission == true)
     {
-      int8_t selected=sendAttack();
-      if(selected==1)
+      int8_t selected = sendAttack();
+      if (selected == 1)
       {
         lockPlanet();
-        attackMission=false;
+        attackMission = false;
       }
-      else if(selected==2)
+      else if (selected == 2)
       {
-        attackMission=false;
+        attackMission = false;
       }
     }
-    else if(raidMission==true)
+    else if (raidMission == true)
     {
-      int8_t selected=sendRaid();
-      if(selected==1)
+      int8_t selected = sendRaid();
+      if (selected == 1)
       {
         lockPlanet();
-        raidMission=false;
+        raidMission = false;
       }
-      else if(selected==2)
+      else if (selected == 2)
       {
-        raidMission=false; 
+        raidMission = false; 
       }
     }
-    else if(spyMission==true)// set spy to scout
+    else if (spyMission == true)// set spy to scout
     {
-      int8_t selected=sendSpy();
-      if(selected==1)
+      int8_t selected = sendSpy();
+      if (selected == 1)
       {
         lockPlanet();
-        spyMission=false;
+        spyMission = false;
       }
-      else if(selected==2)
+      else if (selected == 2)
       {
-        spyMission=false;
+        spyMission = false;
       }
     }
-    else if(spyMissionFleet==true)// set spy to scout enemy fleet
+    else if (spyMissionFleet == true)// set spy to scout enemy fleet
     {
-      int8_t selected=sendSpy();
-      if(selected==1)
+      int8_t selected = sendSpy();
+      if (selected == 1)
       {
-        spyMissionFleet=false;
+        spyMissionFleet = false;
       }
-      else if(selected==2)
+      else if (selected == 2)
       {
-        spyMissionFleet=false;
+        spyMissionFleet = false;
       }
     }
-    else if(colonizeMission==true)// set colonizer
+    else if (colonizeMission == true)// set colonizer
     {
-      int8_t selected=sendColonizer();
-      if(selected==1)
+      int8_t selected = sendColonizer();
+      if (selected == 1)
       {
         lockPlanet();
-        colonizeMission=false;
+        colonizeMission = false;
       }
-      else if(selected==2)
+      else if (selected == 2)
       {
-        colonizeMission=false;
+        colonizeMission = false;
       }
     }
-    else if(routesMission==true)// set trade route
+    else if (routesMission == true)// set trade route
     {
-      bool selected=setRoute();
-      if(selected==true)
+      bool selected = setRoute();
+      if (selected == true)
       {
-        routesMission=false;
+        routesMission = false;
       }
     }
     else
     {
       timeCalculations();
-      if(ScreenSelection==0)
+      if (ScreenSelection == 0)
       {
-        ScreenSelection=warRoom(PlayerResources);
-        if(ScreenSelection==9)
+        ScreenSelection = warRoom(PlayerResources);
+        if (ScreenSelection == 9)
         {
           resetTransformer();  
         }
       }
-      else if(ScreenSelection==2)
+      else if (ScreenSelection == 2)
       {
-        ScreenSelection=infrastructure();
+        ScreenSelection = infrastructure();
       }
-      else if(ScreenSelection==4)
+      else if (ScreenSelection == 4)
       {
-        ScreenSelection=research();
+        ScreenSelection = research();
       }
-      else if(ScreenSelection==6)
+      else if (ScreenSelection == 6)
       {
-        ScreenSelection=starMap(TechTree[0].level);
+        ScreenSelection = starMap(TechTree[0].level);
       }
-      else if(ScreenSelection==8)
+      else if (ScreenSelection == 8)
       {
-        ScreenSelection=shipyard(TechTree[7].level);
+        ScreenSelection = shipyard(TechTree[7].level);
       }
-      else if(ScreenSelection==10)
+      else if (ScreenSelection == 10)
       {
-        ScreenSelection=intelligence();
+        ScreenSelection = intelligence();
       }
-      else if(ScreenSelection==11)
+      else if (ScreenSelection == 11)
       {
-        ScreenSelection=starRoutes(TechTree[5].level);
+        ScreenSelection = starRoutes(TechTree[5].level);
       }
-      else if(ScreenSelection==12) //ECONOMY STATS
+      else if (ScreenSelection == 12) //ECONOMY STATS
       {
-        ScreenSelection=market();
+        ScreenSelection = market();
       }
       else if (ScreenSelection == 13) //PAUSE
       {
@@ -661,106 +631,126 @@ void loop() {
         TempProgressPointsLimit = ProgressPointsLimit;
         IsMainMenu = true;
       }
-      else if(ScreenSelection==15) //DEBUG
+      else if (ScreenSelection == 15) //DEBUG
       {
-        ScreenSelection=debug();
+        ScreenSelection = debug();
       }
-      else if(ScreenSelection==1)
+      else if (ScreenSelection == 1)
       {
-        ScreenSelection=playerFleets();
+        ScreenSelection = playerFleets();
       }
-      else if(ScreenSelection==3)
+      else if (ScreenSelection == 3)
       {
-        ScreenSelection=enemyFleets();
+        ScreenSelection = enemyFleets();
       }
-      else if(ScreenSelection==5)
+      else if (ScreenSelection == 5)
       {
-        ScreenSelection=playerFleetStats();
+        ScreenSelection = playerFleetStats();
       }
-      else if(ScreenSelection==7)
+      else if (ScreenSelection == 7)
       {
-        ScreenSelection=scoutReports();
+        ScreenSelection = scoutReports();
       }
-      else if(ScreenSelection==9)
+      else if (ScreenSelection == 9)
       {
-        ScreenSelection=transformer();
+        ScreenSelection = transformer();
       }
-      else if(ScreenSelection==20)
+      else if (ScreenSelection == 20)
       {
-        ScreenSelection=6; //RETURN TO STAR MAP AFTER FLEET SELECTION
-        flSelection=true;
+        ScreenSelection = 6; //RETURN TO STAR MAP AFTER FLEET SELECTION
+        flSelection = true;
       }
-      else if(ScreenSelection==21)
+      else if (ScreenSelection == 21)
       {
-        ScreenSelection=6; //RETURN TO STAR MAP AFTER FLEET SELECTION
-        spyMission=true;
+        ScreenSelection = 6; //RETURN TO STAR MAP AFTER FLEET SELECTION
+        spyMission = true;
       }
-      else if(ScreenSelection==22)
+      else if (ScreenSelection == 22)
       {
-        ScreenSelection=6; //RETURN TO STAR MAP AFTER FLEET SELECTION
-        colonizeMission=true;
+        ScreenSelection = 6; //RETURN TO STAR MAP AFTER FLEET SELECTION
+        colonizeMission = true;
       }
-      else if(ScreenSelection==23)
+      else if (ScreenSelection == 23)
       {
-        ScreenSelection=6; //RETURN TO STAR MAP AFTER FLEET SELECTION
-        routesMission=true;
+        ScreenSelection = 6; //RETURN TO STAR MAP AFTER FLEET SELECTION
+        routesMission = true;
       }
-      else if(ScreenSelection==25)
+      else if (ScreenSelection == 25)
       {
-        ScreenSelection=3; //RETURN TO ENEMY FLEETS AFTER FLEET SELECTION
-        spyMissionFleet=true;
+        ScreenSelection = 3; //RETURN TO ENEMY FLEETS AFTER FLEET SELECTION
+        spyMissionFleet = true;
       }
-      else if(ScreenSelection==26)
+      else if (ScreenSelection == 26)
       {
-        ScreenSelection=6; //RETURN TO STAR MAP AFTER FLEET SELECTION;
-        flRaidSelection=true;
+        ScreenSelection = 6; //RETURN TO STAR MAP AFTER FLEET SELECTION;
+        flRaidSelection = true;
       }
+    }
+  }
+}
+
+void resolveEndGame(bool resolved)
+{
+  if (resolved == true)  //return to main menu
+  {
+    IsMainMenu = true;
+    GameStarted = false;
+    GameOver = false;
+    setMenuSelection(0);
+    bool highScore = compareAndUpdateScore();
+    if (highScore)
+    {
+      gb.save.set(11, ScoreBoard[0]);
+      gb.save.set(12, ScoreBoard[1]);
+      gb.save.set(13, ScoreBoard[2]);
+      gb.save.set(14, ScoreBoard[3]);
+      gb.save.set(15, ScoreBoard[4]);
     }
   }
 }
 
 bool compareAndUpdateScore()
 {
-  bool isScoreQualified=false;
-  int temp=0;
-  int temp2=0;
-  int index=0;
+  bool isScoreQualified = false;
+  int temp = 0;
+  int temp2 = 0;
+  int index = 0;
 
-  for(int i=0;i<5;i++)
+  for (int i = 0; i < 5; i++)
   {
-    if(Score>ScoreBoard[i])
+    if (Score > ScoreBoard[i])
     {
-       temp=ScoreBoard[i];
-       ScoreBoard[i]=Score;
-       index=i;
-       isScoreQualified=true;
+       temp = ScoreBoard[i];
+       ScoreBoard[i] = Score;
+       index = i;
+       isScoreQualified = true;
        break;
     } 
   }
 
-  if(!isScoreQualified)
+  if (!isScoreQualified)
   {
     return false;
   }
 
-  for(int i=index+1;i<5;i++)
+  for (int i = index + 1; i < 5; i++)
   {
-    temp2=ScoreBoard[i];
-    ScoreBoard[i]=temp;
-    temp=temp2;
+    temp2 = ScoreBoard[i];
+    ScoreBoard[i] = temp;
+    temp = temp2;
   }
   return isScoreQualified;
 }
 
 void timeCalculations()
 {
-  if(frames==25)// every second tick update game mechanics
+  if (frames == 25)// every second tick update game mechanics
   {
-    frames=0;
+    frames = 0;
     updateResources();
-    PlayerResources[0]=9999;
-    PlayerResources[1]=9999;
-    PlayerResources[2]=9999;
+    //PlayerResources[0] = 9999;
+    //PlayerResources[1] = 9999;
+    //PlayerResources[2] = 9999;
     updateVisibilityDistance();
     enemyAttackTimer();
     updateFleets();
@@ -839,7 +829,7 @@ void updateEnemyFleetTime(int index)
     EnemyFleets[index].Active = false;
     EnemyFleets[index].Visible = false;
     int8_t winner=spaceBattle(index, -1, false, 0);
-    if(winner == 2)//battle lost
+    if (winner == 2)//battle lost
     {
       gb.lights.fill(RED);
       PlayerShips[6] = 0;
@@ -923,7 +913,7 @@ void updateEnemyFleetTime(int index)
 
 void garrisonUpgrade(EnemyGarrison garrison[6])
 {
-  for (int i=0; i<6; i++)
+  for (int i = 0; i < 6; i++)
   {
     if (garrison[i].planetIndex != -1)
     {
@@ -939,40 +929,40 @@ void garrisonUpgrade(EnemyGarrison garrison[6])
 
 void updatePlayerFleetTime(int index)
 {
-  if(PlayerFleets[index].Seconds==0 && PlayerFleets[index].Minutes>0)
+  if (PlayerFleets[index].Seconds == 0 && PlayerFleets[index].Minutes > 0)
   {
-    PlayerFleets[index].Seconds=59;
+    PlayerFleets[index].Seconds = 59;
     PlayerFleets[index].Minutes--;
   }
-  else if(PlayerFleets[index].Seconds==0 && PlayerFleets[index].Minutes==0)
+  else if (PlayerFleets[index].Seconds == 0 && PlayerFleets[index].Minutes == 0)
   {
-    Fleet Cleanup={0,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",0};
-    PlayerFleets[index].Seconds=0;
-    PlayerFleets[index].Active=false;
-    if(PlayerFleets[index].Type==1)
+    Fleet Cleanup = {0,false,0,0,0,0,0,0,0,0,0,0,0,0,0,"",0};
+    PlayerFleets[index].Seconds = 0;
+    PlayerFleets[index].Active = false;
+    if (PlayerFleets[index].Type == 1)
     {
       gb.lights.fill(GREEN);
       attackPlanet(index);
     }
-    else if(PlayerFleets[index].Type==2)
+    else if (PlayerFleets[index].Type == 2)
     {
       gb.lights.fill(BLUE);
       colonizePlanet(PlayerFleets[index]);
-      PlayerFleets[index]=Cleanup;
+      PlayerFleets[index] = Cleanup;
     }
-    else if(PlayerFleets[index].Type==3)
+    else if (PlayerFleets[index].Type == 3)
     {
       gb.lights.fill(YELLOW);
       scoutMission(PlayerFleets[index]);
-      PlayerFleets[index]=Cleanup;
+      PlayerFleets[index] = Cleanup;
     }
-    else if(PlayerFleets[index].Type==5)
+    else if (PlayerFleets[index].Type == 5)
     {
       gb.lights.fill(GREEN);
       fleetReturns(PlayerFleets[index]);
-      PlayerFleets[index]=Cleanup;
+      PlayerFleets[index] = Cleanup;
     }
-    else if(PlayerFleets[index].Type==6)
+    else if (PlayerFleets[index].Type == 6)
     {
       gb.lights.fill(LIGHTGREEN);
       raidPlanet(index);
@@ -986,12 +976,12 @@ void updatePlayerFleetTime(int index)
 
 void lockPlanet()
 {
-  for(int i=0;i<30;i++)
+  for (int i = 0; i < 30; i++)
   {
-    if(System[i].Name==SelectedPlanet.Name)
+    if (System[i].Name == SelectedPlanet.Name)
     {
-      System[i].ActiveMission=true;
-      SelectedPlanet.ActiveMission=true;
+      System[i].ActiveMission = true;
+      SelectedPlanet.ActiveMission = true;
       break;
     }
   }
@@ -1000,24 +990,24 @@ void lockPlanet()
 //Fleet reached destination (Actions) 
 void scoutMission(Fleet fleet)
 {
-  for(int i=0;i<30;i++)
+  for (int i = 0; i < 30; i++)
   {
-    if(System[i].Name==fleet.DestinationName)
+    if (System[i].Name == fleet.DestinationName)
     {
-      System[i].Status=true;
-      System[i].ActiveMission=false;
-      if(System[i].Hostile==true)
+      System[i].Status = true;
+      System[i].ActiveMission = false;
+      if (System[i].Hostile == true)
       {
-        int gIdx=System[i].GarrisonIndex;
-        if(gIdx>=0 && gIdx<6)
+        int gIdx = System[i].GarrisonIndex;
+        if (gIdx >= 0 && gIdx < 6)
         {
-          Report Hostile={System[i].Name,1,Enemy1Garrison[gIdx].Fighters,Enemy1Garrison[gIdx].Interceptors,Enemy1Garrison[gIdx].Frigates,Enemy1Garrison[gIdx].WarCruisers,Enemy1Garrison[gIdx].StarDreadnoughts,Enemy1Garrison[gIdx].SolarDestroyers,0,0,0};
+          Report Hostile = {System[i].Name,1,Enemy1Garrison[gIdx].Fighters,Enemy1Garrison[gIdx].Interceptors,Enemy1Garrison[gIdx].Frigates,Enemy1Garrison[gIdx].WarCruisers,Enemy1Garrison[gIdx].StarDreadnoughts,Enemy1Garrison[gIdx].SolarDestroyers,0,0,0};
           generateScoutReport(Hostile);
         }
       }
       else
       {
-        Report Mining={System[i].Name,2,0,0,0,0,0,0,System[i].Resource1,System[i].Resource2,System[i].Resource3};
+        Report Mining = {System[i].Name,2,0,0,0,0,0,0,System[i].Resource1,System[i].Resource2,System[i].Resource3};
         generateScoutReport(Mining);
       }
       break;
@@ -1041,80 +1031,80 @@ void colonizePlanet(Fleet fleet)
 
 void raidPlanet(int index)
 {
-  if(PlayerFleets[index].Stalkers>0)
+  if (PlayerFleets[index].Stalkers > 0)
   {
-    int ModFighters = TechTree[7].level;
-    int ModInterceptors = 0;
-    if(TechTree[7].level>5)
+    int modFighters = TechTree[7].level;
+    int modInterceptors = 0;
+    if (TechTree[7].level > 5)
     {
-      ModInterceptors = TechTree[7].level - 5;
+      modInterceptors = TechTree[7].level - 5;
     }
-    PlayerFleets[index].Fighters=ModFighters*PlayerFleets[index].Stalkers;
-    PlayerFleets[index].Interceptors=ModInterceptors*PlayerFleets[index].Stalkers;
+    PlayerFleets[index].Fighters = modFighters * PlayerFleets[index].Stalkers;
+    PlayerFleets[index].Interceptors = modInterceptors * PlayerFleets[index].Stalkers;
   }
-  if(PlayerFleets[index].Leviatans>0)
+  if (PlayerFleets[index].Leviatans > 0)
   {
-    int ModFrigates = TechTree[13].level;
-    PlayerFleets[index].Frigates=ModFrigates*PlayerFleets[index].Leviatans;
+    int modFrigates = TechTree[13].level;
+    PlayerFleets[index].Frigates = modFrigates * PlayerFleets[index].Leviatans;
   }
   
-  Report Raid={PlayerFleets[index].DestinationName,3,PlayerFleets[index].Fighters,PlayerFleets[index].Interceptors,PlayerFleets[index].Frigates,0,0,0,0,0,0};
+  Report Raid = {PlayerFleets[index].DestinationName,3,PlayerFleets[index].Fighters,PlayerFleets[index].Interceptors,PlayerFleets[index].Frigates,0,0,0,0,0,0};
   generateScoutReport(Raid);
 
-  for(int i=0;i<30;i++)
+  for (int i = 0; i < 30; i++)
   {
-    if(System[i].Name==PlayerFleets[index].DestinationName)
+    if (System[i].Name == PlayerFleets[index].DestinationName)
     {
-      System[i].ActiveMission=false;
+      System[i].ActiveMission = false;
       break;
     }
   }
   
   setFleetReturnParameters(index);
-  PlayerFleets[index].Active=true;
+  PlayerFleets[index].Active = true;
 }
 
 void attackPlanet(int index)
 {
-  String planet=PlayerFleets[index].DestinationName;
-  for(int i=0;i<30;i++)
+  String planet = PlayerFleets[index].DestinationName;
+  for (int i = 0; i < 30; i++)
   {
-    if(System[i].Name==planet)
+    if (System[i].Name == planet)
     {
-      int idx=System[i].GarrisonIndex;
-      if(idx!=-1)
+      int idx = System[i].GarrisonIndex;
+      if (idx != -1)
       {
-        int8_t winner=spaceBattle(idx,index,true,System[i].Affilation);
-        fight=true;
-        if(winner==1) //if player wins move fleet back
+        int8_t winner = spaceBattle(idx, index, true, System[i].Affilation);
+        fight = true;
+        if (winner == 1) //if player wins move fleet back
         {
-          BattleExperience+=2;
+          BattleExperience += 2;
           setFleetReturnParameters(index);
-          PlayerFleets[index].Active=true;
-          if(idx==0)//Capital planet defeated
+          PlayerFleets[index].Active = true;
+          if (idx == 0)//Capital planet defeated
           {
-            if(PlayerFleets[index].SolarDestroyers>0)//At least one Solar Destroyer survived 
+            if (PlayerFleets[index].SolarDestroyers > 0)//At least one Solar Destroyer survived 
             {
-              Score+=100;
-              if(EnemyCount == 1) //Victory with 1 enemy
+              Score += 100;
+              if (EnemyCount == 1) //Victory with 1 enemy
               {
-                Victory=true;
+                Victory = true;
                 countFinalScore(true);
               }
               else
               {
-                if(System[i].Affilation == 1)
+                if (System[i].Affilation == 1)
                 {
-                  colonyDefeated(Enemy1Garrison[idx],i);
+                  colonyDefeated(Enemy1Garrison[idx], i);
                 }
-                else if(System[i].Affilation == 2)
+                else if (System[i].Affilation == 2)
                 {
-                  colonyDefeated(Enemy2Garrison[idx],i);
+                  colonyDefeated(Enemy2Garrison[idx], i);
                 }
 
-                if(Enemy1Garrison[0].planetIndex == -1 && Enemy2Garrison[0].planetIndex == -1) //Victory with 2 enemies
+                if (Enemy1Garrison[0].planetIndex == -1 && Enemy2Garrison[0].planetIndex == -1) //Victory with 2 enemies
                 {
-                  Victory=true;
+                  Victory = true;
                   countFinalScore(true);
                 }
                 else
@@ -1130,19 +1120,19 @@ void attackPlanet(int index)
           }
           else //Colony defeated
           {
-            if(System[i].Affilation == 1)
+            if (System[i].Affilation == 1)
             {
-              colonyDefeated(Enemy1Garrison[idx],i);
+              colonyDefeated(Enemy1Garrison[idx], i);
             }
             else
             {
-              colonyDefeated(Enemy2Garrison[idx],i);
+              colonyDefeated(Enemy2Garrison[idx], i);
             }
             checkAndSetTotalColoniesCount();
-            Score+=50;
+            Score += 50;
           }
         }
-        System[i].ActiveMission=false;
+        System[i].ActiveMission = false;
       }
       break;
     }
@@ -1151,28 +1141,28 @@ void attackPlanet(int index)
 
 void colonyDefeated(EnemyGarrison& garrison, int systemIdx)
 {
-  garrison.planetIndex=-1;
-  System[systemIdx].Hostile=false;
-  System[systemIdx].GarrisonIndex=-1;
+  garrison.planetIndex = -1;
+  System[systemIdx].Hostile = false;
+  System[systemIdx].GarrisonIndex = -1;
   rewardForPlayer();
 }
 
 void rewardForPlayer()
 {
-  PlayerResources[0]+=1000; //reward
-  if(PlayerResources[0]>9999)
+  PlayerResources[0] += 1000; //reward
+  if (PlayerResources[0] > 9999)
   {
-    PlayerResources[0]=9999;
+    PlayerResources[0] = 9999;
   }
-  PlayerResources[1]+=1000;
-  if(PlayerResources[1]>9999)
+  PlayerResources[1] += 1000;
+  if (PlayerResources[1] > 9999)
   {
-    PlayerResources[1]=9999;
+    PlayerResources[1] = 9999;
   }
-  PlayerResources[2]+=1000;
-  if(PlayerResources[2]>9999)
+  PlayerResources[2] += 1000;
+  if (PlayerResources[2] > 9999)
   {
-    PlayerResources[2]=9999;
+    PlayerResources[2] = 9999;
   }
 }
 
@@ -1228,43 +1218,43 @@ void updateResources()
   PlayerResources[1] += 3 + Colony[2].level*3; //Crystal Mine
   PlayerResources[2] += 2 + Colony[3].level*2; //Fuel Refinery
 
-  for(int i=0;i<12;i++)
+  for (int i = 0; i < 12; i++)
   {
-    PlayerResources[0]+=PlayerRoutes[i].Metal + Colony[12].level;
-    PlayerResources[1]+=PlayerRoutes[i].Crystal + Colony[12].level;
-    PlayerResources[2]+=PlayerRoutes[i].Fuel + Colony[12].level;
+    PlayerResources[0] += PlayerRoutes[i].Metal + Colony[12].level;
+    PlayerResources[1] += PlayerRoutes[i].Crystal + Colony[12].level;
+    PlayerResources[2] += PlayerRoutes[i].Fuel + Colony[12].level;
   }
-  if(PlayerResources[0]>9999)
+  if (PlayerResources[0] > 9999)
   {
-    PlayerResources[0]=9999;
+    PlayerResources[0] = 9999;
   }
-  if(PlayerResources[1]>9999)
+  if (PlayerResources[1] > 9999)
   {
-    PlayerResources[1]=9999;
+    PlayerResources[1] = 9999;
   }
-  if(PlayerResources[2]>9999)
+  if (PlayerResources[2] > 9999)
   {
-    PlayerResources[2]=9999;
+    PlayerResources[2] = 9999;
   }
 }
 
 bool resourcePillage()
 {
-  bool result=false;
-  int reserve=Colony[10].level*200; //Warehouse protection
-  int totalPillaged=0;
-  for(int i=0;i<3;i++)
+  bool result = false;
+  int reserve = Colony[10].level * 200; //Warehouse protection
+  int totalPillaged = 0;
+  for (int i = 0; i < 3; i++)
   {
-    if(PlayerResources[i]>=reserve)
+    if (PlayerResources[i] >= reserve)
     {
-      int pillage=PlayerResources[i]-reserve;
-      totalPillaged+=pillage;
-      PlayerResources[i]=reserve;
+      int pillage = PlayerResources[i] - reserve;
+      totalPillaged += pillage;
+      PlayerResources[i] = reserve;
     }
   }
-  if(totalPillaged>=1000)
+  if (totalPillaged >= 1000)
   {
-    result=true;
+    result = true;
   }
   return result;
 }
@@ -1272,19 +1262,19 @@ bool resourcePillage()
 //--------Enemy Attacks------------------------
 void enemyFleetsCheck() //check if all attacks are completed and reset prepare timer
 {
-  bool allClear=true;
-  for(int i=0;i<4;i++)
+  bool allClear = true;
+  for (int i = 0; i < 4; i++)
   {
-    if(EnemyFleets[i].Active!=false)
+    if (EnemyFleets[i].Active != false)
     {
-      allClear=false;
+      allClear = false;
       break;
     }
   }
-  if(allClear==true)
+  if (allClear == true)
   {
-    attackCounter=0;
-    attackUnderway=false;
+    attackCounter = 0;
+    attackUnderway = false;
     setBaseTimeToAttack();
   }
 }

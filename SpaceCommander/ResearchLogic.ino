@@ -1,4 +1,4 @@
-int8_t reCurrentTech=0;
+int8_t reCurrentTech = 0;
 
 int8_t research()
 {
@@ -14,7 +14,7 @@ int8_t research()
   bool maxLevelReached = true;
   if (TechTree[reCurrentTech].level < TechTree[reCurrentTech].maxLevel)
   {
-    maxLevelReached=false;
+    maxLevelReached = false;
   }
 
   if (gb.buttons.pressed(BUTTON_RIGHT))
