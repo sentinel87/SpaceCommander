@@ -473,7 +473,7 @@ void setFleetParameters()
   if (CustomFleet.Leviatans > 0)
   {
     FleetFuelCost += CustomFleet.Leviatans * 50;
-    Speed=4;
+    Speed = 4;
   }
   //Calculate minutes and seconds (1 unit - speed)
   int totalSeconds = distance * Speed;

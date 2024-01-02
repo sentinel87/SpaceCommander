@@ -3101,7 +3101,7 @@ void drawPlayerFleets(int posX, int posY)
   }
 }
 
-void drawEnemyFleets(int posX,int posY,int selection)
+void drawEnemyFleets(int posX, int posY, int selection)
 {
   gb.display.fill(WHITE);
   gb.display.drawImage(4, 8, IMAGE_MAIN_THEME);
@@ -3110,6 +3110,7 @@ void drawEnemyFleets(int posX,int posY,int selection)
   gb.display.setColor(WHITE);
   gb.display.println("ENEMY FLEETS");
   int posFlY = 11;
+  bool canIntercept = false;
   for (int i = 0; i < 4; i++)
   {
     if (EnemyFleets[i].Active == true && EnemyFleets[i].Visible == true)
@@ -3122,6 +3123,11 @@ void drawEnemyFleets(int posX,int posY,int selection)
       gb.display.setCursor(34, posFlY + 3);
       gb.display.println(EnemyFleets[i].DestinationName);
       posFlY += 11;
+
+      if (EnemyFleets[i].Minutes >= 1)
+      {
+        canIntercept = true;
+      }
     }
   }
   gb.display.drawImage(posX, posY, FleetSelector);
@@ -3131,6 +3137,13 @@ void drawEnemyFleets(int posX,int posY,int selection)
     gb.display.setColor(WHITE);
     gb.display.setCursor(4, 57);
     gb.display.println("A");
+  }
+  if(PlayerShips[13] > 0 && canIntercept == true)
+  {
+    gb.display.drawImage(26, 56, IMAGE_SELECTION_BTN); //TODO: Replace image
+    gb.display.setColor(WHITE);
+    gb.display.setCursor(28, 57);
+    gb.display.println("MENU");
   }
 }
 

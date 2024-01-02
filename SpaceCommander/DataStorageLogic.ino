@@ -130,7 +130,7 @@ void loadGarrisons(EnemyGarrison GarrisonArray[6], uint16_t block)
 
 void loadFleets(Fleet Fleets[4], uint16_t block)
 {
-  char RawFleetData[245];
+  char RawFleetData[257];
   gb.save.get(block, RawFleetData);
   String FleetData(RawFleetData);
   

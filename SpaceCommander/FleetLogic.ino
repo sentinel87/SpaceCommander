@@ -62,7 +62,7 @@ int enemyFleets()
         if (EnemyFleets[i].Active == true && EnemyFleets[i].Visible == true)
         {
           count++;
-          if(count == flSelectionIdx)
+          if (count == flSelectionIdx)
           {
             String header = "ENEMY " + EnemyFleets[i].DestinationName;
             Report Hostile = {header, 1, EnemyFleets[i].Fighters, EnemyFleets[i].Interceptors, EnemyFleets[i].Frigates, EnemyFleets[i].WarCruisers, EnemyFleets[i].StarDreadnoughts, EnemyFleets[i].SolarDestroyers, 0, 0, 0};
@@ -74,8 +74,46 @@ int enemyFleets()
       }
     }
   }
+  else if (gb.buttons.pressed(BUTTON_MENU))
+  {
+    if (PlayerShips[13] > 0 && flSelectionIdx != -1) //Select fleet to intercept
+    {
+      int count = 0;
+      for (int i = 0; i < 4; i++)
+      {
+        if (EnemyFleets[i].Active == true && EnemyFleets[i].Visible == true && EnemyFleets[i].Minutes >= 1)
+        {
+          count++;
+          if (count == flSelectionIdx)
+          {
+            Fleet interceptFleet = {6,true,0,0,0,0,0,0,0,0,0,0,0,0,0,EnemyFleets[i].DestinationName,true,0};
+            CustomFleet = interceptFleet;
+            setInterceptFleetParameters(EnemyFleets[i].Minutes, EnemyFleets[i].Seconds);
+            return 27; //INTERCEPT MISSION SELECTION
+          }
+        }
+      }
+    }
+  }
   drawEnemyFleets(flMarkerPosX, flMarkerPosY, flSelectionIdx);
   return 3;
+}
+
+void setInterceptFleetParameters(int minutes, int seconds)
+{
+  int totalSeconds = (minutes * 60) + seconds;
+  int interceptionFleetSeconds = totalSeconds / 2;
+
+  if (interceptionFleetSeconds > 59)
+  {
+    CustomFleet.Minutes = interceptionFleetSeconds / 60;
+    CustomFleet.Seconds = interceptionFleetSeconds - (CustomFleet.Minutes * 60);
+  }
+  else
+  {
+    CustomFleet.Minutes = 0;
+    CustomFleet.Seconds = interceptionFleetSeconds;
+  }
 }
 
 int playerFleetStats()
@@ -322,6 +360,77 @@ int playerFleetSelectionRaid()
   return 1;
 }
 
+int playerFleetSelectionIntercept()
+{
+  if (gb.buttons.pressed(BUTTON_B))
+  {
+    return 0;
+  }
+  else if (gb.buttons.pressed(BUTTON_UP))
+  {
+    if (flSelectedShip == true)
+    {
+      increaseShips(9);
+    }
+  }
+  else if (gb.buttons.pressed(BUTTON_DOWN))
+  {
+    if (flSelectedShip == true)
+    {
+      decreaseShips(9);
+    }
+  }
+  else if (gb.buttons.pressed(BUTTON_RIGHT))
+  {
+    if (flSelectedShip == true)
+    {
+      if (flQuantity == 1)
+      {
+        flQuantity = 10;
+      }
+      else
+      {
+        flQuantity = 1;
+      }
+    }
+  }
+  else if (gb.buttons.pressed(BUTTON_LEFT))
+  {
+    if (flSelectedShip == true)
+    {
+      if (flQuantity == 1)
+      {
+        flQuantity = 10;
+      }
+      else
+      {
+        flQuantity = 1;
+      }
+    }
+  }
+  else if (gb.buttons.pressed(BUTTON_MENU))
+  {
+    if (flSelectedShip == true)
+    {
+      checkQuantity(9);
+      flSelectedShip = false;
+    }
+    else if (flSelectedShip == false)
+    {
+      flSelectedShip = true;
+    }
+  }
+  else if (gb.buttons.pressed(BUTTON_A))
+  {
+    if (flSelectedShip != true && CustomFleet.Missles != 0)
+    {
+      return 2; 
+    }
+  }
+  drawFleetSelection(flMarker2PosY ,flSelectedShip, flQuantity, 3);
+  return 1;
+}
+
 void increaseShips(int shipSelection)
 {
   switch(shipSelection)
@@ -395,6 +504,15 @@ void increaseShips(int shipSelection)
       if (CustomFleet.Leviatans > 9999)
       {
         CustomFleet.Leviatans = 9999;
+      }
+    }
+    break;
+    case 9:
+    {
+      CustomFleet.Missles += flQuantity;
+      if (CustomFleet.Missles > 9999)
+      {
+        CustomFleet.Missles = 9999;
       }
     }
     break;
@@ -477,6 +595,15 @@ void decreaseShips(int shipSelection)
       }
     }
     break;
+    case 9:
+    {
+      CustomFleet.Missles -= flQuantity;
+      if (CustomFleet.Missles < 0)
+      {
+        CustomFleet.Missles = 0;
+      }
+    }
+    break;
   }
 }
 
@@ -545,6 +672,18 @@ void checkQuantity(int shipSelection)
       if (CustomFleet.Leviatans > PlayerShips[12])
       {
         CustomFleet.Leviatans = PlayerShips[12];
+      }
+    }
+    break;
+    case 9:
+    {
+      if (CustomFleet.Missles > Colony[14].level)
+      {
+        CustomFleet.Missles = Colony[14].level;
+        if (CustomFleet.Missles > PlayerShips[13])
+        {
+          CustomFleet.Missles = PlayerShips[13];
+        }
       }
     }
     break;

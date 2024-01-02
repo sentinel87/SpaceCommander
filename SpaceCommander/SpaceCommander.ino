@@ -335,12 +335,14 @@ BattleResult BtResult = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false};
 //Fleet Selection
 bool flSelection = false;
 bool flRaidSelection = false;
+bool flInterceptSelection = false;
 bool spyMission = false;
 bool spyMissionFleet = false;
 bool attackMission = false;
 bool colonizeMission = false;
 bool routesMission = false;
 bool raidMission = false;
+bool interceptMission = false;
 
 int BattleExperience = 0;
 
@@ -510,6 +512,19 @@ void loop() {
       else if (selected == 0)
       {
         flRaidSelection = false;
+      }
+    }
+    else if (flInterceptSelection == true)
+    {
+      int selected = playerFleetSelectionIntercept();
+      if (selected == 2)
+      {
+        //TODO: Intercept mission confirmation
+        flInterceptSelection = false;
+      }
+      else if (selected == 0)
+      {
+        flInterceptSelection = false;
       }
     }
     else if (attackMission == true)
@@ -684,6 +699,11 @@ void loop() {
       {
         ScreenSelection = 6; //RETURN TO STAR MAP AFTER FLEET SELECTION;
         flRaidSelection = true;
+      }
+      else if (ScreenSelection == 27)
+      {
+        ScreenSelection = 3; //RETURN TO ENEMY FLEETS AFTER FLEET SELECTION
+        flInterceptSelection = true;
       }
     }
   }
