@@ -183,7 +183,7 @@ EnemyGarrison Enemy2Garrison[] = {
 
 struct Fleet
 {
-  int Type; //1 - player armada 2 - Colonize 3 - Spy 4 - Enemy 5 - Return 6 - Intercept
+  int Type; //1 - player armada 2 - Colonize 3 - Spy 4 - Enemy 5 - Return 6 - Raid 7 - Intercept
   bool Active;
   int8_t Minutes;
   int8_t Seconds;
@@ -519,7 +519,8 @@ void loop() {
       int selected = playerFleetSelectionIntercept();
       if (selected == 2)
       {
-        //TODO: Intercept mission confirmation
+        setInterceptFleetParameters();
+        interceptMission = true;
         flInterceptSelection = false;
       }
       else if (selected == 0)
@@ -551,6 +552,14 @@ void loop() {
       else if (selected == 2)
       {
         raidMission = false; 
+      }
+    }
+    else if (interceptMission == true)
+    {
+      int8_t selected = sendIntercept();
+      if (selected == 1 || selected == 2)
+      {
+        interceptMission = false;
       }
     }
     else if (spyMission == true)// set spy to scout
@@ -986,6 +995,12 @@ void updatePlayerFleetTime(int index)
     {
       gb.lights.fill(LIGHTGREEN);
       raidPlanet(index);
+    }
+    else if (PlayerFleets[index].Type == 7)
+    {
+      gb.lights.fill(PURPLE);
+      //TODO: Enemy fleet interception
+      PlayerFleets[index] = Cleanup;
     }
   }
   else

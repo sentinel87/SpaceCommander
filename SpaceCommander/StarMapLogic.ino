@@ -384,6 +384,11 @@ void selectedPlanet()
   SelectedPlanet = {false,"",0,0,false,0,0,0,0,false,false,-1,false};
 }
 
+void setInterceptFleetParameters()
+{
+  FleetFuelCost = CustomFleet.Missles * (Colony[14].level * 50); 
+}
+
 void setFleetParameters()
 {
   FleetFuelCost = 0;
@@ -396,7 +401,7 @@ void setFleetParameters()
   }
   else
   {
-    distance += SelectedPlanet.posX-38;
+    distance += SelectedPlanet.posX - 38;
   }
   if (SelectedPlanet.posY < 28)
   {

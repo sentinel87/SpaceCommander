@@ -81,12 +81,12 @@ int enemyFleets()
       int count = 0;
       for (int i = 0; i < 4; i++)
       {
+        count++;
         if (EnemyFleets[i].Active == true && EnemyFleets[i].Visible == true && EnemyFleets[i].Minutes >= 1)
         {
-          count++;
           if (count == flSelectionIdx)
           {
-            Fleet interceptFleet = {6,true,0,0,0,0,0,0,0,0,0,0,0,0,0,EnemyFleets[i].DestinationName,true,0};
+            Fleet interceptFleet = {7,true,0,0,0,0,0,0,0,0,0,0,0,0,0,EnemyFleets[i].DestinationName,true,i};
             CustomFleet = interceptFleet;
             setInterceptFleetParameters(EnemyFleets[i].Minutes, EnemyFleets[i].Seconds);
             return 27; //INTERCEPT MISSION SELECTION
@@ -810,6 +810,34 @@ int8_t sendRaid()
   }
   drawSendFleetConfirmation(4, canSend);
   return 0;
+}
+
+int8_t sendIntercept()
+{
+  bool canSend = fleetPreStartCheck();
+  if (gb.buttons.pressed(BUTTON_B))
+  {
+    return 2;
+  }
+  else if (gb.buttons.pressed(BUTTON_A))
+  {
+    if (canSend == true)
+    {
+      PlayerResources[2] -= FleetFuelCost;
+      for (int i = 0; i < 4; i++)
+      {
+        if (PlayerFleets[i].Active == false)
+        {
+          PlayerShips[13] -= CustomFleet.Missles;
+          PlayerFleets[i] = CustomFleet;
+          gb.gui.popup("FLEET SEND!", 50);
+          break;
+        }
+      }
+      return 1;
+    }
+  }
+  drawSendFleetConfirmation(5, canSend);
 }
 
 bool fleetPreStartCheck()
