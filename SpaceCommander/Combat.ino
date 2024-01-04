@@ -1250,3 +1250,70 @@ bool battleResults()
   }
   return false;
 }
+
+void interceptEnemyFleet(Fleet& enemyFleet, int missles, String fleetName)
+{
+  int destroyedFighters = 0;
+  int destroyedInterceptors = 0;
+  int destroyedFrigates = 0;
+  int destroyedWarCruisers = 0;
+  if (TechTree[8].level > 0)
+  {
+    destroyedFighters = (TechTree[8].level + random(0, (TechTree[8].level * 3))) * missles;
+  }
+  if (TechTree[8].level > 3)
+  {
+    destroyedInterceptors = ((TechTree[8].level - 2) + random(0, (TechTree[8].level * 2))) * missles;
+  }
+  if (TechTree[8].level > 7)
+  {
+    destroyedFrigates = ((TechTree[8].level - 4) + random(0, (TechTree[8].level))) * missles;
+  }
+  if (TechTree[8].level >= 10)
+  {
+    destroyedWarCruisers = (random(0, (TechTree[8].level - 5))) * missles;
+  }
+
+  int repFighters = enemyFleet.Fighters;
+  int repInterceptors = enemyFleet.Interceptors;
+  int repFrigates = enemyFleet.Frigates;
+  int repWarCruisers = enemyFleet.WarCruisers;
+
+  enemyFleet.Fighters -= destroyedFighters;
+  if (enemyFleet.Fighters < 0)
+  {
+    enemyFleet.Fighters = 0;
+  }
+  repFighters = repFighters - enemyFleet.Fighters;
+  
+  enemyFleet.Interceptors -= destroyedInterceptors;
+  if (enemyFleet.Interceptors < 0)
+  {
+    enemyFleet.Interceptors = 0;
+  }
+  repInterceptors = repInterceptors - enemyFleet.Interceptors;
+  
+  enemyFleet.Frigates -= destroyedFrigates;
+  if (enemyFleet.Frigates < 0)
+  {
+    enemyFleet.Frigates = 0;
+  }
+  repFrigates = repFrigates - enemyFleet.Frigates;
+  
+  enemyFleet.WarCruisers -= destroyedWarCruisers;
+  if (enemyFleet.WarCruisers < 0)
+  {
+    enemyFleet.WarCruisers = 0;
+  }
+  repWarCruisers = repWarCruisers - enemyFleet.WarCruisers;
+
+  //If the entire fleet was destroyed, we add 1 fighter. The fleet must reach target.
+  if (enemyFleet.Fighters == 0 && enemyFleet.Interceptors == 0 && enemyFleet.Frigates == 0 && enemyFleet.WarCruisers == 0 && enemyFleet.StarDreadnoughts == 0 && enemyFleet.SolarDestroyers == 0)
+  {
+    enemyFleet.Fighters = 1;
+  }
+  String reportName = "ENEMY " + fleetName;
+  Report interceptReport = {reportName,4,repFighters,repInterceptors,repFrigates,repWarCruisers,0,0,0,0,0};
+  generateScoutReport(interceptReport);
+}
+

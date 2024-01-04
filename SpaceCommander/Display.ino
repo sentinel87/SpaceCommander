@@ -3881,6 +3881,30 @@ void drawSpyReport(Report IntelligenceReport)
     gb.display.setCursor(25, 33);
     gb.display.println(IntelligenceReport.Frigates);
   }
+  else if(IntelligenceReport.Type == 4)
+  {
+    gb.display.setCursor(20, 9);
+    gb.display.setColor(PURPLE);
+    gb.display.println("INTERCEPT");
+    gb.display.setColor(BLUE);
+    gb.display.setCursor(2, 17);
+    gb.display.println("FIG");
+    gb.display.setCursor(2, 25);
+    gb.display.println("INT");
+    gb.display.setCursor(2, 33);
+    gb.display.println("FRI");
+    gb.display.setCursor(2, 41);
+    gb.display.println("W CR");
+    gb.display.setColor(BLACK);
+    gb.display.setCursor(25, 17);
+    gb.display.println("-" + (String)IntelligenceReport.Fighters);
+    gb.display.setCursor(25, 25);
+    gb.display.println("-" + (String)IntelligenceReport.Interceptors);
+    gb.display.setCursor(25, 33);
+    gb.display.println("-" + (String)IntelligenceReport.Frigates);
+    gb.display.setCursor(25, 41);
+    gb.display.println("-" + (String)IntelligenceReport.WarCruisers);
+  }
 }
 
 //---------------Shipyard Logic---------

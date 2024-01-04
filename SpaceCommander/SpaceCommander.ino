@@ -149,7 +149,7 @@ Ship Shipyard[] = {
   {"Fuel Transport",11,"Transport fuel from colonies.",300,200},
   {"Stalker",12,"Steal enemy Fightersand Interceptors.",300,300},
   {"Leviatan",13,"Steal enemy         Frigates.",700,700},
-  {"EMP Missle",14,"Reduce enemy fleet  ships during        intercept missions.",150,200}
+  {"EMP Missle",14,"Reduce enemy fleet  ships during        intercept missions.",200,200}
 };
 
 struct EnemyGarrison
@@ -999,7 +999,11 @@ void updatePlayerFleetTime(int index)
     else if (PlayerFleets[index].Type == 7)
     {
       gb.lights.fill(PURPLE);
-      //TODO: Enemy fleet interception
+      int fleetIdx = PlayerFleets[index].InterceptionId;
+      if (fleetIdx >= 0 && fleetIdx < 4)
+      {
+        interceptEnemyFleet(EnemyFleets[fleetIdx], PlayerFleets[index].Missles, PlayerFleets[index].DestinationName);  
+      }
       PlayerFleets[index] = Cleanup;
     }
   }
