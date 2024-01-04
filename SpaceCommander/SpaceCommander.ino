@@ -777,9 +777,9 @@ void timeCalculations()
   {
     frames = 0;
     updateResources();
-    PlayerResources[0] = 9999;
-    PlayerResources[1] = 9999;
-    PlayerResources[2] = 9999;
+    //PlayerResources[0] = 9999;
+    //PlayerResources[1] = 9999;
+    //PlayerResources[2] = 9999;
     updateVisibilityDistance();
     enemyAttackTimer();
     updateFleets();
