@@ -19,7 +19,7 @@ int8_t scoutReports()
   }
   else if (gb.buttons.pressed(BUTTON_RIGHT))
   {
-    if (inReportIdx < 4)
+    if (inReportIdx < 7)
     {
       inReportIdx++;
     }
@@ -36,7 +36,7 @@ int8_t scoutReports()
     }
     else
     {
-      inReportIdx = 4;
+      inReportIdx = 7;
     }
   }
   drawSpyReport(IntelligenceReports[inReportIdx]);
@@ -45,9 +45,9 @@ int8_t scoutReports()
 
 void generateScoutReport(Report report)
 {
-  Report Temp[5] = IntelligenceReports;
+  Report Temp[8] = IntelligenceReports;
   IntelligenceReports[0] = report;
-  for (int i = 1; i < 5; i++)
+  for (int i = 1; i < 8; i++)
   {
     IntelligenceReports[i] = Temp[i - 1];
   }

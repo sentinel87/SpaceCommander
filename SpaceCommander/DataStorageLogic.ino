@@ -223,11 +223,11 @@ void loadTradeRoutes()
 
 void loadReports()
 {
-  char RawReportsData[211];
+  char RawReportsData[337];
   gb.save.get(9, RawReportsData);
   String ReportData(RawReportsData);
   
-  for (int i = 0; i < 5; i++)
+  for (int i = 0; i < 8; i++)
   {
     String Part = ReportData.substring(i * 42, (i * 42) + 42);
     String Name = Part.substring(0, 14);
@@ -671,7 +671,7 @@ bool saveDataRoutes()
 bool saveDataReports()
 {
   String strData = "";
-  for (int i = 0; i < 5; i++)
+  for (int i = 0; i < 8; i++)
   {
     strData += addSpaces(IntelligenceReports[i].PlanetName);
     strData += (String)IntelligenceReports[i].Type;
@@ -686,9 +686,9 @@ bool saveDataReports()
     strData += (String)IntelligenceReports[i].Resource3;
   }
   strData += " ";
-  if (strData.length() == 211)
+  if (strData.length() == 337)
   {
-    saveDataToBlock(9, strData, 211);
+    saveDataToBlock(9, strData, 337);
     return true;
   }
   else

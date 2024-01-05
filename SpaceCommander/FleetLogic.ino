@@ -81,15 +81,19 @@ int enemyFleets()
       int count = 0;
       for (int i = 0; i < 4; i++)
       {
-        count++;
-        if (EnemyFleets[i].Active == true && EnemyFleets[i].Visible == true && EnemyFleets[i].Minutes >= 1)
+        if (EnemyFleets[i].Active == true && EnemyFleets[i].Visible == true)
         {
-          if (count == flSelectionIdx)
+          count++;
+          if (count == flSelectionIdx && EnemyFleets[i].Minutes >= 1)
           {
             Fleet interceptFleet = {7,true,0,0,0,0,0,0,0,0,0,0,0,0,0,EnemyFleets[i].DestinationName,true,i};
             CustomFleet = interceptFleet;
             setInterceptFleetParameters(EnemyFleets[i].Minutes, EnemyFleets[i].Seconds);
             return 27; //INTERCEPT MISSION SELECTION
+          }
+          else if (count == flSelectionIdx)
+          {
+            gb.gui.popup("FLEET TOO CLOSE!", 50);
           }
         }
       }

@@ -149,7 +149,7 @@ Ship Shipyard[] = {
   {"Fuel Transport",11,"Transport fuel from colonies.",300,200},
   {"Stalker",12,"Steal enemy Fightersand Interceptors.",300,300},
   {"Leviatan",13,"Steal enemy         Frigates.",700,700},
-  {"EMP Missle",14,"Reduce enemy fleet  ships during        intercept missions.",200,200}
+  {"EMP Missle",14,"Reduce enemy fleet  ships during        intercept missions.",140,140}
 };
 
 struct EnemyGarrison
@@ -285,6 +285,9 @@ Report IntelligenceReports[] = {
   {"Empty",0,0,0,0,0,0,0,0,0,0},
   {"Empty",0,0,0,0,0,0,0,0,0,0},
   {"Empty",0,0,0,0,0,0,0,0,0,0},
+  {"Empty",0,0,0,0,0,0,0,0,0,0},
+  {"Empty",0,0,0,0,0,0,0,0,0,0},
+  {"Empty",0,0,0,0,0,0,0,0,0,0},
   {"Empty",0,0,0,0,0,0,0,0,0,0}
 };
 
@@ -386,7 +389,7 @@ const SaveDefault savefileDefaults[] = {
   { 6, SAVETYPE_BLOB,{.ptr="000000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000000NAME**********00000000000000000000000000000000000000000000000000NAME**********00 "},257}, //Enemy Fleets
   { 7, SAVETYPE_BLOB,{.ptr="00000000000000000000000000000000000000000000000000000000 "},57},
   { 8, SAVETYPE_BLOB,{.ptr="0NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********0000NAME**********000 "},217},
-  { 9, SAVETYPE_BLOB,{.ptr="NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000 "},211},
+  { 9, SAVETYPE_BLOB,{.ptr="NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000NAME**********0000000000000000000000000000 "},337},
   { 10, SAVETYPE_BLOB,{.ptr="00000000000000000NORMAL********00000000000000000 "},49},
   { 11, SAVETYPE_INT,0,0 },
   { 12, SAVETYPE_INT,0,0 },
@@ -1253,7 +1256,7 @@ void fleetReturns(Fleet fleet)
 
 void updateResources()
 {
-  PlayerResources[0] += 3 + Colony[1].level*3; //Metal Mine
+  PlayerResources[0] += 3 + Colony[1].level*4; //Metal Mine
   PlayerResources[1] += 3 + Colony[2].level*3; //Crystal Mine
   PlayerResources[2] += 2 + Colony[3].level*2; //Fuel Refinery
 

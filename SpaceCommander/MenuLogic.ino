@@ -316,28 +316,28 @@ void prepareNewGame()
   
   if (Difficulty == "EASY")
   {
-    PlayerResources[0] = 5000;
-    PlayerResources[1] = 5000;
-    PlayerResources[2] = 3600;
+    PlayerResources[0] = 5200;
+    PlayerResources[1] = 5200;
+    PlayerResources[2] = 4100;
     PlayerShips[0] = 25;
     PlayerShips[1] = 50;
     PlayerShips[2] = 2;
   }
   else if (Difficulty == "NORMAL")
   {
-    PlayerResources[0] = 4500;
-    PlayerResources[1] = 4500;
-    PlayerResources[2] = 3500;
-    PlayerShips[0] = 25;
-    PlayerShips[1] = 25;
+    PlayerResources[0] = 4700;
+    PlayerResources[1] = 4700;
+    PlayerResources[2] = 3900;
+    PlayerShips[0] = 45;
+    PlayerShips[1] = 45;
   }
   else //HARD
   {
-    PlayerResources[0] = 4000;
-    PlayerResources[1] = 4000;
-    PlayerResources[2] = 3500;
+    PlayerResources[0] = 4200;
+    PlayerResources[1] = 4200;
+    PlayerResources[2] = 3700;
     PlayerShips[0] = 15;
-    PlayerShips[1] = 30;
+    PlayerShips[1] = 45;
   }
   
   preparePlanets();

@@ -1257,27 +1257,33 @@ void interceptEnemyFleet(Fleet& enemyFleet, int missles, String fleetName)
   int destroyedInterceptors = 0;
   int destroyedFrigates = 0;
   int destroyedWarCruisers = 0;
+  int destroyedStarDreadnoughts = 0;
   if (TechTree[8].level > 0)
   {
-    destroyedFighters = (TechTree[8].level + random(0, (TechTree[8].level * 3))) * missles;
+    destroyedFighters = (4 + TechTree[8].level + random(0, (TechTree[8].level * 3))) * missles;
   }
-  if (TechTree[8].level > 3)
+  if (TechTree[8].level > 2)
   {
-    destroyedInterceptors = ((TechTree[8].level - 2) + random(0, (TechTree[8].level * 2))) * missles;
+    destroyedInterceptors = (3 + (TechTree[8].level - 2) + random(0, (TechTree[8].level * 2))) * missles;
+  }
+  if (TechTree[8].level > 5)
+  {
+    destroyedFrigates = (2 + (TechTree[8].level - 4) + random(0, (TechTree[8].level))) * missles;
   }
   if (TechTree[8].level > 7)
   {
-    destroyedFrigates = ((TechTree[8].level - 4) + random(0, (TechTree[8].level))) * missles;
+    destroyedWarCruisers = 1 + (random(0, (TechTree[8].level - 4))) * missles;
   }
   if (TechTree[8].level >= 10)
   {
-    destroyedWarCruisers = (random(0, (TechTree[8].level - 5))) * missles;
+    destroyedStarDreadnoughts = random(0, 3) * missles;
   }
 
   int repFighters = enemyFleet.Fighters;
   int repInterceptors = enemyFleet.Interceptors;
   int repFrigates = enemyFleet.Frigates;
   int repWarCruisers = enemyFleet.WarCruisers;
+  int repStarDrednoughts = enemyFleet.StarDreadnoughts;
 
   enemyFleet.Fighters -= destroyedFighters;
   if (enemyFleet.Fighters < 0)
@@ -1307,13 +1313,20 @@ void interceptEnemyFleet(Fleet& enemyFleet, int missles, String fleetName)
   }
   repWarCruisers = repWarCruisers - enemyFleet.WarCruisers;
 
+  enemyFleet.StarDreadnoughts -= destroyedStarDreadnoughts;
+  if (enemyFleet.StarDreadnoughts < 0)
+  {
+    enemyFleet.StarDreadnoughts = 0;
+  }
+  repStarDrednoughts = repStarDrednoughts - enemyFleet.StarDreadnoughts;
+
   //If the entire fleet was destroyed, we add 1 fighter. The fleet must reach target.
   if (enemyFleet.Fighters == 0 && enemyFleet.Interceptors == 0 && enemyFleet.Frigates == 0 && enemyFleet.WarCruisers == 0 && enemyFleet.StarDreadnoughts == 0 && enemyFleet.SolarDestroyers == 0)
   {
     enemyFleet.Fighters = 1;
   }
   String reportName = "ENEMY " + fleetName;
-  Report interceptReport = {reportName,4,repFighters,repInterceptors,repFrigates,repWarCruisers,0,0,0,0,0};
+  Report interceptReport = {reportName,4,repFighters,repInterceptors,repFrigates,repWarCruisers,repStarDrednoughts,0,0,0,0};
   generateScoutReport(interceptReport);
 }
 
