@@ -706,10 +706,17 @@ void scoutMission(Fleet fleet)
       if (System[i].Hostile == true)
       {
         int gIdx = System[i].GarrisonIndex;
+        int affilation = System[i].Affilation;
         if (gIdx >= 0 && gIdx < 6)
         {
-          Report Hostile = {System[i].Name,1,Enemy1Garrison[gIdx].Fighters,Enemy1Garrison[gIdx].Interceptors,Enemy1Garrison[gIdx].Frigates,Enemy1Garrison[gIdx].WarCruisers,Enemy1Garrison[gIdx].StarDreadnoughts,Enemy1Garrison[gIdx].SolarDestroyers,0,0,0};
-          generateScoutReport(Hostile);
+          if(affilation == 1)
+          {
+            generateEnemyGarrisonReport(Enemy1Garrison[gIdx], System[i].Name);
+          }
+          else if (affilation == 2)
+          {
+            generateEnemyGarrisonReport(Enemy2Garrison[gIdx], System[i].Name);
+          }
         }
       }
       else
@@ -720,6 +727,12 @@ void scoutMission(Fleet fleet)
       break;
     }
   }
+}
+
+void generateEnemyGarrisonReport(EnemyGarrison garrison, String systemName)
+{
+  Report Hostile = {systemName,1,garrison.Fighters,garrison.Interceptors,garrison.Frigates,garrison.WarCruisers,garrison.StarDreadnoughts,garrison.SolarDestroyers,0,0,0};
+  generateScoutReport(Hostile);
 }
 
 void colonizePlanet(Fleet fleet)
