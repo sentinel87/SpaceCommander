@@ -309,7 +309,7 @@ void prepareNewGame()
   BattleExperience = 0;
   
   //Reset player ships
-  for (int i=0; i<11; i++)
+  for (int i = 0; i < 14; i++)
   {
     PlayerShips[i] = 0;
   }
