@@ -129,7 +129,7 @@ int PlayerShips[] = {
   0, //Frigate
   0, //War Cruiser
   0, //Star Dreadnought
-  0, //Solar Destroyer
+  0, //Solar Destructor
   0, //Spy Bot
   0, //Colonizer
   0, //Metal Transport
